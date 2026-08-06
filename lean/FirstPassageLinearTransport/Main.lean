@@ -7,6 +7,7 @@ import FirstPassageLinearTransport.PowerDescent
 import FirstPassageLinearTransport.GradedPowerDescent
 import FirstPassageLinearTransport.RawNaturalDensityDescent
 import FirstPassageLinearTransport.QuantitativeNaturalDensityDescent
+import FirstPassageLinearTransport.OrbitCeiling
 
 /-!
 # Referee-facing first-passage transport API
@@ -15,11 +16,33 @@ Public API for the standalone first-passage linear-transport theorem. Every
 dependency is internal to this package or Mathlib; the frozen CET/CEP project
 is not imported.
 
-The statements below mention only the literal shortcut Collatz map, the
-package's natural-density-one predicate, the stretched-logarithmic threshold,
-and the explicit `6.953 * log n` shortcut-step clock. All parity coding,
-first-passage fibers, arbitrary-target transport, bootstrap schedules, and
-scalar asymptotics remain behind the imported implementation.
+The statements below mention only the literal shortcut and raw Collatz maps,
+the package's natural-density-one predicate, the stretched-logarithmic and
+fixed-power thresholds, the quantitative exceptional count, and the explicit
+shortcut and raw clocks. All parity coding, first-passage fibers,
+arbitrary-target transport, bootstrap schedules, and scalar asymptotics remain
+behind the imported implementation.
+
+## Literal semantic dictionary
+
+The public theorem types use the following concrete definitions; none is an
+abstract map or an unproved input.
+
+* `shortcut n = if n % 2 = 0 then n / 2 else (3 * n + 1) / 2`;
+* `orbit k n = (shortcut^[k]) n`;
+* `rawCollatz n = if n % 2 = 0 then n / 2 else 3 * n + 1`;
+* `rawOrbit j n = (rawCollatz^[j]) n`;
+* `badCount S X` counts the positive integers `n <= X` outside `S`;
+* `NaturalDensityOne S` means `badCount S X / X` tends to zero as
+  `X` tends to infinity;
+* `HasStretchedLogDescent delta n` means that some literal shortcut iterate
+  is at most `exp ((log n)^(1-delta))`;
+* `HasFixedPowerDescent alpha n` means that some literal shortcut iterate is
+  at most `n^alpha`.
+
+Thus the declarations below are unconditional statements about the displayed
+Collatz maps, with every parameter range, clock, target, and density notion
+fixed in their types.
 -/
 
 namespace FirstPassageLinearTransport
@@ -103,6 +126,24 @@ theorem collatz_first_passage_raw_stretched_log_natural_density_descent
                 (rawOrbit j n : ℝ) ≤
                   Real.exp ((Real.log n) ^ (1 - delta)) :=
   firstPassageLinearTransportRawMain hdelta0 hdelta1
+
+/-- **Shortcut clock with intermediate-orbit ceiling.** For separately fixed
+`beta > 0`, the same witness satisfies the stretched-logarithmic landing and
+every shortcut iterate through it remains below `n^(1+beta)`. -/
+theorem collatz_first_passage_stretched_log_descent_with_orbit_ceiling
+    {delta beta : ℝ}
+    (hdelta0 : 0 < delta) (hdelta1 : delta < 1) (hbeta : 0 < beta) :
+    ∃ S : Set ℕ,
+      NaturalDensityOne S ∧
+        ∀ᶠ n : ℕ in atTop,
+          n ∈ S →
+            ∃ k : ℕ,
+              (k : ℝ) < (6953 / 1000 : ℝ) * Real.log n ∧
+                (orbit k n : ℝ) ≤
+                  Real.exp ((Real.log n) ^ (1 - delta)) ∧
+                ∀ j : ℕ, j ≤ k →
+                  (orbit j n : ℝ) ≤ (n : ℝ) ^ (1 + beta) :=
+  firstPassageLinearTransportOrbitCeiling hdelta0 hdelta1 hbeta
 
 /-- **Quantitative fixed-power exceptional count.** Every fixed positive
 power target retains every strict logarithmic rate exponent `sigma < 1`. -/

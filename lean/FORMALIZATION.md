@@ -10,6 +10,24 @@ T(n) = (3*n + 1) / 2      when n is odd
 and uses the manuscript's missing-count definition of natural density one.
 It imports Mathlib only and does not import the frozen V1/CEP development.
 
+## Literal referee dictionary
+
+The public `Main.lean` surface uses named definitions so its theorem types
+remain readable, but each name is concrete and unfolds as follows.
+
+| Public symbol | Literal meaning |
+|---|---|
+| `shortcut n` | `if n % 2 = 0 then n / 2 else (3*n + 1) / 2` |
+| `orbit k n` | `(shortcut^[k]) n` |
+| `rawCollatz n` | `if n % 2 = 0 then n / 2 else 3*n + 1` |
+| `rawOrbit j n` | `(rawCollatz^[j]) n` |
+| `badCount S X` | the cardinality of `{n in [1,X] | n notin S}` |
+| `NaturalDensityOne S` | `badCount S X / X -> 0` as `X -> infinity` |
+| `HasStretchedLogDescent delta n` | `exists k, orbit k n <= exp ((log n)^(1-delta))` |
+| `HasFixedPowerDescent alpha n` | `exists k, orbit k n <= n^alpha` |
+
+These are definitions, not hypotheses supplied to the headline theorems.
+
 | Manuscript item | Principal Lean declaration | Module |
 |---|---|---|
 | Shortcut orbit and density definitions | `FirstPassageLinearTransport.shortcut`; `orbit`; `PowerDense`; `NaturalDensityOne` | `Basic.lean` |
@@ -36,12 +54,14 @@ It imports Mathlib only and does not import the frozen V1/CEP development.
 | Strict quantitative parameter selection | `FirstPassageLinearTransport.exists_quantitativeHeadlineScalars` | `HeadlineParameters.lean` |
 | Lemma 5.2, height-sensitive clock | `FirstPassageLinearTransport.stageLength_le_heightSensitiveHorizon`; `heightSensitiveHorizon_real_lt` | `HeightSensitiveClock.lean` |
 | Exact raw/shortcut conversion and raw budget | `FirstPassageLinearTransport.rawOrbit_rawTime_eq_orbit`; `eventuallyShellRawClockLt` | `RawDynamics.lean`; `RawClockBudget.lean` |
+| Corollary 1.3, all-prefix orbit ceiling | `FirstPassageLinearTransport.orbit_le_stageClock_ceiling`; `eventuallyShellOrbitCeiling` | `OrbitCeiling.lean` |
 | Internal final assembly | `FirstPassageLinearTransport.firstPassageLinearTransportMain` | `NaturalDensityDescent.lean` |
 | Theorem 1.1, timed form | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent` | `Main.lean` |
 | Theorem 1.1, unclocked consequence | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent_unclocked` | `Main.lean` |
 | Corollary 1.4, timed fixed-power descent | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_power_natural_density_descent` | `PowerDescent.lean`; `Main.lean` |
 | Corollary 1.2, quantitative stretched exceptional count | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_quantitative_stretched_exceptional_count` | `QuantitativeNaturalDensityDescent.lean`; `Main.lean` |
 | Corollary 1.3, raw `10.44 log n` clock | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_raw_stretched_log_natural_density_descent` | `RawNaturalDensityDescent.lean`; `Main.lean` |
+| Corollary 1.3, shortcut clock, landing, and orbit ceiling through the same witness | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_descent_with_orbit_ceiling` | `OrbitCeiling.lean`; `Main.lean` |
 | Corollary 1.5, quantitative fixed-power exceptional count | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_quantitative_fixed_power_exceptional_count` | `QuantitativeNaturalDensityDescent.lean`; `Main.lean` |
 | Corollary 1.6, smooth graded clock | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_graded_power_natural_density_descent` | `GradedPowerDescent.lean`; `Main.lean` |
 

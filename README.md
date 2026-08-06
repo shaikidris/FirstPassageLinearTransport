@@ -19,7 +19,9 @@ min_k T^k(n) <= exp ((log n)^(1-delta)),
 ```
 
 with a witness before `6.953 log n` shortcut steps and before `10.44 log n`
-raw Collatz steps.  The endpoint `delta = 1` is not claimed.
+raw Collatz steps.  For every separately fixed `beta > 0`, the shortcut orbit
+through the selected witness remains below `n^(1+beta)`.  The endpoint
+`delta = 1` is not claimed.
 
 The synchronized corollaries also provide:
 
@@ -30,7 +32,11 @@ The synchronized corollaries also provide:
 - the smooth graded shortcut clock
   `(2(1-alpha)/log(4/3) + epsilon) log n` for `0 < alpha < 1`.
 
-All four literal public declarations are included in `Main.lean`.
+All numbered headline and corollary statements, including the same-witness
+intermediate-orbit ceiling, have literal public declarations in `Main.lean`.
+That module also displays a one-screen semantic dictionary for the shortcut
+map, raw map, iterates, density notion, and exceptional-count predicates used
+in those declarations.
 
 ## Release boundary
 
@@ -49,6 +55,8 @@ imports its capstone theorem chain.
   corollary audit and parked explicit-diagonal query;
 - `audits/review_v23_formal_sync_2026_08_06.md`: synchronized closure audit
   for the quantitative count, raw clock, and graded clock;
+- `audits/review_v23_orbit_ceiling_formal_sync_2026_08_06.md`: patch-level
+  closure audit for the same-witness intermediate-orbit ceiling;
 - `lean/`: independent minimal Lean 4 package;
 - `proof-state.md`: synchronized paper hashes, status ledger, and formalization
   acceptance gates.
@@ -56,7 +64,8 @@ imports its capstone theorem chain.
 The manuscript proof has passed its manuscript-only adversarial audit.  The
 standalone Lean closure now includes the full barrier, transport, pullback,
 bootstrap, quantitative shell summation, landing, shortcut/raw/graded clocks,
-strict parameter selection, and headline/corollary chain. Its CET-style
+the all-prefix orbit ceiling, strict parameter selection, and the complete
+headline/corollary chain. Its CET-style
 verification surface separates the minimal public `Main`, declaration/source
 reachability audit, and public axiom audit.
 See `lean/FORMALIZATION.md` and `proof-state.md` for the exact theorem map and
