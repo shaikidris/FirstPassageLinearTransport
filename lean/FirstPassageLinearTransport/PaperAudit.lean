@@ -1,0 +1,62 @@
+/-
+Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Idris Ali Shaik
+-/
+import FirstPassageLinearTransport.Main
+import FirstPassageLinearTransport.PaperDependencyAudit
+
+/-!
+# First-passage manuscript axiom audit
+
+Public `#print axioms` surface for the standalone V2 manuscript. This module
+reports logical trust; `PaperDependencyAudit` separately reports declaration
+and source-elaboration reachability, while a full `lake build` remains the
+source-reconstruction gate.
+-/
+
+-- Parity coding and the exact affine iterate.
+#print axioms FirstPassageLinearTransport.naturalDensityOne_assembleDyadic
+#print axioms FirstPassageLinearTransport.parityCode_bijective
+#print axioms FirstPassageLinearTransport.exact_affine_iterate
+
+-- Maximal barrier and dense initial window.
+#print axioms FirstPassageLinearTransport.barrierHitCount_le_exp
+#print axioms FirstPassageLinearTransport.card_shellMaximalParityBad_le
+#print axioms FirstPassageLinearTransport.orbit_envelope_of_maximalBarrier
+#print axioms FirstPassageLinearTransport.initialWindowGood_powerDense
+#print axioms FirstPassageLinearTransport.extendedWindow_powerDense
+
+-- First-passage reversal, rigidity, and transport.
+#print axioms FirstPassageLinearTransport.firstPassage_band
+#print axioms FirstPassageLinearTransport.reverse_product_identity
+#print axioms FirstPassageLinearTransport.firstPassage_reverse_bounds
+#print axioms FirstPassageLinearTransport.oddCount_rigidity
+#print axioms FirstPassageLinearTransport.taggedFiber_bound
+#print axioms FirstPassageLinearTransport.arbitraryTarget_linear_transport
+#print axioms FirstPassageLinearTransport.arbitraryTarget_linear_transport_restricted
+
+-- Pullback and repeated stopped-map bootstrap.
+#print axioms FirstPassageLinearTransport.firstPassagePullback_powerDense
+#print axioms FirstPassageLinearTransport.bootstrapSet_powerDense
+#print axioms FirstPassageLinearTransport.bootstrapC_exp_bound
+#print axioms FirstPassageLinearTransport.stageOrbit_eq_orbit_stageClock
+
+-- Logarithmic schedule, landing, and explicit clock.
+#print axioms FirstPassageLinearTransport.shellBootstrapRatioTendstoZero
+#print axioms FirstPassageLinearTransport.eventuallyShellLanding
+#print axioms FirstPassageLinearTransport.clockGeomLeInvOneSub
+#print axioms FirstPassageLinearTransport.eventuallyShellClockLt6953
+#print axioms FirstPassageLinearTransport.log_four_thirds_gt_296_div_1029
+#print axioms FirstPassageLinearTransport.inv_drift_clock_lt_6953
+#print axioms FirstPassageLinearTransport.exists_headlineScalars
+#print axioms FirstPassageLinearTransport.exists_stageSetup
+
+-- Internal assembly and literal referee-facing statements.
+#print axioms FirstPassageLinearTransport.firstPassageLinearTransportMain
+#print axioms
+  FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent
+#print axioms
+  FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent_unclocked
+#print axioms
+  FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_power_natural_density_descent
