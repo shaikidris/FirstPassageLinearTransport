@@ -18,8 +18,19 @@ of natural density one satisfies
 min_k T^k(n) <= exp ((log n)^(1-delta)),
 ```
 
-with a witness before `6.953 log n` shortcut steps.  The endpoint `delta = 1`
-is not claimed.
+with a witness before `6.953 log n` shortcut steps and before `10.44 log n`
+raw Collatz steps.  The endpoint `delta = 1` is not claimed.
+
+The synchronized corollaries also provide:
+
+- the exceptional count `5 X exp (-c (log X)^sigma)` for every
+  `0 < sigma < 1-delta`;
+- the same form for every fixed power target `n^alpha` and every
+  `0 < sigma < 1`;
+- the smooth graded shortcut clock
+  `(2(1-alpha)/log(4/3) + epsilon) log n` for `0 < alpha < 1`.
+
+All four literal public declarations are included in `Main.lean`.
 
 ## Release boundary
 
@@ -36,14 +47,17 @@ imports its capstone theorem chain.
   records;
 - `audits/review_post_freeze_corollaries_2026_08_06.md`: downstream
   corollary audit and parked explicit-diagonal query;
+- `audits/review_v23_formal_sync_2026_08_06.md`: synchronized closure audit
+  for the quantitative count, raw clock, and graded clock;
 - `lean/`: independent minimal Lean 4 package;
-- `proof-state.md`: frozen paper hashes, status ledger, and formalization
+- `proof-state.md`: synchronized paper hashes, status ledger, and formalization
   acceptance gates.
 
 The manuscript proof has passed its manuscript-only adversarial audit.  The
 standalone Lean closure now includes the full barrier, transport, pullback,
-bootstrap, shell-density, landing, exact-clock, parameter-selection, and
-headline chain. Its CET-style verification surface separates the minimal
-public `Main`, declaration/source reachability audit, and public axiom audit.
+bootstrap, quantitative shell summation, landing, shortcut/raw/graded clocks,
+strict parameter selection, and headline/corollary chain. Its CET-style
+verification surface separates the minimal public `Main`, declaration/source
+reachability audit, and public axiom audit.
 See `lean/FORMALIZATION.md` and `proof-state.md` for the exact theorem map and
 build status.

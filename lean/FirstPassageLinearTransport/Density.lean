@@ -72,6 +72,41 @@ theorem PowerDense.mono_set {S T : Set ℕ} {C D : ℝ}
     exact_mod_cast hcard
   exact hcardR.trans (h.bad_bound X hX)
 
+/-- Every positive power-saving exceptional-count estimate implies natural
+density one. -/
+theorem PowerDense.naturalDensityOne {S : Set ℕ} {C D : ℝ}
+    (h : PowerDense S C D) : NaturalDensityOne S := by
+  have hpow : Filter.Tendsto (fun X : ℕ => (X : ℝ) ^ (-D))
+      Filter.atTop (nhds 0) := by
+    exact (tendsto_rpow_neg_atTop h.D_pos).comp
+      tendsto_natCast_atTop_atTop
+  have hupper : ∀ᶠ X : ℕ in Filter.atTop,
+      (badCount S X : ℝ) / X ≤ C * (X : ℝ) ^ (-D) := by
+    filter_upwards [Filter.eventually_ge_atTop (1 : ℕ)] with X hX
+    have hXR : (0 : ℝ) < X := by exact_mod_cast (show 0 < X by omega)
+    have hbad := h.bad_bound X hX
+    calc
+      (badCount S X : ℝ) / X ≤
+          (C * (X : ℝ) ^ (1 - D)) / X :=
+        div_le_div_of_nonneg_right hbad hXR.le
+      _ = C * (X : ℝ) ^ (-D) := by
+        rw [show (1 : ℝ) - D = 1 + (-D) by ring,
+          Real.rpow_add hXR, Real.rpow_one]
+        field_simp
+        ring
+  have hnonneg : ∀ X : ℕ, 0 ≤ (badCount S X : ℝ) / X := by
+    intro X
+    positivity
+  unfold NaturalDensityOne
+  apply tendsto_of_tendsto_of_tendsto_of_le_of_le'
+    tendsto_const_nhds (by
+      simpa using (tendsto_const_nhds.mul hpow :
+        Filter.Tendsto (fun X : ℕ => C * (X : ℝ) ^ (-D))
+          Filter.atTop (nhds (C * 0))))
+  · filter_upwards with X
+    exact hnonneg X
+  · exact hupper
+
 /-- Nonmembers of `S` in the `M`-th dyadic shell. -/
 noncomputable def shellBad (S : Set ℕ) (M : ℕ) : Finset ℕ := by
   classical
