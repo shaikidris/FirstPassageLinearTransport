@@ -37,7 +37,7 @@ V2.1 synchronized Corollary 1.4 delta audit:
 c3d19a68b4012243a5ad3fb60079c4d180d450266ae75646f6660da2af464c73  audits/review_fixed_power_corollary_sync_2026_08_06.md
 ```
 
-V2.3 synchronized paper/formal snapshot:
+Historical V2.3 synchronized paper/formal snapshot:
 
 ```text
 b6af06e6cc29987e9e9a2752dfd70144daadacab9e6c159e0b10cf2d0a4a6e12  paper/collatz_first_passage_natural_density.md
@@ -46,6 +46,21 @@ caf185be4e621e596edab5150ad6af455fc5f935849ce4d5f40a34efeff2c66a  paper/collatz_
 762802f5c6885d35c40f227c5cd4c9b2b880f57e07ff7389aaa14bfbc834ddf0  paper/render_first_passage_v2_manuscript.sh
 c92a27b28cbbd31f7f6047ed801d844a9dbcfad07e1755681ee5ba28e0145081  audits/review_v23_formal_sync_2026_08_06.md
 49cb1e3017b3a59956535b09af5654b65cc4b5245bf272d426171816195d4b10  lean/FirstPassageLinearTransport/Main.lean
+ac13d48f617a399d1f395f7edb026111f6241632113512524c2f2b2b8a4dbedd  lean/FirstPassageLinearTransport/QuantitativeNaturalDensityDescent.lean
+a3f8c4ae196682a40f43fd5ecfcb539e8485fa2dddb9837c9764c9bb997794f1  lean/FirstPassageLinearTransport/RawNaturalDensityDescent.lean
+0c80971eb9f14c88910b6652ffe40df60cadde3570b3bac1e9d77eda1de39f90  lean/FirstPassageLinearTransport/GradedPowerDescent.lean
+```
+
+V2.3.1 synchronized Corollary 1.3 orbit-ceiling snapshot:
+
+```text
+8ee564516cace4c061504f4f95817b829ce6f980eb04568a3c1a71b31fc440ee  paper/collatz_first_passage_natural_density.md
+d71f093503a7cc19d3fffdfc76368c895fc039351b05b27d63a6322dbf9a44ee  paper/collatz_first_passage_natural_density_v2.pdf
+02c35702910adee223c5f3529e341522e4d0262fa089621bc281535aa298f527  paper/first_passage_v2_print.css
+762802f5c6885d35c40f227c5cd4c9b2b880f57e07ff7389aaa14bfbc834ddf0  paper/render_first_passage_v2_manuscript.sh
+6aa2b661b00e3b581d4ce5fe96972d94c5a65d42c3906b1191fe47ece3c9a571  audits/review_v23_orbit_ceiling_formal_sync_2026_08_06.md
+f665bd5fc294c025a5f74fd1f4ee9c39a2d5815dd3d98fcba9964bab710bec86  lean/FirstPassageLinearTransport/Main.lean
+3bfc6b8b4801f900912e91569a38a9d524ff0896917f281110b6d7eae9b1ce6e  lean/FirstPassageLinearTransport/OrbitCeiling.lean
 ac13d48f617a399d1f395f7edb026111f6241632113512524c2f2b2b8a4dbedd  lean/FirstPassageLinearTransport/QuantitativeNaturalDensityDescent.lean
 a3f8c4ae196682a40f43fd5ecfcb539e8485fa2dddb9837c9764c9bb997794f1  lean/FirstPassageLinearTransport/RawNaturalDensityDescent.lean
 0c80971eb9f14c88910b6652ffe40df60cadde3570b3bac1e9d77eda1de39f90  lean/FirstPassageLinearTransport/GradedPowerDescent.lean
@@ -60,6 +75,8 @@ Paper proof-state:
 - quantitative Corollaries 1.2 and 1.5: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - raw-clock refinement: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - smooth graded clock: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
+- Corollary 1.3 intermediate-orbit ceiling:
+  `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - endpoint `delta = 1`: `NOT CLAIMED`;
 - global or first-priority claim: `NOT MADE`.
 
@@ -100,8 +117,11 @@ Compiled dependency order:
 10. `QuantitativeNaturalDensityDescent.lean`: literal quantitative
     stretched and fixed-power exceptional counts;
 11. `PowerDescent.lean`: qualitative timed fixed-power consequence;
-12. `Main.lean`: minimal literal referee-facing API;
-13. `PaperDependencyAudit.lean`, `PaperAudit.lean`: declaration/source
+12. `OrbitCeiling.lean`: the blockwise all-prefix envelope, absorption of its
+    polynomial startup factor, and the same-witness clock/landing/ceiling
+    theorem;
+13. `Main.lean`: minimal literal referee-facing API;
+14. `PaperDependencyAudit.lean`, `PaperAudit.lean`: declaration/source
    reachability and trusted-axiom reports.
 
 The exact manuscript map is `lean/FORMALIZATION.md`.  The public timed theorem
@@ -111,9 +131,12 @@ its type exposes the iterate witness, landing inequality, and `6.953 log n`
 clock literally.
 The additional public fixed-power theorem is
 `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_power_natural_density_descent`.
-The public quantitative, raw-clock, and graded-clock theorems are the four
-corresponding `collatz_first_passage_*` declarations mapped in
-`lean/FORMALIZATION.md`.
+The public quantitative, raw-clock, graded-clock, and all-prefix orbit-ceiling
+theorems are the corresponding `collatz_first_passage_*` declarations mapped
+in `lean/FORMALIZATION.md`.  In particular,
+`collatz_first_passage_stretched_log_descent_with_orbit_ceiling` exposes the
+clock, landing, and `orbit j n <= n^(1+beta)` for every `j <= k` using the same
+witness `k`.
 
 ## Lean acceptance gates
 
@@ -139,28 +162,30 @@ The formalization is complete only when:
 
 The clean source reconstruction and the subsequent stable-source confirmation
 build both passed with Lean `v4.15.0` and the Mathlib revision pinned in
-`lean/lake-manifest.json`.  All 32 retained V2 modules are in the default
+`lean/lake-manifest.json`.  All 33 retained V2 modules are in the default
 target.  The V2 modules emit no warnings; the build log contains only upstream
 Mathlib doc-string warnings and non-failing `ring_nf` suggestions.
 
 Direct `PaperDependencyAudit` output:
 
 ```text
-PAPER_GRAPH_ROOTS                         44
-PAPER_KERNEL_PROJECT_DECLARATIONS        463
-PAPER_KERNEL_PROJECT_MODULES              30
-PAPER_COMBINED_PROJECT_DECLARATIONS      463
-PAPER_COMBINED_PROJECT_MODULES            30
-PAPER_GRAPH_IMPORTED_MODULES              30
-PAPER_SOURCE_REFERENCE_EDGES            3064
-MAIN_FILE_THEOREMS                         8
-PUBLIC_TERMINAL_ROOTS                     45
-RETAINED_SOURCE_THEOREMS                 311
-MAIN_REACHABLE_PROJECT_DECLARATIONS      464
-MAIN_UNREACHABLE_SOURCE_THEOREMS          19
+PAPER_GRAPH_ROOTS                         48
+PAPER_KERNEL_PROJECT_DECLARATIONS        470
+PAPER_KERNEL_PROJECT_MODULES              31
+PAPER_COMBINED_PROJECT_DECLARATIONS      470
+PAPER_COMBINED_PROJECT_MODULES            31
+PAPER_GRAPH_IMPORTED_MODULES              31
+PAPER_SOURCE_REFERENCE_EDGES            3248
+MAIN_FILE_THEOREMS                         9
+PUBLIC_TERMINAL_ROOTS                     49
+RETAINED_PROJECT_THEOREMS                427
+RETAINED_SOURCE_THEOREMS                 317
+MAIN_REACHABLE_PROJECT_DECLARATIONS      471
+MAIN_UNREACHABLE_PROJECT_THEOREMS         64
+MAIN_UNREACHABLE_SOURCE_THEOREMS          18
 ```
 
-The 19-theorem reverse-reachability complement is classified as retained
+The 18-theorem source reverse-reachability complement is classified as retained
 standalone API and local simplification/support mathematics, not as part of
 the headline dependency chain.  It consists of elementary zero/successor
 lemmas for the shortcut, Boolean walk, and bootstrap recurrences; two direct
@@ -177,9 +202,9 @@ other enlarged trust mechanism.
 
 ```text
 CET V1 tag and commit                         FROZEN
-V2 manuscript theorem chain                   V2.3 PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED
-V2 reproducible PDF                           V2.3 VERIFIED / 17 A4 PAGES / VISUAL PASS
-V2 standalone repository                      PRIVATE VERIFIED / MAIN / V2.3 SYNCHRONIZED
+V2 manuscript theorem chain                   V2.3.1 PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED
+V2 reproducible PDF                           V2.3.1 VERIFIED / 17 A4 PAGES / VISUAL PASS
+V2 standalone repository                      PRIVATE VERIFIED / MAIN / V2.3.1 SYNCHRONIZED
 V2 Basic Lean module                          PROVED-FORMAL / BUILD PASSED
 V2 parity-vector bijection                    PROVED-FORMAL / BUILD PASSED
 V2 exact affine iterate                       PROVED-FORMAL / BUILD PASSED
@@ -199,12 +224,14 @@ V2 quantitative stretched-log rate             PROVED-PAPER / PROVED-FORMAL / SY
 V2 quantitative fixed-power rate               PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED
 V2 smooth graded-clock formula                 PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED
 V2 raw clock below 10.44 log n                 PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED
+V2 Corollary 1.3 all-prefix orbit ceiling      PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED
 V2 explicit diagonal target                    OPEN / PARKED FOR UNIFORM CONSTANTS
 V2 CET-style module and public-API standard    PASS
+V2 referee-facing semantic dictionary          PASS / CONCRETE DEFINITIONS
 V2 placeholder/forbidden-import scan           PASS
-V2 declaration/source dependency audit         PASS / 44 ROOTS / 30 MODULES
-V2 reverse-reachability complement             19 RETAINED STANDALONE API THEOREMS
+V2 declaration/source dependency audit         PASS / 48 ROOTS / 31 MODULES
+V2 reverse-reachability complement             18 RETAINED STANDALONE API THEOREMS
 V2 public axiom audit                          PASS / STANDARD LEAN AXIOMS ONLY
-V2 final stable-source full build              PASS / 32 MODULES
+V2 final stable-source full build              PASS / 33 MODULES
 V2 public release                             NOT TAGGED
 ```

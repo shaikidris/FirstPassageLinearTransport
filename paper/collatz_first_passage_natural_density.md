@@ -4,7 +4,7 @@
 
 Independent researcher
 
-**Version:** 2.3 synchronized draft, strengthened corollaries formally closed
+**Version:** 2.3.1 synchronized draft, Corollary 1.3 formally complete
 
 **Content draft:** August 2026
 
@@ -1226,9 +1226,14 @@ theorem and proof architecture, reviewed the resulting artifacts, and accepts
 responsibility for the manuscript.  The finite diagnostic is supporting
 evidence only and is not a premise of any theorem.  The separate V2 Lean
 package formalizes the timed natural-density theorem, the quantitative
-exceptional counts in Corollaries 1.2 and 1.5, the raw-clock refinement, and
-the graded clock in Corollary 1.6.  The manuscript proof remains
-self-contained and does not use the formal artifact as evidence.
+exceptional counts in Corollaries 1.2 and 1.5, both clock refinements and the
+same-witness intermediate-orbit ceiling in Corollary 1.3, and the graded clock
+in Corollary 1.6.  The manuscript proof remains self-contained and does not
+use the formal artifact as evidence.  Its public `Main` module records the
+piecewise shortcut and raw Collatz maps, their literal iterates, the
+missing-count definition of natural density one, and the two descent
+predicates in a semantic dictionary; these are concrete definitions rather
+than abstract hypotheses of the formal theorems.
 
 ## References
 
