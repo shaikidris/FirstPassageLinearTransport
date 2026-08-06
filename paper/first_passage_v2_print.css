@@ -1,0 +1,202 @@
+@page {
+  size: A4;
+  margin: 18mm 17mm 20mm 17mm;
+
+  @top-center {
+    content: "First-Passage Linear Transport for Collatz Descent";
+    color: #566270;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8pt;
+  }
+
+  @bottom-center {
+    content: counter(page);
+    color: #566270;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8.5pt;
+  }
+}
+
+@page:first {
+  @top-center { content: none; }
+  @bottom-center { content: none; }
+}
+
+:root {
+  color: #10161c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 10.1pt;
+  line-height: 1.42;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  hyphens: auto;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  color: #162839;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 650;
+  hyphens: none;
+  break-after: avoid-page;
+}
+
+h1 {
+  margin: 8mm 0 6mm;
+  font-size: 21.5pt;
+  line-height: 1.13;
+  text-align: center;
+}
+
+h2 {
+  margin: 7mm 0 2.5mm;
+  padding-bottom: 1.1mm;
+  border-bottom: 0.32mm solid #9aaebe;
+  font-size: 14.2pt;
+  line-height: 1.2;
+}
+
+h3 {
+  margin: 4.7mm 0 1.6mm;
+  font-size: 11.6pt;
+  line-height: 1.22;
+}
+
+h4 {
+  margin: 4mm 0 1.4mm;
+  font-size: 10.4pt;
+}
+
+p {
+  margin: 0 0 2.5mm;
+  orphans: 3;
+  widows: 3;
+}
+
+body > h1 + p,
+body > h1 + p + p,
+body > h1 + p + p + p,
+body > h1 + p + p + p + p,
+body > h1 + p + p + p + p + p,
+body > h1 + p + p + p + p + p + p {
+  margin-bottom: 1.3mm;
+  text-align: center;
+}
+
+body > h1 + p {
+  font-size: 11.3pt;
+}
+
+strong { color: #132536; }
+
+a {
+  color: #235a84;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+code {
+  padding: 0.12em 0.25em;
+  border-radius: 0.18em;
+  background: #eef2f5;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.86em;
+}
+
+pre {
+  margin: 3mm 0;
+  padding: 3mm;
+  border-left: 0.7mm solid #6f8da7;
+  background: #f3f6f8;
+  font-size: 8.5pt;
+  line-height: 1.34;
+  white-space: pre-wrap;
+  break-inside: avoid-page;
+}
+
+pre code {
+  padding: 0;
+  background: transparent;
+}
+
+blockquote {
+  margin: 3.3mm 5mm;
+  padding: 1.4mm 4mm;
+  border-left: 0.7mm solid #7994ac;
+  color: #334352;
+}
+
+ul, ol {
+  margin: 1.4mm 0 2.8mm 5.4mm;
+  padding-left: 4.3mm;
+}
+
+li { margin: 0 0 0.9mm; }
+
+table {
+  width: 100%;
+  margin: 3.2mm 0 4.2mm;
+  border-collapse: collapse;
+  font-size: 7.6pt;
+  line-height: 1.28;
+  break-inside: avoid-page;
+}
+
+thead { display: table-header-group; }
+
+th, td {
+  padding: 1.35mm 1.45mm;
+  border: 0.23mm solid #b7c4cf;
+  vertical-align: top;
+}
+
+th {
+  background: #e9eff4;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: left;
+}
+
+tr { break-inside: avoid-page; }
+
+.math.display,
+mjx-container[display="true"] {
+  display: block;
+  margin: 3mm 0;
+  overflow: visible;
+  text-align: center;
+  break-inside: avoid-page;
+}
+
+mjx-container {
+  max-width: 100%;
+}
+
+math {
+  font-family: "STIX Two Math", "Cambria Math", "Times New Roman", serif;
+  font-size: 1.01em;
+}
+
+hr {
+  margin: 5mm 0;
+  border: 0;
+  border-top: 0.32mm solid #9aaebe;
+}
+
+img, svg, figure {
+  max-width: 100%;
+  break-inside: avoid-page;
+}
+
+#references {
+  break-before: page;
+}
+
+@media print {
+  a { color: #162839; }
+}
