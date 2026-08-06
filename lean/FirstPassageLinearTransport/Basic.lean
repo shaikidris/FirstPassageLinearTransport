@@ -56,6 +56,10 @@ def ReachesBelow (n : ℕ) (Y : ℝ) : Prop :=
 def HasStretchedLogDescent (δ : ℝ) (n : ℕ) : Prop :=
   ReachesBelow n (Real.exp ((Real.log n) ^ (1 - δ)))
 
+/-- Descent below a fixed power of the starting value. -/
+def HasFixedPowerDescent (alpha : ℝ) (n : ℕ) : Prop :=
+  ReachesBelow n ((n : ℝ) ^ alpha)
+
 /-- The same conclusion together with a shortcut-time clock. -/
 def HasTimedStretchedLogDescent (δ clock : ℝ) (n : ℕ) : Prop :=
   ∃ k : ℕ,

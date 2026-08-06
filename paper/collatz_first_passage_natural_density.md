@@ -4,7 +4,7 @@
 
 Independent researcher
 
-**Version:** 2.0, standalone first-passage paper
+**Version:** 2.3 synchronized draft, strengthened corollaries formally closed
 
 **Content draft:** August 2026
 
@@ -38,8 +38,17 @@ on a set of natural density one.  More quantitatively, for every fixed
 5X\exp\!\left(-c_{\delta,\sigma}(\log X)^\sigma\right)
 \]
 for all sufficiently large \(X\).  The descent is witnessed before
-\(6.953\log n\) shortcut steps, and the orbit up to that witness may be
-confined below \(n^{1+\beta}\) for any separately fixed \(\beta>0\).
+\(6.953\log n\) shortcut steps and before \(10.44\log n\) raw Collatz
+steps, and the shortcut orbit up to that witness may be confined below
+\(n^{1+\beta}\) for any separately fixed \(\beta>0\).  For every fixed
+\(0<\alpha<1\) and \(\varepsilon>0\), a sharper graded clock reaches
+\(n^\alpha\) before
+\[
+\left(\frac{2(1-\alpha)}{\log(4/3)}+\varepsilon\right)\log n
+\]
+shortcut steps.  The fixed-power exceptional set also satisfies
+\(5X\exp(-c_{\alpha,\sigma}(\log X)^\sigma)\) for every fixed
+\(0<\sigma<1\).
 
 The proof is elementary once the parity-vector bijection is available.  A
 maximal parity barrier supplies a dense set on which every logarithmic shell
@@ -66,8 +75,8 @@ set in the transport theorem is arbitrary, and the stopped map is closed by
 an identity branch on a finite startup interval.
 
 This is a standalone V2 argument.  No fixed-time endpoint transport theorem is
-a proof dependency of any result below.  The companion formalization is being
-developed separately and is not used as manuscript evidence.
+a proof dependency of any result below.  A companion formalization accompanies
+this version and is not used as manuscript evidence.
 
 ### Theorem 1.1 (stretched-logarithmic natural-density descent)
 
@@ -127,8 +136,49 @@ n/2,&n\equiv0\pmod2,\\
 \]
 For an odd input, one shortcut step is two raw steps; for an even input it is
 one.  The shortcut orbit deletes only intermediate values \(3m+1>m\), so
-\(T_{\min}(n)=\operatorname{Col}_{\min}(n)\).  Consequently the witness in
-Corollary 1.3 also occurs before \(13.906\log n\) raw steps.
+\(T_{\min}(n)=\operatorname{Col}_{\min}(n)\).  The maximal parity barrier
+retains enough pointwise odd-count information to sharpen the worst-case
+factor two: the witness in Corollary 1.3 also occurs before
+\(10.44\log n\) raw steps.
+
+### Corollary 1.4 (timed fixed-power descent)
+
+For every fixed \(\alpha>0\), there is a set \(S_\alpha\) of natural density
+one such that every sufficiently large \(n\in S_\alpha\) has an integer
+\(k\) satisfying
+\[
+0\leq k<6.953\log n,
+\qquad
+T^k(n)\leq n^\alpha.
+\]
+
+### Corollary 1.5 (quantitative fixed-power exceptional count)
+
+For every fixed \(\alpha>0\) and every fixed \(0<\sigma<1\), there are
+constants \(c_{\alpha,\sigma}>0\) and \(X_{\alpha,\sigma}\) such that
+\[
+\#\{1\leq n\leq X:T_{\min}(n)>n^\alpha\}
+\leq
+5X\exp\!\left(-c_{\alpha,\sigma}(\log X)^\sigma\right)
+\tag{1.7}
+\]
+for every \(X\geq X_{\alpha,\sigma}\).
+
+### Corollary 1.6 (smooth graded shortcut clock)
+
+For every fixed \(0<\alpha<1\) and every fixed \(\varepsilon>0\), there is
+a set \(S_{\alpha,\varepsilon}\) of natural density one such that every
+sufficiently large \(n\in S_{\alpha,\varepsilon}\) has an integer \(k\)
+with
+\[
+0\leq k<
+\left(
+\frac{2(1-\alpha)}{\log(4/3)}+\varepsilon
+\right)\log n,
+\qquad
+T^k(n)\leq n^\alpha.
+\tag{1.8}
+\]
 
 ### Relation to previous almost-all results
 
@@ -142,7 +192,7 @@ target scale, clock, and exceptional rate.  The closest comparisons are:
 | Tao [5] | published | logarithmic | every \(f(n)\to\infty\) | no single global clock in the headline theorem | logarithmic-density estimate |
 | Mazur [4] | manuscript with a pinned formal artifact | natural | every \(f(n)\to\infty\) | \(<436\log n\) raw steps | fixed-target logarithmic rate |
 | Allikvere [1] | preprint | natural | every \(f(n)\to\infty\) | \(<12\log n\) raw steps | \(O((\log N_0)^{-1/29}+X^{-1/2000})\) for a fixed target |
-| This paper | standalone V2 | natural | \(\exp((\log n)^{1-\delta})\), every fixed \(0<\delta<1\) | \(<6.953\log n\) shortcut steps, hence \(<13.906\log n\) raw steps | \(5X\exp(-c(\log X)^\sigma)\), every fixed \(0<\sigma<1-\delta\) |
+| This paper | standalone V2 | natural | \(\exp((\log n)^{1-\delta})\), every fixed \(0<\delta<1\) | \(<6.953\log n\) shortcut steps and \(<10.44\log n\) raw steps; graded shortcut clock (1.8) for fixed powers | \(5X\exp(-c(\log X)^\sigma)\), every fixed \(0<\sigma<1-\delta\); every fixed \(0<\sigma<1\) for fixed powers |
 
 Thus the present target is smaller than every fixed power target, and hence
 gives a stronger descent conclusion on that axis, but it is weaker than an
@@ -716,6 +766,70 @@ summation constant is uniform for \(0<D\leq D_c\): if
 Taking \(2^J\leq X<2^{J+1}\) now gives the defining global bound (2.1)
 with exponent \(\chi D\). \(\square\)
 
+### Lemma 5.2 (height-sensitive first-passage clock)
+
+Put
+\[
+g=1-a_0>0.
+\]
+For the parameters in (5.1), define
+\[
+H_M=
+\left\lceil
+\frac{(1+\eta-r)M+2+\eta}{g}
+\right\rceil.
+\tag{5.17}
+\]
+After increasing the fixed startup shell if necessary,
+\[
+1\leq H_M\leq M,
+\qquad
+\tau_{Y_M}(n)\leq H_M
+\quad(n\in W_\eta\cap I_M),
+\tag{5.18}
+\]
+and
+\[
+H_M\leq
+\frac{1+\eta-r}{g}M+\frac{2+\eta}{g}+1.
+\tag{5.19}
+\]
+The stopped map and the dense-set pullback theorem are unchanged when this
+shorter certified horizon replaces the coarse bound \(M\).
+
+#### Proof
+
+The strict condition \(\eta<r-a_0\) gives
+\[
+\frac{1+\eta-r}{g}<1,
+\]
+so (5.17) is between (1) and (M) on all sufficiently large shells.
+The all-prefix envelope (3.6), the identity
+\(\rho^h=2^{-gh}\), and \(n<2^{M+1}\) give
+\[
+T^{H_M}(n)
+<2^{-gH_M+(1+\eta)(M+1)}
+\leq2^{rM-1}
+\leq2^{\lfloor rM\rfloor}=Y_M.
+\tag{5.20}
+\]
+The middle inequality is precisely the ceiling inequality in (5.17); the
+last uses \(\lfloor rM\rfloor\geq rM-1\).  This proves (5.18), and the
+elementary upper bound for a ceiling proves (5.19).
+
+Finally, Proposition 4.4 is already uniform in the horizon.  Since
+\(H_M\leq M\), both
+\[
+\frac{H_M}{2Y_M}\leq\frac13
+\quad\text{and}\quad
+\frac52H_M^2\frac{2^M}{Y_M}|B|
+\leq
+\frac52M^2\frac{2^M}{Y_M}|B|
+\tag{5.21}
+\]
+follow from the estimates used in Theorem 5.1.  Thus no density exponent or
+pullback constant worsens. \(\square\)
+
 ## 6. Bootstrap and proof of the main theorem
 
 Fix
@@ -873,6 +987,47 @@ k_R
 +\frac{R\log K_0}{(1-r)\log2}.
 \tag{6.20}
 \]
+
+The same schedule admits a sharper raw Collatz clock.  Let \(s_h(x)\) be
+the number of odd shortcut states among
+\(x,T(x),\ldots,T^{h-1}(x)\).  Direct induction gives the exact identity
+\[
+\operatorname{Col}^{\,h+s_h(x)}(x)=T^h(x):
+\]
+an even shortcut letter costs one raw step, while an odd shortcut letter is
+the two-step raw segment
+\(x\mapsto3x+1\mapsto(3x+1)/2\).  Odd counts are additive under
+concatenation.  For a nonstartup retained block beginning at
+\(n_i\in I_{M_i}\), the maximal barrier gives
+\[
+s_{\ell(n_i)}(n_i)
+\leq
+\frac{\ell(n_i)}2+
+\frac{\eta M_i}{\log_2 3}
+\leq
+\frac{\ell(n_i)}2+
+\frac{\eta}{\log3}\log n_i.
+\]
+The startup identity branch contributes zero.  Hence the raw time
+\(k_R^{\rm raw}\) corresponding to (6.8) satisfies
+\[
+\begin{aligned}
+k_R^{\rm raw}
+&\leq
+\frac32\sum_{i<R}\ell(n_i)
++\frac{\eta}{\log3}\sum_{i<R}\log n_i\\
+&\leq
+\frac1{1-r}
+\left(\frac3{2\log2}+\frac\eta{\log3}\right)\log n
++O(R).
+\end{aligned}
+\tag{6.20r}
+\]
+Here (6.7) gives
+\(\sum_{i<R}\log n_i\leq(1-r)^{-1}\log n+O(R)\).
+For the schedule (6.9), the remainder in (6.20r) is
+\(O(\log\log n)=o(\log n)\).
+
 If \(t_i=\sum_{m<i}\ell(n_m)\) and
 \(t_i\leq j\leq t_{i+1}\), equations (5.7) and (6.7) give
 \[
@@ -881,7 +1036,7 @@ T^j(n)
 \tag{6.21}
 \]
 
-### Proof of Theorem 1.1 and Corollaries 1.2--1.3
+### Proof of Theorem 1.1 and Corollaries 1.2--1.6
 
 For \(x=1/7\), the positive-term series for
 \(\log((1+x)/(1-x))\) gives
@@ -898,6 +1053,14 @@ Consequently
 <\frac{6953}{1000}.
 \tag{6.22}
 \]
+The same rational lower bound also gives the strict raw-clock margin
+\[
+\log\frac43>\frac{296}{1029}>\frac{25}{87},
+\qquad
+\frac3{\log(4/3)}<\frac{261}{25}=10.44,
+\tag{6.22r}
+\]
+because \(296\cdot87-25\cdot1029=27>0\).
 Thus the strict interval
 \[
 a_0<r<1-\frac1{6.953\log2}
@@ -916,12 +1079,20 @@ prove Theorem 1.1.
 For Corollary 1.2, fix \(0<\sigma<1-\delta\).  Since
 \(\delta/(1-\sigma)<1\), choose the same strict parameters with
 \[
-\frac{\delta}{1-\sigma}
-<\frac{\log(1/r)}{\log(1/\chi)},
+q:=\frac{\log(1/r)}{\log(1/\chi)},
 \qquad
-\omega=\frac{1-\sigma}{\log(1/\chi)}.
+\frac{\delta}{1-\sigma}<q.
 \]
-Then (6.14), (6.18), and (6.15) hold with shell exponent \(\sigma\).
+Choose
+\[
+\delta<\theta<q(1-\sigma),
+\qquad
+\omega=\frac{\theta}{\log(1/r)}.
+\]
+Then the descent exponent is \(\theta>\delta\), while the density-loss
+exponent is \(\theta/q<1-\sigma\).  Thus (6.14), (6.18), and (6.15) hold
+with shell exponent \(\sigma\), with the strict margin required by the
+stretched-exponential domination.
 Lemma 2.1 with \(A=2\) gives the prefactor \(5\) in (1.3).
 
 For Corollary 1.3, (6.20), (6.23), and
@@ -932,6 +1103,106 @@ k_{R_M}<6.953\log n
 for every sufficiently large retained \(n\).  Given \(\beta>0\), choose
 \(\eta<\min\{r-a_0,\beta\}\).  The fixed factor in (6.21) is at most
 \(n^{\beta-\eta}\) for all sufficiently large \(n\), proving (1.6).
+For the raw clock, the leading coefficient in (6.20r) tends to
+\(3/\log(4/3)\) as \(r\downarrow a_0\) and \(\eta\downarrow0\).
+Equations (6.22r), (6.24), and the strict condition \(\delta<1\) therefore
+allow the same parameters to be chosen so that
+\[
+\delta<\frac{\log(1/r)}{\log(1/\chi)},
+\qquad
+\frac1{1-r}
+\left(\frac3{2\log2}+\frac\eta{\log3}\right)
+<\frac{261}{25}.
+\]
+The strict margin absorbs the \(o(\log n)\) term in (6.20r), proving the
+stated \(10.44\log n\) raw clock.
+
+For Corollary 1.4, apply Corollary 1.3 with \(\delta=1/2\).  If
+\(\alpha>0\), then \((\log n)^{-1/2}<\alpha\) for all sufficiently large
+\(n\).  Multiplication by the positive quantity \(\log n\) gives
+\[
+(\log n)^{1/2}<\alpha\log n.
+\]
+After exponentiating,
+\[
+\exp\!\left((\log n)^{1/2}\right)
+\leq \exp(\alpha\log n)=n^\alpha.
+\]
+Thus the same witness supplied by Corollary 1.3 satisfies the fixed-power
+landing inequality without changing the \(6.953\log n\) clock.
+
+For Corollary 1.5, fix \(\alpha>0\) and \(0<\sigma<1\), and choose a fixed
+\(\delta\) with
+\[
+0<\delta<1-\sigma.
+\]
+Then
+\[
+(\log n)^{1-\delta}=o(\log n),
+\]
+so
+\[
+\exp\!\left((\log n)^{1-\delta}\right)\leq n^\alpha
+\]
+for every sufficiently large \(n\).  Thus, apart from finitely many initial
+values, the exceptional set in (1.7) is contained in the exceptional set in
+(1.3).  Apply Corollary 1.2.  Decreasing its positive constant and increasing
+the startup threshold absorb the finite initial contribution while retaining
+the prefactor \(5\): explicitly, replace its constant \(c_0\) by
+\(c_0/2\); then
+\[
+5X\left(e^{-(c_0/2)(\log X)^\sigma}
+-e^{-c_0(\log X)^\sigma}\right)\longrightarrow\infty,
+\]
+so it eventually dominates the fixed initial count.  This proves (1.7).
+
+For Corollary 1.6, put
+\[
+c_*=\frac1{(1-a_0)\log2}=\frac2{\log(4/3)}.
+\]
+Fix \(0<\alpha<1\) and \(\varepsilon>0\).  Choose
+\(0<\alpha'<\alpha\) with
+\[
+c_*(\alpha-\alpha')<\frac\varepsilon3.
+\]
+Choose a fixed integer \(R\geq1\) so large that
+\[
+r=(\alpha')^{1/R}>a_0;
+\]
+then \(0<r<1\) and \(r^R=\alpha'\).  Finally choose
+\(0<\eta<r-a_0\) so small that
+\[
+c_*(1-\alpha')\frac\eta{1-r}<\frac\varepsilon3.
+\tag{6.25}
+\]
+Apply the fixed-depth version of (6.2) with this \(R\).  Repeated use of
+Theorem 5.1 shows that \(\mathcal S_R\) is power-dense, hence has natural
+density one.  Lemma 5.2 and (6.7) give, with a fixed horizon constant
+\(C_h=(2+\eta)/(1-a_0)+1\),
+\[
+\begin{aligned}
+k_R
+&\leq
+\frac{1+\eta-r}{1-a_0}
+\sum_{i=0}^{R-1}\log_2n_i+C_hR\\
+&\leq
+\frac{1+\eta-r}{(1-a_0)\log2}
+\frac{1-r^R}{1-r}\log n+O_{\alpha,\varepsilon}(1)\\
+&=
+c_*(1-\alpha')
+\left(1+\frac\eta{1-r}\right)\log n
++O_{\alpha,\varepsilon}(1).
+\end{aligned}
+\tag{6.26}
+\]
+The choices of \(\alpha'\) and \(\eta\) leave at least
+\(\varepsilon/3\) to absorb the fixed remainder, and hence give the clock
+in (1.8) for all sufficiently large \(n\).  At the terminal stage, (6.7)
+gives
+\[
+n_R\leq K_*n^{r^R}=K_*n^{\alpha'}\leq n^\alpha
+\]
+eventually, since \(\alpha'<\alpha\).  This proves Corollary 1.6.
 \(\square\)
 
 ## 7. Scope
@@ -950,12 +1221,14 @@ target equidistribution hypothesis is used.
 ## Research and software disclosure
 
 Generative-AI systems were used in proof exploration, adversarial auditing,
-finite diagnostics, formalization planning, and exposition.  The author
-selected the theorem and proof architecture, reviewed the resulting
-artifacts, and accepts responsibility for the manuscript.  The finite
-diagnostic is supporting evidence only and is not a premise of any theorem.
-The separate V2 Lean package is work in progress; this version of the paper
-does not claim that the new theorem has already been formally verified.
+finite diagnostics, formalization, and exposition.  The author selected the
+theorem and proof architecture, reviewed the resulting artifacts, and accepts
+responsibility for the manuscript.  The finite diagnostic is supporting
+evidence only and is not a premise of any theorem.  The separate V2 Lean
+package formalizes the timed natural-density theorem, the quantitative
+exceptional counts in Corollaries 1.2 and 1.5, the raw-clock refinement, and
+the graded clock in Corollary 1.6.  The manuscript proof remains
+self-contained and does not use the formal artifact as evidence.
 
 ## References
 

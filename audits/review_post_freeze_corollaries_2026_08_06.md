@@ -1,5 +1,14 @@
 # Post-freeze corollary audit
 
+> **Historical baseline, superseded for Proposals 1--3.**  The full-block
+> objection recorded below was correct, but the subsequent paper-first cycle
+> supplied a new height-sensitive horizon and closed the graded clock.  The
+> raw-clock and quantitative fixed-power proofs also closed.  See
+> `graded_clock_paper_proof_2026_08_06.md` and
+> `raw_clock_1044_paper_proof_2026_08_06.md`.  The explicit diagonal query in
+> Section 4 remains parked.  Formal synchronization of the three new paper
+> results is still pending, so the working manuscript is not yet releasable.
+
 ## Audit card
 
 - **Mode:** `MATH-TEXT` strengthening audit with a `FORMAL` check for the
@@ -162,9 +171,11 @@ diagonal claim only after such a parameter-dependence theorem is proved.
 ## Status change
 
 - `firstPassageLinearTransportFixedPower`: `PROVED-FORMAL` after direct module
-  rebuild and public axiom audit.
+  rebuild and public axiom audit; integrated as manuscript Corollary 1.4 in
+  the synchronized V2.1 revision.
 - quantitative fixed-power exceptional rate: `PROVED` from manuscript
-  Corollary 1.2; proposed for the next manuscript revision.
+  Corollary 1.2; parked until a matching public Lean declaration is added in
+  the same release unit.
 - smooth graded clock: `OPEN`.
 - raw `< 10.44 log n` clock: `OPEN` with the seven-step closure checklist
   above.
