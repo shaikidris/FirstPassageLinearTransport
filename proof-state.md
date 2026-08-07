@@ -1,12 +1,100 @@
-# First-Passage Linear Transport V2 proof state
+# First-Passage Linear Transport V3 promotion state
 
-**Record date:** 2026-08-06  
+**Record date:** 2026-08-07
 **V2 project root:** `/Users/shaik.i/research/collatz/FirstPassageLinearTransport`  
 **Frozen V1 repository:** `/Users/shaik.i/research/collatz/CET`  
 **Frozen V1 tag:** `v1.0.1`  
 **Frozen V1 commit:** `16766542edaf1aac67ea1ad474c1193c9c8939c9`
 
-## Boundary rule
+## Active V3 promotion
+
+The V2.3.1 paper and public Lean API at commit `2816871` remain the frozen
+baseline. The private branch `v3-fixed-polylog` promotes a new paper headline:
+
+```text
+T_min(n) <= C (log n)^A
+for every fixed A > 19.9822266839...,
+with every shortcut clock c > 6.9521189935...
+and O(X / (log X)^kappa) exceptions.
+```
+
+Paper status:
+
+- integrated fixed-polylogarithmic proof: `PROVED-PAPER / AUTHOR-AUDIT`;
+- endpoint-rate stretched-log companion: `PROVED-PAPER / AUTHOR-AUDIT`;
+- five cut-vertex reconstruction: `PASS`;
+- final adversarial manuscript freeze audit: `PASS / AUTHOR-AUDIT`;
+- V3 PDF render and visual audit: `PASS`.
+
+V3 formal status:
+
+- exact loss-filtered tagged fiber and target transport: `PROVED-FORMAL`;
+- nested direct first-passage collapse: `PROVED-FORMAL`;
+- exact loss concatenation and threshold rescaling: `PROVED-FORMAL`;
+- finite all-block rank-scaled loss budget: `PROVED-FORMAL`;
+- exact cosh optimizer and binary-entropy barrier rate: `PROVED-FORMAL`;
+- adjustable barrier's deterministic orbit-envelope socket, including the
+  affine-correction startup inequality: `PROVED-FORMAL`;
+- adjustable barrier eventual-startup and entropy-sharp bad-shell adapter:
+  `PROVED-FORMAL`;
+- exact finite first-bad rank union and its target-by-target transport bound:
+  `PROVED-FORMAL`;
+- literal stopped-map blocks initialize and extend the certified rank chain,
+  and generated chain witnesses inject into the first-bad envelope:
+  `PROVED-FORMAL`;
+- whole-run induction from the recursive certified algorithm, including exact
+  bad-endpoint membership in the landing target: `PROVED-FORMAL`;
+- linear-rank exponential tail summation and the generated first-bad terminal
+  profile: `PROVED-FORMAL`;
+- finite two-regime recursive assembly, canonical horizon, and first-bad
+  execution theorem: `PROVED-FORMAL`;
+- polylogarithmic terminal/switch schedule ordering, eventual distortion
+  startup, and asymptotic two-regime shell-clock socket: `PROVED-FORMAL`;
+- quantitative terminal/switch tail decay, the complete shellwise
+  `O((M+2)^(-kappa))` first-bad profile, and assembly of the canonical shell
+  good sets into one natural-density-one set: `PROVED-FORMAL`;
+- exact dyadic shell-to-prefix summation, the resulting quantitative
+  exceptional count, and its conversion from the explicit base-two scale to
+  the manuscript's natural-logarithm normalization: `PROVED-FORMAL`;
+- exact entropy-endpoint identity for `A_FP`, the clock identity for `c_*`,
+  and existence of a complete rational two-regime parameter package with a
+  positive retained exponent for every strict paper parameter triple:
+  `PROVED-FORMAL`;
+- terminal-witness/clock API, natural-logarithm target conversion, mixed-run
+  orbit-ceiling propagation, and the assembled fixed-polylogarithmic theorem:
+  `PROVED-FORMAL`;
+- referee-facing fixed-polylogarithmic public `Main` theorem:
+  `PROVED-FORMAL / PROMOTED`; its direct witness-set `badCount` now matches
+  the manuscript literally, with a stronger strict landing inequality.
+
+V3 synchronized private-freeze snapshot:
+
+```text
+922369796b76f92d9b2bd3d9e276727b321dd99e58117d65987c2b8025c883e7  lean/FirstPassageLinearTransport/Main.lean
+5427f88dd207682794c0dbf7b70ddf64010ffa68e4604f3a8e8d7e92c5ae6d2f  lean/FirstPassageLinearTransport/FiniteStartup.lean
+c1cf0a81cf252b781b190f153207db6d53dedfac41464e19f86f544271f6d885  paper/collatz_first_passage_natural_density.md
+c0319fcd7a19621273f5d4d30d2459ffbbb0593988bedc7964d9dfd9af2d479d  paper/collatz_first_passage_natural_density_v3.pdf
+968653e5dd407e95a9f874972be80402efa5dc9e09d120756f16a7454a77d3b0  paper/first_passage_v3_print.css
+55595c6d8ab9aa95b3bf15ec69393cbc4c5883777365042dfc0c5c3522d100a1  paper/render_first_passage_v3_manuscript.sh
+450967cac1def0642c6f231f6aa80a1e470675a452464096a012f610a8e80fa6  audits/review_v3_fixed_polylog_freeze_2026_08_07.md
+d71f093503a7cc19d3fffdfc76368c895fc039351b05b27d63a6322dbf9a44ee  paper/collatz_first_passage_natural_density_v2.pdf
+```
+
+The paused LC.28 suffix route is not a dependency. Its sole positive resume
+target is the centered branch-balance estimate
+
+```text
+sum_d sqrt(2^u / |J_(u,d)|)
+  * (I_(u,d) / A_(u,d) - 2^(-d)) <= C / u.
+```
+
+This is the aggregate collision-weighted defect BB.1/PA.5 recorded in the V3
+audit; pointwise balance in every terminal class is not required. The sole
+negative resume condition is an inheritable prior-good family with pressure
+at least `1 + c`. Finite pressure scans, injectivity alone, primitive
+immigration, and arbitrary-input moment estimates do not reopen the route.
+
+## Frozen boundary rule
 
 V2 is a new paper and new Lean software package.  It does not amend the V1
 tag, consume the V1 endpoint theorem, or place new source under the V1

@@ -1,0 +1,13 @@
+@page {
+  @top-center {
+    content: "Fixed-Polylogarithmic Natural-Density Collatz Descent";
+  }
+}
+
+.theorem-block {
+  break-inside: avoid-page;
+}
+
+#references {
+  break-before: auto;
+}

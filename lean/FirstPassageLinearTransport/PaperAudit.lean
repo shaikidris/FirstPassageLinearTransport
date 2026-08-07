@@ -9,7 +9,7 @@ import FirstPassageLinearTransport.PaperDependencyAudit
 /-!
 # First-passage manuscript axiom audit
 
-Public `#print axioms` surface for the standalone V2 manuscript. This module
+Public `#print axioms` surface for the standalone V3 manuscript. This module
 reports logical trust; `PaperDependencyAudit` separately reports declaration
 and source-elaboration reachability, while a full `lake build` remains the
 source-reconstruction gate.
@@ -57,6 +57,14 @@ source-reconstruction gate.
 #print axioms FirstPassageLinearTransport.exists_stageSetup
 
 -- Internal assembly and literal referee-facing statements.
+#print axioms FirstPassageLinearTransport.fixedPolylogCriticalExponent_eq_entropy
+#print axioms FirstPassageLinearTransport.fixedPolylogClockCritical_eq_paper
+#print axioms FirstPassageLinearTransport.exists_fixedPolylogParameterPackage
+#print axioms FirstPassageLinearTransport.fixedPolylogNaturalDensityLanding
+#print axioms FirstPassageLinearTransport.TwoRegimeRecertificationRun.orbit_le_start_power
+#print axioms FirstPassageLinearTransport.fixedPolylogNaturalDensityDescent
+#print axioms
+  FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent
 #print axioms FirstPassageLinearTransport.firstPassageLinearTransportMain
 #print axioms FirstPassageLinearTransport.stageLength_le_heightSensitiveHorizon
 #print axioms FirstPassageLinearTransport.rawOrbit_rawTime_eq_orbit

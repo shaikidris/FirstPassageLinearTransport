@@ -30,6 +30,13 @@ These are definitions, not hypotheses supplied to the headline theorems.
 
 | Manuscript item | Principal Lean declaration | Module |
 |---|---|---|
+| Theorem 1.1, optimized fixed-polylogarithmic descent | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent` | `Main.lean` |
+| Theorem 1.1, endpoint exponent and clock identities | `FirstPassageLinearTransport.fixedPolylogCriticalExponent_eq_entropy`; `fixedPolylogClockCritical_eq_paper` | `FixedPolylogParameters.lean` |
+| Theorem 1.1, strict parameter selection | `FirstPassageLinearTransport.exists_fixedPolylogParameterPackage` | `FixedPolylogParameters.lean` |
+| Theorem 1.1, literal terminal witness and natural-log target | `FirstPassageLinearTransport.eventually_twoRegimePolylogGood_has_shellLanding`; `eventually_assembleDyadic_twoRegimePolylogGood_has_landing` | `TwoRegimePolylogExecution.lean` |
+| Theorem 1.1, same-witness orbit ceiling | `FirstPassageLinearTransport.TwoRegimeRecertificationRun.orbit_le_start_power`; `eventually_twoRegimePolylogGood_has_shellLanding_with_orbitCeiling` | `TwoRegimeOrbitCeiling.lean` |
+| Theorem 1.1, assembled quantitative theorem | `FirstPassageLinearTransport.fixedPolylogNaturalDensityDescent` | `TwoRegimeOrbitCeiling.lean` |
+| Theorem 1.1, finite-startup absorption and direct no-witness count | `FirstPassageLinearTransport.eventually_badCount_le_polylog_of_tail_subset`; `naturalDensityOne_of_eventually_badCount_le_polylog` | `FiniteStartup.lean`; `Main.lean` |
 | Shortcut orbit and density definitions | `FirstPassageLinearTransport.shortcut`; `orbit`; `PowerDense`; `NaturalDensityOne` | `Basic.lean` |
 | Lemma 2.1, varying dyadic summation | `FirstPassageLinearTransport.naturalDensityOne_assembleDyadic` | `VaryingDensity.lean` |
 | Lemma 2.1, quantitative stretched dyadic summation | `FirstPassageLinearTransport.QuantitativeDensity.badCount_assembleDyadic_le_stretched_log` | `StretchedExceptionalCount.lean` |
@@ -43,6 +50,19 @@ These are definitions, not hypotheses supplied to the headline theorems.
 | Lemma 4.2, odd-count rigidity | `FirstPassageLinearTransport.oddCount_rigidity` | `FirstPassage.lean` |
 | Lemma 4.3, tagged-fiber bound | `FirstPassageLinearTransport.taggedFiber_bound` | `FirstPassage.lean` |
 | Proposition 4.4, arbitrary-target transport | `FirstPassageLinearTransport.arbitraryTarget_linear_transport`; `arbitraryTarget_linear_transport_restricted` | `Transport.lean` |
+| Lemma 4.5, loss-filtered odd-count rigidity and tagged-fiber bound | `FirstPassageLinearTransport.lossFiltered_oddCount_rigidity`; `lossFilteredTaggedFiber_bound` | `LossTransport.lean` |
+| Proposition 4.6, exact and uniform loss-filtered target transport | `FirstPassageLinearTransport.lossFiltered_arbitraryTarget_transport`; `lossFiltered_arbitraryTarget_transport_uniform`; `lossFiltered_arbitraryTarget_transport_restricted` | `LossTransport.lean` |
+| Lemma 5.1, nested direct first passage | `FirstPassageLinearTransport.IsFirstPassage.nested` | `NestedRecertification.lean` |
+| Reverse-loss concatenation and threshold rescaling | `FirstPassageLinearTransport.reverseLossTotal_add`; `scaledReverseLoss_add_rescaled`; `scaledReverseLoss_le_half_time` | `NestedRecertification.lean` |
+| Lemma 5.2, finite all-block rank-scaled loss budget | `FirstPassageLinearTransport.CertifiedRankChain.directFirstPassage`; `CertifiedRankChain.scaledReverseLoss_le` | `RankScaledLoss.lean` |
+| Lemma 3.1, exact entropy-sharp Boolean barrier rate | `FirstPassageLinearTransport.barrierHitCount_le_exact_cosh`; `booleanLegendreRate_optimizer`; `barrierHitCount_le_binaryEntropy` | `EntropyBarrier.lean` |
+| Lemma 3.2, adjustable deterministic envelope and correction absorption | `FirstPassageLinearTransport.adjustableBarrier_phase`; `adjustableBarrier_phase_two`; `adjustableBarrier_correction_absorb`; `orbit_envelope_of_adjustableBarrier` | `AdjustableEnvelope.lean` |
+| Proposition 3.3, eventual adjustable startup and entropy-sharp shell count | `FirstPassageLinearTransport.eventually_adjustableBarrier_startups`; `shellInitialWindowBad_subset_adjustable`; `eventually_card_shellInitialWindowBad_adjustable_le` | `AdjustableBarrierDensity.lean` |
+| Theorem 5.3, exact finite first-bad aggregation interface | `FirstPassageLinearTransport.landingBad_subset_insert_shellBad`; `firstBadLandingEnvelope_card_le`; `firstBadFailureEnvelope_card_le` | `FirstBadEnvelope.lean` |
+| Lemmas 5.1--5.2, stopped-map to rank-chain adapter | `FirstPassageLinearTransport.parentRank_le_rationalTargetBudget`; `CertifiedRankChain.first_of_stage`; `CertifiedRankChain.next_of_stage`; `generatedFirstBadSources_subset_envelope` | `RecertificationStep.lean`; `FirstBadEnvelope.lean` |
+| Theorem 5.3, recursive-run semantic inclusion | `FirstPassageLinearTransport.RecertificationRun.toCertifiedRankChain`; `RecertificationRun.endpoint_mem_landingBad`; `RecertificationRun.toGeneratedFirstBadLanding` | `RecertificationRun.lean` |
+| Theorem 5.3, terminal rank-tail summation | `FirstPassageLinearTransport.weighted_exp_Icc_le`; `terminal_rank_sum_le` | `TerminalTail.lean`; `TerminalProfile.lean` |
+| Theorem 5.3, generated first-bad terminal profile | `FirstPassageLinearTransport.generatedFirstBadSources_density_terminalProfile`; `eventually_interval_card_landingBad_adjustable_le` | `TerminalProfile.lean` |
 | Theorem 5.1, dense-set pullback | `FirstPassageLinearTransport.firstPassagePullback_powerDense` | `Pullback.lean` |
 | Repeated stopped-map bootstrap | `FirstPassageLinearTransport.bootstrapSet_powerDense`; `bootstrapC_exp_bound` | `Bootstrap.lean` |
 | Literal orbit concatenation | `FirstPassageLinearTransport.stageOrbit_eq_orbit_stageClock` | `Bootstrap.lean` |
@@ -56,8 +76,8 @@ These are definitions, not hypotheses supplied to the headline theorems.
 | Exact raw/shortcut conversion and raw budget | `FirstPassageLinearTransport.rawOrbit_rawTime_eq_orbit`; `eventuallyShellRawClockLt` | `RawDynamics.lean`; `RawClockBudget.lean` |
 | Corollary 1.3, all-prefix orbit ceiling | `FirstPassageLinearTransport.orbit_le_stageClock_ceiling`; `eventuallyShellOrbitCeiling` | `OrbitCeiling.lean` |
 | Internal final assembly | `FirstPassageLinearTransport.firstPassageLinearTransportMain` | `NaturalDensityDescent.lean` |
-| Theorem 1.1, timed form | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent` | `Main.lean` |
-| Theorem 1.1, unclocked consequence | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent_unclocked` | `Main.lean` |
+| Companion stretched-log theorem, timed form | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent` | `Main.lean` |
+| Companion stretched-log theorem, unclocked consequence | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent_unclocked` | `Main.lean` |
 | Corollary 1.4, timed fixed-power descent | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_power_natural_density_descent` | `PowerDescent.lean`; `Main.lean` |
 | Corollary 1.2, quantitative stretched exceptional count | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_quantitative_stretched_exceptional_count` | `QuantitativeNaturalDensityDescent.lean`; `Main.lean` |
 | Corollary 1.3, raw `10.44 log n` clock | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_raw_stretched_log_natural_density_descent` | `RawNaturalDensityDescent.lean`; `Main.lean` |
@@ -72,5 +92,45 @@ use semantic names so manuscript renumbering cannot stale the source.
 `PaperDependencyAudit.lean` reports kernel reachability, `.ilean`
 source-elaboration reachability, transitive milestone edges, and the reverse
 complement of retained source theorems. `PaperAudit.lean` separately runs
-`#print axioms` on the mapped load-bearing and public declarations. A clean
-`lake build` remains the independent source-reconstruction gate.
+`#print axioms` on the mapped load-bearing and public declarations. The full
+`lake build` passed on 2026-08-07, completing the independent
+source-reconstruction gate for this worktree state.
+
+## V3 synchronization boundary
+
+The declarations in `LossTransport.lean`, `NestedRecertification.lean`,
+`RankScaledLoss.lean`, `EntropyBarrier.lean`, and `AdjustableEnvelope.lean` are
+compiled V3 cut-vertex proofs. `AdjustableBarrierDensity.lean` additionally
+proves the startup hypotheses eventually and counts the resulting shell
+complement with the binary-entropy rate. `FirstBadEnvelope.lean` performs the
+exact finite union and transport estimate while keeping each target
+cardinality visible. `RecertificationStep.lean` connects literal stopped-map
+blocks to that certified rank chain, and `RecertificationRun.lean` closes the
+whole-run induction and bad-endpoint inclusion. `TerminalTail.lean` and
+`TerminalProfile.lean` absorb the linear rank loss, sum the dyadic and entropy
+tails, and connect the result to the exact generated first-bad source count.
+This profile does not use the paused LC.28 checkpoint-congestion hypothesis.
+`TwoRegimeRun.lean`, `TwoRegimeProfile.lean`, `TwoRegimeClock.lean`, and
+`TwoRegimeExecution.lean` now close the finite recursive two-regime assembly,
+its canonical horizon, and the corresponding first-bad execution theorem.
+`TwoRegimeSchedules.lean`, `TwoRegimeTailAsymptotics.lean`, and
+`TwoRegimePolylogProfile.lean` now close the canonical schedule, all five
+asymptotic tail terms, the shellwise fixed-power exceptional profile, and the
+assembly of the resulting shell good sets into one natural-density-one set.
+`PolylogExceptionalCount.lean` additionally proves the exact dyadic
+shell-to-prefix summation, the resulting quantitative prefix count, and the
+change from the explicit base-two scale to the manuscript's
+natural-logarithm normalization. `FixedPolylogParameters.lean` proves the
+exact entropy formula for `A_FP`, the paper clock identity for `c_*`, and
+constructs a complete rational two-regime parameter package for every strict
+paper parameter triple. `TwoRegimePolylogExecution.lean` retains the literal
+terminal run, converts its terminal rank to the manuscript's natural-log
+target, and assembles the quantitative density-one landing theorem.
+`TwoRegimeOrbitCeiling.lean` proves the high/low prefix ceiling and packages
+the simultaneous landing, clock, and orbit bound. `Main.lean` now exposes the
+referee-facing fixed-polylogarithmic theorem with the paper's exact strict
+endpoint ranges. `FiniteStartup.lean` absorbs the finite eventual-witness
+startup, so the public theorem's `badCount` is literally over the integers
+lacking its clock/landing/orbit-ceiling witness, rather than over an auxiliary
+good set. Its strict landing inequality is stronger than the paper's weak
+inequality. The frozen V2.3.1 family remains as companion mathematics.
