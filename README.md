@@ -1,29 +1,38 @@
 # First-Passage Linear Transport
 
-**Project line:** independent V2 manuscript and Lean 4 software  
+**Project line:** private V3 fixed-polylogarithmic promotion worktree
 **Author:** Idris Ali Shaik
 
-This repository contains a new proof architecture for stretched-logarithmic
-natural-density descent of the shortcut Collatz map
+This branch promotes the first-passage architecture from stretched-logarithmic
+to fixed-polylogarithmic natural-density descent for the shortcut Collatz map
 
 ```text
 T(n) = n / 2       if n is even,
 T(n) = (3n + 1)/2  if n is odd.
 ```
 
-The paper-level theorem states that, for every fixed `0 < delta < 1`, a set
-of natural density one satisfies
+The V3 paper-level headline states that, for every fixed
 
 ```text
-min_k T^k(n) <= exp ((log n)^(1-delta)),
+A > 1 / (1 - H_2(log_3 2)) = 19.9822266839...,
+c > 2 / log(4/3) = 6.9521189935...,
+beta > 0,
 ```
 
-with a witness before `6.953 log n` shortcut steps and before `10.44 log n`
-raw Collatz steps.  For every separately fixed `beta > 0`, the shortcut orbit
-through the selected witness remains below `n^(1+beta)`.  The endpoint
-`delta = 1` is not claimed.
+all but `O(X / (log X)^kappa)` integers `n <= X` have a witness
+`k < c log n` such that
 
-The synchronized corollaries also provide:
+```text
+T^k(n) <= C (log n)^A
+and max_{j <= k} T^j(n) <= n^(1+beta).
+```
+
+The endpoint value of `A` is not claimed. At the companion target
+`exp ((log n)^(1-delta))`, the shell assembly reaches the endpoint exceptional
+power `1-delta`. Every shortcut clock constant above `2/log(4/3)` and every
+raw clock constant above `3/log(4/3)` are retained.
+
+The frozen V2.3.1 corollaries remain valid companion mathematics and provide:
 
 - the exceptional count `5 X exp (-c (log X)^sigma)` for every
   `0 < sigma < 1-delta`;
@@ -32,23 +41,31 @@ The synchronized corollaries also provide:
 - the smooth graded shortcut clock
   `(2(1-alpha)/log(4/3) + epsilon) log n` for `0 < alpha < 1`.
 
-All numbered headline and corollary statements, including the same-witness
-intermediate-orbit ceiling, have literal public declarations in `Main.lean`.
-That module also displays a one-screen semantic dictionary for the shortcut
-map, raw map, iterates, density notion, and exceptional-count predicates used
-in those declarations.
+The V3 manuscript proof is integrated. The Lean development now compiles the
+loss-filtered target transport, nested direct first-passage collapse,
+all-block rank-scaled loss budget, entropy-sharp Boolean barrier, complete
+two-regime exceptional profile, literal terminal witness, mixed-run orbit
+ceiling, endpoint parameter selection, and the referee-facing fixed-polylog
+theorem in `Main.lean`. The frozen V2.3.1 theorem family remains available as
+companion mathematics.
 
 ## Release boundary
 
-This project is physically and logically separate from the released
+This project remains physically and logically separate from the released
 `CET`/CEP V1 repository.  The frozen baseline is tag `v1.0.1`, commit
 `16766542edaf1aac67ea1ad474c1193c9c8939c9`.  V2 neither amends that tag nor
 imports its capstone theorem chain.
 
+The repository must remain private. No release, visibility change, or push to
+a public repository is authorized by work on this branch.
+
 ## Contents
 
 - `paper/collatz_first_passage_natural_density.md`: canonical manuscript;
-- `paper/collatz_first_passage_natural_density_v2.pdf`: verified render;
+- `paper/collatz_first_passage_natural_density_v2.pdf`: frozen V2 render;
+- `paper/collatz_first_passage_natural_density_v3.pdf`: distinct V3 render;
+- `audits/fixed_polylog_promotion_audit_2026_08_07.md`: V3 theorem and
+  cut-vertex reconstruction;
 - `audits/`: manuscript-only mathematical, literature, content, and desk
   records;
 - `audits/review_post_freeze_corollaries_2026_08_06.md`: downstream
@@ -61,12 +78,11 @@ imports its capstone theorem chain.
 - `proof-state.md`: synchronized paper hashes, status ledger, and formalization
   acceptance gates.
 
-The manuscript proof has passed its manuscript-only adversarial audit.  The
-standalone Lean closure now includes the full barrier, transport, pullback,
-bootstrap, quantitative shell summation, landing, shortcut/raw/graded clocks,
-the all-prefix orbit ceiling, strict parameter selection, and the complete
-headline/corollary chain. Its CET-style
-verification surface separates the minimal public `Main`, declaration/source
-reachability audit, and public axiom audit.
-See `lean/FORMALIZATION.md` and `proof-state.md` for the exact theorem map and
-build status.
+The V3 manuscript proof and public formal chain have been reconstructed
+through all five cut vertices. The public headline now counts exactly the
+integers lacking its displayed witness, matching the manuscript after the
+Lean theorem's harmless strict landing inequality. A full-package build,
+placeholder scan, declaration-level dependency report, public-root trust
+audit, manuscript reference audit, and distinct V3 PDF inspection pass. See
+`lean/FORMALIZATION.md` and `proof-state.md` for the exact synchronization
+boundary.

@@ -8,6 +8,8 @@ import FirstPassageLinearTransport.GradedPowerDescent
 import FirstPassageLinearTransport.RawNaturalDensityDescent
 import FirstPassageLinearTransport.QuantitativeNaturalDensityDescent
 import FirstPassageLinearTransport.OrbitCeiling
+import FirstPassageLinearTransport.TwoRegimeOrbitCeiling
+import FirstPassageLinearTransport.FiniteStartup
 
 /-!
 # Referee-facing first-passage transport API
@@ -51,6 +53,111 @@ namespace QuantitativeCollatzMain
 
 open Filter
 open scoped Real Topology
+
+/-- **Headline fixed-polylogarithmic first-passage theorem.** For every
+strict target exponent above
+`1 / (1 - H₂(log₃ 2))`, every shortcut-clock coefficient above
+`2 / log(4/3)`, and every separately fixed `beta > 0`, one explicit
+natural-density-one set has all of the following properties:
+
+* a quantitative `O(X (log X)^(-kappa))` count of integers without the
+  displayed witness;
+* a literal shortcut iterate below `C (log n)^A` before `c log n` steps;
+* every intermediate shortcut iterate through that witness is at most
+  `n^(1+beta)`.
+-/
+theorem collatz_first_passage_fixed_polylogarithmic_natural_density_descent
+    {A c beta : ℝ}
+    (hA : 1 / (1 - binaryEntropyBaseTwo logThreeTwo) < A)
+    (hc : 2 / Real.log (4 / 3) < c)
+    (hbeta : 0 < beta) :
+    ∃ C kappa : ℝ,
+      0 < C ∧ 0 < kappa ∧
+      NaturalDensityOne
+        {n : ℕ | ∃ k : ℕ,
+          (k : ℝ) < c * Real.log n ∧
+          (orbit k n : ℝ) < C * (Real.log n) ^ A ∧
+          ∀ j : ℕ, j ≤ k →
+            (orbit j n : ℝ) ≤ (n : ℝ) ^ (1 + beta)} ∧
+      (∀ᶠ X : ℕ in atTop,
+        (badCount
+          {n : ℕ | ∃ k : ℕ,
+            (k : ℝ) < c * Real.log n ∧
+            (orbit k n : ℝ) < C * (Real.log n) ^ A ∧
+            ∀ j : ℕ, j ≤ k →
+              (orbit j n : ℝ) ≤ (n : ℝ) ^ (1 + beta)} X : ℝ) ≤
+          C * X * (Real.log X) ^ (-kappa)) := by
+  have hA' : fixedPolylogCriticalExponent < A := by
+    simpa [fixedPolylogCriticalExponent_eq_entropy] using hA
+  have hc' : fixedPolylogClockCritical < c := by
+    simpa [fixedPolylogClockCritical_eq_paper] using hc
+  obtain ⟨S, Cexc, kappa, hCexc, hkappa, hSdense, hCount, hLanding⟩ :=
+    fixedPolylogNaturalDensityDescent hA' hc' hbeta
+  let Cbase := max Cexc (fixedPolylogTargetConstant A)
+  have hCbase : 0 < Cbase := hCexc.trans_le (le_max_left _ _)
+  have hCountBase : ∀ᶠ X : ℕ in atTop,
+      (badCount S X : ℝ) ≤
+        Cbase * X * (Real.log X) ^ (-kappa) := by
+    filter_upwards [hCount, eventually_ge_atTop (1 : ℕ)] with X hCount hX
+    have hlogX : 0 ≤ Real.log X :=
+      Real.log_nonneg (by exact_mod_cast hX)
+    exact hCount.trans (by
+      calc
+        Cexc * X * (Real.log X) ^ (-kappa) ≤
+            Cbase * X * (Real.log X) ^ (-kappa) := by
+          gcongr
+          exact le_max_left _ _)
+  have hLandingBase : ∀ᶠ n : ℕ in atTop, n ∈ S →
+      ∃ k : ℕ,
+        (k : ℝ) < c * Real.log n ∧
+        (orbit k n : ℝ) < Cbase * (Real.log n) ^ A ∧
+        ∀ j : ℕ, j ≤ k →
+          (orbit j n : ℝ) ≤ (n : ℝ) ^ (1 + beta) := by
+    filter_upwards [hLanding, eventually_ge_atTop (1 : ℕ)]
+      with n hLanding hn hnS
+    obtain ⟨k, hk, hdrop, hceiling⟩ := hLanding hnS
+    refine ⟨k, hk, hdrop.trans_le ?_, hceiling⟩
+    have hlogn : 0 ≤ Real.log n :=
+      Real.log_nonneg (by exact_mod_cast hn)
+    exact mul_le_mul_of_nonneg_right (le_max_right _ _)
+      (Real.rpow_nonneg hlogn A)
+  rcases (eventually_atTop.1 hLandingBase) with ⟨N, hN⟩
+  let C := Cbase + N + 1
+  let kappaFinal := min kappa 1
+  let W : Set ℕ :=
+    {n : ℕ | ∃ k : ℕ,
+      (k : ℝ) < c * Real.log n ∧
+      (orbit k n : ℝ) < C * (Real.log n) ^ A ∧
+      ∀ j : ℕ, j ≤ k →
+        (orbit j n : ℝ) ≤ (n : ℝ) ^ (1 + beta)}
+  have hCbaseC : Cbase ≤ C := by
+    dsimp [C]
+    have hN0 : (0 : ℝ) ≤ N := by positivity
+    linarith
+  have hSW : ∀ n : ℕ, N ≤ n → n ∈ S → n ∈ W := by
+    intro n hn hnS
+    obtain ⟨k, hk, hdrop, hceiling⟩ := hN n hn hnS
+    refine ⟨k, hk, hdrop.trans_le ?_, hceiling⟩
+    have hlogn : 0 ≤ Real.log n := by
+      by_cases hn0 : n = 0
+      · subst n
+        simp
+      · exact Real.log_nonneg (by exact_mod_cast (Nat.one_le_iff_ne_zero.2 hn0))
+    exact mul_le_mul_of_nonneg_right hCbaseC (Real.rpow_nonneg hlogn A)
+  have hCountW : ∀ᶠ X : ℕ in atTop,
+      (badCount W X : ℝ) ≤
+        C * X * (Real.log X) ^ (-kappaFinal) := by
+    simpa [C, kappaFinal] using
+      (eventually_badCount_le_polylog_of_tail_subset N hCbase.le hkappa
+        hSW hCountBase)
+  have hC : 0 < C := hCbase.trans_le hCbaseC
+  have hkappaFinal : 0 < kappaFinal := by
+    exact lt_min hkappa zero_lt_one
+  have hWdense : NaturalDensityOne W :=
+    naturalDensityOne_of_eventually_badCount_le_polylog hC.le hkappaFinal hCountW
+  refine ⟨C, kappaFinal, hC, hkappaFinal, ?_, ?_⟩
+  · simpa [W] using hWdense
+  · simpa [W] using hCountW
 
 /-- **Timed first-passage natural-density descent.** For every fixed
 `0 < delta < 1`, a natural-density-one set of positive integers has a literal
