@@ -9,6 +9,7 @@ import FirstPassageLinearTransport.RawNaturalDensityDescent
 import FirstPassageLinearTransport.QuantitativeNaturalDensityDescent
 import FirstPassageLinearTransport.OrbitCeiling
 import FirstPassageLinearTransport.TwoRegimeOrbitCeiling
+import FirstPassageLinearTransport.ShrinkingNaturalDensityDescent
 import FirstPassageLinearTransport.FiniteStartup
 
 /-!
@@ -56,7 +57,7 @@ open scoped Real Topology
 
 /-- **Headline fixed-polylogarithmic first-passage theorem.** For every
 strict target exponent above
-`1 / (1 - H₂(log₃ 2))`, every shortcut-clock coefficient above
+`1 / (2 * (1 - H₂(log₃ 2)))`, every shortcut-clock coefficient above
 `2 / log(4/3)`, and every separately fixed `beta > 0`, one explicit
 natural-density-one set has all of the following properties:
 
@@ -68,7 +69,7 @@ natural-density-one set has all of the following properties:
 -/
 theorem collatz_first_passage_fixed_polylogarithmic_natural_density_descent
     {A c beta : ℝ}
-    (hA : 1 / (1 - binaryEntropyBaseTwo logThreeTwo) < A)
+    (hA : 1 / (2 * (1 - binaryEntropyBaseTwo logThreeTwo)) < A)
     (hc : 2 / Real.log (4 / 3) < c)
     (hbeta : 0 < beta) :
     ∃ C kappa : ℝ,
@@ -87,12 +88,12 @@ theorem collatz_first_passage_fixed_polylogarithmic_natural_density_descent
             ∀ j : ℕ, j ≤ k →
               (orbit j n : ℝ) ≤ (n : ℝ) ^ (1 + beta)} X : ℝ) ≤
           C * X * (Real.log X) ^ (-kappa)) := by
-  have hA' : fixedPolylogCriticalExponent < A := by
-    simpa [fixedPolylogCriticalExponent_eq_entropy] using hA
+  have hA' : timeSupportCriticalExponent < A := by
+    simpa [timeSupportCriticalExponent_eq_entropy] using hA
   have hc' : fixedPolylogClockCritical < c := by
     simpa [fixedPolylogClockCritical_eq_paper] using hc
   obtain ⟨S, Cexc, kappa, hCexc, hkappa, hSdense, hCount, hLanding⟩ :=
-    fixedPolylogNaturalDensityDescent hA' hc' hbeta
+    shrinkingFixedPolylogNaturalDensityDescent hA' hc' hbeta
   let Cbase := max Cexc (fixedPolylogTargetConstant A)
   have hCbase : 0 < Cbase := hCexc.trans_le (le_max_left _ _)
   have hCountBase : ∀ᶠ X : ℕ in atTop,
