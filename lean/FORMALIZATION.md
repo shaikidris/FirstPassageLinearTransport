@@ -31,11 +31,15 @@ These are definitions, not hypotheses supplied to the headline theorems.
 | Manuscript item | Principal Lean declaration | Module |
 |---|---|---|
 | Theorem 1.1, optimized fixed-polylogarithmic descent | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent` | `Main.lean` |
-| Theorem 1.1, endpoint exponent and clock identities | `FirstPassageLinearTransport.fixedPolylogCriticalExponent_eq_entropy`; `fixedPolylogClockCritical_eq_paper` | `FixedPolylogParameters.lean` |
-| Theorem 1.1, strict parameter selection | `FirstPassageLinearTransport.exists_fixedPolylogParameterPackage` | `FixedPolylogParameters.lean` |
-| Theorem 1.1, literal terminal witness and natural-log target | `FirstPassageLinearTransport.eventually_twoRegimePolylogGood_has_shellLanding`; `eventually_assembleDyadic_twoRegimePolylogGood_has_landing` | `TwoRegimePolylogExecution.lean` |
-| Theorem 1.1, same-witness orbit ceiling | `FirstPassageLinearTransport.TwoRegimeRecertificationRun.orbit_le_start_power`; `eventually_twoRegimePolylogGood_has_shellLanding_with_orbitCeiling` | `TwoRegimeOrbitCeiling.lean` |
-| Theorem 1.1, assembled quantitative theorem | `FirstPassageLinearTransport.fixedPolylogNaturalDensityDescent` | `TwoRegimeOrbitCeiling.lean` |
+| Theorem 1.1, endpoint exponent identity | `FirstPassageLinearTransport.timeSupportCriticalExponent_eq_entropy` | `ShrinkingParameters.lean` |
+| Theorem 1.1, clock identity | `FirstPassageLinearTransport.fixedPolylogClockCritical_eq_paper` | `FixedPolylogParameters.lean` |
+| Theorem 1.1, strict parameter selection | `FirstPassageLinearTransport.exists_shrinkingPolylogParameterPackage` | `ShrinkingParameters.lean` |
+| Theorem 1.1, support-sensitive time transport | `FirstPassageLinearTransport.lossFiltered_arbitraryTarget_transport_atTimes_uniform` | `TimeSupportTransport.lean` |
+| Theorem 1.1, square-root feasible-time support | `FirstPassageLinearTransport.shrinkingFeasibleTimes_card_lt_sqrt` | `ShrinkingSchedules.lean` |
+| Theorem 1.1, support-sensitive first-bad profile | `FirstPassageLinearTransport.eventually_shrinkingFailureEnvelope_density_polylog_le` | `ShrinkingPolylogProfile.lean` |
+| Theorem 1.1, literal terminal witness | `FirstPassageLinearTransport.shrinkingSource_lands_below_horizon` | `ShrinkingExecution.lean` |
+| Theorem 1.1, same-witness orbit ceiling | `FirstPassageLinearTransport.ShrinkingRecertificationRun.orbit_le_start_power`; `eventually_shrinkingPolylogGood_has_shellLanding_with_orbitCeiling` | `ShrinkingOrbitCeiling.lean` |
+| Theorem 1.1, assembled quantitative theorem | `FirstPassageLinearTransport.shrinkingFixedPolylogNaturalDensityDescent` | `ShrinkingNaturalDensityDescent.lean` |
 | Theorem 1.1, finite-startup absorption and direct no-witness count | `FirstPassageLinearTransport.eventually_badCount_le_polylog_of_tail_subset`; `naturalDensityOne_of_eventually_badCount_le_polylog` | `FiniteStartup.lean`; `Main.lean` |
 | Shortcut orbit and density definitions | `FirstPassageLinearTransport.shortcut`; `orbit`; `PowerDense`; `NaturalDensityOne` | `Basic.lean` |
 | Lemma 2.1, varying dyadic summation | `FirstPassageLinearTransport.naturalDensityOne_assembleDyadic` | `VaryingDensity.lean` |
@@ -92,9 +96,10 @@ use semantic names so manuscript renumbering cannot stale the source.
 `PaperDependencyAudit.lean` reports kernel reachability, `.ilean`
 source-elaboration reachability, transitive milestone edges, and the reverse
 complement of retained source theorems. `PaperAudit.lean` separately runs
-`#print axioms` on the mapped load-bearing and public declarations. The full
-`lake build` passed on 2026-08-07, completing the independent
-source-reconstruction gate for this worktree state.
+`#print axioms` on the mapped load-bearing and public declarations. The
+public, cut-vertex, dependency, and full-package builds passed on
+2026-08-08, completing the independent source-reconstruction gate for this
+worktree state.
 
 ## V3 synchronization boundary
 
@@ -111,8 +116,8 @@ whole-run induction and bad-endpoint inclusion. `TerminalTail.lean` and
 tails, and connect the result to the exact generated first-bad source count.
 This profile does not use the paused LC.28 checkpoint-congestion hypothesis.
 `TwoRegimeRun.lean`, `TwoRegimeProfile.lean`, `TwoRegimeClock.lean`, and
-`TwoRegimeExecution.lean` now close the finite recursive two-regime assembly,
-its canonical horizon, and the corresponding first-bad execution theorem.
+`TwoRegimeExecution.lean` retain the finite fixed-tolerance two-regime
+assembly and its first-bad execution theorem.
 `TwoRegimeSchedules.lean`, `TwoRegimeTailAsymptotics.lean`, and
 `TwoRegimePolylogProfile.lean` now close the canonical schedule, all five
 asymptotic tail terms, the shellwise fixed-power exceptional profile, and the
@@ -126,11 +131,17 @@ constructs a complete rational two-regime parameter package for every strict
 paper parameter triple. `TwoRegimePolylogExecution.lean` retains the literal
 terminal run, converts its terminal rank to the manuscript's natural-log
 target, and assembles the quantitative density-one landing theorem.
-`TwoRegimeOrbitCeiling.lean` proves the high/low prefix ceiling and packages
-the simultaneous landing, clock, and orbit bound. `Main.lean` now exposes the
-referee-facing fixed-polylogarithmic theorem with the paper's exact strict
-endpoint ranges. `FiniteStartup.lean` absorbs the finite eventual-witness
-startup, so the public theorem's `badCount` is literally over the integers
-lacking its clock/landing/orbit-ceiling witness, rather than over an auxiliary
-good set. Its strict landing inequality is stronger than the paper's weak
-inequality. The frozen V2.3.1 family remains as companion mathematics.
+`TwoRegimeOrbitCeiling.lean` retains that chain's simultaneous landing, clock,
+and orbit bound. The strengthened headline instead passes through
+`TimeSupportTransport.lean` and the `Shrinking*.lean` chain. The latter proves
+that feasible cumulative times have cardinality `O(sqrt (M log M))`, converts
+this into a half-power terminal loss, selects every strict
+`A > 1/(2*(1-H₂(log₃ 2)))`, and proves the literal terminal witness, orbit
+ceiling, quantitative prefix count, and natural-density-one assembly.
+`Main.lean` exposes this stronger strict endpoint. `FiniteStartup.lean`
+absorbs the finite eventual-witness startup, so the public theorem's
+`badCount` is literally over the integers lacking its
+clock/landing/orbit-ceiling witness, rather than over an auxiliary good set.
+Its strict landing inequality is stronger than the corresponding weak
+inequality. The frozen V2.3.1 family and the fixed-tolerance V3 chain remain
+as companion mathematics.

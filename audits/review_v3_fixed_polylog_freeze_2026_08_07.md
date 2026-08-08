@@ -10,6 +10,12 @@
 
 **External independent review:** not performed in this cycle
 
+> **Historical boundary.** This audit covers the former fixed-tolerance
+> endpoint `1 / (1 - H_2(log_3 2))`. It is superseded for the current
+> headline by `review_time_support_formal_sync_2026_08_08.md`, which records
+> the shrinking-time-support endpoint. The findings below remain a historical
+> audit of the retained comparison chain.
+
 ## 1. Input card
 
 The audited headline is the optimized fixed-polylogarithmic first-passage
@@ -166,13 +172,22 @@ re-inspected after the final render. It is legible, has no overflow, and keeps
 the complete references on page 18. The frozen V2 PDF was not regenerated and
 its hash is unchanged.
 
+After the theorem freeze, the manuscript received one non-semantic
+clarification: an unnumbered remark after Theorem 1.1 defines the eventual
+crossover at which the fixed-polylogarithmic upper bound becomes a genuine
+descent, states explicitly that the existential constants and crossover are
+not effective, and gives one clearly labelled illustrative scale. No theorem,
+proof, parameter range, or Lean declaration changed. The V3 PDF was regenerated
+and rechecked; it remains an 18-page A4 document, the remark fits on page 2,
+and the references remain complete on page 18.
+
 ## 7. Frozen hashes
 
 ```text
 922369796b76f92d9b2bd3d9e276727b321dd99e58117d65987c2b8025c883e7  lean/FirstPassageLinearTransport/Main.lean
 5427f88dd207682794c0dbf7b70ddf64010ffa68e4604f3a8e8d7e92c5ae6d2f  lean/FirstPassageLinearTransport/FiniteStartup.lean
-c1cf0a81cf252b781b190f153207db6d53dedfac41464e19f86f544271f6d885  paper/collatz_first_passage_natural_density.md
-c0319fcd7a19621273f5d4d30d2459ffbbb0593988bedc7964d9dfd9af2d479d  paper/collatz_first_passage_natural_density_v3.pdf
+f899f326f4c1f2eddcd856d55a897436f4086bdfa01b8c024ff30e7ecf86ff2a  paper/collatz_first_passage_natural_density.md
+49c95525cb84ee69a216f142bfbc1d5a1b4d922dfc2a7b0779f9e20a82514f92  paper/collatz_first_passage_natural_density_v3.pdf
 d71f093503a7cc19d3fffdfc76368c895fc039351b05b27d63a6322dbf9a44ee  paper/collatz_first_passage_natural_density_v2.pdf
 ```
 

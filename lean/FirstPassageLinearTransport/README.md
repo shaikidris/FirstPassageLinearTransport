@@ -26,7 +26,22 @@ The verified development is split by mathematical role.
   high/low re-certification, clock, schedules, and quantitative shell profile.
 - `FixedPolylogParameters.lean`, `TwoRegimePolylogExecution.lean`,
   `TwoRegimeOrbitCeiling.lean`: endpoint selection, terminal witness,
-  natural-log target, and same-witness orbit ceiling.
+  natural-log target, and same-witness orbit ceiling for the retained
+  fixed-tolerance comparison chain.
+- `TimeSupportTransport.lean`: loss-filtered target transport on an explicit
+  finite time support.
+- `ShrinkingBarrierCore.lean`, `ShrinkingBarrierRun.lean`,
+  `ShrinkingTimeSupport.lean`, `ShrinkingSchedules.lean`: the rank-dependent
+  barrier run, its narrow duration corridors, and the resulting
+  `O(sqrt (M log M))` cumulative-time support.
+- `ShrinkingFirstBad.lean`, `ShrinkingProfile.lean`,
+  `ShrinkingHighDensity.lean`, `ShrinkingTailAsymptotics.lean`,
+  `ShrinkingPolylogProfile.lean`: exact support-sensitive first-bad counting
+  and the half-power terminal profile.
+- `ShrinkingParameters.lean`, `ShrinkingExecution.lean`,
+  `ShrinkingOrbitCeiling.lean`, `ShrinkingNaturalDensityDescent.lean`:
+  endpoint parameters, literal recursive execution, orbit ceiling, prefix
+  count, and density-one assembly for the strengthened headline.
 - `Pullback.lean`, `Parameters.lean`, `Bootstrap.lean`: stopped-map pullback,
   stage construction, and repeated bootstrap.
 - `Scalar.lean`, `Constants.lean`, `HeadlineParameters.lean`: scalar
@@ -45,10 +60,15 @@ The verified development is split by mathematical role.
 The exact fixed-polylogarithmic headline declaration is
 `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent`.
 It quantifies over every
-`A > 1/(1-H₂(log₃ 2))`, `c > 2/log(4/3)`, and `beta > 0`, and supplies one
+`A > 1/(2*(1-H₂(log₃ 2)))`, `c > 2/log(4/3)`, and `beta > 0`, and supplies one
 natural-density-one set, a positive exceptional exponent, the quantitative
 prefix count, a literal shortcut landing below `C*(log n)^A`, and the
 same-witness ceiling `orbit j n <= n^(1+beta)`.
+
+The previous fixed-tolerance endpoint `1/(1-H₂(log₃ 2))` is retained only as
+an internal comparison theorem. The factor-two improvement is supplied by
+the proved square-root feasible-time support, not by a changed density notion
+or by an unformalized analytic assumption.
 
 The companion exact timed stretched-log declaration is
 `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent`.

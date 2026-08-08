@@ -37,11 +37,26 @@ Collatz definitions:
   natural-log target conversion, density-one assembly, and quantitative
   exceptional-count consumer;
 - `TwoRegimeOrbitCeiling.lean`: high/low intermediate-orbit propagation and
-  the complete fixed-polylogarithmic headline theorem.
+  the complete fixed-tolerance fixed-polylogarithmic theorem;
+- `TimeSupportTransport.lean`: arbitrary-target transport on an explicit
+  finite set of cumulative times, charged by the support cardinality;
+- `ShrinkingBarrierCore.lean`, `ShrinkingBarrierRun.lean`,
+  `ShrinkingTimeSupport.lean`, `ShrinkingSchedules.lean`: the literal
+  rank-dependent certification chain and its
+  `O(sqrt (M log M))` feasible-time support;
+- `ShrinkingFirstBad.lean`, `ShrinkingProfile.lean`,
+  `ShrinkingHighDensity.lean`, `ShrinkingTailAsymptotics.lean`,
+  `ShrinkingPolylogProfile.lean`: support-sensitive first-bad transport and
+  the half-power terminal profile;
+- `ShrinkingParameters.lean`, `ShrinkingExecution.lean`,
+  `ShrinkingOrbitCeiling.lean`, `ShrinkingNaturalDensityDescent.lean`: strict
+  endpoint selection, literal termination, same-witness ceiling, and the
+  assembled quantitative natural-density theorem.
 
-`Main.lean` exposes the V3 fixed-polylogarithmic theorem first and retains the
-stretched-logarithmic, fixed-power, raw-clock, and graded-clock statements as
-companions.
+`Main.lean` exposes the strengthened V3 theorem for every
+`A > 1 / (2 * (1 - H₂(log₃ 2))) = 9.9911133419...` and retains the older
+fixed-tolerance theorem internally together with the stretched-logarithmic,
+fixed-power, raw-clock, and graded-clock statements as companions.
 
 The package imports Mathlib directly and has no dependency on
 `CollatzEndpointTransport`, `TwoACF`, or the frozen CET/CEP theorem chain.

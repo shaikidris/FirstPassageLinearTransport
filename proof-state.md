@@ -1,6 +1,6 @@
 # First-Passage Linear Transport V3 promotion state
 
-**Record date:** 2026-08-07
+**Record date:** 2026-08-08
 **V2 project root:** `/Users/shaik.i/research/collatz/FirstPassageLinearTransport`  
 **Frozen V1 repository:** `/Users/shaik.i/research/collatz/CET`  
 **Frozen V1 tag:** `v1.0.1`  
@@ -13,17 +13,18 @@ baseline. The private branch `v3-fixed-polylog` promotes a new paper headline:
 
 ```text
 T_min(n) <= C (log n)^A
-for every fixed A > 19.9822266839...,
+for every fixed A > 9.9911133419...,
 with every shortcut clock c > 6.9521189935...
 and O(X / (log X)^kappa) exceptions.
 ```
 
 Paper status:
 
-- integrated fixed-polylogarithmic proof: `PROVED-PAPER / AUTHOR-AUDIT`;
+- shrinking-time-support fixed-polylogarithmic proof:
+  `PROVED-PAPER / FORMAL-SYNC`; independent adversarial re-audit pending;
 - endpoint-rate stretched-log companion: `PROVED-PAPER / AUTHOR-AUDIT`;
-- five cut-vertex reconstruction: `PASS`;
-- final adversarial manuscript freeze audit: `PASS / AUTHOR-AUDIT`;
+- shrinking-time-support cut-vertex reconstruction: `PASS`;
+- prior fixed-tolerance freeze audit: `PASS / HISTORICAL`;
 - V3 PDF render and visual audit: `PASS`.
 
 V3 formal status:
@@ -66,19 +67,49 @@ V3 formal status:
 - referee-facing fixed-polylogarithmic public `Main` theorem:
   `PROVED-FORMAL / PROMOTED`; its direct witness-set `badCount` now matches
   the manuscript literally, with a stronger strict landing inequality.
+- support-sensitive arbitrary-target transport on an explicit finite set of
+  cumulative times: `PROVED-FORMAL`;
+- literal shrinking-barrier re-certification, including rank-dependent
+  certification and no use of a bad endpoint as a certified source:
+  `PROVED-FORMAL`;
+- feasible cumulative-time support of size `O(sqrt(M log M))`:
+  `PROVED-FORMAL`;
+- half-power terminal-tail loss and the exact entropy endpoint
+  `1 / (2 * (1 - H_2(log_3 2)))`: `PROVED-FORMAL`;
+- strict parameter package, quantitative shell/prefix profile, literal
+  terminal witness, same-witness orbit ceiling, and natural-density-one
+  assembly at every `A > 9.9911133419...`: `PROVED-FORMAL / PROMOTED`.
 
-V3 synchronized private-freeze snapshot:
+Current shrinking-time-support synchronization snapshot:
+
+```text
+f01c074c5732442eceb0e483b086a471f40fc8829156676dfa0fe27216308bef  lean/FirstPassageLinearTransport/Main.lean
+9eef36aacff3120a52ae963886b1f58d8fd43937fd9001254871bbfa489fb04f  lean/FirstPassageLinearTransport/TimeSupportTransport.lean
+0ea827b5058266e5d8cc2ea9d6dc514dc83b007a8ff0dca0012b3d7fc6674fbf  lean/FirstPassageLinearTransport/ShrinkingSchedules.lean
+6a256b83ed132647dc6260569cbf7ce5ad4362f1e0aeead0915087b0be304995  lean/FirstPassageLinearTransport/ShrinkingPolylogProfile.lean
+181150a366cc9e0ed0e6fc844befdbcac76006d68efe96a53388c5b3114d5be7  lean/FirstPassageLinearTransport/ShrinkingParameters.lean
+5d66163e7734e797168b460fbda5c4e0780e8695f323781c8d865d0051b7a8b2  lean/FirstPassageLinearTransport/ShrinkingNaturalDensityDescent.lean
+d12a2a27ae5a363081d48933a3f51b8cca577ac69a2ffd87c61d0f52931c4015  paper/collatz_first_passage_natural_density.md
+d57b544ce51666b5284d710e1bb6c561962b3736f9110701387d7ecc5735fb7c  paper/collatz_first_passage_natural_density_v3.pdf
+5e66cdc19a306386342fd783260c0453b5c182d6db9ca3eabb886b7b2bf3e414  audits/review_time_support_formal_sync_2026_08_08.md
+```
+
+Prior fixed-tolerance private-freeze snapshot (historical):
 
 ```text
 922369796b76f92d9b2bd3d9e276727b321dd99e58117d65987c2b8025c883e7  lean/FirstPassageLinearTransport/Main.lean
 5427f88dd207682794c0dbf7b70ddf64010ffa68e4604f3a8e8d7e92c5ae6d2f  lean/FirstPassageLinearTransport/FiniteStartup.lean
-c1cf0a81cf252b781b190f153207db6d53dedfac41464e19f86f544271f6d885  paper/collatz_first_passage_natural_density.md
-c0319fcd7a19621273f5d4d30d2459ffbbb0593988bedc7964d9dfd9af2d479d  paper/collatz_first_passage_natural_density_v3.pdf
+f899f326f4c1f2eddcd856d55a897436f4086bdfa01b8c024ff30e7ecf86ff2a  paper/collatz_first_passage_natural_density.md
+49c95525cb84ee69a216f142bfbc1d5a1b4d922dfc2a7b0779f9e20a82514f92  paper/collatz_first_passage_natural_density_v3.pdf
 968653e5dd407e95a9f874972be80402efa5dc9e09d120756f16a7454a77d3b0  paper/first_passage_v3_print.css
 55595c6d8ab9aa95b3bf15ec69393cbc4c5883777365042dfc0c5c3522d100a1  paper/render_first_passage_v3_manuscript.sh
-450967cac1def0642c6f231f6aa80a1e470675a452464096a012f610a8e80fa6  audits/review_v3_fixed_polylog_freeze_2026_08_07.md
+77feb8dc2fba9e2bf177a019fb337e85b2c8bf2af11edf20d83594ca7741d200  audits/review_v3_fixed_polylog_freeze_2026_08_07.md
 d71f093503a7cc19d3fffdfc76368c895fc039351b05b27d63a6322dbf9a44ee  paper/collatz_first_passage_natural_density_v2.pdf
 ```
+
+The later shrinking-time-support promotion changes the theorem endpoint and
+supersedes this historical snapshot. Its paper/Lean boundary is recorded in
+`audits/review_time_support_formal_sync_2026_08_08.md`.
 
 The paused LC.28 suffix route is not a dependency. Its sole positive resume
 target is the centered branch-balance estimate
