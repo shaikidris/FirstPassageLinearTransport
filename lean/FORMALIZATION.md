@@ -27,6 +27,13 @@ remain readable, but each name is concrete and unfolds as follows.
 | `HasFixedPowerDescent alpha n` | `exists k, orbit k n <= n^alpha` |
 
 These are definitions, not hypotheses supplied to the headline theorems.
+The manuscript separates the landing constant `C_tar` from the exceptional
+prefactor `C_exc`.  The public Lean theorem returns one positive constant
+`C` chosen as their maximum, which is a stronger statement and implies the
+separated manuscript formulation by taking `C_tar = C_exc = C`.  Likewise,
+the manuscript's Section 6 coefficient `D_hi` is the field `D` of
+`ShrinkingBarrierRunData`; the renamed paper symbol only prevents collision
+with density and loss notation.
 
 | Manuscript item | Principal Lean declaration | Module |
 |---|---|---|
@@ -64,8 +71,10 @@ These are definitions, not hypotheses supplied to the headline theorems.
 | Theorem 5.3, recursive-run semantic inclusion | `FirstPassageLinearTransport.RecertificationRun.toCertifiedRankChain`; `RecertificationRun.endpoint_mem_landingBad`; `RecertificationRun.toGeneratedFirstBadLanding` | `RecertificationRun.lean` |
 | Theorem 5.3, terminal rank-tail summation | `FirstPassageLinearTransport.weighted_exp_Icc_le`; `terminal_rank_sum_le` | `TerminalTail.lean`; `TerminalProfile.lean` |
 | Theorem 5.3, generated first-bad terminal profile | `FirstPassageLinearTransport.generatedFirstBadSources_density_terminalProfile`; `eventually_interval_card_landingBad_adjustable_le` | `TerminalProfile.lean` |
-| Lemma 6.1, duration corridor and square-root feasible-time support | `FirstPassageLinearTransport.certified_firstPassage_duration_corridor`; `shrinkingFeasibleTimes_card_lt_sqrt` | `ShrinkingBarrierCore.lean`; `ShrinkingSchedules.lean` |
-| Theorem 6.2, support-sensitive terminal profile | `FirstPassageLinearTransport.shrinkingSeparatedFailureEnvelope_density_terminalProfile`; `eventually_shrinkingFailureEnvelope_density_polylog_le` | `ShrinkingProfile.lean`; `ShrinkingPolylogProfile.lean` |
+| Section 6, literal shrinking run and first-bad envelope | `FirstPassageLinearTransport.ShrinkingRecertificationRun`; `shrinkingTargetTolerance`; `shrinkingSeparatedFailureEnvelope` | `ShrinkingBarrierRun.lean`; `ShrinkingFirstBad.lean`; `ShrinkingProfile.lean` |
+| Lemma 6.1, deterministic landing shell, cumulative corridor, and square-root feasible-time support | `FirstPassageLinearTransport.ShrinkingRecertificationRun.certified_endpoint_shell_eq`; `ShrinkingRecertificationRun.deviation_add_potential_le`; `shrinkingFeasibleTimes_card_lt_sqrt` | `ShrinkingBarrierRun.lean`; `ShrinkingTimeSupport.lean`; `ShrinkingSchedules.lean` |
+| Proposition 6.2, shrinking high-rank density | `FirstPassageLinearTransport.shrinkingHighTolerance_eq_formula`; `shrinkingHighTolerance_sq_mul`; `card_shellInitialWindowBad_shrinking_le`; `card_landingBad_shrinking_high_density_le` | `ShrinkingHighDensity.lean` |
+| Theorem 6.3, support-sensitive terminal profile | `FirstPassageLinearTransport.shrinkingSeparatedFailureEnvelope_density_terminalProfile`; `eventually_shrinkingFailureEnvelope_density_polylog_le` | `ShrinkingProfile.lean`; `ShrinkingPolylogProfile.lean` |
 | Section 7, height-sensitive clock | `FirstPassageLinearTransport.stageLength_le_heightSensitiveHorizon`; `heightSensitiveHorizon_real_lt` | `HeightSensitiveClock.lean` |
 | Exact raw/shortcut conversion and raw budget | `FirstPassageLinearTransport.rawOrbit_rawTime_eq_orbit`; `eventuallyShellRawClockLt` | `RawDynamics.lean`; `RawClockBudget.lean` |
 | Theorem 1.2, endpoint-rate stretched-log exceptional count | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_quantitative_stretched_exceptional_count`; `collatz_first_passage_stretched_log_descent_with_orbit_ceiling` | `QuantitativeNaturalDensityDescent.lean`; `OrbitCeiling.lean`; `Main.lean` |
