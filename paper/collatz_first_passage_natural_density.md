@@ -73,6 +73,8 @@ all possible cumulative failure times to
 the previous linear horizon loss by a square-root loss. An entropy-sharp
 low-rank barrier then gives the displayed exponent, while a separately chosen
 high-rank contraction retains the near-optimal clock.
+The probabilistic input is confined to exact parity-cube counting; after
+certification, the transport and re-certification argument is deterministic.
 
 ## 1. Introduction and main results
 
@@ -97,6 +99,30 @@ separate Lean package now formalizes the optimized chain and its literal
 referee-facing fixed-polylogarithmic theorem.  Its full build, dependency and
 trust audits, and the manuscript render audit are checked separately; none is
 a premise of the paper proof.
+
+**Relation to Version 1.**  The preceding preprint [[7]](#ref-endpoint-v1)
+proved stretched-logarithmic descent only for
+\(0<\delta<0.251245530155874\ldots\), using a fixed-time
+endpoint-fiber/Rényi transport theorem followed by endpoint iteration.  The
+present paper does not import that theorem.  It replaces the earlier
+architecture by all-prefix certification, first-passage reversal, direct
+nested re-certification, and support-sensitive aggregation of feasible
+cumulative times.  This yields both the fixed-polylogarithmic headline and the
+full strict range \(0<\delta<1\) in the quantitative companion theorem.  The
+main text is therefore organized along this new dependency chain: separate
+results are retained only when they feed [Theorem 1.1](#thm-fixed-polylog),
+[Theorem 1.2](#thm-stretched-log), or their stated corollaries.
+
+**Probabilistic/deterministic interface.**  The parity-vector bijection makes
+the uniform Boolean law exact on every complete dyadic shell.  The entropy
+estimate is used only to show that an explicit all-prefix barrier fails on a
+sparse set; it is not a random-walk model for an individual Collatz orbit.
+From first-passage reversal onward, the transport side is deterministic: it
+uses the exact affine iterate, the reverse-product identity, tagged-fiber
+bounds, nested direct re-certification, and the compressed support of feasible
+cumulative times.  No mixing theorem, Diophantine reduction, stochastic
+independence between orbit blocks, or generated-landing equidistribution is
+assumed.
 
 Define binary entropy by
 \[
@@ -256,12 +282,17 @@ or [[4]](#ref-mazur), and the clock scale already appears in
 coordinatewise: target scale, density notion, exceptional rate, and clock are
 not collapsed into one ordering.
 
-The proof has six load-bearing steps.
+The proof has two sharply separated parts and six load-bearing steps.
+
+**Exact probabilistic certification.**
 
 1. The parity-vector bijection turns a complete dyadic shell into the
    uniform Boolean cube.
 2. An adjustable maximal Boolean barrier gives an entropy-sharp shell
    exceptional rate and a certified all-prefix orbit envelope.
+
+**Deterministic Collatz transport and assembly.**
+
 3. First-passage reversal gives a loss-filtered tagged-fiber bound for
    every target subset of a landing shell.
 4. Strictly decreasing threshold ranks identify each recursively generated
@@ -1401,8 +1432,12 @@ reverse-product loss, nested direct re-certification, and the compressed
 feasible-time support. The
 dense-set pullback in [Section 8](#sec-graded-clock) is used only for the
 companion graded clock.
-In particular, no fixed-time endpoint-fiber moment or generated-target
-equidistribution hypothesis is used.
+In particular, no fixed-time endpoint-fiber moment, mixing statement,
+Diophantine reduction, or generated-target equidistribution hypothesis is
+used.  The Boolean walk in [Lemma 3.1](#lem-entropy-barrier) is only exact
+counting over the parity words supplied by
+[Proposition 2.2](#prop-parity-code), not a stochastic model of an individual
+Collatz orbit.
 
 ## Research and software disclosure
 
@@ -1452,3 +1487,8 @@ values*, Forum Math. Pi **10** (2022), e12,
 
 <span id="ref-terras">[6]</span> R. Terras, *A stopping time problem on the positive integers*, Acta
 Arith. **30** (1976), 241--252.
+
+<span id="ref-endpoint-v1">[7]</span> I. A. Shaik, *Quantitative Collatz Descent to
+Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization*,
+version 2.0.2, preprint (2026),
+[doi:10.5281/zenodo.21851173](https://doi.org/10.5281/zenodo.21851173).
