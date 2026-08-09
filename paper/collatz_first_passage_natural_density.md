@@ -1558,10 +1558,24 @@ loss-filtered transport through the natural-density assembly, and separately
 formalizes the fixed-depth graded-clock companion.  Its public `Main` theorem
 has the strict ranges \(A>A_{\rm FP}\), \(c>c_*\), and \(\beta>0\) from
 [Theorem 1.1](#thm-fixed-polylog); its landing inequality is strict and hence
-slightly stronger than the manuscript's weak inequality.  The full build,
-dependency report, placeholder scan, and public-root axiom audit pass, with
-logical dependencies `propext`, `Classical.choice`, and `Quot.sound`.
-These checks supplement rather than replace the written proof.
+slightly stronger than the manuscript's weak inequality.
+
+The reproducible referee snapshot is the access-controlled
+[GitHub repository](https://github.com/shaikidris/FirstPassageLinearTransport)
+at commit `e382a241e73ac2f0a958b7411f7778584f3dc48d`; repository access can be
+provided to referees on request.  It uses Lean `4.15.0` (commit
+`11651562caae`) and Mathlib revision
+`9837ca9d65d9de6fad1ef4381750ca688774e608`.  From the repository's `lean/`
+directory, the referee-facing build command is
+`lake build FirstPassageLinearTransport.PaperDependencyAudit
+FirstPassageLinearTransport.PaperAudit FirstPassageLinearTransport.Main`.
+The theorem dictionary is `lean/FORMALIZATION.md`; the dependency and axiom
+reports are respectively
+`lean/FirstPassageLinearTransport/PaperDependencyAudit.lean` and
+`lean/FirstPassageLinearTransport/PaperAudit.lean`.  The build, placeholder
+scan, dependency report, and public-root axiom audit pass, with logical
+dependencies `propext`, `Classical.choice`, and `Quot.sound`.  These checks
+supplement rather than replace the written proof.
 
 ## Appendix A. Graded fixed-power clock {#app-graded-clock}
 

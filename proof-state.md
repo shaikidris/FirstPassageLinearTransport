@@ -1,7 +1,8 @@
 # First-Passage Linear Transport V3 promotion state
 
-**Record date:** 2026-08-09
-**V2 project root:** `/Users/shaik.i/research/collatz/FirstPassageLinearTransport`  
+**Record date:** 2026-08-10
+**V3 project root:** `/Users/shaik.i/research/collatz/FirstPassageLinearTransport`
+
 **Frozen V1 repository:** `/Users/shaik.i/research/collatz/CET`  
 **Frozen V1 tag:** `v1.0.1`  
 **Frozen V1 commit:** `16766542edaf1aac67ea1ad474c1193c9c8939c9`
@@ -9,7 +10,9 @@
 ## Active V3 promotion
 
 The V2.3.1 paper and public Lean API at commit `2816871` remain the frozen
-baseline. The private branch `v3-fixed-polylog` promotes a new paper headline:
+baseline.  The private branch `v3-fixed-polylog` promotes a new paper headline.
+Its immutable referee snapshot is commit
+`e382a241e73ac2f0a958b7411f7778584f3dc48d`:
 
 ```text
 T_min(n) <= C (log n)^A
@@ -21,16 +24,16 @@ and O(X / (log X)^kappa) exceptions.
 Paper status:
 
 - shrinking-time-support fixed-polylogarithmic proof:
-  `PROVED-PAPER / FORMAL-SYNC`; independent adversarial re-audit pending;
+  `PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED / RE-AUDIT PASS`;
 - endpoint-rate stretched-log companion:
   `PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - shrinking-time-support cut-vertex reconstruction: `PASS`;
 - prior fixed-tolerance freeze audit: `PASS / HISTORICAL`;
-- streamlined 19-page headline cone with isolated graded companion, proof-architecture figure, PDF render,
+- streamlined 22-page headline cone with isolated graded appendix, proof-architecture figure, PDF render,
   and visual audit: `PASS`;
 - probabilistic/deterministic interface, Version-1 lineage, and current
   Tao-bridge comparison: `PASS / NONSEMANTIC EXPOSITION`;
-- manuscript-only Lean dependency and axiom roots: `PASS / 58 ROOTS`.
+- manuscript-only Lean dependency and axiom roots: `PASS / 67 ROOTS`.
 
 V3 formal status:
 
