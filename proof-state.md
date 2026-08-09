@@ -1,6 +1,6 @@
 # First-Passage Linear Transport V3 promotion state
 
-**Record date:** 2026-08-08
+**Record date:** 2026-08-09
 **V2 project root:** `/Users/shaik.i/research/collatz/FirstPassageLinearTransport`  
 **Frozen V1 repository:** `/Users/shaik.i/research/collatz/CET`  
 **Frozen V1 tag:** `v1.0.1`  
@@ -25,7 +25,9 @@ Paper status:
 - endpoint-rate stretched-log companion: `PROVED-PAPER / AUTHOR-AUDIT`;
 - shrinking-time-support cut-vertex reconstruction: `PASS`;
 - prior fixed-tolerance freeze audit: `PASS / HISTORICAL`;
-- V3 PDF render and visual audit: `PASS`.
+- V3 PDF render and visual audit: `PASS`;
+- probabilistic/deterministic interface and Version-1 lineage clarification:
+  `PASS / NONSEMANTIC EXPOSITION`; no Lean change required.
 
 V3 formal status:
 
@@ -89,10 +91,22 @@ f01c074c5732442eceb0e483b086a471f40fc8829156676dfa0fe27216308bef  lean/FirstPass
 6a256b83ed132647dc6260569cbf7ce5ad4362f1e0aeead0915087b0be304995  lean/FirstPassageLinearTransport/ShrinkingPolylogProfile.lean
 181150a366cc9e0ed0e6fc844befdbcac76006d68efe96a53388c5b3114d5be7  lean/FirstPassageLinearTransport/ShrinkingParameters.lean
 5d66163e7734e797168b460fbda5c4e0780e8695f323781c8d865d0051b7a8b2  lean/FirstPassageLinearTransport/ShrinkingNaturalDensityDescent.lean
-d12a2a27ae5a363081d48933a3f51b8cca577ac69a2ffd87c61d0f52931c4015  paper/collatz_first_passage_natural_density.md
-d57b544ce51666b5284d710e1bb6c561962b3736f9110701387d7ecc5735fb7c  paper/collatz_first_passage_natural_density_v3.pdf
+f768fdfcac7d9a5277fb50fcf4f8d3dab6520d6f5377610a68a647c33df93144  paper/collatz_first_passage_natural_density.md
+29a16c67e885dd1aac380f24a24fb2ae47e0440eb9b52def559fb4d4bdbecb58  paper/collatz_first_passage_natural_density_v3.pdf
 5e66cdc19a306386342fd783260c0453b5c182d6db9ca3eabb886b7b2bf3e414  audits/review_time_support_formal_sync_2026_08_08.md
+690c0259ee7fae236b02cd7d708e49f79bb10eaad7624ee7af65f73339401863  audits/review_methodological_interface_exposition_2026_08_09.md
 ```
+
+The 2026-08-09 manuscript edit is prose-only.  It exposes the exact
+probabilistic/deterministic interface already used by the proof and records
+that no mixing, Diophantine, block-independence, or generated-equidistribution
+input is present.  It also cites the public Version-1 preprint at
+`10.5281/zenodo.21851173`, identifies the fixed-time endpoint/Rényi chain that
+the present first-passage argument replaces, and records the headline-cone
+organization into the two main theorems and their corollaries.  The theorem
+statement, proof, constants, equations, and public Lean declaration are
+unchanged; the edit is audited in
+`audits/review_methodological_interface_exposition_2026_08_09.md`.
 
 Prior fixed-tolerance private-freeze snapshot (historical):
 
