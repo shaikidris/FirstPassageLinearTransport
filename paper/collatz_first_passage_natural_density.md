@@ -35,25 +35,28 @@ c_* = \frac2{\log(4/3)}
 =6.9521189935\ldots,
 \]
 where \(H_2\) is binary entropy.  For every fixed
-\(A>A_{\rm FP}\), \(c>c_*\), and \(\beta>0\), we prove that all but
-\(O(X/(\log X)^\kappa)\) integers \(n\le X\) possess a shortcut-Collatz
-iterate, before \(c\log n\) steps, satisfying
+\(A>A_{\rm FP}\), \(c>c_*\), and \(\beta>0\), there are positive constants
+\(C_{\rm tar},C_{\rm exc},\kappa\) such that all but
+\(C_{\rm exc}X/(\log X)^\kappa\) integers \(n\le X\) possess a
+shortcut-Collatz iterate, before \(c\log n\) steps, satisfying
 \[
-T^k(n)\le C(\log n)^A,
+T^k(n)\le C_{\rm tar}(\log n)^A,
 \qquad
 \max_{0\le j\le k}T^j(n)\le n^{1+\beta}.
 \]
-The constants \(C,\kappa>0\) may depend on the displayed fixed parameters.
-The endpoint \(A=A_{\rm FP}\) is not asserted.  At the weaker target
-\(\exp((\log n)^{1-\delta})\), the same method gives the sharper exceptional
-count
+These constants may depend on the displayed fixed parameters.
+The endpoint \(A=A_{\rm FP}\) is not asserted.
+
+For the weaker target \(\exp((\log n)^{1-\delta})\), the same method gives
+the sharper exceptional count
 \[
 O_{\delta,c,\beta}\!\left(
-X\exp(-c_{\delta,c,\beta}(\log X)^{1-\delta})
+X\exp(-\gamma_{\delta,c,\beta}(\log X)^{1-\delta})
 \right)
 \]
 for every fixed \(0<\delta<1\), \(c>c_*\), and \(\beta>0\); the same witnesses
-give every raw Collatz clock constant greater than \(3/\log(4/3)\).
+give every clock constant greater than \(3/\log(4/3)\) for the
+unaccelerated Collatz map.
 
 The proof uses exact parity-cube counting only to certify an all-prefix orbit
 barrier.  It then proceeds deterministically.  Strictly nested thresholds
@@ -68,9 +71,7 @@ claim for every starting value.
 
 We ask how small a value can be forced along the Collatz orbit of almost every
 initial integer in ordinary natural density, while retaining a logarithmic
-witnessing time and a bound on the orbit before that witness.  This separates
-typical descent from universal termination; no result below applies to every
-starting value.
+witnessing time and a bound on the orbit before that witness.
 
 We work throughout with the shortcut Collatz map \(T\) displayed in the
 abstract.  All unqualified logarithms are natural, \(\log_2\) denotes the
@@ -79,8 +80,9 @@ base-two logarithm, and \(\mathbb N=\{1,2,3,\ldots\}\).  Put
 a_0=\frac{\log_2 3}{2}.
 \tag{1.1}\label{eq:1-1}
 \]
-Thus \(a_0-1\) is the mean binary logarithmic multiplier per shortcut step
-under the exact uniform parity coding used below.
+Thus \(a_0-1\) is the mean base-two logarithm of the multiplicative main
+term under the exact uniform parity coding used below; the affine correction
+is treated separately in Section 3.
 
 Define binary entropy by
 \[
@@ -109,36 +111,40 @@ c>c_*,
 \beta>0,
 \tag{1.3}\label{eq:1-3}
 \]
-there are constants \(C,\kappa,X_0>0\) with the following property.  For
-every \(X\ge X_0\), let \(\mathcal E_{A,c,\beta,C}(X)\) be the set of integers
+there are constants \(C_{\rm tar},C_{\rm exc},\kappa,X_0>0\) with the
+following property.  For every \(X\ge X_0\), let
+\(\mathcal E_{A,c,\beta,C_{\rm tar}}(X)\) be the set of integers
 \(1\le n\le X\) for which no integer \(0\le k<c\log n\) simultaneously
 satisfies
 \[
-T^k(n)\le C(\log n)^A,
+T^k(n)\le C_{\rm tar}(\log n)^A,
 \qquad
 \max_{0\le j\le k}T^j(n)\le n^{1+\beta}.
 \]
 Then
 \[
-\#\mathcal E_{A,c,\beta,C}(X)
-\le C\frac{X}{(\log X)^\kappa}.
+\#\mathcal E_{A,c,\beta,C_{\rm tar}}(X)
+\le C_{\rm exc}\frac{X}{(\log X)^\kappa}.
 \tag{1.4}\label{eq:1-4}
 \]
-In particular, \(T_{\min}(n)\le C(\log n)^A\) on a set of natural density
-one.  The endpoint \(A=A_{\rm FP}\) is not asserted.
+In particular, \(T_{\min}(n)\le C_{\rm tar}(\log n)^A\) on a set of natural
+density one.  The endpoint \(A=A_{\rm FP}\) is not asserted.
 
 :::
 
 Since \((\log n)^A=o(n)\), the displayed landing is a genuine descent for all
-sufficiently large \(n\).  Neither the constant \(C\) nor the onset of this
-crossover is made effective.
+sufficiently large \(n\).  The assertion is density-one rather than pointwise:
+it does not claim the displayed landing for every starting value.  Neither the
+landing constant \(C_{\rm tar}\) nor the onset of this crossover is made
+effective.
 
 ::: {.theorem-block}
 
 ### Theorem 1.2 (endpoint-rate stretched-logarithmic descent) {#thm-stretched-log}
 
 For every fixed \(0<\delta<1\), \(c>c_*\), and \(\beta>0\), there are
-constants \(C_{\delta,c,\beta},c_{\delta,c,\beta},X_{\delta,c,\beta}>0\)
+constants \(C_{\delta,c,\beta},\gamma_{\delta,c,\beta},
+X_{\delta,c,\beta}>0\)
 with the following property.  For every \(X\ge X_{\delta,c,\beta}\), let
 \(\mathcal E_{\delta,c,\beta}(X)\) be the set of integers
 \(1\le n\le X\) for which no integer \(0\le k<c\log n\) simultaneously
@@ -153,7 +159,7 @@ Then
 \#\mathcal E_{\delta,c,\beta}(X)
 \le
 C_{\delta,c,\beta}X
-\exp(-c_{\delta,c,\beta}(\log X)^{1-\delta}).
+\exp(-\gamma_{\delta,c,\beta}(\log X)^{1-\delta}).
 \tag{1.5}\label{eq:1-5}
 \]
 The endpoint \(\delta=1\) is not asserted.
@@ -175,11 +181,11 @@ For every fixed \(A>A_{\rm FP}\), \(\beta>0\), and
 c_{\rm raw}>\frac3{\log(4/3)},
 \tag{1.6}\label{eq:1-6}
 \]
-there are constants \(C,\kappa,X_0>0\) such that all but
-\(C X/(\log X)^\kappa\) integers \(n\le X\), for \(X\ge X_0\), possess an
-integer \(\ell<c_{\rm raw}\log n\) for which
+there are constants \(C_{\rm tar},C_{\rm exc},\kappa,X_0>0\) such that all
+but \(C_{\rm exc}X/(\log X)^\kappa\) integers \(n\le X\), for \(X\ge X_0\),
+possess an integer \(\ell<c_{\rm raw}\log n\) for which
 \[
-\operatorname{Col}^{\ell}(n)\le C(\log n)^A,
+\operatorname{Col}^{\ell}(n)\le C_{\rm tar}(\log n)^A,
 \qquad
 \max_{0\le j\le\ell}\operatorname{Col}^j(n)\le n^{1+\beta}.
 \]
@@ -213,57 +219,12 @@ logarithmic height that remains: for example, the limiting coefficient at
 \(\alpha=1/2\) is \(1/\log(4/3)=3.47605949\ldots\), rather than the full
 descent coefficient \(c_*\).
 
-### Relation to previous almost-all results
+### Proof architecture
 
-The preceding endpoint-transport preprint [[7]](#ref-endpoint-v1) proves the
-range \(0<\delta<0.251245530155874\ldots\) by a fixed-time
-endpoint-fiber/Rényi estimate followed by endpoint iteration.  The present
-proof is independent of that theorem.  It replaces fixed-time endpoint
-transport by all-prefix certification, first-passage reversal, nested direct
-re-certification, and support-sensitive time aggregation.
-
-The main obstruction is not the contraction of one typical block, but the
-transport of sparse certification failures through a generated sequence of
-landings.  A direct aggregation over the available time tags incurs a linear
-horizon loss.  The support theorem below compresses those tags to
-\(O(\sqrt{M\log M})\) possibilities; this linear-to-square-root reduction is
-the quantitative pivot of the paper.
-
-The theorem should be read along several independent axes: density notion,
-target scale, clock, and exceptional rate.  The closest comparisons are:
-
-| Result | Status and proof relationship | Density | Target reached for almost all starts | Clock retained in the stated result | Quantitative exception |
-|---|---|---|---|---|---|
-| Korec [[3]](#ref-korec) | published | natural | \(n^\theta\), every fixed \(\theta>a_0\) | not part of the cited theorem | not used here |
-| Inselmann [[2]](#ref-inselmann) | preprint | natural | \(n^\varepsilon\), every fixed \(\varepsilon>0\) | \(2\log n/\log(4/3)\) shortcut steps | density convergence |
-| Tao [[5]](#ref-tao) | published; original Syracuse/\(3\)-adic first-passage framework | logarithmic | every \(f(n)\to\infty\) | no single global clock in the headline theorem | logarithmic-density estimate |
-| Mazur [[4]](#ref-mazur) | manuscript with a pinned formal artifact; Tao-to-natural-density bridge | natural | every \(f(n)\to\infty\) | \(<436\log n\) raw steps | fixed-target logarithmic rate |
-| Allikvere [[1]](#ref-allikvere) | unrefereed preprint; Tao-to-natural-density bridge | natural | every \(f(n)\to\infty\) | \(<12\log n\) raw steps | \(O((\log N_0)^{-1/29}+X^{-1/2000})\) for a fixed target |
-| This paper | research draft; independent first-passage transport chain | natural | \(C(\log n)^A\), every fixed \(A>A_{\rm FP}\); also \(\exp((\log n)^{1-\delta})\) with a stronger rate | every shortcut constant \(>c_*\); every raw constant \(>3/\log(4/3)\); graded clock \eqref{eq:1-8} for fixed powers | \(O(X/(\log X)^\kappa)\) at the polylog target; \(O(Xe^{-c(\log X)^{1-\delta}})\) at the stretched-log target |
-
-The fixed-polylogarithmic target is smaller than every fixed power and every
-fixed stretched-logarithmic target of the form in
-[Theorem 1.2](#thm-stretched-log).  It remains
-weaker than an arbitrary diverging function.  Thus the present theorem does
-not supersede the arbitrary-threshold conclusions of [[1]](#ref-allikvere)
-or [[4]](#ref-mazur), and the clock scale already appears in
-[[2]](#ref-inselmann).  The comparison is deliberately
-coordinatewise: target scale, density notion, exceptional rate, and clock are
-not collapsed into one ordering.
-
-The two recent arbitrary-diverging natural-density manuscripts are bridge
-results from Tao's first-passage program.  Allikvere conditions Tao's
-Syracuse/Fourier inputs on the total valuation and supplies a uniform-measure
-transfer.  Mazur starts from the same logarithmic-density frontier and adds a
-quantitative phase-gap and two-adic lift.  The proof below does not import
-Tao's renewal or Fourier-mixing estimates: its probabilistic input is exact
-Boolean-cube counting, followed by deterministic first-passage transport.
-
-The probabilistic input below is confined to exact parity-cube counting used
-to certify an all-prefix barrier.  From first-passage reversal onward, the
-transport and re-certification argument is deterministic.
-
-The proof has two sharply separated parts and six load-bearing steps.
+The proof has two sharply separated parts and six load-bearing steps.  Its
+probabilistic input is confined to exact parity-cube counting; from
+first-passage reversal onward, the transport and re-certification argument is
+deterministic.
 
 **Exact probabilistic certification.**
 
@@ -290,12 +251,64 @@ the proved order reduction in the number of feasible cumulative time tags;
 bar lengths are schematic and do not encode the unspecified constant in
 Lemma 6.1.](fig-architecture.svg){#fig-architecture}
 
+### Relation to previous almost-all results
+
+The preceding endpoint-transport preprint [[7]](#ref-endpoint-v1) proves the
+range \(0<\delta<0.251245530155874\ldots\) by a fixed-time
+endpoint-fiber/Rényi estimate followed by endpoint iteration.  The present
+proof is independent of that theorem.  It replaces fixed-time endpoint
+transport by all-prefix certification, first-passage reversal, nested direct
+re-certification, and support-sensitive time aggregation.
+
+The main obstruction is not the contraction of one typical block, but the
+transport of sparse certification failures through a generated sequence of
+landings.  Direct aggregation over the available time tags incurs a linear
+horizon loss.  Step 5 above compresses those tags to
+\(O(\sqrt{M\log M})\) possibilities; this linear-to-square-root reduction is
+the quantitative pivot of the paper.
+
+The published results of Korec and Tao, the preprint of Inselmann, and the two
+recent Tao-to-natural-density bridge manuscripts are compared below only on
+the coordinates used in their stated theorems.  Publication status and proof
+lineage are recorded in the surrounding prose and references rather than in
+the table.
+
+| Work | Density | Target reached for almost all starts | Clock or quantitative feature |
+|---|---|---|---|
+| Korec [[3]](#ref-korec) | natural | \(n^\theta\), every fixed \(\theta>a_0\) | no clock or quantitative exception used here |
+| Inselmann [[2]](#ref-inselmann) | natural | \(n^\varepsilon\), every fixed \(\varepsilon>0\) | \(2\log n/\log(4/3)\) shortcut steps; density convergence |
+| Tao [[5]](#ref-tao) | logarithmic | every \(f(n)\to\infty\) | no single global clock in the headline theorem; logarithmic-density estimate |
+| Mazur [[4]](#ref-mazur) | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | \(<436\log n\) unaccelerated steps; fixed-target logarithmic rate |
+| Allikvere [[1]](#ref-allikvere) | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | \(<12\log n\) unaccelerated steps; \(O((\log N_0)^{-1/29}+X^{-1/2000})\) for a fixed target |
+| This paper | natural | \(C_{\rm tar}(\log n)^A\), every fixed \(A>A_{\rm FP}\); also \(\exp((\log n)^{1-\delta})\) | every shortcut constant \(>c_*\); every unaccelerated constant \(>3/\log(4/3)\); polynomial or stretched-exponential exceptional rate |
+
+The fixed-polylogarithmic target is smaller than every fixed power and every
+fixed stretched-logarithmic target in [Theorem 1.2](#thm-stretched-log), but
+is weaker than an arbitrary diverging function.  Thus the present theorem
+does not supersede the arbitrary-threshold conclusions of
+[[1]](#ref-allikvere) or [[4]](#ref-mazur), and the clock scale already
+appears in [[2]](#ref-inselmann).  These axes are deliberately not collapsed
+into a single ordering.
+
+Allikvere conditions Tao's Syracuse/Fourier inputs on the total valuation and
+supplies a uniform-measure transfer.  Mazur starts from the same
+logarithmic-density frontier and adds a quantitative phase-gap and two-adic
+lift.  Their shared bridge architecture differs from the exact
+Boolean-cube certification and deterministic first-passage transport
+separation displayed above.
+
 ## 2. Density, parity, and affine iterates
 
 The argument uses three common coordinates: a shell-to-prefix summation rule,
 exact parity coding on each dyadic shell, and an affine formula for the
 iterate.  This section establishes them for the certification and transport
 arguments in [Section 3](#sec-barrier) and [Section 4](#sec-transport).
+
+For \\(M\\geq0\\), write
+\[
+I_M=[2^M,2^{M+1})\cap\mathbb N
+\]
+for the \\(M\\)-th dyadic shell.
 
 For \(S\subseteq\mathbb N\), put
 \[
@@ -596,6 +609,11 @@ The unused part of the upper envelope is at least
 \rho^M2^{(1+\eta)M}.
 \tag{3.15}\label{eq:3-15}
 \]
+Indeed, before this uniform replacement the slack is
+\(\left(1-2^{-(1-\lambda)\eta M}\right)\rho^k n^{1+\eta}\).
+Over all \(0\leq k\leq M\) and \(n\in I_M\), its minimum occurs at
+\(k=M\) and at the lower shell endpoint \(n=2^M\), which gives
+\eqref{eq:3-15}.
 Its binary exponent exceeds that of \eqref{eq:3-14}, because
 \[
 a_0+\eta-2\lambda\eta
@@ -681,6 +699,13 @@ u_j(n)=
 E_Y(n)=Y\sum_{j=0}^{h-1}u_j(n).
 \tag{4.5}\label{eq:4-5}
 \]
+The factor \(Y\) records the additive reverse loss at the target scale:
+\(E_Y/Y\) is an additive upper bound for the defect of the reverse product.
+It also makes concatenation compatible with changing thresholds.  If a
+segment is measured locally at \(Y'\geq Y\), then its contribution after
+rescaling to the final threshold \(Y\) is exactly \(Y/Y'\) times its local
+contribution to \(E_{Y'}\).  Thus segment losses add after rescaling, which is
+the coordinate used in [Lemma 5.2](#lem-rank-loss).
 The elementary product inequality gives
 \[
 1-\frac{E_Y(n)}Y
@@ -905,8 +930,8 @@ certification failure before it reaches rank below \(L\).
 
 ### Theorem 5.3 (optimized terminal profile) {#thm-terminal-profile}
 
-Under \eqref{eq:5-1}, there is a fixed startup rank and a constant \(C>0\) such
-that, for all \(M\ge L\) above that startup,
+Under \eqref{eq:5-1}, for the fixed startup rank \(M_0\) chosen above there
+is a constant \(C>0\) such that, for all integers \(M\ge L\ge M_0\),
 \[
 \boxed{
 \frac{\#\operatorname{Fail}_{M,L}}{2^M}
@@ -933,14 +958,17 @@ block and the block producing that landing are certified, so
 certified.  [Lemma 5.1](#lem-nested-passage) makes it
 a direct first passage from \(I_M\), at time at most \(M/(1-r)+1\).
 
-Increase the startup rank until
+Increase \(M_0\), if necessary, so that
 \[
 \frac{q+2}{r2^q}\le\frac13
 \tag{5.13}\label{eq:5-13}
 \]
-for every \(q\ge L\).  [Proposition 4.3](#prop-loss-transport), with
-\(D=(q+2)/r\), bounds the proportion of sources whose first failed landing
-has rank \(q\) by
+for every \(q\ge M_0\).  In [Proposition 4.3](#prop-loss-transport), the
+available horizon satisfies
+\(H\le M/(1-r)+1\ll_r M\), while with \(D=(q+2)/r\) one has
+\(1+3D\ll_r q+1\).  Combining \eqref{eq:4-10} with \eqref{eq:5-9}
+therefore bounds the proportion of sources whose first failed landing has
+rank \(q\) by
 \[
 C M(q+1)(e^{-c_\eta q}+2^{-q}).
 \tag{5.14}\label{eq:5-14}
@@ -980,7 +1008,13 @@ a_0<r_{\rm lo}<1,
 0<\eta_{\rm lo}<r_{\rm lo}-a_0.
 \tag{6.2}\label{eq:6-2}
 \]
-For constants \(D,C_{\rm sw}>0\), put
+Put \(r_*=\min\{r_{\rm hi},r_{\rm lo}\}\).  Fix
+\(L_{\rm loss}\) so large that
+\[
+\frac{q+2}{r_*2^q}\le\frac13
+\qquad(q\ge L_{\rm loss}).
+\]
+For constants \(D_{\rm hi},C_{\rm sw}>0\), put
 \[
 S_M=\left\lceil C_{\rm sw}\log(M+2)\right\rceil,
 \tag{6.3}\label{eq:6-3}
@@ -989,16 +1023,74 @@ and, at a high parent rank \(m\ge S_M\), certify with
 \[
 \eta_{M,m}
 =\min\left\{\tau,
-D\sqrt{\frac{\log(M+2)}m}\right\}.
+D_{\rm hi}\sqrt{\frac{\log(M+2)}m}\right\}.
 \tag{6.4}\label{eq:6-4}
 \]
-Below the switch use the fixed tolerance \(\eta_{\rm lo}\).  Every smaller
-tolerance reuses the fixed high-rank certification theorem at tolerance
-\(\tau\), so no rank-dependent startup assumption is introduced.
+Below the switch use the fixed tolerance \(\eta_{\rm lo}\).  Let
+\(M_{\rm hi}\) and \(M_{\rm lo}\) be fixed startup ranks for the parameter
+pairs \((r_{\rm hi},\tau)\) and \((r_{\rm lo},\eta_{\rm lo})\), respectively,
+as in Section 5, and put
+\[
+L_0=\max\{2,M_{\rm hi}+1,M_{\rm lo}+1,L_{\rm loss}\}.
+\tag{6.4a}\label{eq:6-4a}
+\]
+The high-rank stage construction at tolerance \(\tau\) remains valid after
+lowering its tolerance to \(\eta_{M,m}\); the density of the resulting
+rank-dependent certification sets will be estimated separately below.
 
-The nested first-passage proof remains unchanged.  With
-\(r_*=\min\{r_{\rm hi},r_{\rm lo}\}\), every first-bad landing at threshold
-rank \(q\) is a direct first passage from the original shell and satisfies
+Here is the literal stopped chain used in this section.  Fix \(M\), write
+\(S=S_M\), and set
+\[
+(r(m),t_M(m))=
+\begin{cases}
+(r_{\rm hi},\eta_{M,m}),&m\ge S,\\
+(r_{\rm lo},\eta_{\rm lo}),&m<S.
+\end{cases}
+\tag{6.4b}\label{eq:6-4b}
+\]
+For a landing at threshold rank \(q\), define the certification that would
+be used by its lower-shell continuation by
+\[
+\vartheta_{M,S}(q)=
+\begin{cases}
+\eta_{M,q-1},&S\le q-1,\\
+\eta_{\rm lo},&q-1<S.
+\end{cases}
+\tag{6.4c}\label{eq:6-4c}
+\]
+Start with \(n_0=n\in I_M\), parent rank \(m_0=M\), and elapsed time
+\(H_0=0\).  If \(n_0\notin W_{\eta_{M,M}}\), stop with an initial
+certification failure.  Otherwise, from a certified checkpoint
+\(n_i\in I_{m_i}\), set
+\[
+q_i=\lfloor r(m_i)m_i\rfloor,\qquad
+h_i=\tau_{2^{q_i}}(n_i),\qquad
+n_{i+1}=T^{h_i}(n_i),\qquad
+H_{i+1}=H_i+h_i.
+\tag{6.4d}\label{eq:6-4d}
+\]
+If \(q_i<L\), stop successfully.  If \(q_i\ge L\) and
+\(n_{i+1}\notin W_{\vartheta_{M,S}(q_i)}\), stop at the unique first failed
+landing, of rank \(q_i\).  Otherwise set
+\(m_{i+1}=\lfloor\log_2n_{i+1}\rfloor\) and continue from \(n_{i+1}\).
+
+Put
+\[
+B^{\rm sh}_{M,S,q}
+=\bigl((2^{q-1},2^q]\cap\mathbb N\bigr)
+  \setminus W_{\vartheta_{M,S}(q)}.
+\tag{6.4e}\label{eq:6-4e}
+\]
+Then \(\operatorname{Fail}^{\rm sh}_{M,L}\) is, by definition, the union of
+the initial failures in \(I_M\setminus W_{\eta_{M,M}}\) and the sources
+\(n\in I_M\) for which some executed block \(i\) ends at cumulative time
+\(H_{i+1}\) and rank \(L\le q_i<M\) with
+\(T^{H_{i+1}}(n)\in B^{\rm sh}_{M,S,q_i}\).  This is a first-bad union: the
+bad landing is never used as the source of another certified block.
+
+The nested first-passage proof remains unchanged.  Every first-bad landing
+at threshold rank \(q\) is a direct first passage from the original shell
+and satisfies
 \[
 E_{2^q}(n)<\frac{q+2}{r_*}.
 \tag{6.5}\label{eq:6-5}
@@ -1018,23 +1110,68 @@ all cumulative first-passage times belong to a finite set
 
 #### Proof
 
-Consider one certified block from a parent shell \(I_m\) to threshold
-\(2^q\), and let \(h\) be its duration and \(t\) its active tolerance.
-The two deterministic orbit envelopes and the first-passage band give
+Write \(g=1-a_0\).  Consider one certified block from a parent shell
+\(I_m\) to threshold \(2^q\), and let \(h\) be its duration and \(t\) its
+active tolerance.  The two deterministic orbit envelopes and the
+first-passage band give
 \[
 (1-t)m-q
-\le(1-a_0)h
+\le gh
 <(1+t)(m+1)-q+1.
 \tag{6.7}\label{eq:6-7}
 \]
-The width before division by \(1-a_0\) is exactly \(2tm+t+2\).
-During the high phase, \(tm\le D\sqrt{m\log(M+2)}+\tau\), and the parent
-ranks decrease geometrically with ratio at most \(r_{\rm hi}\).  Hence the
-sum of high-phase widths is
-\(O(\sqrt{M\log(M+2)})\).  The low phase begins below
-\(S_M+1=O(\log M)\); summing its fixed-tolerance widths contributes only
-\(O(S_M)\).  Adding the integer rounding errors gives one interval of at
-most the size in \eqref{eq:6-6} containing every feasible cumulative time.
+Thus
+\[
+\left|gh-(m-q)\right|\le tm+t+2.
+\tag{6.7a}\label{eq:6-7a}
+\]
+
+Now suppose blocks \(0,\ldots,j\) have been executed.  Every landing before
+the last one is certified.  Such a landing lies in
+\((2^{q_i-1},2^{q_i}]\).  It cannot equal \(2^{q_i}\): if it did, then at
+time \(q_i\) its certification lower bound would be
+\[
+\rho^{q_i}(2^{q_i})^{1-t}
+=2^{(a_0-t)q_i}>1
+=T^{q_i}(2^{q_i}),
+\]
+because every active tolerance satisfies \(t<a_0\).  Hence each certified
+landing lies in the unique shell \(I_{q_i-1}\), and therefore
+\[
+m_{i+1}=q_i-1\qquad(0\le i<j).
+\tag{6.7b}\label{eq:6-7b}
+\]
+This removes the apparent rank branching.  In particular,
+\[
+\sum_{i=0}^{j}(m_i-q_i)=M-q_j-j.
+\tag{6.7c}\label{eq:6-7c}
+\]
+Summing \eqref{eq:6-7a}, using \eqref{eq:6-7c}, and paying one additional
+unit per block to change the center from \(M-q_j-j\) to \(M+1-q_j\), gives
+the exact cumulative corridor
+\[
+\left|gH_{j+1}-\bigl((M+1)-q_j\bigr)\right|
+\le
+\sum_{i=0}^{j}(t_i m_i+t_i+3).
+\tag{6.7d}\label{eq:6-7d}
+\]
+
+For high blocks,
+\[
+t_i m_i\le D_{\rm hi}\sqrt{m_i\log(M+2)},\qquad t_i\le\tau,
+\]
+and \eqref{eq:6-7b} gives
+\(m_{i+1}\le r_{\rm hi}m_i\).  The resulting geometric square-root sum is
+\(O(\sqrt{M\log(M+2)})\).  The low phase starts below \(S_M\), and its
+parent ranks decrease with ratio at most \(r_{\rm lo}\); hence its
+fixed-tolerance contribution is \(O(S_M)\).  Since
+\(S_M=O(\log(M+2))\), the right side of \eqref{eq:6-7d} is at most
+\(K_0\sqrt{(M+2)\log(M+2)}\).
+
+For fixed \(M\) and \(q_j=q\), the center in \eqref{eq:6-7d} is fixed.
+Consequently every feasible integer \(H_{j+1}\) lies in one interval of
+length \(O(\sqrt{M\log(M+2)})\); counting its integer points proves
+\eqref{eq:6-6}.  No union over intermediate rank histories remains.
 \(\square\)
 
 The tagged-fiber proof also has the following support-sensitive form.  If
@@ -1054,27 +1191,91 @@ This is [Proposition 4.3](#prop-loss-transport) summed only over the declared
 time tags.  No interval structure or density hypothesis on \(\mathcal H\)
 is used.
 
-Above the switch, choose \(C_{\rm sw}\) large enough that the cap in
-\eqref{eq:6-4} is inactive.  The quadratic maximal-barrier estimate then has
-exponent
-\(\eta_{M,m}^2m=D^2\log(M+2)\).  Consequently the initial high failure and
-every high-rank landing target have a common density bound
+### Proposition 6.2 (shrinking high-rank density) {#prop-shrinking-high-density}
+
+Assume
+\[
+\frac{D_{\rm hi}}{\sqrt{C_{\rm sw}}}\le\tau
+\qquad\text{and}\qquad
+1\le S_M\le M.
+\]
+Put
+\[
+c_0=\frac1{2(\log_2 3)^2},
+\qquad
+C_0=2e^{4c_0}.
+\]
+Then the cap in \eqref{eq:6-4} is inactive at every \(m\ge S_M\), and
+\[
+\eta_{M,m}^2m=D_{\rm hi}^2\log(M+2).
+\tag{6.8a}\label{eq:6-8a}
+\]
+Moreover,
+\[
+\frac{\#(I_M\setminus W_{\eta_{M,M}})}{2^M}
+\le C_0(M+2)^{-c_0D_{\rm hi}^2},
+\tag{6.8b}\label{eq:6-8b}
+\]
+and, for every \(q\) with \(S_M\le q-1\),
+\[
+\frac{|B^{\rm sh}_{M,S_M,q}|}{2^q}
+\le 2^{-q}+\frac{C_0}{2}(M+2)^{-c_0D_{\rm hi}^2}.
+\tag{6.8c}\label{eq:6-8c}
+\]
+
+#### Proof
+
+From \(m\ge S_M\ge C_{\rm sw}\log(M+2)\),
+\[
+D_{\rm hi}\sqrt{\frac{\log(M+2)}m}
+\le\frac{D_{\rm hi}}{\sqrt{C_{\rm sw}}}\le\tau.
+\]
+This proves that the cap is inactive and gives \eqref{eq:6-8a}.
+
+For completeness, the uniform quadratic estimate used here is
+\[
+\frac{\#(I_m\setminus W_t)}{2^m}
+\le C_0e^{-c_0t^2m}
+\qquad(0<t\le1).
+\tag{6.8d}\label{eq:6-8d}
+\]
+When \(m\ge4\) and \(tm\ge2\), apply [Lemma 3.1](#lem-entropy-barrier) at
+height \(tm/(2\log_2 3)\) and use
+\(\mathcal I(u)\ge2u^2\); the correction argument of
+[Lemma 3.2](#lem-affine-correction) then gives the required orbit envelope.
+Outside this startup regime, \(t^2m\le4\), so the trivial shell bound is
+absorbed by \(C_0=2e^{4c_0}\).  Thus \eqref{eq:6-8d} is uniform in \(t\).
+Applying it with \(t=\eta_{M,M}\) and using \eqref{eq:6-8a} proves
+\eqref{eq:6-8b}.
+
+For \(q\ge1\), the landing band lies in \(I_{q-1}\) apart from its single
+upper endpoint \(2^q\).  Apply \eqref{eq:6-8d} in \(I_{q-1}\), divide by
+\(2^q\), and use \eqref{eq:6-8a} at \(m=q-1\).  This gives
+\eqref{eq:6-8c}. \(\square\)
+
+Consequently the initial high failure and every high-rank landing target
+have a common density bound
 \[
 d_{\rm hi}(M)
 \ll (M+2)^{-p_{\rm hi}},
 \qquad
 p_{\rm hi}
-=\min\{C_{\rm sw}\log2,c_0D^2\},
+=\min\{C_{\rm sw}\log2,c_0D_{\rm hi}^2\},
 \tag{6.9}\label{eq:6-9}
 \]
 where \(c_0>0\) is the fixed quadratic maximal-barrier constant.  The first
 term in the minimum pays for the dyadic endpoint boundary at the switch.
 
-### Theorem 6.2 (support-sensitive terminal profile) {#thm-two-regime-profile}
+### Theorem 6.3 (support-sensitive terminal profile) {#thm-two-regime-profile}
 
-Let \(b_{\rm lo}<b_{\rm ent}(\eta_{\rm lo})\) and let
-\(0<c_2<\log2\).  For all sufficiently large \(M\) and
-\(1\le L<S_M<M\),
+Let \(0<b_{\rm lo}<b_{\rm ent}(\eta_{\rm lo})\) and let
+\(0<c_2<\log2\).  Assume
+\(D_{\rm hi}/\sqrt{C_{\rm sw}}\le\tau\).  There is a fixed
+startup rank \(M_1\ge L_0\), depending only on the displayed parameters,
+such that, for all integers
+\[
+M\ge M_1,\qquad L_0\le L<S_M<M,
+\]
 \[
 \boxed{
 \frac{\#\operatorname{Fail}^{\rm sh}_{M,L}}{2^M}
@@ -1096,15 +1297,47 @@ witness is at most \(n^{1+\beta}\), once \(M\) is sufficiently large.
 
 #### Proof
 
+Choose an intermediate rate
+\(b_{\rm lo}<\widetilde b_{\rm lo}<b_{\rm ent}(\eta_{\rm lo})\), and
+increase \(M_1\) until all fixed barrier startups, the switch inequalities,
+and the loss-filter condition above \eqref{eq:6-3} hold.
+
 Partition by the unique first failed certification rank.  The direct-passage
 identity \eqref{eq:6-5}, [Lemma 6.1](#lem-time-support), and
-\eqref{eq:6-8} give, after division by
-\(2^M\), the time-support factor times \((q+1)\) times the density of the
-rank-\(q\) bad landing target.  Summing the high ranks contributes
-\(O(\sqrt{M\log M}\,M^2d_{\rm hi}(M))\).  The strict exponents
-\(b_{\rm lo}<b_{\rm ent}(\eta_{\rm lo})\) and \(c_2<\log2\) absorb the
-linear rank factor in the low geometric tails and give the final two terms
-in \eqref{eq:6-10}.  The initial failure contributes \(d_{\rm hi}(M)\).
+\eqref{eq:6-8} give, after division by \(2^M\),
+\[
+\frac{\#\{\text{first failure at rank }q\}}{2^M}
+\ll
+\sqrt{M\log(M+2)}\,(q+1)
+\frac{|B^{\rm sh}_{M,S_M,q}|}{2^q}.
+\tag{6.10a}\label{eq:6-10a}
+\]
+If \(q\ge S_M+1\), then \eqref{eq:6-4c} selects
+\(\eta_{M,q-1}\), including the possible upper endpoint \(2^q\), and
+[Proposition 6.2](#prop-shrinking-high-density) bounds the last factor by
+\(d_{\rm hi}(M)\).  Hence
+\[
+\sum_{q=S_M+1}^{M-1}(q+1)d_{\rm hi}(M)
+\ll M^2d_{\rm hi}(M).
+\tag{6.10b}\label{eq:6-10b}
+\]
+If \(L\le q\le S_M\), then \eqref{eq:6-4c} selects the fixed tolerance
+\(\eta_{\rm lo}\).  Proposition 3.3, applied in \(I_{q-1}\) and with the
+single upper endpoint retained, gives
+\[
+\frac{|B^{\rm sh}_{M,S_M,q}|}{2^q}
+\ll e^{-\widetilde b_{\rm lo}q}+2^{-q}.
+\]
+The two strict rate gaps therefore give
+\[
+\sum_{q=L}^{S_M}(q+1)
+\frac{|B^{\rm sh}_{M,S_M,q}|}{2^q}
+\ll e^{-b_{\rm lo}L}+e^{-c_2L}.
+\tag{6.10c}\label{eq:6-10c}
+\]
+Combining \eqref{eq:6-10a}--\eqref{eq:6-10c} yields the transported terms
+in \eqref{eq:6-10}.  The initial failure contributes \(d_{\rm hi}(M)\) by
+\eqref{eq:6-8b}.
 
 The block ranks decrease geometrically, which gives the displayed clock.
 High blocks use tolerance at most \(\tau\).  Every low block begins below
@@ -1115,7 +1348,7 @@ below \(n^{1+\beta}\) eventually. \(\square\)
 
 We prove the target in \eqref{eq:1-4} by taking terminal rank
 \(L_M=\lceil A\log_2(M+2)\rceil\), while retaining the logarithmic clock and
-the \(n^{1+\beta}\) orbit ceiling from Theorem 6.2.
+the \(n^{1+\beta}\) orbit ceiling from Theorem 6.3.
 
 As \(\eta\uparrow1-a_0\),
 \[
@@ -1147,18 +1380,25 @@ Because \(A>A_{\rm FP}\), equation \eqref{eq:6-11} permits fixed
 \frac12<\frac{A\min\{b_{\rm lo},c_2\}}{\log2}.
 \tag{6.13}\label{eq:6-13}
 \]
-Choose \(a_0+\eta_{\rm lo}<r_{\rm lo}<1\).  Next choose \(D\) and then
-\(C_{\rm sw}\) so large that
-\(D/\sqrt{C_{\rm sw}}\le\tau\),
-\(C_{\rm sw}>A/\log2\), and \(p_{\rm hi}\) in \eqref{eq:6-9} exceeds every
-fixed polynomial cost needed below.
+Choose \(a_0+\eta_{\rm lo}<r_{\rm lo}<1\).  Next choose \(D_{\rm hi}\) and
+then \(C_{\rm sw}\) so large that
+\[
+c_0D_{\rm hi}^2>3,\qquad
+\frac{D_{\rm hi}}{\sqrt{C_{\rm sw}}}\le\tau,\qquad
+C_{\rm sw}>\frac A{\log2},\qquad
+C_{\rm sw}\log2>3.
+\tag{6.13a}\label{eq:6-13a}
+\]
+Thus \(p_{\rm hi}>3\), an explicit margin beyond the
+\(M^{5/2}\)-scale high-rank cost in \eqref{eq:6-10}.
 
 Set
 \[
 L_M=\left\lceil A\log_2(M+2)\right\rceil.
 \tag{6.14}\label{eq:6-14}
 \]
-Then \(L_M<S_M\) eventually.  From \eqref{eq:6-10}, every fixed
+After increasing the fixed startup \(M_1\), one has
+\(L_0\le L_M<S_M<M\).  From \eqref{eq:6-10}, every fixed
 \[
 0<\kappa<
 \min\left\{
@@ -1280,87 +1520,9 @@ eventually, while \(1-\delta>\sigma\).
 \eqref{eq:1-7}, after decreasing the positive exponential constant and absorbing the
 finite startup.
 
-### Independent graded fixed-power clock
-
-The second assertion of [Corollary 1.4](#cor-fixed-power) is a fixed-depth
-companion, not an input to either headline theorem.  We give the short
-derivation because it records a genuine time--descent tradeoff that the
-stronger polylogarithmic target alone does not express.
-
-Put \(g=1-a_0\).  Fix \(a_0<r<1\) and \(0<\eta<r-a_0\).  For a certified
-source \(x\in I_m\), set \(Y_m=2^{\lfloor rm\rfloor}\), let \(G(x)\) be its
-first entrance into \((Y_m/2,Y_m]\), and put
-\[
-H_m=
-\left\lceil
-\frac{(1+\eta-r)m+2+\eta}{g}
-\right\rceil.
-\tag{7.7}\label{eq:7-7}
-\]
-The strict inequality \(\eta<r-a_0\) gives \(H_m\le m\) eventually.  The
-upper half of the all-prefix envelope \eqref{eq:3-8} then gives
-\[
-T^{H_m}(x)
-<2^{-gH_m+(1+\eta)(m+1)}
-\le2^{rm-1}
-\le Y_m.
-\tag{7.8}\label{eq:7-8}
-\]
-Hence the first passage defining \(G\) occurs by time \(H_m\), and
-\[
-H_m\le \frac{1+\eta-r}{g}\,m+O_{r,\eta}(1).
-\tag{7.9}\label{eq:7-9}
-\]
-
-We record why a fixed number of these stages retains natural density one.
-After absorbing finitely many startup shells, let
-\(\widetilde W_\eta\) denote the certified set and put
-\(\mathcal P(S)=\widetilde W_\eta\cap G^{-1}(S)\).
-If \(S\) is \((C,D)\)-dense and \(0<\chi<r\), then \(\mathcal P(S)\) is
-\((C',\chi D)\)-dense for every sufficiently small fixed \(D>0\).
-Indeed, for every first passage of length at most \(H_m\), the loss in
-\eqref{eq:4-5} satisfies \(E_{Y_m}\le H_m/2\), and
-\(H_m/(2Y_m)\le1/3\) eventually.  Apply
-[Proposition 4.3](#prop-loss-transport) with this loss budget and with
-\(B=(Y_m/2,Y_m]\setminus S\).  Since \(|B|\le C Y_m^{1-D}\), the
-transported part of the shell complement is
-\[
-\ll C m^2\frac{2^m}{Y_m}Y_m^{1-D}
-\ll C m^2\,2^{(1-rD)m}.
-\tag{7.10}\label{eq:7-10}
-\]
-For fixed \(0<\chi<r\), the polynomial factor is absorbed by
-\(2^{(r-\chi)Dm}\), uniformly at cost \(O_{r,\chi}(D^{-2})\).
-[Proposition 3.3](#prop-barrier-density) absorbs the certification complement
-after \(D\) is restricted below a fixed positive threshold.  Dyadic
-summation proves the claimed density update.  Iterating it any fixed number
-of times therefore still gives a natural-density-one set.
-
-Now fix \(0<\alpha<1\) and \(\varepsilon>0\).  Choose
-\(0<\alpha'<\alpha\) with
-\(c_*(\alpha-\alpha')<\varepsilon/3\), then choose a fixed \(R\ge1\) and
-\(r=(\alpha')^{1/R}>a_0\).  Finally choose \(0<\eta<r-a_0\) so that
-\(c_*(1-\alpha')\eta/(1-r)<\varepsilon/3\).
-On the resulting \(R\)-fold pullback set, write \(n_0=n\) and
-\(n_{i+1}=G(n_i)\).  Finite startup changes only a constant, so
-\(n_i\le K_*n^{r^i}\) for a fixed \(K_*\), and consequently
-\(n_R\le K_*n^{\alpha'}\le n^\alpha\) eventually.  Summing
-\eqref{eq:7-9} gives
-\[
-\begin{aligned}
-k_R
-&\le
-\frac{1+\eta-r}{g}\,
-\frac{1-r^R}{1-r}\log_2n+O_{\alpha,\varepsilon}(1)\\
-&=
-c_*(1-\alpha')
-\left(1+\frac\eta{1-r}\right)\log n
-+O_{\alpha,\varepsilon}(1).
-\end{aligned}
-\tag{7.11}\label{eq:7-11}
-\]
-The two strict parameter margins leave a final third of the clock slack to
-absorb the fixed remainder, proving \eqref{eq:1-8}.
+The independent fixed-depth argument for the graded clock
+\eqref{eq:1-8} is given in [Appendix A](#app-graded-clock).  It is not an
+input to either headline theorem.
 
 ## 8. Scope
 
@@ -1400,6 +1562,92 @@ slightly stronger than the manuscript's weak inequality.  The full build,
 dependency report, placeholder scan, and public-root axiom audit pass, with
 logical dependencies `propext`, `Classical.choice`, and `Quot.sound`.
 These checks supplement rather than replace the written proof.
+
+## Appendix A. Graded fixed-power clock {#app-graded-clock}
+
+This appendix proves the second assertion of
+[Corollary 1.4](#cor-fixed-power).  The argument is a fixed-depth companion
+to the headline chain and records a time--descent tradeoff that the stronger
+polylogarithmic target alone does not express.
+
+Put \(g=1-a_0\).  Fix \(a_0<r<1\) and \(0<\eta<r-a_0\).  For a certified
+source \(x\in I_m\), set \(Y_m=2^{\lfloor rm\rfloor}\), let \(G(x)\) be its
+first entrance into \((Y_m/2,Y_m]\), and put
+\[
+H_m=
+\left\lceil
+\frac{(1+\eta-r)m+2+\eta}{g}
+\right\rceil.
+\tag{A.1}\label{eq:a-1}
+\]
+The strict inequality \(\eta<r-a_0\) gives \(H_m\le m\) eventually.  The
+upper half of the all-prefix envelope \eqref{eq:3-8} then gives
+\[
+T^{H_m}(x)
+<2^{-gH_m+(1+\eta)(m+1)}
+\le2^{rm-1}
+\le Y_m.
+\tag{A.2}\label{eq:a-2}
+\]
+Hence the first passage defining \(G\) occurs by time \(H_m\), and
+\[
+H_m\le \frac{1+\eta-r}{g}\,m+O_{r,\eta}(1).
+\tag{A.3}\label{eq:a-3}
+\]
+
+We record why a fixed number of these stages retains natural density one.
+After absorbing finitely many startup shells, let
+\(\widetilde W_\eta\) denote the certified set and put
+\(\mathcal P(S)=\widetilde W_\eta\cap G^{-1}(S)\).
+If \(S\) is \((C,D_{\rm dens})\)-dense and \(0<\chi<r\), then
+\(\mathcal P(S)\) is \((C',\chi D_{\rm dens})\)-dense for every sufficiently
+small fixed \(D_{\rm dens}>0\).
+Indeed, for every first passage of length at most \(H_m\), the loss in
+\eqref{eq:4-5} satisfies
+\(E_{Y_m}\le D_{\rm loss}:=H_m/2\), and
+\(H_m/(2Y_m)\le1/3\) eventually.  Apply
+[Proposition 4.3](#prop-loss-transport) with \(D=D_{\rm loss}\) and with
+\(B=(Y_m/2,Y_m]\setminus S\).  Since
+\(|B|\le C Y_m^{1-D_{\rm dens}}\), the
+transported part of the shell complement is
+\[
+\ll C m^2\frac{2^m}{Y_m}Y_m^{1-D_{\rm dens}}
+\ll C m^2\,2^{(1-rD_{\rm dens})m}.
+\tag{A.4}\label{eq:a-4}
+\]
+For fixed \(0<\chi<r\), the polynomial factor is absorbed by
+\(2^{(r-\chi)D_{\rm dens}m}\), uniformly at cost
+\(O_{r,\chi}(D_{\rm dens}^{-2})\).
+[Proposition 3.3](#prop-barrier-density) absorbs the certification complement
+after \(D_{\rm dens}\) is restricted below a fixed positive threshold.  Dyadic
+summation proves the claimed density update.  Iterating it any fixed number
+of times therefore still gives a natural-density-one set.
+
+Now fix \(0<\alpha<1\) and \(\varepsilon>0\).  Choose
+\(0<\alpha'<\alpha\) with
+\(c_*(\alpha-\alpha')<\varepsilon/3\), then choose a fixed \(R\ge1\) and
+\(r=(\alpha')^{1/R}>a_0\).  Finally choose \(0<\eta<r-a_0\) so that
+\(c_*(1-\alpha')\eta/(1-r)<\varepsilon/3\).
+On the resulting \(R\)-fold pullback set, write \(n_0=n\) and
+\(n_{i+1}=G(n_i)\).  Finite startup changes only a constant, so
+\(n_i\le K_*n^{r^i}\) for a fixed \(K_*\), and consequently
+\(n_R\le K_*n^{\alpha'}\le n^\alpha\) eventually.  Summing
+\eqref{eq:a-3} gives
+\[
+\begin{aligned}
+k_R
+&\le
+\frac{1+\eta-r}{g}\,
+\frac{1-r^R}{1-r}\log_2n+O_{\alpha,\varepsilon}(1)\\
+&=
+c_*(1-\alpha')
+\left(1+\frac\eta{1-r}\right)\log n
++O_{\alpha,\varepsilon}(1).
+\end{aligned}
+\tag{A.5}\label{eq:a-5}
+\]
+The two strict parameter margins leave a final third of the clock slack to
+absorb the fixed remainder, proving \eqref{eq:1-8}. \(\square\)
 
 ## References
 
