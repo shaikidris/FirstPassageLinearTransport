@@ -14,7 +14,7 @@ T(n) = (3n + 1)/2  if n is odd.
 The V3 paper-level headline states that, for every fixed
 
 ```text
-A > 1 / (1 - H_2(log_3 2)) = 19.9822266839...,
+A > 1 / (2 * (1 - H_2(log_3 2))) = 9.9911133419...,
 c > 2 / log(4/3) = 6.9521189935...,
 beta > 0,
 ```
@@ -32,14 +32,11 @@ The endpoint value of `A` is not claimed. At the companion target
 power `1-delta`. Every shortcut clock constant above `2/log(4/3)` and every
 raw clock constant above `3/log(4/3)` are retained.
 
-The frozen V2.3.1 corollaries remain valid companion mathematics and provide:
-
-- the exceptional count `5 X exp (-c (log X)^sigma)` for every
-  `0 < sigma < 1-delta`;
-- the same form for every fixed power target `n^alpha` and every
-  `0 < sigma < 1`;
-- the smooth graded shortcut clock
-  `(2(1-alpha)/log(4/3) + epsilon) log n` for `0 < alpha < 1`.
+The streamlined V3 manuscript retains the endpoint-rate stretched-logarithmic
+companion, the raw-clock conversion, the fixed-power exceptional count, and
+the graded fixed-power clock.  The graded result is presented as a
+compact independent companion: it records the sharp time--descent tradeoff
+without entering the optimized fixed-polylogarithmic dependency chain.
 
 The V3 manuscript proof is integrated. The Lean development now compiles the
 loss-filtered target transport, nested direct first-passage collapse,
@@ -64,6 +61,9 @@ a public repository is authorized by work on this branch.
 - `paper/collatz_first_passage_natural_density.md`: canonical manuscript;
 - `paper/collatz_first_passage_natural_density_v2.pdf`: frozen V2 render;
 - `paper/collatz_first_passage_natural_density_v3.pdf`: distinct V3 render;
+- `paper/fig-architecture.svg`: referee-facing proof-architecture figure;
+- `paper/make_architecture_figure.py`: deterministic generator and orbit check
+  for the architecture figure;
 - `audits/fixed_polylog_promotion_audit_2026_08_07.md`: V3 theorem and
   cut-vertex reconstruction;
 - `audits/`: manuscript-only mathematical, literature, content, and desk
@@ -74,6 +74,8 @@ a public repository is authorized by work on this branch.
   for the quantitative count, raw clock, and graded clock;
 - `audits/review_v23_orbit_ceiling_formal_sync_2026_08_06.md`: patch-level
   closure audit for the same-witness intermediate-orbit ceiling;
+- `audits/review_v3_streamlined_headline_cone_2026_08_09.md`: optimized
+  manuscript-cone, Tao-bridge comparison, formal-map, and render audit;
 - `lean/`: independent minimal Lean 4 package;
 - `proof-state.md`: synchronized paper hashes, status ledger, and formalization
   acceptance gates.

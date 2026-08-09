@@ -56,7 +56,9 @@ Collatz definitions:
 `Main.lean` exposes the strengthened V3 theorem for every
 `A > 1 / (2 * (1 - H₂(log₃ 2))) = 9.9911133419...` and retains the older
 fixed-tolerance theorem internally together with the stretched-logarithmic,
-fixed-power, raw-clock, and graded-clock statements as companions.
+fixed-power, raw-clock, and graded-clock statements as companions.  The
+graded declaration is again mapped to Corollary 1.4, while remaining outside
+the dependency cone of the two headline theorems.
 
 The package imports Mathlib directly and has no dependency on
 `CollatzEndpointTransport`, `TwoACF`, or the frozen CET/CEP theorem chain.

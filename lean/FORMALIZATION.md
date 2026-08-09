@@ -51,11 +51,8 @@ These are definitions, not hypotheses supplied to the headline theorems.
 | Proposition 3.3, dense barrier set | `FirstPassageLinearTransport.initialWindowGood_powerDense`; `extendedWindow_powerDense` | `BarrierDensity.lean`; `Pullback.lean` |
 | Lemma 4.1, first-passage band | `FirstPassageLinearTransport.firstPassage_band` | `FirstPassage.lean` |
 | Lemma 4.1, reverse product and bounds | `FirstPassageLinearTransport.reverse_product_identity`; `firstPassage_reverse_bounds` | `FirstPassage.lean` |
-| Lemma 4.2, odd-count rigidity | `FirstPassageLinearTransport.oddCount_rigidity` | `FirstPassage.lean` |
-| Lemma 4.3, tagged-fiber bound | `FirstPassageLinearTransport.taggedFiber_bound` | `FirstPassage.lean` |
-| Proposition 4.4, arbitrary-target transport | `FirstPassageLinearTransport.arbitraryTarget_linear_transport`; `arbitraryTarget_linear_transport_restricted` | `Transport.lean` |
-| Lemma 4.5, loss-filtered odd-count rigidity and tagged-fiber bound | `FirstPassageLinearTransport.lossFiltered_oddCount_rigidity`; `lossFilteredTaggedFiber_bound` | `LossTransport.lean` |
-| Proposition 4.6, exact and uniform loss-filtered target transport | `FirstPassageLinearTransport.lossFiltered_arbitraryTarget_transport`; `lossFiltered_arbitraryTarget_transport_uniform`; `lossFiltered_arbitraryTarget_transport_restricted` | `LossTransport.lean` |
+| Lemma 4.2, loss-filtered odd-count rigidity and tagged-fiber bound | `FirstPassageLinearTransport.lossFiltered_oddCount_rigidity`; `lossFilteredTaggedFiber_bound` | `LossTransport.lean` |
+| Proposition 4.3, exact and uniform loss-filtered target transport | `FirstPassageLinearTransport.lossFiltered_arbitraryTarget_transport`; `lossFiltered_arbitraryTarget_transport_uniform`; `lossFiltered_arbitraryTarget_transport_restricted` | `LossTransport.lean` |
 | Lemma 5.1, nested direct first passage | `FirstPassageLinearTransport.IsFirstPassage.nested` | `NestedRecertification.lean` |
 | Reverse-loss concatenation and threshold rescaling | `FirstPassageLinearTransport.reverseLossTotal_add`; `scaledReverseLoss_add_rescaled`; `scaledReverseLoss_le_half_time` | `NestedRecertification.lean` |
 | Lemma 5.2, finite all-block rank-scaled loss budget | `FirstPassageLinearTransport.CertifiedRankChain.directFirstPassage`; `CertifiedRankChain.scaledReverseLoss_le` | `RankScaledLoss.lean` |
@@ -67,27 +64,18 @@ These are definitions, not hypotheses supplied to the headline theorems.
 | Theorem 5.3, recursive-run semantic inclusion | `FirstPassageLinearTransport.RecertificationRun.toCertifiedRankChain`; `RecertificationRun.endpoint_mem_landingBad`; `RecertificationRun.toGeneratedFirstBadLanding` | `RecertificationRun.lean` |
 | Theorem 5.3, terminal rank-tail summation | `FirstPassageLinearTransport.weighted_exp_Icc_le`; `terminal_rank_sum_le` | `TerminalTail.lean`; `TerminalProfile.lean` |
 | Theorem 5.3, generated first-bad terminal profile | `FirstPassageLinearTransport.generatedFirstBadSources_density_terminalProfile`; `eventually_interval_card_landingBad_adjustable_le` | `TerminalProfile.lean` |
-| Theorem 5.1, dense-set pullback | `FirstPassageLinearTransport.firstPassagePullback_powerDense` | `Pullback.lean` |
-| Repeated stopped-map bootstrap | `FirstPassageLinearTransport.bootstrapSet_powerDense`; `bootstrapC_exp_bound` | `Bootstrap.lean` |
-| Literal orbit concatenation | `FirstPassageLinearTransport.stageOrbit_eq_orbit_stageClock` | `Bootstrap.lean` |
-| Logarithmic shell error tends to zero | `FirstPassageLinearTransport.shellBootstrapRatioTendstoZero` | `BootstrapSchedule.lean` |
-| Quantitative shell exceptional ratio | `FirstPassageLinearTransport.eventuallyShellBootstrapRatioLeStretched` | `BootstrapSchedule.lean` |
-| Stretched-logarithmic landing | `FirstPassageLinearTransport.eventuallyShellLanding` | `StretchedLogLanding.lean` |
-| Geometric clock and exact constant | `FirstPassageLinearTransport.clockGeomLeInvOneSub`; `log_four_thirds_gt_296_div_1029`; `eventuallyShellClockLt6953` | `BootstrapSchedule.lean`; `Constants.lean`; `ClockBudget.lean` |
-| Strict compatible parameter selection | `FirstPassageLinearTransport.exists_headlineScalars`; `exists_stageSetup` | `HeadlineParameters.lean`; `Parameters.lean` |
-| Strict quantitative parameter selection | `FirstPassageLinearTransport.exists_quantitativeHeadlineScalars` | `HeadlineParameters.lean` |
-| Lemma 5.2, height-sensitive clock | `FirstPassageLinearTransport.stageLength_le_heightSensitiveHorizon`; `heightSensitiveHorizon_real_lt` | `HeightSensitiveClock.lean` |
+| Lemma 6.1, duration corridor and square-root feasible-time support | `FirstPassageLinearTransport.certified_firstPassage_duration_corridor`; `shrinkingFeasibleTimes_card_lt_sqrt` | `ShrinkingBarrierCore.lean`; `ShrinkingSchedules.lean` |
+| Theorem 6.2, support-sensitive terminal profile | `FirstPassageLinearTransport.shrinkingSeparatedFailureEnvelope_density_terminalProfile`; `eventually_shrinkingFailureEnvelope_density_polylog_le` | `ShrinkingProfile.lean`; `ShrinkingPolylogProfile.lean` |
+| Section 7, height-sensitive clock | `FirstPassageLinearTransport.stageLength_le_heightSensitiveHorizon`; `heightSensitiveHorizon_real_lt` | `HeightSensitiveClock.lean` |
 | Exact raw/shortcut conversion and raw budget | `FirstPassageLinearTransport.rawOrbit_rawTime_eq_orbit`; `eventuallyShellRawClockLt` | `RawDynamics.lean`; `RawClockBudget.lean` |
-| Corollary 1.3, all-prefix orbit ceiling | `FirstPassageLinearTransport.orbit_le_stageClock_ceiling`; `eventuallyShellOrbitCeiling` | `OrbitCeiling.lean` |
-| Internal final assembly | `FirstPassageLinearTransport.firstPassageLinearTransportMain` | `NaturalDensityDescent.lean` |
-| Companion stretched-log theorem, timed form | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent` | `Main.lean` |
-| Companion stretched-log theorem, unclocked consequence | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent_unclocked` | `Main.lean` |
-| Corollary 1.4, timed fixed-power descent | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_power_natural_density_descent` | `PowerDescent.lean`; `Main.lean` |
-| Corollary 1.2, quantitative stretched exceptional count | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_quantitative_stretched_exceptional_count` | `QuantitativeNaturalDensityDescent.lean`; `Main.lean` |
+| Theorem 1.2, endpoint-rate stretched-log exceptional count | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_quantitative_stretched_exceptional_count`; `collatz_first_passage_stretched_log_descent_with_orbit_ceiling` | `QuantitativeNaturalDensityDescent.lean`; `OrbitCeiling.lean`; `Main.lean` |
 | Corollary 1.3, raw `10.44 log n` clock | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_raw_stretched_log_natural_density_descent` | `RawNaturalDensityDescent.lean`; `Main.lean` |
-| Corollary 1.3, shortcut clock, landing, and orbit ceiling through the same witness | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_descent_with_orbit_ceiling` | `OrbitCeiling.lean`; `Main.lean` |
-| Corollary 1.5, quantitative fixed-power exceptional count | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_quantitative_fixed_power_exceptional_count` | `QuantitativeNaturalDensityDescent.lean`; `Main.lean` |
-| Corollary 1.6, smooth graded clock | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_graded_power_natural_density_descent` | `GradedPowerDescent.lean`; `Main.lean` |
+| Corollary 1.4, quantitative fixed-power exceptional count | `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_quantitative_fixed_power_exceptional_count` | `QuantitativeNaturalDensityDescent.lean`; `Main.lean` |
+| Corollary 1.4, graded fixed-power clock | `FirstPassageLinearTransport.firstPassageLinearTransportGradedPower`; `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_graded_power_natural_density_descent` | `GradedClock.lean`; `GradedPowerDescent.lean`; `Main.lean` |
+
+The graded declaration is a paper companion but is not a dependency of
+Theorems 1.1 or 1.2.  Its finite-depth pullback remains isolated from the
+optimized shrinking-barrier headline chain.
 
 Paper counters are intentionally confined to this map and
 `PaperDependencyAudit.lean`. Ordinary modules and declaration documentation

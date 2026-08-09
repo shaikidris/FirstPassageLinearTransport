@@ -22,12 +22,15 @@ Paper status:
 
 - shrinking-time-support fixed-polylogarithmic proof:
   `PROVED-PAPER / FORMAL-SYNC`; independent adversarial re-audit pending;
-- endpoint-rate stretched-log companion: `PROVED-PAPER / AUTHOR-AUDIT`;
+- endpoint-rate stretched-log companion:
+  `PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - shrinking-time-support cut-vertex reconstruction: `PASS`;
 - prior fixed-tolerance freeze audit: `PASS / HISTORICAL`;
-- V3 PDF render and visual audit: `PASS`;
-- probabilistic/deterministic interface and Version-1 lineage clarification:
-  `PASS / NONSEMANTIC EXPOSITION`; no Lean change required.
+- streamlined 19-page headline cone with isolated graded companion, proof-architecture figure, PDF render,
+  and visual audit: `PASS`;
+- probabilistic/deterministic interface, Version-1 lineage, and current
+  Tao-bridge comparison: `PASS / NONSEMANTIC EXPOSITION`;
+- manuscript-only Lean dependency and axiom roots: `PASS / 58 ROOTS`.
 
 V3 formal status:
 
@@ -91,22 +94,31 @@ f01c074c5732442eceb0e483b086a471f40fc8829156676dfa0fe27216308bef  lean/FirstPass
 6a256b83ed132647dc6260569cbf7ce5ad4362f1e0aeead0915087b0be304995  lean/FirstPassageLinearTransport/ShrinkingPolylogProfile.lean
 181150a366cc9e0ed0e6fc844befdbcac76006d68efe96a53388c5b3114d5be7  lean/FirstPassageLinearTransport/ShrinkingParameters.lean
 5d66163e7734e797168b460fbda5c4e0780e8695f323781c8d865d0051b7a8b2  lean/FirstPassageLinearTransport/ShrinkingNaturalDensityDescent.lean
-f768fdfcac7d9a5277fb50fcf4f8d3dab6520d6f5377610a68a647c33df93144  paper/collatz_first_passage_natural_density.md
-29a16c67e885dd1aac380f24a24fb2ae47e0440eb9b52def559fb4d4bdbecb58  paper/collatz_first_passage_natural_density_v3.pdf
+6a892e0137fbbd00a7e04fd919441bbc91c78fa12d844ffc4a037abc9f85ade4  paper/collatz_first_passage_natural_density.md
+02d4bfa787eaaf3ff1f5fb4345c83292eb90a600ac1e95458a1031f120eb9148  paper/collatz_first_passage_natural_density_v3.pdf
+cdb8aaffa384f68f84d1ff0dc1e4498234bf97e43d4317c21ea3f2d912b5de17  paper/fig-architecture.svg
+8a731b16bceacecc9bf63e90f828d753c720c9842f2c2b13cfdc336a99b86477  paper/make_architecture_figure.py
+fa5d2f046b24b812e94a8fb400c411e6742b8a38ac973428a84ed4683a8faeee  lean/FirstPassageLinearTransport/PaperAudit.lean
+12229761cf259e9f118420210cfd5676aef0c9d1cf9b0e54ea368e91570abfd5  lean/FirstPassageLinearTransport/PaperDependencyAudit.lean
+0a64ce9a5c993b4fda8b0dfa81d612d524479324c82dcc49c439191d1d3313f4  lean/FORMALIZATION.md
 5e66cdc19a306386342fd783260c0453b5c182d6db9ca3eabb886b7b2bf3e414  audits/review_time_support_formal_sync_2026_08_08.md
 690c0259ee7fae236b02cd7d708e49f79bb10eaad7624ee7af65f73339401863  audits/review_methodological_interface_exposition_2026_08_09.md
+5988cbd57c4b44c2e0fa9d7fb477f24d79f2848d460953b95c399fe2503c71b1  audits/review_v3_streamlined_headline_cone_2026_08_09.md
 ```
 
-The 2026-08-09 manuscript edit is prose-only.  It exposes the exact
-probabilistic/deterministic interface already used by the proof and records
-that no mixing, Diophantine, block-independence, or generated-equidistribution
-input is present.  It also cites the public Version-1 preprint at
-`10.5281/zenodo.21851173`, identifies the fixed-time endpoint/Rényi chain that
-the present first-passage argument replaces, and records the headline-cone
-organization into the two main theorems and their corollaries.  The theorem
-statement, proof, constants, equations, and public Lean declaration are
-unchanged; the edit is audited in
-`audits/review_methodological_interface_exposition_2026_08_09.md`.
+The final 2026-08-09 streamline keeps the optimized chain as the sole
+headline dependency cone.  It restores the graded fixed-power clock
+only as a compact independent companion, deriving its one-step density update
+from the retained loss-filtered transport proposition rather than restoring
+the former standalone unfiltered-transport section.  It exposes the exact
+probabilistic/deterministic interface,
+records the Version-1 lineage at `10.5281/zenodo.21851173`, and identifies the
+2026 Allikvere and Mazur arbitrary-diverging results as Tao-to-natural-density
+bridges.  The headline theorem statements, proofs, constants, and public Lean
+declarations are unchanged.  The paper-facing dependency and axiom audits
+name the streamlined headline roots together with the isolated graded
+companion; see
+`audits/review_v3_streamlined_headline_cone_2026_08_09.md`.
 
 Prior fixed-tolerance private-freeze snapshot (historical):
 
@@ -207,7 +219,8 @@ Paper proof-state:
 - timed fixed-power Corollary 1.4: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - quantitative Corollaries 1.2 and 1.5: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - raw-clock refinement: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
-- smooth graded clock: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
+- graded fixed-power clock: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED /
+  INDEPENDENT COMPANION`;
 - Corollary 1.3 intermediate-orbit ceiling:
   `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - endpoint `delta = 1`: `NOT CLAIMED`;
@@ -295,36 +308,34 @@ The formalization is complete only when:
 
 The clean source reconstruction and the subsequent stable-source confirmation
 build both passed with Lean `v4.15.0` and the Mathlib revision pinned in
-`lean/lake-manifest.json`.  All 33 retained V2 modules are in the default
-target.  The V2 modules emit no warnings; the build log contains only upstream
+`lean/lake-manifest.json`.  The V3 headline chain and isolated graded
+companion are both in the default target.  The build log contains upstream
 Mathlib doc-string warnings and non-failing `ring_nf` suggestions.
 
 Direct `PaperDependencyAudit` output:
 
 ```text
-PAPER_GRAPH_ROOTS                         48
-PAPER_KERNEL_PROJECT_DECLARATIONS        470
-PAPER_KERNEL_PROJECT_MODULES              31
-PAPER_COMBINED_PROJECT_DECLARATIONS      470
-PAPER_COMBINED_PROJECT_MODULES            31
-PAPER_GRAPH_IMPORTED_MODULES              31
-PAPER_SOURCE_REFERENCE_EDGES            3248
-MAIN_FILE_THEOREMS                         9
-PUBLIC_TERMINAL_ROOTS                     49
-RETAINED_PROJECT_THEOREMS                427
-RETAINED_SOURCE_THEOREMS                 317
-MAIN_REACHABLE_PROJECT_DECLARATIONS      471
-MAIN_UNREACHABLE_PROJECT_THEOREMS         64
-MAIN_UNREACHABLE_SOURCE_THEOREMS          18
+PAPER_GRAPH_ROOTS                         58
+PAPER_KERNEL_PROJECT_DECLARATIONS        832
+PAPER_KERNEL_PROJECT_MODULES              66
+PAPER_COMBINED_PROJECT_DECLARATIONS      832
+PAPER_COMBINED_PROJECT_MODULES            66
+PAPER_GRAPH_IMPORTED_MODULES              68
+PAPER_SOURCE_REFERENCE_EDGES            7221
+MAIN_FILE_THEOREMS                        10
+PUBLIC_TERMINAL_ROOTS                     57
+RETAINED_PROJECT_THEOREMS                840
+RETAINED_SOURCE_THEOREMS                 637
+MAIN_REACHABLE_PROJECT_DECLARATIONS      833
+MAIN_UNREACHABLE_PROJECT_THEOREMS        205
+MAIN_UNREACHABLE_SOURCE_THEOREMS         116
 ```
 
-The 18-theorem source reverse-reachability complement is classified as retained
-standalone API and local simplification/support mathematics, not as part of
-the headline dependency chain.  It consists of elementary zero/successor
-lemmas for the shortcut, Boolean walk, and bootstrap recurrences; two direct
-first-passage projection lemmas; one central-scale identity; and the
-standalone convergence theorem `stageCount_tendsto_atTop`.  No optional or
-experimental research branch is imported.
+The larger source reverse-reachability complement reflects the conservative
+package import surface: legacy standalone V2 declarations remain available
+beside the V3 theorem family.  It is reported for review and is not counted as
+part of the headline dependency chain.  Every manuscript root is listed
+positively in the 58-root map above.
 
 Direct `PaperAudit` output for every mapped milestone and all public theorems
 contains only Lean's standard axioms `propext`, `Classical.choice`, and
@@ -355,7 +366,7 @@ V2 headline Lean theorem                      PROVED-FORMAL / BUILD PASSED
 V2 timed fixed-power consequence               PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED
 V2 quantitative stretched-log rate             PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED
 V2 quantitative fixed-power rate               PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED
-V2 smooth graded-clock formula                 PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED
+V2 graded-clock formula                        PROVED-ON-PAPER / PROVED-FORMAL / PROMOTED AS V3 COMPANION
 V2 raw clock below 10.44 log n                 PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED
 V2 Corollary 1.3 all-prefix orbit ceiling      PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED
 V2 explicit diagonal target                    OPEN / PARKED FOR UNIFORM CONSTANTS

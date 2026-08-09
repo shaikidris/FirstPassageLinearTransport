@@ -76,6 +76,8 @@ The unclocked consequence is
 `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent_unclocked`.
 The timed fixed-power consequence is
 `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_power_natural_density_descent`.
+The graded-power declaration is retained as additional formal
+companion mathematics and is not part of the streamlined V3 manuscript.
 
 The timed theorem quantifies over every real `delta` with `0 < delta < 1` and
 produces a natural-density-one set on which every sufficiently large member
