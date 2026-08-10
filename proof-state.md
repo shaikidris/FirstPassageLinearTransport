@@ -29,10 +29,12 @@ Paper status:
   `PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - shrinking-time-support cut-vertex reconstruction: `PASS`;
 - prior fixed-tolerance freeze audit: `PASS / HISTORICAL`;
-- streamlined 22-page headline cone with isolated graded appendix, proof-architecture figure, PDF render,
+- streamlined 23-page headline cone with isolated graded appendix, proof-architecture figure, PDF render,
   and visual audit: `PASS`;
 - probabilistic/deterministic interface, Version-1 lineage, and current
   Tao-bridge comparison: `PASS / NONSEMANTIC EXPOSITION`;
+- referee-flow constants explanation, target-only containment qualification,
+  and statement-level path-ceiling comparison: `PASS / NONSEMANTIC EXPOSITION`;
 - manuscript-only Lean dependency and axiom roots: `PASS / 67 ROOTS`.
 
 V3 formal status:
@@ -97,8 +99,8 @@ f01c074c5732442eceb0e483b086a471f40fc8829156676dfa0fe27216308bef  lean/FirstPass
 6a256b83ed132647dc6260569cbf7ce5ad4362f1e0aeead0915087b0be304995  lean/FirstPassageLinearTransport/ShrinkingPolylogProfile.lean
 181150a366cc9e0ed0e6fc844befdbcac76006d68efe96a53388c5b3114d5be7  lean/FirstPassageLinearTransport/ShrinkingParameters.lean
 5d66163e7734e797168b460fbda5c4e0780e8695f323781c8d865d0051b7a8b2  lean/FirstPassageLinearTransport/ShrinkingNaturalDensityDescent.lean
-6a892e0137fbbd00a7e04fd919441bbc91c78fa12d844ffc4a037abc9f85ade4  paper/collatz_first_passage_natural_density.md
-02d4bfa787eaaf3ff1f5fb4345c83292eb90a600ac1e95458a1031f120eb9148  paper/collatz_first_passage_natural_density_v3.pdf
+2530e520615630756944f1d1f6ba9f01f4fbe2f73ca6c8541873d0cec12a8ae7  paper/collatz_first_passage_natural_density.md
+84880b296a1d61379a7319967653bc0b874d7eeeb87ef179d727e72ce2f94ef7  paper/collatz_first_passage_natural_density_v3.pdf
 cdb8aaffa384f68f84d1ff0dc1e4498234bf97e43d4317c21ea3f2d912b5de17  paper/fig-architecture.svg
 8a731b16bceacecc9bf63e90f828d753c720c9842f2c2b13cfdc336a99b86477  paper/make_architecture_figure.py
 fa5d2f046b24b812e94a8fb400c411e6742b8a38ac973428a84ed4683a8faeee  lean/FirstPassageLinearTransport/PaperAudit.lean
@@ -122,6 +124,15 @@ declarations are unchanged.  The paper-facing dependency and axiom audits
 name the streamlined headline roots together with the isolated graded
 companion; see
 `audits/review_v3_streamlined_headline_cone_2026_08_09.md`.
+
+The 2026-08-10 referee-flow pass explains the origins and proof status of
+`c_*` and `A_FP` at first use, distinguishes the two terminal profiles before
+their consumers, and records the comparison qualifications explicitly:
+Tao contains the fixed-polylogarithmic target only at the target/logarithmic-
+density level; the cited arbitrary-threshold headline statements do not state
+the present same-witness ceiling; and no optimality or intrinsic-map status is
+claimed for the proof threshold `A_FP`.  These edits change no theorem,
+dependency root, or Lean declaration.
 
 Prior fixed-tolerance private-freeze snapshot (historical):
 

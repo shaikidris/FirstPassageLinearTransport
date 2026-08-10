@@ -98,6 +98,33 @@ c_*=\frac2{\log(4/3)}.
 \tag{1.2}\label{eq:1-2}
 \]
 
+### Where the constants come from
+
+The two constants in \eqref{eq:1-2} record the two quantitative costs of the
+proof.  First,
+\[
+1-a_0=\frac{\log_2(4/3)}2,
+\qquad
+c_*=\frac1{(1-a_0)\log2}.
+\]
+Thus \(1-a_0\) is the mean base-two logarithmic loss of the multiplicative
+main term per shortcut step, and \(c_*\log n\) is the corresponding
+mean-drift clock for clearing \(\log_2n\) bits.  This interpretation does not
+assert a matching lower bound or optimality theorem.  Second, put
+\[
+\kappa_*=1-H_2(p_*).
+\]
+The entropy rates available from [Proposition 3.3](#prop-barrier-density)
+approach \(\kappa_*\log2\).  At terminal rank
+\(L_M\sim A\log_2M\), they therefore supply every fixed power
+\(M^{-A\kappa_{\rm ent}}\) with \(\kappa_{\rm ent}<\kappa_*\) sufficiently
+close to \(\kappa_*\), while [Lemma 6.1](#lem-time-support) contributes the
+compressed feasible-time factor \(O(\sqrt{M\log M})\).  A strict decaying
+product is possible exactly when \(A\kappa_*>1/2\), which gives
+\(A_{\rm FP}=1/(2\kappa_*)\); the endpoint is not asserted.  Accordingly,
+\(A_{\rm FP}\) is a threshold of the present argument rather than an
+intrinsic constant of the Collatz map.
+
 ::: {.theorem-block}
 
 ### Theorem 1.1 (optimized fixed-polylogarithmic descent) {#thm-fixed-polylog}
@@ -244,6 +271,12 @@ deterministic.
 6. Support-sensitive transport and a high/low parameter choice separate the
    leading clock from the low-rank entropy rate and yield \(A_{\rm FP}\).
 
+Two terminal profiles serve different conclusions.  The one-regime profile in
+[Theorem 5.3](#thm-terminal-profile) yields the endpoint-rate
+stretched-logarithmic companion, whereas the compressed-support profile in
+[Theorem 6.3](#thm-two-regime-profile) yields the fixed-polylogarithmic
+headline.
+
 ![The proof architecture.  Panel (a) follows an actual shortcut-Collatz orbit
 inside one certified all-prefix envelope and marks the nested first-passage
 landings at which the deterministic argument re-certifies.  Panel (b) records
@@ -282,13 +315,23 @@ the table.
 | Allikvere [[1]](#ref-allikvere) | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | \(<12\log n\) unaccelerated steps; \(O((\log N_0)^{-1/29}+X^{-1/2000})\) for a fixed target |
 | This paper | natural | \(C_{\rm tar}(\log n)^A\), every fixed \(A>A_{\rm FP}\); also \(\exp((\log n)^{1-\delta})\) | every shortcut constant \(>c_*\); every unaccelerated constant \(>3/\log(4/3)\); polynomial or stretched-exponential exceptional rate |
 
+Theorem 1.1 additionally retains the same-witness ceiling
+\(\max_{j\le k}T^j(n)\le n^{1+\beta}\).  That ceiling is not part of the
+headline statements in [[1]](#ref-allikvere) or [[4]](#ref-mazur); this is a
+comparison of stated outputs, not a claim that their proof-internal trajectory
+estimates cannot yield related bounds.
+
 The fixed-polylogarithmic target is smaller than every fixed power and every
 fixed stretched-logarithmic target in [Theorem 1.2](#thm-stretched-log), but
-is weaker than an arbitrary diverging function.  Thus the present theorem
-does not supersede the arbitrary-threshold conclusions of
-[[1]](#ref-allikvere) or [[4]](#ref-mazur), and the clock scale already
-appears in [[2]](#ref-inselmann).  These axes are deliberately not collapsed
-into a single ordering.
+is weaker than an arbitrary diverging function.  At the target-only level,
+Tao's theorem specializes to
+\(f(n)=C_{\rm tar}(\log n)^A\), albeit in logarithmic rather than natural
+density.  Thus the present theorem does not supersede the arbitrary-threshold
+conclusions of [[1]](#ref-allikvere) or [[4]](#ref-mazur).  Conversely, that
+specialization does not supply the present natural-density exceptional count,
+logarithmic clock, or same-witness ceiling, and the clock scale already appears
+in [[2]](#ref-inselmann).  These axes are deliberately not collapsed into a
+single ordering.
 
 Allikvere conditions Tao's Syracuse/Fourier inputs on the total valuation and
 supplies a uniform-measure transfer.  Mazur starts from the same
@@ -304,11 +347,11 @@ exact parity coding on each dyadic shell, and an affine formula for the
 iterate.  This section establishes them for the certification and transport
 arguments in [Section 3](#sec-barrier) and [Section 4](#sec-transport).
 
-For \\(M\\geq0\\), write
+For \(M\geq0\), write
 \[
 I_M=[2^M,2^{M+1})\cap\mathbb N
 \]
-for the \\(M\\)-th dyadic shell.
+for the \(M\)-th dyadic shell.
 
 For \(S\subseteq\mathbb N\), put
 \[
@@ -1038,6 +1081,10 @@ The high-rank stage construction at tolerance \(\tau\) remains valid after
 lowering its tolerance to \(\eta_{M,m}\); the density of the resulting
 rank-dependent certification sets will be estimated separately below.
 
+The chain below has the same stopping and first-failure logic as the chain in
+Section 5.  Only the tolerance changes: it shrinks above the switch rank and is
+fixed below it.
+
 Here is the literal stopped chain used in this section.  Fix \(M\), write
 \(S=S_M\), and set
 \[
@@ -1530,15 +1577,18 @@ The argument proves an orbit-minimum statement on a set of natural density
 one.  It does not prove descent for every starting value, exclude nontrivial
 cycles, or control the orbit after the selected witness.  The endpoint
 \(\delta=1\) is a strict parameter limit and is not claimed.  No finite
-computation is used as an all-depth premise.
+computation is used as an all-depth premise.  The Collatz conjecture predicts
+\(T_{\min}(n)=1\) for every positive starting value; that universal conclusion
+is not proved here.
 
 The proofs of Theorems 1.1 and 1.2 use only the optimized first-passage chain:
 the parity-vector
 bijection, maximal-barrier estimate, first-passage reversal, exact
 reverse-product loss, nested direct re-certification, and compressed
 feasible-time support.  These proofs use no fixed-time endpoint-fiber moment,
-stochastic independence between orbit blocks, mixing statement, Diophantine
-reduction, or generated-target equidistribution hypothesis.  The Boolean walk in
+Fourier estimate, stochastic independence between orbit blocks, mixing
+statement, Diophantine reduction, or generated-target equidistribution
+hypothesis.  The Boolean walk in
 [Lemma 3.1](#lem-entropy-barrier) is exact counting over the parity words
 supplied by [Proposition 2.2](#prop-parity-code), not a stochastic model of an
 individual Collatz orbit.  The independent graded-clock companion uses only
