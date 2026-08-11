@@ -10,6 +10,11 @@ This script tests the two new quantitative ingredients only:
 
        L_M = ceil(A_FP log_2(M+2) + B log_2 log(M+3)).
 
+It also audits the secondary endpoint B = 1/kappa_star with the
+third-order multiplier (log log M)^D.  The D=0 row is the predeclared
+boundary control: its scalar failure proxy stays of constant order and
+therefore does not prove density convergence.
+
 The walk probability is computed exactly by dynamic programming with Python
 integers.  The asymptotic comparison is floating-point diagnostic output.
 It is evidence for the proposed analytic proof, not an all-depth certificate.
@@ -76,6 +81,12 @@ def parse_args() -> argparse.Namespace:
         help="comma-separated outer shell ranks M",
     )
     parser.add_argument("--B", type=float, default=21.0)
+    parser.add_argument(
+        "--secondary-D",
+        type=float,
+        default=1.0,
+        help="power D in the secondary multiplier (log log M)^D",
+    )
     parser.add_argument("--K0", type=float, default=8.0)
     parser.add_argument("--K1", type=float, default=8.0)
     parser.add_argument("--switch-C", type=float, default=40.0)
@@ -91,12 +102,17 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     outer_shells = parse_outer_shells(args.outer_shells)
-    if args.B <= 0.0 or args.K0 <= 0.0 or args.K1 <= 0.0:
-        raise ValueError("B, K0, and K1 must be positive")
+    if (
+        args.B <= 0.0
+        or args.secondary_D <= 0.0
+        or args.K0 <= 0.0
+        or args.K1 <= 0.0
+    ):
+        raise ValueError("B, secondary-D, K0, and K1 must be positive")
 
     print(
         "status=EMPIRICAL finite_scope=exact_symmetric_walk_dp "
-        "target=critical_endpoint_loglog"
+        "target=critical_endpoint_loglog_and_secondary_endpoint"
     )
     print(
         "hypothesis=maximal_bad_probability"
@@ -105,26 +121,34 @@ def main() -> None:
     )
     print(
         "positive_control=t_moving_in_compact_interval "
-        "negative_control=t=1/m "
+        "negative_control=t=1/m_and_secondary_D=0 "
         "kill_signal=positive_ratio_unbounded_with_length "
-        "continue_signal=positive_ratio_bounded_and_boundary_ratio_grows"
+        "continue_signal=positive_ratio_bounded_and_secondary_normalization_bounded"
     )
     print(
         "constants A_FP={:.15g} kappa_star={:.15g} "
-        "critical_B={:.15g} B={:.15g}".format(
-            A_FP, KAPPA_STAR, 1.0 / KAPPA_STAR, args.B
+        "critical_B={:.15g} B={:.15g} secondary_D={:.15g}".format(
+            A_FP,
+            KAPPA_STAR,
+            1.0 / KAPPA_STAR,
+            args.B,
+            args.secondary_D,
         )
     )
     print(
         "M L S eta lambda r gap t walk_m exact_bad_probability "
         "positive_ratio boundary_ratio rate_gap_times_L scalar_proxy "
-        "scalar_normalized"
+        "scalar_normalized secondary_L secondary_proxy secondary_reference "
+        "secondary_normalized secondary_boundary_L secondary_boundary_proxy"
     )
 
     positive_ratios: list[float] = []
     boundary_ratios: list[float] = []
+    secondary_normalized_values: list[float] = []
+    secondary_boundary_values: list[float] = []
     for M in outer_shells:
         log_m = math.log(M)
+        loglog_m = math.log(log_m)
         L = math.ceil(
             A_FP * math.log2(M + 2.0)
             + args.B * math.log2(math.log(M + 3.0))
@@ -172,9 +196,38 @@ def main() -> None:
         scalar_reference = log_m ** (1.0 - args.B * KAPPA_STAR)
         scalar_normalized = scalar_proxy / scalar_reference
 
+        critical_B = 1.0 / KAPPA_STAR
+        secondary_L = math.ceil(
+            A_FP * math.log2(M + 2.0)
+            + critical_B * math.log2(math.log(M + 3.0))
+            + args.secondary_D * math.log2(loglog_m)
+        )
+        secondary_proxy = (
+            math.sqrt(M * log_m)
+            * math.sqrt(secondary_L)
+            * 2.0 ** (-KAPPA_STAR * secondary_L)
+        )
+        secondary_reference = loglog_m ** (
+            -args.secondary_D * KAPPA_STAR
+        )
+        secondary_normalized = secondary_proxy / secondary_reference
+        secondary_normalized_values.append(secondary_normalized)
+
+        secondary_boundary_L = math.ceil(
+            A_FP * math.log2(M + 2.0)
+            + critical_B * math.log2(math.log(M + 3.0))
+        )
+        secondary_boundary_proxy = (
+            math.sqrt(M * log_m)
+            * math.sqrt(secondary_boundary_L)
+            * 2.0 ** (-KAPPA_STAR * secondary_boundary_L)
+        )
+        secondary_boundary_values.append(secondary_boundary_proxy)
+
         print(
             "{} {} {} {:.12g} {:.12g} {:.12g} {:.12g} {:.12g} {} "
-            "{:.12g} {:.12g} {:.12g} {:.12g} {:.12g} {:.12g}".format(
+            "{:.12g} {:.12g} {:.12g} {:.12g} {:.12g} {:.12g} {} "
+            "{:.12g} {:.12g} {:.12g} {} {:.12g}".format(
                 M,
                 L,
                 S,
@@ -190,21 +243,44 @@ def main() -> None:
                 rate_gap_times_L,
                 scalar_proxy,
                 scalar_normalized,
+                secondary_L,
+                secondary_proxy,
+                secondary_reference,
+                secondary_normalized,
+                secondary_boundary_L,
+                secondary_boundary_proxy,
             )
         )
 
     boundary_degrades = boundary_ratios[-1] > boundary_ratios[0]
     positive_bounded = max(positive_ratios) < 20.0
+    secondary_bounded = max(secondary_normalized_values) < 20.0
+    secondary_boundary_nonvanishing = min(secondary_boundary_values) > 0.1
     print(
         "max_positive_ratio={:.12g} boundary_ratio_first={:.12g} "
         "boundary_ratio_last={:.12g} positive_bounded={} "
-        "boundary_degrades={} audit={}".format(
+        "boundary_degrades={} max_secondary_normalized={:.12g} "
+        "min_secondary_boundary_proxy={:.12g} secondary_bounded={} "
+        "secondary_boundary_nonvanishing={} audit={}".format(
             max(positive_ratios),
             boundary_ratios[0],
             boundary_ratios[-1],
             positive_bounded,
             boundary_degrades,
-            "PASS" if positive_bounded and boundary_degrades else "REVIEW",
+            max(secondary_normalized_values),
+            min(secondary_boundary_values),
+            secondary_bounded,
+            secondary_boundary_nonvanishing,
+            (
+                "PASS"
+                if (
+                    positive_bounded
+                    and boundary_degrades
+                    and secondary_bounded
+                    and secondary_boundary_nonvanishing
+                )
+                else "REVIEW"
+            ),
         )
     )
 

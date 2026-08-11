@@ -7720,3 +7720,791 @@ NOT PROVED:
 HEADLINE / MANUSCRIPT / PROOF-STATE / LEAN:
   unchanged pending synchronized integration and formalization.
 ```
+
+## 40. Secondary endpoint and arbitrary third-order divergence
+
+### 40.1 Exact consequence of the optimized budget
+
+Section 39 proved the scalar condition
+
+\[
+ \frac{C_M^{\kappa_*}M^{a\kappa_*-1/2}}{\log M}
+ \longrightarrow\infty.
+\tag{CE2.1}
+\]
+
+At \(a=A_{\rm FP}=1/(2\kappa_*)\), this becomes
+
+\[
+ \frac{C_M^{\kappa_*}}{\log M}\longrightarrow\infty.
+\tag{CE2.2}
+\]
+
+No new probabilistic or transport estimate is required for the following
+secondary diagonalization.  Let \(\Omega_M\to\infty\), with
+\(\Omega_M=(\log M)^{o(1)}\), and put
+
+\[
+ C_M=(\log M)^{1/\kappa_*}\Omega_M.
+\tag{CE2.3}
+\]
+
+Then the left side of (CE2.2) is exactly \(\Omega_M^{\kappa_*}\).
+Substitution in (CE.12) gives
+
+\[
+ \Pr_M(\operatorname{Fail})
+ \ll \Omega_M^{-\kappa_*}+M^{-\varepsilon}.
+\tag{CE2.4}
+\]
+
+Thus the strict secondary range \(B>1/\kappa_*\) from Section 39 reaches
+its own endpoint \(B=1/\kappa_*\), provided one retains any prescribed
+diverging third-order multiplier.
+
+### 40.2 Concrete triple-log theorem
+
+For every fixed \(D>0\), take
+
+\[
+ \Omega_M=(\log\log M)^D.
+\tag{CE2.5}
+\]
+
+The terminal rank may be chosen as
+
+\[
+ L_M=\left\lceil
+ A_{\rm FP}\log_2(M+2)
+ +\frac1{\kappa_*}\log_2\log(M+3)
+ +D\log_2\log\log(M+3)
+ \right\rceil,
+\tag{CE2.6}
+\]
+
+after harmless startup totalization of the iterated logarithms.  Since
+\(1/\kappa_*=2A_{\rm FP}\), the resulting natural-density-one target is
+
+\[
+ \boxed{
+ T_{\min}(n)\le
+ C_{\rm tar}(\log n)^{A_{\rm FP}}
+ (\log\log n)^{2A_{\rm FP}}
+ (\log\log\log n)^D.}
+\tag{CE2.7}
+\]
+
+The same witness obeys the existing logarithmic clock and orbit ceiling.
+Moreover, (CE2.4) becomes
+
+\[
+ \Pr_M(\operatorname{Fail})
+ \ll(\log\log M)^{-D\kappa_*}+M^{-\varepsilon}.
+\tag{CE2.8}
+\]
+
+Dyadic shell summation therefore gives, for every
+\(0<\gamma<D\kappa_*\),
+
+\[
+ \#\mathcal E(X)
+ \ll \frac{X}{(\log\log\log X)^\gamma}.
+\tag{CE2.9}
+\]
+
+More generally, an eventually nondecreasing arbitrarily slowly diverging
+\(\Omega\) may replace the fixed triple-log power, with the shellwise
+multiplier written as \(\Omega_M\).
+
+### 40.3 Strictness and method ceiling
+
+For every fixed \(\epsilon>0\),
+
+\[
+ (\log\log\log n)^D=o((\log\log n)^\epsilon).
+\tag{CE2.10}
+\]
+
+Hence (CE2.7) is strictly stronger in terminal descent scale than every
+theorem in Section 39 with fixed \(B>2A_{\rm FP}\).  This comparison does
+not include the exceptional-set rate.  A fixed \(B\) gives a power of
+\(\log\log X\), whereas (CE2.7) gives only a power of
+\(\log\log\log X\) for fixed \(D\).  The new target is smaller, but its
+displayed density-convergence rate is generally weaker; the two theorem
+products must be compared separately.
+
+The negative boundary is exact.  If \(\Omega_M=O(1)\), then (CE2.4)
+supplies only an order-one upper bound and does not prove density
+convergence.  If the secondary exponent is strictly below
+\(1/\kappa_*\) and the remaining multiplier is subpower in \(\log M\),
+then (CE2.2) fails.  Thus the present scalar inequalities have the endpoint
+
+\[
+ (A,B)=\left(A_{\rm FP},2A_{\rm FP}\right)
+\tag{CE2.11}
+\]
+
+with an unavoidable diverging third-order multiplier.
+
+A tempting retuning of the high tolerance does not lower this ceiling.
+Replacing \(\log M\) in the shrinking barrier by \(u_M\to\infty\)
+would change the support width to \(O(\sqrt{Mu_M})\) and the high bad
+density to \(\exp(-cu_M)\).  The current high-rank transport term contains
+
+\[
+ \sqrt{Mu_M}\,M^2e^{-cu_M}.
+\tag{CE2.12}
+\]
+
+Its convergence still forces \(u_M\ge(5/(2c)+o(1))\log M\).  Even replacing
+the crude rank sum by the deterministic geometric rank sequence only changes
+\(M^2\) to \(M\), and still forces \(u_M\asymp\log M\).  Therefore
+further improvement requires a new transport input, not more parameter
+tuning.  The two named possibilities remain: remove the rank-loss factor
+\(q\) in a source-weighted form, or replace hard time-support cardinality by
+a weighted-time estimate.
+
+### 40.4 Exact audit and closeout
+
+The extended script research/audit_critical_endpoint_loglog.py checks both
+the strict \(B>1/\kappa_*\) normalization and the secondary endpoint
+(CE2.6).  With \(D=1\) over \(M=10^3,10^4,10^5,10^6\), the secondary
+proxy divided by its predicted factor
+\((\log\log M)^{-D\kappa_*}\) stays between approximately 4.36 and 4.65.
+The \(D=0\) boundary proxy stays above 4.43 rather than tending toward
+zero.  Together with the original maximal-walk controls, the audit returns
+PASS.
+
+```text
+DERIVED FROM THE PROVED SECTION-39 BUDGET:
+  arbitrary third-order divergence at the secondary endpoint;
+  concrete triple-log theorem CE2.7;
+  exceptional profile CE2.8 and shellwise consequence CE2.9.
+
+EMPIRICAL-SUPPORT:
+  exact finite scalar normalization and boundary control.
+
+METHOD CEILING OF CURRENT ASSEMBLY:
+  A = A_FP, B = 2*A_FP, with an arbitrarily slow divergent multiplier.
+
+NOT PROVED:
+  removal of the final divergent multiplier;
+  B < 2*A_FP at A = A_FP;
+  any principal exponent below A_FP.
+
+HEADLINE / MANUSCRIPT / PROOF-STATE / LEAN:
+  unchanged; this remains a research-ledger endpoint refinement.
+```
+
+## 41. Moving-endpoint formulation
+
+### 41.1 Rank-buffer theorem
+
+The log-log and triple-log statements are special coordinates of one moving
+terminal rank.  Let \(\ell_M\ge0\) satisfy
+
+\[
+ \ell_M\longrightarrow\infty,
+ \qquad
+ \ell_M=o(\log M).
+\tag{ME.1}
+\]
+
+This is the principal moving-endpoint range.  When the result is described
+as attaining the secondary exponent \(1/\kappa_*\), use the sharper
+condition
+
+\[
+ \ell_M=o(\log\log M),
+\tag{ME.1a}
+\]
+
+equivalently \(2^{\ell_M}=(\log M)^{o(1)}\).  Without (ME.1a), the theorem
+still has principal exponent \(A_{\rm FP}+o(1)\), but the moving multiplier
+may dominate a fixed power of \(\log M\) and should not be advertised as the
+sharp secondary endpoint.
+
+For either range, define
+
+\[
+ L_M=\left\lceil
+ A_{\rm FP}\log_2(M+2)
+ +\frac1{\kappa_*}\log_2\log(M+3)
+ +\ell_M
+ \right\rceil.
+\tag{ME.2}
+\]
+
+Then
+
+\[
+ 2^{L_M}
+ \ll
+ M^{A_{\rm FP}}(\log M)^{1/\kappa_*}2^{\ell_M}.
+\tag{ME.3}
+\]
+
+Substitution in the proved failure profile (CE.12) gives the exact moving
+endpoint estimate
+
+\[
+ \boxed{
+ \Pr_M(\operatorname{Fail})
+ \ll 2^{-\kappa_*\ell_M}+M^{-\varepsilon}.}
+\tag{ME.4}
+\]
+
+Indeed, \(A_{\rm FP}\kappa_*=1/2\), the secondary coefficient
+\((1/\kappa_*)\kappa_*=1\), and
+\(L_M^{1/2}\asymp(\log M)^{1/2}\).  These cancel respectively the
+\(M^{1/2}\) and the two square-root logarithmic costs in (CE.11), leaving
+exactly \(2^{-\kappa_*\ell_M}\).  Condition (ME.1) makes this tend to
+zero while preserving \(L_M\asymp\log M\) and every schedule interface.
+
+Thus, on a natural-density-one set, the existing logarithmic witness and
+orbit ceiling hold together with
+
+\[
+ \boxed{
+ T_{\min}(n)
+ \le
+ C_{\rm tar}(\log n)^{A_{\rm FP}}
+ (\log\log n)^{2A_{\rm FP}}
+ 2^{\ell_{\lfloor\log_2 n\rfloor}}.}
+\tag{ME.5}
+\]
+
+The multiplier \(2^{\ell_M}\) may diverge arbitrarily slowly.  Choosing
+\(\ell_M=D\log_2\log\log M\) recovers Section 40.  Choosing
+\(2^{\ell_M}=\log^{(j)}M\), \(\log^*M\), or any other prescribed
+divergent function satisfying (ME.1a) gives the corresponding deeper
+iterated-log secondary endpoint without another proof.  The wider range
+(ME.1) remains valid as a principal moving-exponent theorem.
+
+### 41.2 Equivalent moving-exponent inequality
+
+Write the target as \(M^{A_M}\).  Equivalently, put
+
+\[
+ A_M
+ =A_{\rm FP}
+ +\frac{
+   \kappa_*^{-1}\log\log M
+   +(\log2)\ell_M
+ }{\log M}.
+\tag{ME.6}
+\]
+
+Then \(A_M\to A_{\rm FP}\), and (ME.5) becomes the moving-power
+inequality
+
+\[
+ \boxed{
+ T_{\min}(n)
+ \le C_{\rm tar}(\log n)^{A_{\lfloor\log_2 n\rfloor}}.}
+\tag{ME.7}
+\]
+
+The coordinate-free admissibility condition for an arbitrary shellwise
+sequence \(A_M\to A_{\rm FP}\) is
+
+\[
+ \boxed{
+ \kappa_*(A_M-A_{\rm FP})\log M
+ -\log\log M
+ \longrightarrow+\infty.}
+\tag{ME.8}
+\]
+
+In terms of \(n\), suppressing harmless fixed changes of logarithm base,
+the critical approach profile is
+
+\[
+ A_{\rm mov}(n)
+ =A_{\rm FP}
+ +\frac{
+   2A_{\rm FP}\log\log\log n+\omega(n)
+ }{\log\log n},
+ \qquad
+ \omega(n)\longrightarrow\infty,
+\tag{ME.9}
+\]
+
+where \(\omega(n)=o(\log\log n)\) preserves
+\(A_{\rm mov}(n)\to A_{\rm FP}\).  Formula (ME.9), rather than an
+infinite list of iterated-log corollaries, is the canonical moving-endpoint
+statement.
+
+### 41.3 Boundary calibration and exact scope
+
+The boundary is visible directly in (ME.4):
+
+* if \(\ell_M\to\infty\), the shell failure tends to zero;
+* if \(\ell_M=O(1)\), the proved upper bound stays of constant order;
+* if the coefficient of \(\log\log M/\log M\) in
+  \(A_M-A_{\rm FP}\) is strictly below \(1/\kappa_*\), the scalar
+  budget loses a positive power of \(\log M\).
+
+Therefore the moving theorem does not assert descent for every arbitrary
+sequence \(A_M\downarrow A_{\rm FP}\).  It proves exactly the approach
+region (ME.8).  Nor does it lower the principal method ceiling
+\(A_{\rm FP}\); doing that still requires a new source-weighted loss or
+weighted-time transport theorem.
+
+```text
+DERIVED:
+  rank-buffer estimate ME.4;
+  moving target ME.5;
+  moving-exponent criterion ME.8;
+  canonical exponent profile ME.9.
+
+POSITIVE CALIBRATION:
+  every ell_M -> infinity gives density convergence.
+
+SECONDARY-ENDPOINT QUALIFIER:
+  ell_M = o(log log M); the wider ell_M = o(log M) range preserves only the
+  principal moving exponent A_FP + o(1).
+
+NEGATIVE / BOUNDARY CALIBRATION:
+  bounded ell_M gives only an order-one failure bound;
+  a secondary coefficient below 1/kappa_* fails the present budget.
+
+STRICTLY NARROWED:
+  all fixed iterated-log endpoint corollaries are unified into one exact
+  admissible moving-exponent region.
+
+EQUALLY HARD:
+  removing the final moving buffer or lowering A_FP.
+
+HEADLINE / MANUSCRIPT / PROOF-STATE / LEAN:
+  unchanged; research-ledger derived theorem only.
+```
+
+## 42. First-crossing ballot proposal: exact kill
+
+### 42.1 Literal target and geometry
+
+The proposed gain was
+
+\[
+ \Pr(H_q>tq)
+ \stackrel{?}{\ll}
+ q^{-3/2}e^{-q\mathcal I(t)}
+\tag{FC.1}
+\]
+
+for fixed \(t\) in the entropy regime, replacing the proved sharp-prefactor
+scale \(q^{-1/2}e^{-q\mathcal I(t)}\).  Its intended consumer was removal
+of one factor \(q\) from the low-rank budget.
+
+The literal barrier is horizontal over a word of length \(q\): in walk
+coordinates it is first crossing of
+
+\[
+ a_q=\lfloor2tq\rfloor+1.
+\tag{FC.2}
+\]
+
+It is not first crossing of a fixed-height boundary as \(q\to\infty\),
+and it is not the sloped boundary \(tj\) at depth \(j\).  This distinction
+decides the proposal.
+
+### 42.2 Exact first-crossing reassembly
+
+Stop every bad word at its unique first depth \(j\) with
+\(|Y_j|\ge a_q\).  If \(N_j^{\rm pre}\) is the number of such first-crossing
+prefixes, then all remaining bits are free and
+
+\[
+ \boxed{
+ N_{\max}(q)
+ =\sum_{j=1}^q 2^{q-j}N_j^{\rm pre}.}
+\tag{FC.3}
+\]
+
+Thus the completed first-crossing cylinders partition the maximal event
+exactly.  The proposed diagnostic
+\(N_{\rm first}\ll q^{-1}N_{\max}\) cannot hold when
+\(N_{\rm first}\) counts the same completed words: the two quantities are
+identical.
+
+The classical ballot formula exposes the missing factor.  For the one-sided
+walk and a parity-compatible depth \(j\),
+
+\[
+ \Pr(\tau_a=j)=\frac{a}{j}\Pr(Y_j=a).
+\tag{FC.4}
+\]
+
+Here \(a=a_q\asymp q\), and at \(j=q\) the ratio \(a/q\) tends to the
+nonzero constant \(2t\).  Stirling therefore gives, along the compatible
+subsequence,
+
+\[
+ \Pr(\tau_{a_q}=q)
+ \asymp q^{-1/2}e^{-q\mathcal I(t)},
+\tag{FC.5}
+\]
+
+already from the final first-crossing layer.  The often quoted
+\(q^{-3/2}\) law applies when the boundary height is fixed; its numerator
+\(a\) cannot be discarded when \(a\asymp q\).  Hence (FC.1) is false
+before affine corrections or nested Collatz certification enter.
+
+### 42.3 Exact diagnostic
+
+The script research/audit_first_crossing_barrier_gain.py performs integer
+dynamic programming on the literal two-sided walk.  For
+\(q=60,100,160,240,360\) at the critical limiting value of \(t\):
+
+* the completed first-crossing cylinders reassemble the maximal event with
+  exact error zero;
+* the ratio between the proved \(q^{-1/2}\) reference and the proposed
+  \(q^{-3/2}\) reference is exactly \(q\);
+* the maximal-event ratio against the proved reference stays between
+  approximately 4.26 and 5.71;
+* the ratio against the proposed reference grows from approximately 295 to
+  1725.
+
+The script returns audit=KILL.  This finite computation illustrates the
+all-depth identity (FC.3); the analytic refutation is (FC.4)--(FC.5).
+
+### 42.4 Other parts of the split-rank proposal
+
+Moving \(\eta_q=\eta_*-K/q\) changes
+\(q\mathcal I(t_q)\) only by a bounded amount and therefore changes only
+constants.  Splitting the terminal sum into near and far ranks also gives no
+asymptotic gain, because for fixed \(0<r=2^{-\kappa_*}<1\),
+
+\[
+ \sum_{q\ge L}q^{1/2}r^q
+ \asymp L^{1/2}r^L.
+\tag{FC.6}
+\]
+
+The near part already has the order of the whole sum, while the far part is
+geometrically smaller.  Therefore parameter movement, first-crossing tags,
+and near/far splitting do not remove the secondary logarithm.
+
+### 42.5 Surviving quantitative frontier
+
+The remaining explicit loss is the rank-scaled reverse-loss factor
+\(D_q\asymp q\) in the support-sensitive transport socket.  If a
+target-specific source-weighted theorem replaced it by
+\(D_q^{\rm eff}\ll q^\theta\), then the critical low-failure profile would
+be
+
+\[
+ \Pr_M(\operatorname{Fail})
+ \ll
+ \sqrt{M\log M}\,L^{\theta-1/2}2^{-\kappa_*L}.
+\tag{FC.7}
+\]
+
+For
+\(L=A_{\rm FP}\log_2M+B\log_2\log M\), this has scalar order
+
+\[
+ (\log M)^{\theta-B\kappa_*}.
+\tag{FC.8}
+\]
+
+Consequently:
+
+* the current \(\theta=1\) gives \(B>1/\kappa_*=2A_{\rm FP}\);
+* \(\theta=1/2\) would give \(B>A_{\rm FP}\);
+* \(\theta=0\) would give every fixed \(B>0\), and more generally any
+  divergent critical multiplier.
+
+Thus the payoff advertised by the ballot proposal is real only if one proves
+an effective \(O(1)\) source-weighted reverse-loss theorem for the literal
+first-bad targets.  First-crossing decomposition does not supply it.
+
+The next exact bounded target is therefore a target-specific replacement of
+the transport factor: for some \(\theta<1\), and ideally \(\theta=0\),
+prove the existing loss-filtered first-passage count with \(q^\theta\) in
+place of the worst-case \(q+2\), after summing the actual first-bad target
+and allowed time tags.  This is an arithmetic transport question, not a
+Boolean ballot question.
+
+```text
+FALSE:
+  q^(-3/2) maximal-barrier bound FC.1;
+  a q^(-1) gain from merely tagging the first crossing.
+
+PROVED:
+  exact first-crossing cylinder identity FC.3;
+  ballot normalization obstruction FC.4--FC.5;
+  geometric-tail equivalence FC.6;
+  payoff ladder FC.7--FC.8.
+
+EMPIRICAL / EXACT FINITE SUPPORT:
+  integer-DP audit with exact reassembly and predeclared kill.
+
+SURVIVING NEXT TARGET:
+  target-specific source-weighted reduction of the rank-loss factor q.
+
+HEADLINE / MANUSCRIPT / PROOF-STATE / LEAN:
+  unchanged.
+```
+
+## 43. Target-weighted reverse-loss moment
+
+### 43.1 Cycle card
+
+Section 42 leaves one explicit secondary loss: the deterministic cap
+\(E_{2^q}\ll q\) is inserted before the literal first-bad target is summed.
+The bounded goal of this cycle is to retain the loss sourcewise and determine
+the weakest moment statement that replaces the resulting factor \(q\).
+
+The predeclared success signal is an exact consumer inequality whose only
+open input is a target-weighted loss moment. The predeclared pause signal is
+that the frozen deterministic inputs recover only the old \(q\)-loss. Both
+occur: the consumer closes exactly, while its new moment remains open.
+
+### 43.2 Exact loss-truncation inequality
+
+Fix a first-bad rank \(q\), put \(Y=2^q\), and let
+\(B_q\subseteq J_q\) be the literal bad landing target. Write
+
+\[
+ d_q=\frac{|B_q|}{Y}.
+\]
+
+Let \({\cal F}_{M,q}\) be the generated sources whose first certification
+failure occurs at this rank, and let \({\cal H}_{M,q}\) be any allowed set
+of direct first-passage times containing their time tags. Put
+
+\[
+ H_{M,q}=|{\cal H}_{M,q}|,
+ \qquad
+ f_{M,q}=\frac{|{\cal F}_{M,q}|}{2^M}.
+\]
+
+For \(R>0\), define the high-loss tail and target-weighted first moment
+
+\[
+ \begin{aligned}
+  {\cal T}_{M,q}(R)
+  &:=2^{-M}\#\{n\in{\cal F}_{M,q}:E_Y(n)>R\},\\
+ {\cal L}_{M,q}
+  &:=2^{-M}\sum_{n\in{\cal F}_{M,q}}E_Y(n).
+ \end{aligned}
+\tag{TL.1}
+\]
+
+Split the family at loss \(R\). Proposition 4.3 of the manuscript, applied
+only to the declared time tags and the target \(B_q\), gives whenever
+\(R/Y\le1/3\)
+
+\[
+ \boxed{
+ f_{M,q}
+ \le
+ H_{M,q}d_q\left(\frac{Y}{2^M}+3R\right)
+ +{\cal T}_{M,q}(R).}
+\tag{TL.2}
+\]
+
+This is exact: the first term is the loss-filtered tagged-fibre count and
+the second term restores every discarded source. No distributional
+assumption has been inserted. Markov's inequality gives
+
+\[
+ {\cal T}_{M,q}(R)\le\frac{{\cal L}_{M,q}}R.
+\tag{TL.3}
+\]
+
+When \(H_{M,q}d_q>0\), define the dimensionless target-weighted loss
+pressure
+
+\[
+ \boxed{
+ \Lambda_{M,q}
+ :=\frac{{\cal L}_{M,q}}{H_{M,q}d_q}.}
+\tag{TL.4}
+\]
+
+Optimizing (TL.2)--(TL.3) at
+\(R=\sqrt{\Lambda_{M,q}/3}\) proves, provided
+\(\Lambda_{M,q}\le Y^2/3\),
+
+\[
+ \boxed{
+ f_{M,q}
+ \le
+ H_{M,q}d_q
+ \left(
+  \frac{Y}{2^M}+2\sqrt{3\Lambda_{M,q}}
+ \right).}
+\tag{TL.5}
+\]
+
+The zero-mass cases follow by taking the evident limit. Thus the effective
+transport loss is the square root of one source-weighted first moment; no
+uniform bound on every trajectory is required.
+
+Status: (TL.1)--(TL.5) are PROVED-PAPER consequences of the frozen
+loss-filtered transport theorem.
+
+### 43.3 Literal remaining theorem and payoff
+
+For a fixed \(0\le\theta<1\), the clean target is
+
+\[
+ \boxed{
+ \Lambda_{M,q}\le Cq^{2\theta}}
+ \qquad
+ \text{for the actual generated first-bad families.}
+\tag{TL.MOM\(_\theta\)}
+\]
+
+Uniformity is needed only over the low ranks used by the one prescribed
+schedule. Equation (TL.5) then replaces the old factor \(q\) by
+\(q^\theta\). With the entropy-sharp target density and compressed time
+support, summation gives
+
+\[
+ \Pr_M(\operatorname{Fail})
+ \ll
+ \sqrt{M\log M}\,
+ L^{\theta-1/2}2^{-\kappa_*L}
+ +M^{-\varepsilon}.
+\tag{TL.6}
+\]
+
+At
+
+\[
+ L=A_{\rm FP}\log_2M+B\log_2\log M,
+\]
+
+the sufficient secondary condition is
+
+\[
+ \boxed{B>\theta/\kappa_*.}
+\tag{TL.7}
+\]
+
+Hence \(\theta=1/2\) gives \(B>A_{\rm FP}\), while \(\theta=0\) permits
+every fixed \(B>0\) and, by the same moving-buffer argument as Section 41,
+an arbitrarily slowly divergent critical multiplier.
+
+This does not lower the principal exponent \(A_{\rm FP}\). Since
+\(q=O(\log M)\), it removes only secondary logarithmic losses. A principal
+improvement below \(A_{\rm FP}\) still requires a saving in the
+\(M^{1/2}\)-scale time/transport factor or a different signed spatial
+mechanism.
+
+### 43.4 Ceiling of the frozen inputs
+
+The current deterministic chain gives both
+
+\[
+ E_Y(n)\ll q
+ \quad(n\in{\cal F}_{M,q})
+\]
+
+and
+
+\[
+ f_{M,q}\ll H_{M,q}d_qq.
+\]
+
+Multiplying these proved bounds yields
+
+\[
+ {\cal L}_{M,q}\ll H_{M,q}d_qq^2,
+ \qquad
+ \boxed{\Lambda_{M,q}\ll q^2.}
+\tag{TL.8}
+\]
+
+Inserted into (TL.5), this is exactly \(\theta=1\), the frozen result.
+Thus loss truncation is not by itself an improvement. It identifies the
+missing input without hiding it: high reverse loss must carry less mass on
+the actual first-bad target than the product of the two independent
+worst-case bounds permits.
+
+Equivalently, writing
+
+\[
+ N_d(n)=\#\{j<\tau_Y(n):T^j(n)\text{ odd},
+                 \ 2^dY<T^{j+1}(n)\le2^{d+1}Y\},
+\]
+
+one has the deterministic occupation bound
+
+\[
+ E_Y(n)\le\frac12\sum_{d\ge0}2^{-d}N_d(n).
+\tag{TL.9}
+\]
+
+The genuine proof burden is therefore a target-weighted occupation estimate
+for the near-threshold shells. Prefix counting, endpoint cardinality, and
+the pointwise loss cap alone do not supply it.
+
+### 43.5 Exact finite diagnostic
+
+The script "research/audit_first_bad_reverse_loss.py" measures (TL.4) on
+the literal switch-composite target. It retains the recursively certified
+sources, constructs the stopped low bad target independently, and compares
+the actual target with random and top-loss same-cardinality controls. It
+also checks (TL.2) at several truncation levels.
+
+On the nondegenerate mechanism calibration
+
+\[
+ M\in\{18,20,22\},\qquad S=12,\qquad L=9,
+ \qquad r=9/10,\qquad\eta=2/5,
+\]
+
+the observed actual loss enrichments
+
+\[
+ \frac{{\cal L}_{M,S}}{d_S}
+\]
+
+are approximately \(0.4082,0.6478,0.4078\), while the top-loss adversarial
+targets give \(3.3562,3.6520,3.3459\). The corresponding values of
+\(\Lambda_{M,S}\) are below \(0.003\). The actual mean loss stays between
+approximately \(0.74\) and \(0.81\); the proportion above \(4\) is zero,
+about \(0.0051\), and zero in the three rows.
+
+These parameters deliberately create a visible sparse finite target and do
+not satisfy the manuscript inequality \(\eta<r-a_0\). The result is only a
+mechanism diagnostic. Proof-compatible small-rank rows have a nearly full
+bad target and are not asymptotically informative. The exact counts support
+the orientation of (TL.MOM\(_0\)), but cannot prove or refute it all-depth.
+
+### 43.6 Closeout
+
+~~~text
+PROVED-PAPER:
+  exact loss truncation TL.2;
+  target-weighted Markov optimization TL.5;
+  frozen-interface ceiling TL.8;
+  occupation decomposition TL.9.
+
+DERIVED-CONDITIONAL:
+  TL.MOM_theta implies payoff TL.6--TL.7.
+
+EMPIRICAL:
+  literal switch-composite audit is favorable against random and
+  adversarial same-cardinality controls;
+  finite mechanism parameters are not in the final theorem regime.
+
+OPEN:
+  TL.MOM_theta for any theta<1;
+  in particular bounded target-weighted loss pressure TL.MOM_0.
+
+NARROWED OBJECT:
+  target-weighted near-threshold occupation, not a uniform reverse-loss cap.
+
+PAYOFF:
+  improves the secondary iterated-log correction only;
+  does not lower the principal exponent A_FP.
+
+HEADLINE / MANUSCRIPT / PROOF-STATE / LEAN:
+  unchanged pending integration decision.
+~~~
