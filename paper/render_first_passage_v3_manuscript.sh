@@ -26,7 +26,7 @@ pandoc \
   --mathjax=mathjax3-tex-chtml.js \
   --embed-resources \
   --metadata lang=en \
-  --metadata pagetitle='Fixed-Polylogarithmic Natural-Density Descent for the Collatz Map' \
+  --metadata pagetitle='Polylogarithmic Natural-Density Descent for the Collatz Map' \
   --css="$style_css" \
   --css="$version_css" \
   --resource-path="$script_dir:$tmp_dir" \

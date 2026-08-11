@@ -55,7 +55,8 @@ namespace QuantitativeCollatzMain
 open Filter
 open scoped Real Topology
 
-/-- **Headline fixed-polylogarithmic first-passage theorem.** For every
+/-- **Fixed-exponent polylogarithmic first-passage theorem.** This is the
+formal specialization corresponding to manuscript Corollary 1.2(1).  For every
 strict target exponent above
 `1 / (2 * (1 - H₂(log₃ 2)))`, every shortcut-clock coefficient above
 `2 / log(4/3)`, and every separately fixed `beta > 0`, one explicit

@@ -1,33 +1,49 @@
 # First-Passage Linear Transport
 
-**Project line:** private V3 fixed-polylogarithmic promotion worktree
+**Project line:** private V3.1 moving-endpoint promotion worktree
 **Author:** Idris Ali Shaik
 
 This branch promotes the first-passage architecture from stretched-logarithmic
-to fixed-polylogarithmic natural-density descent for the shortcut Collatz map
+to moving polylogarithmic natural-density descent for the shortcut Collatz map
 
 ```text
 T(n) = n / 2       if n is even,
 T(n) = (3n + 1)/2  if n is odd.
 ```
 
-The V3 paper-level headline states that, for every fixed
+Put
 
 ```text
-A > 1 / (2 * (1 - H_2(log_3 2))) = 9.9911133419...,
-c > 2 / log(4/3) = 6.9521189935...,
-beta > 0,
+A_FP = 1 / (2 * (1 - H_2(log_3 2))) = 9.9911133419...,
+kappa_* = 1 - H_2(log_3 2).
 ```
 
-all but `O(X / (log X)^kappa)` integers `n <= X` have a witness
-`k < c log n` such that
+The V3.1 paper-level headline allows a bounded moving exponent `A_M` whenever
+the rank buffer
 
 ```text
-T^k(n) <= C (log n)^A
+kappa_* ceil(A_M log_2(M+2))
+  - (1/2) log_2(M+2) - log_2 log(M+3)
+```
+
+diverges to infinity.  For every shortcut clock
+`c > 2/log(4/3)` and every `beta > 0`, almost every source in shell `I_M`
+then has a witness `k < c log n` with
+
+```text
+T^k(n) <= C (log n)^A_M
 and max_{j <= k} T^j(n) <= n^(1+beta).
 ```
 
-The endpoint value of `A` is not claimed. At the companion target
+This includes every fixed `A > A_FP`, the critical target
+
+```text
+(log n)^A_FP (log log n)^(2 A_FP) (log log log n)^D
+```
+
+for every fixed `D > 0`, and the same critical base multiplied by an
+arbitrarily slowly diverging function of `log log n`.  The pure endpoint with
+a bounded final multiplier is not claimed.  At the companion target
 `exp ((log n)^(1-delta))`, the shell assembly reaches the endpoint exceptional
 power `1-delta`. Every shortcut clock constant above `2/log(4/3)` and every
 raw clock constant above `3/log(4/3)` are retained.
@@ -38,13 +54,20 @@ the graded fixed-power clock.  The graded result is presented as a
 compact independent companion: it records the sharp time--descent tradeoff
 without entering the optimized fixed-polylogarithmic dependency chain.
 
-The V3 manuscript proof is integrated. The Lean development now compiles the
+The V3.1 manuscript proof is integrated. The Lean development compiles the
 loss-filtered target transport, nested direct first-passage collapse,
 all-block rank-scaled loss budget, entropy-sharp Boolean barrier, complete
 two-regime exceptional profile, literal terminal witness, mixed-run orbit
 ceiling, endpoint parameter selection, and the referee-facing fixed-polylog
-theorem in `Main.lean`. The frozen V2.3.1 theorem family remains available as
-companion mathematics.
+theorem in `Main.lean` for every fixed `A > A_FP`.  The sharp binomial
+prefactor, moving low parameters, rounded barrier, and literal moving
+low-rank landing-density estimate through the endpoint rate are now
+formalized in the internal moving-endpoint modules, but are not yet connected
+to a public Lean theorem.  The formal package therefore
+verifies the fixed-exponent landing, clock, ceiling, and a positive
+logarithmic exceptional exponent, not the full V3.1 moving headline or the
+paper's exact endpoint ranges for the exceptional exponent. The frozen
+V2.3.1 theorem family remains available as companion mathematics.
 
 ## Release boundary
 
@@ -66,6 +89,8 @@ a public repository is authorized by work on this branch.
   for the architecture figure;
 - `audits/fixed_polylog_promotion_audit_2026_08_07.md`: V3 theorem and
   cut-vertex reconstruction;
+- `audits/review_v31_moving_endpoint_promotion_2026_08_11.md`: V3.1 moving
+  endpoint proof, scalar-budget, render, and formal-boundary audit;
 - `audits/`: manuscript-only mathematical, literature, content, and desk
   records;
 - `audits/review_post_freeze_corollaries_2026_08_06.md`: downstream
@@ -80,11 +105,12 @@ a public repository is authorized by work on this branch.
 - `proof-state.md`: synchronized paper hashes, status ledger, and formalization
   acceptance gates.
 
-The V3 manuscript proof and public formal chain have been reconstructed
-through all five cut vertices. The public headline now counts exactly the
+The fixed-exponent V3 manuscript proof and public formal chain have been
+reconstructed through all five cut vertices. The public Lean theorem counts exactly the
 integers lacking its displayed witness, matching the manuscript after the
-Lean theorem's harmless strict landing inequality. A full-package build,
-placeholder scan, declaration-level dependency report, public-root trust
-audit, manuscript reference audit, and distinct V3 PDF inspection pass. See
-`lean/FORMALIZATION.md` and `proof-state.md` for the exact synchronization
-boundary.
+Lean theorem's harmless strict landing inequality.  The V3.1 paper extension
+adds the sharp maximal-walk prefactor and moving rank buffer above that frozen
+formal boundary.  The full-package build, placeholder scan,
+declaration-level dependency report, public-root trust audit, manuscript
+reference audit, and distinct V3 PDF inspection are recorded separately. See
+`lean/FORMALIZATION.md` and `proof-state.md` for the exact boundary.
