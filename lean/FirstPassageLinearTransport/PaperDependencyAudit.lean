@@ -11,8 +11,10 @@ import Lean.Server.References
 /-!
 # First-passage manuscript dependency audit
 
-Declaration-level dependency audit for the standalone first-passage
-linear-transport manuscript.
+Declaration-level dependency audit for the formally represented
+fixed-parameter portion of the standalone first-passage linear-transport
+manuscript.  The V3.1 sharp-prefactor and moving-endpoint additions are
+paper-only and are deliberately absent from the roots below.
 
 Imports show what was available during elaboration; axiom reports show the
 trusted principles of finished declarations; the kernel graph follows
@@ -35,25 +37,25 @@ private structure PaperRoot where
   decl : Name
 
 private def paperRoots : Array PaperRoot := #[
-  ⟨"Theorem 1.1 (optimized fixed-polylogarithmic descent)",
+  ⟨"Corollary 1.2(1) (fixed-polylogarithmic descent)",
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent⟩,
-  ⟨"Theorem 1.1 (endpoint exponent identity)",
+  ⟨"Corollary 1.2(1) (endpoint exponent identity)",
     `FirstPassageLinearTransport.timeSupportCriticalExponent_eq_entropy⟩,
-  ⟨"Theorem 1.1 (clock identity)",
+  ⟨"Corollary 1.2(1) (clock identity)",
     `FirstPassageLinearTransport.fixedPolylogClockCritical_eq_paper⟩,
-  ⟨"Theorem 1.1 (strict parameter selection)",
+  ⟨"Corollary 1.2(1) (strict parameter selection)",
     `FirstPassageLinearTransport.exists_shrinkingPolylogParameterPackage⟩,
-  ⟨"Theorem 1.1 (literal terminal witness)",
+  ⟨"Corollary 1.2(1) (literal terminal witness)",
     `FirstPassageLinearTransport.shrinkingSource_lands_below_horizon⟩,
-  ⟨"Theorem 1.1 (same-witness orbit ceiling)",
+  ⟨"Corollary 1.2(1) (same-witness orbit ceiling)",
     `FirstPassageLinearTransport.eventually_shrinkingPolylogGood_has_shellLanding_with_orbitCeiling⟩,
-  ⟨"Theorem 1.1 (assembled quantitative theorem)",
+  ⟨"Corollary 1.2(1) (assembled quantitative theorem)",
     `FirstPassageLinearTransport.shrinkingFixedPolylogNaturalDensityDescent⟩,
-  ⟨"Theorem 1.1 (support-sensitive time transport)",
+  ⟨"Corollary 1.2(1) (support-sensitive time transport)",
     `FirstPassageLinearTransport.lossFiltered_arbitraryTarget_transport_atTimes_uniform⟩,
-  ⟨"Theorem 1.1 (square-root feasible-time support)",
+  ⟨"Corollary 1.2(1) (square-root feasible-time support)",
     `FirstPassageLinearTransport.shrinkingFeasibleTimes_card_lt_sqrt⟩,
-  ⟨"Theorem 1.1 (support-sensitive first-bad profile)",
+  ⟨"Corollary 1.2(1) (support-sensitive first-bad profile)",
     `FirstPassageLinearTransport.eventually_shrinkingFailureEnvelope_density_polylog_le⟩,
   ⟨"Lemma 2.1 (varying dyadic summation)",
     `FirstPassageLinearTransport.naturalDensityOne_assembleDyadic⟩,
@@ -149,7 +151,7 @@ private def paperRoots : Array PaperRoot := #[
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent⟩,
   ⟨"Companion stretched-log theorem (unclocked)",
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent_unclocked⟩,
-  ⟨"Corollary 1.4, timed fixed-power descent",
+  ⟨"Corollary 1.5, timed fixed-power descent",
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_power_natural_density_descent⟩,
   ⟨"Companion strict stretched-log exceptional count",
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_quantitative_stretched_exceptional_count⟩,
@@ -157,17 +159,17 @@ private def paperRoots : Array PaperRoot := #[
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_raw_stretched_log_natural_density_descent⟩,
   ⟨"Companion stretched-log shortcut orbit ceiling",
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_descent_with_orbit_ceiling⟩,
-  ⟨"Corollary 1.4 (quantitative fixed-power count)",
+  ⟨"Corollary 1.5 (quantitative fixed-power count)",
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_quantitative_fixed_power_exceptional_count⟩,
-  ⟨"Corollary 1.4 (fixed-depth density pullback)",
+  ⟨"Corollary 1.5 (fixed-depth density pullback)",
     `FirstPassageLinearTransport.bootstrapSet_powerDense⟩,
-  ⟨"Corollary 1.4 (graded height clock)",
+  ⟨"Corollary 1.5 (graded height clock)",
     `FirstPassageLinearTransport.stageClock_le_heightClock⟩,
-  ⟨"Corollary 1.4 (graded parameter selection)",
+  ⟨"Corollary 1.5 (graded parameter selection)",
     `FirstPassageLinearTransport.exists_gradedClockParameters⟩,
-  ⟨"Corollary 1.4 (internal graded theorem)",
+  ⟨"Corollary 1.5 (internal graded theorem)",
     `FirstPassageLinearTransport.firstPassageLinearTransportGradedPower⟩,
-  ⟨"Corollary 1.4 (public graded theorem)",
+  ⟨"Corollary 1.5 (public graded theorem)",
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_graded_power_natural_density_descent⟩
 ]
 

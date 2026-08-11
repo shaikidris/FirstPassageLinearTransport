@@ -171,7 +171,7 @@ theorem stretchedLogExceptionalCountEventually
   rw [← stageOrbit_eq_orbit_stageClock]
   exact hlandingM n hn hnshell hnboot
 
-/-- Literal quantitative form of Corollary 1.2. -/
+/-- Literal quantitative form of Theorem 1.3. -/
 theorem firstPassageLinearTransportQuantitativeStretched
     {delta sigma : ℝ}
     (hdelta0 : 0 < delta) (hdelta1 : delta < 1)

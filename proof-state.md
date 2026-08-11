@@ -1,6 +1,6 @@
 # First-Passage Linear Transport V3 promotion state
 
-**Record date:** 2026-08-10
+**Record date:** 2026-08-11
 **V3 project root:** `/Users/shaik.i/research/collatz/FirstPassageLinearTransport`
 
 **Frozen V1 repository:** `/Users/shaik.i/research/collatz/CET`  
@@ -8,6 +8,74 @@
 **Frozen V1 commit:** `16766542edaf1aac67ea1ad474c1193c9c8939c9`
 
 ## Active V3 promotion
+
+### V3.1 moving-endpoint paper promotion
+
+The current worktree strengthens the fixed-exponent V3 theorem at the
+terminal-scale endpoint.  Put
+
+```text
+kappa_* = 1 - H_2(log_3 2),
+A_FP = 1 / (2 * kappa_*) = 9.9911133419....
+```
+
+For a bounded shell exponent profile `A_M`, set
+
+```text
+L_M = ceil(A_M log_2(M+2)),
+Delta_M = kappa_* L_M
+  - (1/2) log_2(M+2) - log_2 log(M+3).
+```
+
+The paper now proves that `Delta_M -> +infinity` gives shell failure
+
+```text
+O(2^(-Delta_M) + M^(-epsilon))
+```
+
+and hence natural-density-one descent to `C (log n)^A_M` with every shortcut
+clock `c > 2/log(4/3)` and the same-witness ceiling `n^(1+beta)`.  Its explicit
+endpoint specialization is
+
+```text
+C (log n)^A_FP
+  (log log n)^(2 A_FP)
+  (log log log n)^D,
+```
+
+for every fixed `D > 0`; an arbitrary prescribed divergent multiplier of
+`log log n` is also allowed qualitatively.  The pure endpoint with a bounded
+final multiplier is not claimed.
+
+V3.1 status:
+
+- sharp compact-regime maximal-walk prefactor: `PROVED-PAPER`;
+- moving low-parameter deterministic envelope: `PROVED-PAPER`;
+- critical rank-buffer profile and shell failure bound: `PROVED-PAPER`;
+- moving endpoint, fixed-`A`, log-log, triple-log, and functional consumers:
+  `PROVED-PAPER`;
+- exact finite positive and boundary controls:
+  `EMPIRICAL-SUPPORT / PASS`;
+- manuscript integration, reference audit, and 25-page PDF render:
+  `PASS / VISUAL PASS`;
+- fixed-`A` landing/clock/ceiling and some positive logarithmic exceptional
+  exponent: `PROVED-FORMAL` by the frozen public theorem;
+- exact fixed-`A` exceptional range
+  `gamma < kappa_* (A - A_FP)`: `PROVED-PAPER / NOT EXPOSED IN PUBLIC LEAN`;
+- sharp prefactor, moving parameters, rounded barrier, and literal endpoint-rate
+  landing density: `PROVED-FORMAL` in internal modules;
+- moving low-phase transport/profile and public moving endpoint:
+  `FORMALIZATION IN PROGRESS`;
+- public Lean `Main` headline: `UNCHANGED / FIXED-A ONLY`;
+- pure `A=A_FP` endpoint with bounded tertiary multiplier: `NOT PROVED`.
+
+This is a real paper theorem upgrade but not yet a fully synchronized formal
+headline.  No release-ready or full-formalization claim may be made until the
+moving analytic cut vertex and its downstream public theorem are represented
+in Lean, or the artifact is explicitly released as a paper-only extension
+with the narrower formal boundary stated in the manuscript.
+
+### Frozen V3.0 fixed-exponent baseline
 
 The V2.3.1 paper and public Lean API at commit `2816871` remain the frozen
 baseline.  The private branch `v3-fixed-polylog` promotes a new paper headline.
@@ -25,8 +93,10 @@ Paper status:
 
 - shrinking-time-support fixed-polylogarithmic proof:
   `PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED / RE-AUDIT PASS`;
-- endpoint-rate stretched-log companion:
+- stretched-log landing/ceiling and strict sub-endpoint rates:
   `PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
+- exact stretched-log exceptional endpoint:
+  `PROVED-PAPER / NOT EXPOSED IN PUBLIC LEAN`;
 - shrinking-time-support cut-vertex reconstruction: `PASS`;
 - prior fixed-tolerance freeze audit: `PASS / HISTORICAL`;
 - streamlined 23-page headline cone with isolated graded appendix, proof-architecture figure, PDF render,
@@ -227,26 +297,39 @@ a3f8c4ae196682a40f43fd5ecfcb539e8485fa2dddb9837c9764c9bb997794f1  lean/FirstPass
 
 Paper proof-state:
 
-- manuscript-only mathematical audit: `ACCEPT`;
+- V3.1 moving-endpoint manuscript audit: `IN PROGRESS / NO PROMOTION YET`;
+- frozen fixed-exponent manuscript-only mathematical audit: `ACCEPT`;
 - literature audit: `PASS WITH BOUNDED PRIORITY SCOPE`;
-- formal proof-assistant evidence: `FULL HEADLINE AND STRENGTHENED-COROLLARY CHAIN BUILD PASSED`;
-- timed fixed-power Corollary 1.4: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
-- quantitative Corollaries 1.2 and 1.5: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
+- formal proof-assistant evidence for the fixed-`A` specialization and existing
+  companions: `FULL BUILD PASSED`;
+- formal proof-assistant evidence for the V3.1 moving headline:
+  `INCOMPLETE / ANALYTIC PRODUCER FORMALIZED / PROFILE ADAPTER OPEN`;
+- timed fixed-power Corollary 1.5: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
+- fixed-`A` landing part of Corollary 1.2:
+  `PROVED-ON-PAPER / PROVED-FORMAL`;
+- moving/log-log/triple-log parts of Theorem 1.1 and Corollary 1.2:
+  `PROVED-ON-PAPER / ANALYTIC PRODUCER PROVED-FORMAL / PUBLIC ASSEMBLY OPEN`;
+- Theorem 1.3 literal landing/ceiling and every strict exceptional power below
+  `1-delta`: `PROVED-ON-PAPER / PROVED-FORMAL`;
+- Theorem 1.3 exact exceptional power `1-delta`:
+  `PROVED-ON-PAPER / NOT EXPOSED IN PUBLIC LEAN`;
 - raw-clock refinement: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - graded fixed-power clock: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED /
   INDEPENDENT COMPANION`;
-- Corollary 1.3 intermediate-orbit ceiling:
+- Theorem 1.3 intermediate-orbit ceiling:
   `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - endpoint `delta = 1`: `NOT CLAIMED`;
 - global or first-priority claim: `NOT MADE`.
 
 ## Formalization triage
 
-**Classification:** `CLOSURE`.
+**Classification:** `CLOSURE FOR THE FROZEN FIXED-A CHAIN / FORMAL EXTENSION
+PENDING FOR V3.1`.
 
-Lean is used to close the accepted paper dependency chain, not as evidence for
-an unfinished analytic step.  A successful build of structural fragments is
-not formal verification of the headline theorem.
+Lean closes the frozen fixed-`A` paper dependency chain.  It is not evidence
+for the new sharp-prefactor analytic step or for the V3.1 moving headline.  A
+successful build of the unchanged fixed-parameter modules must not be
+described as formal verification of that stronger theorem.
 
 **Package root:** `lean/FirstPassageLinearTransport/`  
 **Public module:** `FirstPassageLinearTransport.Main`

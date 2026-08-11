@@ -9,10 +9,12 @@ import FirstPassageLinearTransport.PaperDependencyAudit
 /-!
 # First-passage manuscript axiom audit
 
-Public `#print axioms` surface for the standalone V3 manuscript. This module
-reports logical trust; `PaperDependencyAudit` separately reports declaration
-and source-elaboration reachability, while a full `lake build` remains the
-source-reconstruction gate.
+Public `#print axioms` surface for the formally represented fixed-parameter
+portion of the standalone V3.1 manuscript.  The paper-only sharp-prefactor and
+moving-endpoint additions are not audited by this unchanged declaration set.
+This module reports logical trust; `PaperDependencyAudit` separately reports
+declaration and source-elaboration reachability, while a full `lake build`
+remains the source-reconstruction gate.
 -/
 
 -- Parity coding and the exact affine iterate.
