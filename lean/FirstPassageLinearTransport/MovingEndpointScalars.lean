@@ -47,6 +47,16 @@ theorem timeSupportCriticalExponent_mul_entropyGap :
   field_simp [ne_of_gt firstPassageEntropyGap_pos]
   ring
 
+/-- The natural-log endpoint rate is the base-two entropy gap multiplied by
+`log 2`. -/
+theorem firstPassageEndpointRate_eq_entropyGap_mul_logTwo :
+    firstPassageEndpointRate = firstPassageEntropyGap * Real.log 2 := by
+  rw [firstPassageEndpointRate, binaryBarrierRate,
+    endpoint_probability_eq_logThreeTwo]
+  unfold firstPassageEntropyGap binaryEntropyBaseTwo
+  have hlog2 : Real.log 2 ≠ 0 := ne_of_gt (Real.log_pos (by norm_num))
+  field_simp [hlog2]
+
 /-- Integer terminal rank associated with a shell-dependent exponent. -/
 def movingTerminalRank (A : ℕ → ℝ) (M : ℕ) : ℕ :=
   ⌈A M * Real.logb 2 ((M : ℝ) + 2)⌉₊
@@ -102,6 +112,124 @@ theorem movingRankBuffer_eq (A : ℕ → ℝ) (M : ℕ) :
       firstPassageEntropyGap * movingTerminalRank A M -
         (1 / 2) * Real.logb 2 ((M : ℝ) + 2) -
         Real.logb 2 (Real.log ((M : ℝ) + 3)) := rfl
+
+/-- Exact exponential interpretation of the critical rank buffer. -/
+theorem two_rpow_neg_movingRankBuffer_eq
+    (A : ℕ → ℝ) (M : ℕ) :
+    (2 : ℝ) ^ (-(movingRankBuffer A M)) =
+      Real.sqrt ((M : ℝ) + 2) * Real.log ((M : ℝ) + 3) *
+        Real.exp (-(firstPassageEndpointRate *
+          (movingTerminalRank A M : ℝ))) := by
+  let x : ℝ := (M : ℝ) + 2
+  let y : ℝ := Real.log ((M : ℝ) + 3)
+  have hx : 0 < x := by dsimp [x]; positivity
+  have hy : 0 < y := by
+    dsimp [y]
+    apply Real.log_pos
+    have hM0 : (0 : ℝ) ≤ M := Nat.cast_nonneg M
+    linarith
+  have htwo : 0 < (2 : ℝ) := by norm_num
+  have hfirst :
+      (2 : ℝ) ^ (-(firstPassageEntropyGap *
+          (movingTerminalRank A M : ℝ))) =
+        Real.exp (-(firstPassageEndpointRate *
+          (movingTerminalRank A M : ℝ))) := by
+    rw [Real.rpow_def_of_pos htwo]
+    rw [firstPassageEndpointRate_eq_entropyGap_mul_logTwo]
+    congr 1
+    ring
+  have hsecond :
+      (2 : ℝ) ^ ((1 / 2 : ℝ) * Real.logb 2 x) = Real.sqrt x := by
+    rw [show (1 / 2 : ℝ) * Real.logb 2 x =
+        Real.logb 2 x * (1 / 2 : ℝ) by ring,
+      Real.rpow_mul (by norm_num),
+      Real.rpow_logb (by norm_num) (by norm_num) hx,
+      Real.sqrt_eq_rpow]
+  have hthird : (2 : ℝ) ^ (Real.logb 2 y) = y := by
+    exact Real.rpow_logb (by norm_num) (by norm_num) hy
+  rw [movingRankBuffer_eq]
+  rw [show -(firstPassageEntropyGap * movingTerminalRank A M -
+        (1 / 2) * Real.logb 2 ((M : ℝ) + 2) -
+        Real.logb 2 (Real.log ((M : ℝ) + 3))) =
+      -(firstPassageEntropyGap * (movingTerminalRank A M : ℝ)) +
+        (1 / 2) * Real.logb 2 x + Real.logb 2 y by
+      dsimp [x, y]
+      ring,
+    Real.rpow_add htwo, Real.rpow_add htwo, hfirst, hsecond, hthird]
+  dsimp [x, y]
+  ring
+
+/-- Divergence of the critical buffer forces the literal integer terminal
+rank itself to diverge.  This is the bridge from the asymptotic endpoint
+hypothesis to every finite startup obligation in the moving low phase. -/
+theorem tendsto_movingTerminalRank_atTop
+    {A : ℕ → ℝ}
+    (hbuffer : Tendsto (movingRankBuffer A) atTop atTop) :
+    Tendsto (movingTerminalRank A) atTop atTop := by
+  rw [tendsto_atTop] at hbuffer ⊢
+  intro N
+  have hbuf := hbuffer (firstPassageEntropyGap * (N : ℝ))
+  filter_upwards [hbuf, eventually_ge_atTop (1 : ℕ)] with M hbuf hM
+  let x : ℝ := (M : ℝ) + 2
+  have hx1 : 1 ≤ x := by
+    dsimp [x]
+    have hM0 : (0 : ℝ) ≤ M := Nat.cast_nonneg M
+    linarith
+  have hlogb0 : 0 ≤ Real.logb 2 x :=
+    Real.logb_nonneg (by norm_num) hx1
+  have hlog1 : 1 ≤ Real.log ((M : ℝ) + 3) := by
+    apply (Real.le_log_iff_exp_le (by positivity)).2
+    have he : Real.exp 1 < 3 := Real.exp_one_lt_d9.trans (by norm_num)
+    have hMR : (1 : ℝ) ≤ M := by exact_mod_cast hM
+    linarith
+  have hloglog0 : 0 ≤ Real.logb 2 (Real.log ((M : ℝ) + 3)) :=
+    Real.logb_nonneg (by norm_num) hlog1
+  have hupper : movingRankBuffer A M ≤
+      firstPassageEntropyGap * (movingTerminalRank A M : ℝ) := by
+    rw [movingRankBuffer_eq]
+    linarith
+  have hcast : (N : ℝ) ≤ (movingTerminalRank A M : ℝ) := by
+    have hmul : firstPassageEntropyGap * (N : ℝ) ≤
+        firstPassageEntropyGap * (movingTerminalRank A M : ℝ) :=
+      hbuf.trans hupper
+    exact (mul_le_mul_left firstPassageEntropyGap_pos).mp hmul
+  exact_mod_cast hcast
+
+/-- The moving exponent is eventually positive whenever its critical rank
+buffer diverges. -/
+theorem eventually_movingExponent_pos
+    {A : ℕ → ℝ}
+    (hbuffer : Tendsto (movingRankBuffer A) atTop atTop) :
+    ∀ᶠ M : ℕ in atTop, 0 < A M := by
+  have hRank := (tendsto_atTop.1
+    (tendsto_movingTerminalRank_atTop hbuffer)) 1
+  filter_upwards [hRank] with M hRank
+  have hceil : 0 < A M * Real.logb 2 ((M : ℝ) + 2) :=
+    Nat.ceil_pos.mp (show 0 < movingTerminalRank A M by omega)
+  have hlogb : 0 < Real.logb 2 ((M : ℝ) + 2) := by
+    apply Real.logb_pos (by norm_num : (1 : ℝ) < 2)
+    have hM0 : (0 : ℝ) ≤ M := Nat.cast_nonneg M
+    linarith
+  nlinarith
+
+/-- A pointwise upper bound on the moving exponent places its terminal rank
+below the fixed logarithmic switch selected by the parameter package. -/
+theorem eventually_movingTerminalRank_lt_shrinkingSwitchRank
+    {A : ℕ → ℝ} {Amax C : ℝ}
+    (hAmax : 0 ≤ Amax) (hAC : Amax / Real.log 2 < C)
+    (hUpper : ∀ᶠ M : ℕ in atTop, A M ≤ Amax) :
+    ∀ᶠ M : ℕ in atTop,
+      movingTerminalRank A M < shrinkingSwitchRank C M := by
+  have hFixed := eventually_polylogTerminalRank_lt_shrinkingSwitchRank
+    hAmax hAC
+  filter_upwards [hUpper, hFixed] with M hAM hFixed
+  have hlogb0 : 0 ≤ Real.logb 2 ((M : ℝ) + 2) := by
+    apply Real.logb_nonneg (by norm_num)
+    have hM0 : (0 : ℝ) ≤ M := Nat.cast_nonneg M
+    linarith
+  have hceil : movingTerminalRank A M ≤ polylogTerminalRank Amax M := by
+    exact Nat.ceil_mono (mul_le_mul_of_nonneg_right hAM hlogb0)
+  exact hceil.trans_lt hFixed
 
 /-- The two terms in the shell bound vanish when the critical buffer tends to
 infinity and the high-rank exponent is positive. -/

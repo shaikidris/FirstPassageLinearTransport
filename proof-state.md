@@ -78,17 +78,15 @@ V3.1 status:
 - exact-rate sharp `q^(-1/2)` low profile, uniformly for `b >= b0 > 0`:
   `PROVED-FORMAL / AXIOM AUDIT PASS`;
 - uniform moving-stage startup with `pLo.M0 <= L`:
-  `LEAN-OPEN`;
+  `PROVED-FORMAL`;
 - moving `Delta_M` shell-density/same-witness producer and public moving endpoint:
-  `LEAN-OPEN`;
-- public Lean `Main` headline: `UNCHANGED / FIXED-A ONLY`;
+  `PROVED-FORMAL`;
+- public Lean `Main` headline: `MOVING ENDPOINT EXPOSED`;
 - pure `A=A_FP` endpoint with bounded tertiary multiplier: `NOT PROVED`.
 
-This is a real paper theorem upgrade with its analytic producer formalized,
-but not yet a fully synchronized formal headline.  No full-formalization claim
-may be made until the eventual shell-density and same-witness producer
-discharges the conditional profile and is connected to the moving assembly
-and downstream public theorem.
+This is now a synchronized paper-and-Lean theorem upgrade.  The public theorem
+retains the literal moving rank buffer, shell exceptional profile, logarithmic
+clock, moving landing target, and same-witness orbit ceiling.
 
 Current V3.1 moving-producer synchronization snapshot:
 
@@ -141,13 +139,13 @@ Paper status:
   `PROVED-PAPER / NOT EXPOSED IN PUBLIC LEAN`;
 - shrinking-time-support cut-vertex reconstruction: `PASS`;
 - prior fixed-tolerance freeze audit: `PASS / HISTORICAL`;
-- streamlined 23-page headline cone with isolated graded appendix, proof-architecture figure, PDF render,
+- streamlined 25-page headline cone with isolated graded appendix, proof-architecture figure, PDF render,
   and visual audit: `PASS`;
 - probabilistic/deterministic interface, Version-1 lineage, and current
   Tao-bridge comparison: `PASS / NONSEMANTIC EXPOSITION`;
 - referee-flow constants explanation, target-only containment qualification,
   and statement-level path-ceiling comparison: `PASS / NONSEMANTIC EXPOSITION`;
-- fixed-parameter manuscript dependency roots: `PASS / 58 ROOTS`;
+- manuscript dependency roots, including the moving headline: `PASS / 71 ROOTS`;
 - moving analytic producer axiom roots: `PASS / SEPARATE AUDIT`.
 
 V3 formal status:
@@ -341,20 +339,18 @@ a3f8c4ae196682a40f43fd5ecfcb539e8485fa2dddb9837c9764c9bb997794f1  lean/FirstPass
 Paper proof-state:
 
 - V3.1 moving-endpoint manuscript audit:
-  `ACCEPT / COMMITTED PRIVATE / PUBLIC LEAN PROMOTION PENDING`;
+  `ACCEPT / PUBLIC LEAN PROMOTION COMPLETED IN WORKTREE`;
 - frozen fixed-exponent manuscript-only mathematical audit: `ACCEPT`;
 - literature audit: `PASS WITH BOUNDED PRIORITY SCOPE`;
 - formal proof-assistant evidence for the fixed-`A` specialization and existing
   companions: `FULL BUILD PASSED`;
 - formal proof-assistant evidence for the V3.1 moving headline:
-  `INCOMPLETE / ANALYTIC PRODUCER, TIME SUPPORT, AND CONDITIONAL ASSEMBLY
-  FORMALIZED / FIRST-BAD PROFILE ADAPTER OPEN`;
+  `PROVED-FORMAL / MAIN EXPOSED / FINAL AUDIT PASS`;
 - timed fixed-power Corollary 1.5: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - fixed-`A` landing part of Corollary 1.2:
   `PROVED-ON-PAPER / PROVED-FORMAL`;
 - moving/log-log/triple-log parts of Theorem 1.1 and Corollary 1.2:
-  `PROVED-ON-PAPER / ANALYTIC PRODUCER AND TIME SUPPORT PROVED-FORMAL /
-  PUBLIC ASSEMBLY OPEN`;
+  `PROVED-ON-PAPER / MOVING HEADLINE PROVED-FORMAL`;
 - Theorem 1.3 literal landing/ceiling and every strict exceptional power below
   `1-delta`: `PROVED-ON-PAPER / PROVED-FORMAL`;
 - Theorem 1.3 exact exceptional power `1-delta`:
@@ -369,18 +365,13 @@ Paper proof-state:
 
 ## Formalization triage
 
-**Classification:** `CLOSURE FOR THE FROZEN FIXED-A CHAIN / MOVING ANALYTIC
-PRODUCER AND TIME SUPPORT FORMALIZED / PUBLIC V3.1 EXTENSION PENDING`.
+**Classification:** `COMPLETE MOVING-ENDPOINT CHAIN / PUBLIC V3.1 THEOREM
+EXPOSED / RELEASE AUDIT REQUIRED`.
 
-Lean closes the frozen fixed-`A` paper dependency chain and now separately
-formalizes the sharp-prefactor, moving landing-density producer, moving
-feasible-time support, direct first-bad transport, and the exact-rate
-conditional `q^(-1/2)` terminal profile. It does not yet close the V3.1 moving
-headline: uniform low-stage startup and an eventual `Delta_M` shell-density
-and same-witness producer must still discharge the profile hypotheses, and
-`MovingEndpointAssembly.lean` remains a conditional consumer.
-A successful build of these modules must not be described as formal
-verification of the complete stronger theorem.
+Lean closes the moving chain from the sharp-prefactor producer through
+quantitative startup, direct first-bad transport, exact-rate `q^(-1/2)` tail,
+critical-buffer reassembly, literal same-witness execution, and natural-density
+assembly.  `Main.lean` exposes the complete moving theorem.
 
 **Package root:** `lean/FirstPassageLinearTransport/`
 **Public module:** `FirstPassageLinearTransport.Main`
@@ -424,9 +415,14 @@ Compiled dependency order:
     transport and the conditional support-sensitive terminal-profile socket;
 17. `MovingSharpTail.lean`, `MovingSharpProfile.lean`: exact-rate
     `q^(-1/2)` tail summation and the conditional sharp first-bad profile;
-18. `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`: scalar
-   density assembly and conditional moving consumer;
-19. `PaperDependencyAudit.lean`, `PaperAudit.lean`,
+18. `MovingLowSetup.lean`, `MovingEndpointParameters.lean`,
+   `MovingEndpointProfile.lean`, `MovingEndpointAsymptotics.lean`: quantitative
+   startup, sharp shell profile, and exact buffer closure;
+19. `MovingExecution.lean`, `MovingOrbitCeiling.lean`,
+   `MovingEndpointWitness.lean`: literal termination, clock, and ceiling;
+20. `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`,
+   `MovingEndpointNaturalDensity.lean`: scalar and density assembly;
+21. `PaperDependencyAudit.lean`, `PaperAudit.lean`,
    `MovingEndpointAudit.lean`: fixed-parameter reachability, public trust, and
    internal moving-producer trust reports.
 
@@ -467,13 +463,14 @@ The formalization is complete only when:
     including its constants, offsets, normalization, status, label, and
     anchor checks.
 
-Current 2026-08-12 maintenance result: the exact-rate sharp tail and its
-conditional moving consumer typecheck, and their direct `#print axioms` audit
-contains only Lean's standard axioms.  The semantic gate passes 34 literal
-contracts and 14 mapped declarations, and the synchronized 25-page PDF render
-passes.  The standard Lake target entered an anomalous full Mathlib cache
-replay and was stopped without a project error; the uninterrupted
-full-package Lake gate remains required before release-candidate status.
+Current 2026-08-12 maintenance result: the complete moving-endpoint chain,
+including the quantitative startup, sharp landing profile, literal shell
+failure set, same-witness landing/clock/ceiling theorem, natural-density
+assembly, and public `Main.lean` theorem, typechecks in the uninterrupted full
+package build.  Direct `#print axioms` audits contain only Lean's standard
+axioms.  The semantic gate passes 36 literal contracts and 19 critical
+declarations, the dependency audit lists 71 manuscript roots, and the
+synchronized 25-page PDF render and visual audit pass.
 
 ## Final Lean audit record
 
@@ -486,39 +483,38 @@ Mathlib doc-string warnings and non-failing `ring_nf` suggestions.
 Direct `PaperDependencyAudit` output:
 
 ```text
-PAPER_GRAPH_ROOTS                         58
-PAPER_KERNEL_PROJECT_DECLARATIONS        832
-PAPER_KERNEL_PROJECT_MODULES              66
-PAPER_COMBINED_PROJECT_DECLARATIONS      832
-PAPER_COMBINED_PROJECT_MODULES            66
-PAPER_GRAPH_IMPORTED_MODULES              68
-PAPER_SOURCE_REFERENCE_EDGES            7221
-MAIN_FILE_THEOREMS                        10
-PUBLIC_TERMINAL_ROOTS                     57
-RETAINED_PROJECT_THEOREMS                840
-RETAINED_SOURCE_THEOREMS                 637
-MAIN_REACHABLE_PROJECT_DECLARATIONS      833
-MAIN_UNREACHABLE_PROJECT_THEOREMS        205
-MAIN_UNREACHABLE_SOURCE_THEOREMS         116
+PAPER_GRAPH_ROOTS                         71
+PAPER_KERNEL_PROJECT_DECLARATIONS       1067
+PAPER_KERNEL_PROJECT_MODULES              84
+PAPER_COMBINED_PROJECT_DECLARATIONS     1068
+PAPER_COMBINED_PROJECT_MODULES            84
+PAPER_GRAPH_IMPORTED_MODULES              86
+PAPER_SOURCE_REFERENCE_EDGES            9980
+MAIN_FILE_THEOREMS                        11
+PUBLIC_TERMINAL_ROOTS                     70
+RETAINED_PROJECT_THEOREMS               1051
+RETAINED_SOURCE_THEOREMS                 792
+MAIN_REACHABLE_PROJECT_DECLARATIONS     1069
+MAIN_UNREACHABLE_PROJECT_THEOREMS        233
+MAIN_UNREACHABLE_SOURCE_THEOREMS         128
 ```
 
 The larger source reverse-reachability complement reflects the conservative
 package import surface: legacy standalone V2 declarations remain available
 beside the V3 theorem family.  It is reported for review and is not counted as
 part of the headline dependency chain.  Every manuscript root is listed
-positively in the 58-root map above.
+positively in the 71-root map above.
 
 Direct `PaperAudit` output for every mapped milestone and all public theorems
 contains only Lean's standard axioms `propext`, `Classical.choice`, and
 `Quot.sound`.  It contains no project axiom, `sorryAx`, `native_decide`, or
 other enlarged trust mechanism.
 
-Direct `MovingEndpointAudit` output for the sharp binomial prefactor, moving
-parameter rate, literal landing-density producer, moving time-support theorem,
-direct first-bad transport, exact-rate sharp conditional profile, scalar shell
-assembly, and conditional moving consumer has the same standard-axiom set and
-no enlarged trust mechanism. This trust result does not fill uniform moving
-startup or the remaining `Delta_M` shell-density and same-witness producer.
+Direct `MovingEndpointAudit` covers the sharp binomial prefactor, moving
+parameter rate, quantitative startup, landing-density producer, time-support
+theorem, direct first-bad transport, exact-rate sharp profile, scalar shell
+assembly, same-witness execution, and literal moving theorem.  Its final trust
+result is recorded after the synchronized audit gate below passes.
 
 ## Ledger
 

@@ -202,7 +202,7 @@ private theorem moving_sqrt_rat_lt_one
   norm_num
   exact_mod_cast hr1
 
-private theorem movingTimePotential_nonneg
+theorem movingTimePotential_nonneg
     (P : ShrinkingBarrierRunData) (M S q : ℕ) :
     0 ≤ movingTimePotential P M S q := by
   have hdHi : 0 < 1 - Real.sqrt (P.rHi : ℝ) := sub_pos.mpr

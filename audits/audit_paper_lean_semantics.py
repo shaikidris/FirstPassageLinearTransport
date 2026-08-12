@@ -159,19 +159,21 @@ def main() -> int:
             "moving first-bad transport/profile adapter",
         ),
         LiteralCheck(
-            "formal map preserves public moving boundary",
+            "formal map records the public moving theorem",
             FORMALIZATION,
-            "no public Lean declaration yet",
+            "collatz_first_passage_moving_polylogarithmic_natural_density_descent",
         ),
         LiteralCheck(
-            "proof state names the uniform startup gap",
+            "proof state records quantitative moving startup as formal",
             PROOF_STATE,
-            "uniform moving-stage startup with `pLo.M0 <= L`",
+            "uniform moving-stage startup with `pLo.M0 <= L`:"
+            " `PROVED-FORMAL`",
         ),
         LiteralCheck(
-            "proof state names the Delta_M assembly gap",
+            "proof state records the moving endpoint assembly as formal",
             PROOF_STATE,
-            "moving `Delta_M` shell-density/same-witness producer and public moving endpoint",
+            "moving `Delta_M` shell-density/same-witness producer and public moving endpoint:"
+            " `PROVED-FORMAL`",
         ),
     ]
 
@@ -240,6 +242,14 @@ def main() -> int:
             "(2 * (1 - alpha) / Real.log (4 / 3) + epsilon) *"
             " Real.log n",
         ),
+        (
+            "Lean public moving endpoint consumes the exact buffer divergence",
+            "(hbuffer : Tendsto (movingRankBuffer A) atTop atTop)",
+        ),
+        (
+            "Lean public moving endpoint exposes one same-witness conclusion",
+            "collatz_first_passage_moving_polylogarithmic_natural_density_descent",
+        ),
     ]
     compact_lean = compact(lean_text)
     for name, required in lean_literal_checks:
@@ -257,6 +267,12 @@ def main() -> int:
         "FirstPassageLinearTransport.movingSeparatedFailureEnvelope_density_terminalProfile",
         "FirstPassageLinearTransport.exists_exact_sharp_critical_low_series_bound",
         "FirstPassageLinearTransport.moving_low_firstBad_sharp_exact_sum_le",
+        "FirstPassageLinearTransport.eventually_movingLowStageSetup_M0_le",
+        "FirstPassageLinearTransport.exists_eventually_movingEndpointGood_shellError",
+        "FirstPassageLinearTransport.eventually_movingEndpointGood_has_shellWitness",
+        "FirstPassageLinearTransport.movingEndpointLiteralNaturalDensityDescent",
+        "FirstPassageLinearTransport.QuantitativeCollatzMain."
+        "collatz_first_passage_moving_polylogarithmic_natural_density_descent",
         "FirstPassageLinearTransport.QuantitativeCollatzMain."
         "collatz_first_passage_fixed_polylogarithmic_natural_density_descent",
         "FirstPassageLinearTransport.QuantitativeCollatzMain."

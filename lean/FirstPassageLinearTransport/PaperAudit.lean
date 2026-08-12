@@ -9,10 +9,9 @@ import FirstPassageLinearTransport.PaperDependencyAudit
 /-!
 # First-passage manuscript axiom audit
 
-Public `#print axioms` surface for the formally represented fixed-parameter
-portion of the standalone V3.1 manuscript.  The internal sharp-prefactor and
-moving-endpoint producer are audited separately by `MovingEndpointAudit` and
-are not part of this public declaration set.  This module reports logical
+Public `#print axioms` surface for the standalone V3.1 manuscript.  The
+moving-endpoint implementation is also audited at finer granularity by
+`MovingEndpointAudit`.  This module reports logical
 trust; `PaperDependencyAudit` separately reports declaration and
 source-elaboration reachability, while a full `lake build` remains the
 source-reconstruction gate.
@@ -57,6 +56,8 @@ source-reconstruction gate.
 #print axioms FirstPassageLinearTransport.exists_stageSetup
 
 -- Optimized fixed-polylogarithmic assembly and literal referee-facing theorem.
+#print axioms
+  FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_moving_polylogarithmic_natural_density_descent
 #print axioms FirstPassageLinearTransport.timeSupportCriticalExponent_eq_entropy
 #print axioms FirstPassageLinearTransport.lossFiltered_arbitraryTarget_transport_atTimes_uniform
 #print axioms FirstPassageLinearTransport.ShrinkingRecertificationRun.directFirstPassage

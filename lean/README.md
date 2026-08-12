@@ -63,12 +63,19 @@ Collatz definitions:
   first-bad transport and the conditional terminal-profile socket;
 - `MovingSharpTail.lean`, `MovingSharpProfile.lean`: exact-rate summation of
   the `q^(-1/2)` landing profile and its conditional moving first-bad consumer;
-- `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`: scalar moving
-  shell assembly and the conditional final consumer. Uniform moving-stage
-  startup, the eventual `Delta_M` shell-density and same-witness producer, and
-  the connection to the public theorem remain open.
+- `MovingLowSetup.lean`, `MovingEndpointParameters.lean`,
+  `MovingEndpointProfile.lean`, `MovingEndpointAsymptotics.lean`: quantitative
+  startup, literal sharp shell profile, and exact `Delta_M` closure;
+- `MovingExecution.lean`, `MovingOrbitCeiling.lean`,
+  `MovingEndpointWitness.lean`: terminal execution, logarithmic clock, and
+  same-witness orbit ceiling;
+- `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`,
+  `MovingEndpointNaturalDensity.lean`: scalar identities, density assembly,
+  and complete literal moving-endpoint theorem.
 
-`Main.lean` exposes the strengthened V3 theorem for every
+`Main.lean` exposes the V3.1 moving-endpoint theorem for every bounded exponent
+profile whose exact rank buffer diverges. It also exposes the fixed-exponent
+specialization for every
 `A > 1 / (2 * (1 - H₂(log₃ 2))) = 9.9911133419...` and retains the older
 fixed-tolerance theorem internally together with the stretched-logarithmic,
 fixed-power, raw-clock, and graded-clock statements as companions.  The

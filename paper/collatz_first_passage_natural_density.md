@@ -1918,15 +1918,17 @@ theorem and proof architecture, reviewed the resulting artifacts, and accepts
 responsibility for the manuscript.  Finite diagnostics are supporting
 evidence only and are not premises of any theorem.
 
-The separate Lean package formalizes the fixed-parameter optimized chain,
-from loss-filtered transport through the natural-density assembly, and
-separately formalizes the fixed-depth graded-clock companion.  Its public
-`Main` theorem has the strict ranges \(A>A_{\rm FP}\), \(c>c_*\), and
-\(\beta>0\), matching the fixed-\(A\) landing, clock, ceiling, and a positive
-logarithmic exceptional exponent in
-[Corollary 1.2](#cor-endpoint-profiles), part 1; its landing inequality is
-strict and hence slightly stronger than the manuscript's weak inequality.
-The exact upper range for that exceptional exponent is paper-level.  For
+The separate Lean package formalizes the optimized chain from loss-filtered
+transport through the natural-density assembly, as well as the fixed-depth
+graded-clock companion.  Its public `Main` theorem now includes
+[Theorem 1.1](#thm-moving-polylog): for every bounded exponent profile with
+\(\Delta_M\to+\infty\), it exposes the literal shell exceptional ratio,
+moving landing, logarithmic clock, and same-witness orbit ceiling.  The public
+fixed-\(A\) specialization has the strict ranges \(A>A_{\rm FP}\), \(c>c_*\),
+and \(\beta>0\), with a positive logarithmic exceptional exponent; its landing
+inequality is strict and hence slightly stronger than the manuscript's weak
+inequality.  The exact upper range for that fixed-\(A\) exceptional exponent
+is paper-level.  For
 [Theorem 1.3](#thm-stretched-log), Lean formalizes the literal landing and
 ceiling together with every strict exceptional power below \(1-\delta\); the
 endpoint power \(1-\delta\) in \eqref{eq:1-8} is paper-level.  The internal
@@ -1937,19 +1939,18 @@ producer through the endpoint rate.  It also formalizes the moving stopped
 run, direct nested first passage, exact certified landing shell, decreasing
 rank potential, and square-root feasible-time support of
 [Lemma 6.4](#lem-moving-time-support).  It further formalizes direct moving
-first-bad transport and the conditional sharp \(q^{-1/2}\) terminal profile,
-retaining the actual endpoint rate without a strict rate loss.  Uniform
-low-stage startup, the \(\Delta_M\) shell-density and same-witness assembly,
-and the public moving theorem remain to be formalized.  Accordingly the
-formal artifact proves the fixed-exponent specialization and these moving
-components, but not yet the complete moving-endpoint refinement.
+first-bad transport and the sharp \(q^{-1/2}\) terminal profile, retaining the
+actual endpoint rate without a strict rate loss.  Finally it formalizes the
+uniform low-stage startup \(M_0\le L\), the exact \(\Delta_M\) scalar closure,
+the literal shell failure set, and the same-witness assembly.  Thus the
+complete moving-endpoint refinement is represented in the public formal API.
 
 The frozen fixed-exponent formal snapshot is the access-controlled
 [GitHub repository](https://github.com/shaikidris/FirstPassageLinearTransport)
 at commit `e382a241e73ac2f0a958b7411f7778584f3dc48d`; repository access can be
-provided to referees on request.  That commit is the artifact whose narrower
-formal scope is described above; the V3.1 manuscript refinement will require
-a new immutable snapshot after its formalization boundary is accepted.  The
+provided to referees on request.  That commit remains the earlier fixed-\(A\)
+snapshot; the complete V3.1 moving theorem will receive a new immutable
+snapshot after the synchronized audit is accepted.  The
 formal package uses Lean `4.15.0` (commit
 `11651562caae`) and Mathlib revision
 `9837ca9d65d9de6fad1ef4381750ca688774e608`.  From the repository's `lean/`
