@@ -10,7 +10,6 @@ import FirstPassageLinearTransport.QuantitativeNaturalDensityDescent
 import FirstPassageLinearTransport.OrbitCeiling
 import FirstPassageLinearTransport.TwoRegimeOrbitCeiling
 import FirstPassageLinearTransport.ShrinkingNaturalDensityDescent
-import FirstPassageLinearTransport.MovingEndpointNaturalDensity
 import FirstPassageLinearTransport.TimeoutEndpointNaturalDensity
 import FirstPassageLinearTransport.FiniteStartup
 
@@ -57,64 +56,12 @@ namespace QuantitativeCollatzMain
 open Filter
 open scoped Real Topology
 
-/-- **All-prefix alternate moving-endpoint theorem.** This retained V3.1
-realization has the same public conclusion as the primary timeout theorem
-below.  Let `A M` be any exponent profile bounded above by one fixed positive
-constant.  If its exact rank
-buffer tends to infinity, then for every shortcut-clock coefficient above
-`2 / log(4/3)` and every separately fixed `beta > 0`:
-
-* the simultaneous landing/clock/ceiling witnesses form a natural-density-one
-  set;
-* their literal exceptional proportion on shell `M` is bounded by the exact
-  critical-buffer term plus one fixed negative power of `M`;
-* the same iterate supplies the landing, the logarithmic clock, and the whole
-  pre-witness orbit ceiling.
-
-Here `movingRankBuffer A M` is definitionally
-`(1-H₂(log₃2)) ceil(A M log₂(M+2)) - 1/2 log₂(M+2)
- - log₂(log(M+3))`; no abstract orbit or target predicate occurs in the
-conclusion.  Its low-rank proof uses the all-prefix moving certificate. -/
-theorem collatz_first_passage_moving_polylogarithmic_natural_density_descent
-    {A : ℕ → ℝ} {Amax c beta : ℝ}
-    (hAmax : 0 < Amax)
-    (hUpper : ∀ M : ℕ, A M ≤ Amax)
-    (hc : 2 / Real.log (4 / 3) < c)
-    (hbeta : 0 < beta)
-    (hbuffer : Tendsto (movingRankBuffer A) atTop atTop) :
-    ∃ C eps : ℝ,
-      0 < C ∧ 0 < eps ∧
-      NaturalDensityOne
-        {n : ℕ | ∃ k : ℕ,
-          (k : ℝ) < c * Real.log n ∧
-          (orbit k n : ℝ) <
-            C * (Real.log n) ^ (A (Nat.log 2 n)) ∧
-          ∀ j : ℕ, j ≤ k →
-            (orbit j n : ℝ) ≤ (n : ℝ) ^ (1 + beta)} ∧
-      (∀ᶠ M : ℕ in atTop,
-        shellExceptionalRatio
-          {n : ℕ | ∃ k : ℕ,
-            (k : ℝ) < c * Real.log n ∧
-            (orbit k n : ℝ) < C * (Real.log n) ^ (A M) ∧
-            ∀ j : ℕ, j ≤ k →
-              (orbit j n : ℝ) ≤ (n : ℝ) ^ (1 + beta)} M ≤
-          C * ((2 : ℝ) ^ (-(movingRankBuffer A M)) +
-            (((M : ℝ) + 2) ^ (-eps)))) := by
-  have hc' : fixedPolylogClockCritical < c := by
-    simpa [fixedPolylogClockCritical_eq_paper] using hc
-  obtain ⟨C, eps, hC, heps, hDense, hShell, _hWitness⟩ :=
-    movingEndpointLiteralNaturalDensityDescent hAmax hc' hbeta hbuffer
-      (Eventually.of_forall hUpper)
-  refine ⟨C, eps, hC, heps, ?_, ?_⟩
-  · simpa [assembleDyadic, movingEndpointWitnessGood] using hDense
-  · simpa [movingEndpointWitnessGood] using hShell
-
-/-- **Timeout-endpoint first-passage theorem.** This is a separate low-rank
-realization of the preceding public statement.  Its low phase uses one
+/-- **Timeout-endpoint first-passage theorem.** This is the canonical V3.2
+public moving-endpoint theorem. Its low phase uses one
 first-timeout event and exact dyadic-endpoint halving, rather than the
 all-prefix moving low-stage certificate.  It reuses the common endpoint
 parameters, scalar asymptotics, and dyadic natural-density assembly. -/
-theorem collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent
+theorem collatz_first_passage_moving_polylogarithmic_natural_density_descent
     {A : ℕ → ℝ} {Amax c beta : ℝ}
     (hAmax : 0 < Amax)
     (hUpper : ∀ M : ℕ, A M ≤ Amax)
@@ -147,6 +94,37 @@ theorem collatz_first_passage_timeout_moving_polylogarithmic_natural_density_des
   refine ⟨C, eps, hC, heps, ?_, ?_⟩
   · simpa [assembleDyadic, timeoutEndpointWitnessGood] using hDense
   · simpa [timeoutEndpointWitnessGood] using hShell
+
+/-- Compatibility name making the timeout implementation explicit. The
+canonical theorem immediately above has the identical proposition and is the
+referee-facing `Main` root. -/
+theorem collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent
+    {A : ℕ → ℝ} {Amax c beta : ℝ}
+    (hAmax : 0 < Amax)
+    (hUpper : ∀ M : ℕ, A M ≤ Amax)
+    (hc : 2 / Real.log (4 / 3) < c)
+    (hbeta : 0 < beta)
+    (hbuffer : Tendsto (movingRankBuffer A) atTop atTop) :
+    ∃ C eps : ℝ,
+      0 < C ∧ 0 < eps ∧
+      NaturalDensityOne
+        {n : ℕ | ∃ k : ℕ,
+          (k : ℝ) < c * Real.log n ∧
+          (orbit k n : ℝ) <
+            C * (Real.log n) ^ (A (Nat.log 2 n)) ∧
+          ∀ j : ℕ, j ≤ k →
+            (orbit j n : ℝ) ≤ (n : ℝ) ^ (1 + beta)} ∧
+      (∀ᶠ M : ℕ in atTop,
+        shellExceptionalRatio
+          {n : ℕ | ∃ k : ℕ,
+            (k : ℝ) < c * Real.log n ∧
+            (orbit k n : ℝ) < C * (Real.log n) ^ (A M) ∧
+            ∀ j : ℕ, j ≤ k →
+              (orbit j n : ℝ) ≤ (n : ℝ) ^ (1 + beta)} M ≤
+          C * ((2 : ℝ) ^ (-(movingRankBuffer A M)) +
+            (((M : ℝ) + 2) ^ (-eps)))) :=
+  collatz_first_passage_moving_polylogarithmic_natural_density_descent
+    hAmax hUpper hc hbeta hbuffer
 
 /-- **Fixed-exponent polylogarithmic first-passage theorem.** This is the
 formal specialization corresponding to manuscript Corollary 1.2(1).  For every
@@ -358,7 +336,7 @@ theorem collatz_first_passage_quantitative_fixed_power_exceptional_count
   firstPassageLinearTransportQuantitativeFixedPower
     halpha hsigma0 hsigma1
 
-/-- **Smooth graded shortcut clock.** Reaching `n^alpha` pays only the
+/-- **Graded fixed-power shortcut clock.** Reaching `n^alpha` pays only the
 fraction `1-alpha` of the full limiting clock, up to arbitrary slack. -/
 theorem collatz_first_passage_graded_power_natural_density_descent
     {alpha epsilon : ℝ}

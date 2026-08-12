@@ -1,101 +1,108 @@
 # Paper/Lean semantic concordance
 
-**Date:** 2026-08-12
+**Date:** 2026-08-13
 **Mode:** MATH-TEXT + FORMAL + CONSISTENCY
-**Classification:** MAINTENANCE
-**Scope:** referee-facing headline dependency cone, V3.2 timeout replacement,
-public companion theorems, and formalization-boundary language.
+**Classification:** MAINTENANCE/CLOSURE
+**Scope:** referee-facing V3.2 theorem contracts, the canonical timeout proof
+root, the retained all-prefix alternate, and the exact formalization boundary.
 
 ## Purpose and limit
 
-A Lean build checks the encoded proposition. It cannot detect a manuscript
-transcription error. This audit therefore compares the paper and formal
-artifact at the semantic interfaces most vulnerable to small drift: constants,
-rank offsets, strict endpoints, logarithm bases, shell normalizations, and
-formalization status.
+A successful Lean build checks the encoded propositions, not the manuscript's
+transcription of them.  This concordance compares quantifiers, constants,
+strict endpoints, clocks, targets, exceptional predicates, density notions,
+and proof-route dependencies.  The automated gate
+`audits/audit_paper_lean_semantics.py` protects selected literal interfaces;
+it is a regression guard rather than a proof of semantic equivalence.
 
-The automated gate in audits/audit_paper_lean_semantics.py protects the
-literal contracts below, declaration presence, equation labels, and
-manuscript anchors. It is a regression guard, not a proof of semantic
-equivalence. The human concordance and manuscript-only proof audit remain
-necessary.
+## Canonical route separation
+
+The canonical public theorem is
+
+```text
+QuantitativeCollatzMain.
+  collatz_first_passage_moving_polylogarithmic_natural_density_descent
+```
+
+and its compiled proof term consumes
+`timeoutEndpointLiteralNaturalDensityDescent`.  It does not consume
+`movingEndpointLiteralNaturalDensityDescent`.  The retained V3.1 proof is
+exposed only by the optional alternate library under the explicit name
+
+```text
+FirstPassageLinearTransport.Alternates.AllPrefix.
+  collatz_first_passage_all_prefix_moving_polylogarithmic_natural_density_descent
+```
+
+and has the reverse dependency.  It is not imported by canonical `Main.lean`
+and is not part of the default `lake build` target.  The compatibility name
+`collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent`
+calls the canonical theorem and has the same proposition.  Both a source-level
+semantic check and a kernel dependency guard enforce the canonical exclusion;
+the alternate has its own direct build and axiom audit.
+
+The timeout route shares endpoint parameters, scalar asymptotics, dyadic
+density assembly, orbit-ceiling infrastructure, and some common moving support
+lemmas with the alternate.  Route separation means specifically that the
+canonical proof excludes the old all-prefix low producer, profile, and literal
+assembly; it does not mean that every module whose filename starts with
+`Moving` is absent.
 
 ## Fragile literal concordance
 
-| Contract | Manuscript | Lean source | Result |
+| Contract | Manuscript | Lean | Result |
 |---|---|---|---|
-| One-block duration corridor | (6.7a): abs(gh-(m-q)) <= tm+t+2 | certified_firstPassage_duration_error | MATCH |
-| Accumulated corridor-and-offset budget | (6.7d): sum (t_i m_i+t_i+3) | durationError t m = t*m+t+3 | MATCH |
-| Certified high endpoint shell | (6.7b): m_(i+1)=q_i-1 | ShrinkingRecertificationRun.certified_endpoint_shell_eq | MATCH |
-| Timeout event | (6.11): no crossing through the parent-rank time m | no separate timeout declaration | PAPER-ONLY ROUTE |
-| Timeout parity implication | (6.14): s > q_L(m) log_3 2 - 1 | exact_affine_iterate and parityCode_bijective formalize the inputs, not this consumer | PAPER-ONLY ROUTE |
-| Switch endpoint | power of two at q<=S is discharged by deterministic halving; high endpoint failure only for q>S | no timeout analogue needed | PAPER-ONLY BOUNDARY |
-| Timeout landing target | (6.15): actual parent shell p-1, endpoint excluded | no separate timeout target | PAPER-ONLY ROUTE |
-| Combined timeout time support | (6.13), (6.16): high interval plus O(S^2) low duration | public theorem uses the independent moving-potential producer | SAME ORDER / DIFFERENT ROUTE |
-| Endpoint entropy constant | (1.2): A_FP=1/(2(1-H_2(log_3 2))) | timeSupportCriticalExponent_eq_entropy | MATCH |
-| Shortcut clock | c>2/log(4/3) | public Main hypothesis | MATCH / STRICT |
-| Parent landing target | J_q=(2^(q-1),2^q], density divided by 2^q | landingBad q; moving density theorems | MATCH |
-| High target tolerance | (6.4a), (6.8c): use eta_(M,q-1) above the switch | shrinkingTargetTolerance; shrinking high-density producer | MATCH |
-| Direct reverse loss | Proposition 6.4: E_(2^p)(n) < (p+2)/r_* | rank-scaled loss theorem; formal all-prefix route has the analogous literal bound | MATCH AT SHARED INTERFACE |
-| Rankwise timeout transport | support H times O(p+1) times target density | lossFiltered_arbitraryTarget_transport_atTimes_uniform | MATCH AT SHARED INTERFACE |
-| Critical timeout target | (6.15): p^(-1/2) 2^(-kappa_* p), with no endpoint term | no separate timeout producer | PAPER-ONLY ROUTE |
-| Timeout terminal profile | (6.17): sqrt(M log M) sqrt(L) 2^(-kappa_* L), plus high error | public theorem uses the independent all-prefix moving profile | SAME SCALAR CONCLUSION / DIFFERENT ROUTE |
-| Formal alternate sharp low-tail summation | not a V3.2 manuscript dependency | exists_exact_sharp_critical_low_series_bound; moving_low_firstBad_sharp_exact_sum_le | PROVED-FORMAL ALTERNATE |
-| Moving rank buffer | (1.3): kappa_* L_M - 1/2 log_2(M+2) - log_2 log(M+3) | movingRankBuffer | MATCH |
-| Moving shell conclusion | (1.5): 2^(-Delta_M) + M^(-epsilon) | movingEndpointNaturalDensityAssembly | MATCH AT CONDITIONAL CONSUMER |
-| Stretched endpoint | delta=1 excluded; formal rate has strict sigma<1-delta | Main quantitative theorem | MATCH / FORMAL THEOREM IS STRICTLY WEAKER AT RATE ENDPOINT |
-| Fixed-power rate | every strict sigma<1 | Main quantitative fixed-power theorem | MATCH |
-| Graded clock | (2(1-alpha)/log(4/3)+epsilon) log n | Main graded theorem | MATCH |
+| Natural density one | missing proportion in `[1,X]` tends to zero | `badCount S X / X -> 0` | EXACT |
+| One-block duration corridor | `|gh-(m-q)| <= tm+t+2` | `certified_firstPassage_duration_error` | EXACT |
+| Accumulated corridor | `sum_i (t_i m_i+t_i+3)` | `durationError t m = t*m+t+3` | EXACT |
+| Literal timeout | no crossing through parent-rank time `m` | `LowStageTimeout` | EXACT |
+| Timeout target | actual parent shell, endpoint excluded | `timeoutLandingBad`; terminal odd-count containment | EXACT |
+| Combined time support | `O(sqrt(M log M))` | `eventually_timeoutFeasibleTimes_card_lt_sqrt` | EXACT SCALE |
+| Moving rank buffer | `kappa_* L_M - 1/2 log_2(M+2) - log_2 log(M+3)` | `movingRankBuffer` | EXACT |
+| Shell error | `C_exc(2^-Delta_M + M^-epsilon)` | one `C` multiplying the same two terms | LEAN STRONGER BY COMMON CONSTANT |
+| Landing inequality | paper uses `<=` | public Lean uses `<` | LEAN STRONGER |
+| Same witness | landing, clock, and ceiling use one index | one existential `k` scopes all three conjuncts | EXACT |
+| Shortcut clock | every `c > 2/log(4/3)` | identical strict hypothesis | EXACT |
+| Graded clock | `(2(1-alpha)/log(4/3)+epsilon) log n` | identical strict witness bound | EXACT |
 
-The +2 and +3 lines are not interchangeable. The former is the literal
-one-block first-passage corridor. The latter pays one additional unit when
-the cumulative center is changed using the exact shell identity.
+The `+2` and `+3` entries are intentionally different: the latter pays the
+additional rank-offset unit needed after changing the cumulative center.
 
-## Headline and companion boundary
+## Public theorem contract boundary
 
-| Paper result | Formal status | Qualification |
+| Manuscript result | Formal classification | Exact qualification |
 |---|---|---|
-| Theorem 1.1, moving endpoint | PROVED-PAPER / PROVED-FORMAL | identical theorem surface; manuscript uses timeout low blocks, Lean uses the independently completed all-prefix low producer |
-| Corollary 1.2(1), every fixed A>A_FP | PROVED-FORMAL | public Main theorem; its type exposes a positive log exceptional exponent, not the paper's full sharp range |
-| Corollary 1.2(2)--(3), critical secondary profiles | PROVED-PAPER | no public Lean theorem |
-| Theorem 1.3, stretched logarithm | PROVED-FORMAL BELOW ENDPOINT | landing, clock, and ceiling are formal; exceptional power is every strict sigma<1-delta, while the paper proves the endpoint 1-delta |
-| Corollary 1.4, raw clock | PROVED-FORMAL FOR STRETCHED TARGET | the moving-polylogarithmic raw consequence remains paper-level with Theorem 1.1 |
-| Corollary 1.5, fixed power and graded clock | PROVED-FORMAL | public companion declarations |
+| Theorem 1.1 | `PROVED-FORMAL` | Canonical public theorem is the timeout proof.  Lean uses one positive constant where the paper permits separate landing and exceptional constants, and uses a strict landing inequality; therefore it implies the paper formulation. |
+| Corollary 1.2(1) | `PARTIAL LITERAL MATCH` | Public fixed-`A` theorem gives some positive logarithmic exceptional exponent.  The paper's full range `gamma < kappa_*(A-A_FP)` is not exposed. |
+| Corollary 1.2(2)--(3) and functional profile | `GENERIC PRODUCER FORMAL / SPECIALIZATIONS PAPER-ONLY` | The generic moving theorem is formal; the displayed log-log, triple-log, exact rate ranges, and arbitrary-divergent scalar instantiations have no literal public declarations. |
+| Theorem 1.3 | `ADJACENT FORMAL PROJECTIONS / JOINT THEOREM PAPER-ONLY` | One declaration gives qualitative same-witness landing/clock/ceiling at `6.953 log n`; another gives an unclocked count for every strict power below `1-delta`.  They do not yield the paper's joint predicate for every `c>c_*`, and the endpoint power `1-delta` is not exposed. |
+| Corollary 1.4 | `PARTIAL` | The raw stretched-log landing at `10.44 log n` is public.  The full moving target, same-witness raw ceiling, and transferred rates remain paper-only. |
+| Corollary 1.5 | `PROVED-FORMAL` | The quantitative fixed-power and graded-clock clauses have separate public declarations matching their paper predicates. |
+| Theorem 5.3 | `FORMAL COMPONENTS / NO LITERAL PUBLIC CAPSTONE` | The run, direct-passage, reverse-loss, and profile components are formal; no one public declaration has the complete shell-bound plus same-witness paper statement. |
 
-## Findings repaired in this batch
-
-1. **Subtractive manuscript cone:** the moving low all-prefix certificate,
-   decreasing potential, startup package, and former intermediate fixed
-   profile were removed from the written headline chain.  The replacement is
-   the totalized timeout event and its terminal binomial tail.
-2. **Endpoint and shell indexing:** above the switch the upper endpoint is a
-   high failure; at or below the switch its power-of-two orbit is discharged
-   deterministically in O(S) steps.  It cannot be a timeout.  A first timeout
-   reached through threshold p therefore lies in the actual parent shell
-   I_(p-1), so the low rank range begins at p=L+1 and the target is normalized
-   by the full band size 2^p.
-3. **Formalization boundary:** the public theorem is fully kernel-checked, but
-   through the earlier all-prefix low producer.  The timeout proof is not
-   represented as a second Lean term.  The map and manuscript now state this
-   rather than claiming proof-route synchronization.
-4. **Scalar preservation:** both routes expose the same rank buffer, shell
-   exceptional ratio, landing, logarithmic clock, and same-witness ceiling.
-   Equality of those outputs does not identify the internal proofs.
+The phrase `PROVED-FORMAL` is reserved for an exact proposition or a Lean
+statement that visibly implies the paper proposition.  Availability of a
+generic producer alone is not called a literal specialization.
 
 ## Release gate
 
-Before rendering or freezing the paper, run:
+Run, in order:
 
-    python3 -B audits/audit_paper_lean_semantics.py
-    cd lean && lake build
-    lake build FirstPassageLinearTransport.MovingEndpointAudit
-    lake build FirstPassageLinearTransport.PaperDependencyAudit
-    lake build FirstPassageLinearTransport.PaperAudit
-    lake build FirstPassageLinearTransport.Main
+```text
+python3 -B audits/audit_paper_lean_semantics.py
+cd lean
+lake build
+lake build FirstPassageLinearTransportAlternates
+lake build FirstPassageLinearTransport.TimeoutEndpointAudit \
+  FirstPassageLinearTransport.PaperDependencyAudit \
+  FirstPassageLinearTransport.PaperAudit FirstPassageLinearTransport.Main
+```
 
-The V3 render script runs the semantic audit automatically. A pass means the
-declared contracts have not drifted; the gate itself also checks that the
-render script invokes it exactly once. It does not replace the independent
-manuscript-only proof review. The unqualified `lake build` is required to
-catch source modules that are not imported by a current headline or audit
-root.
+The unqualified build is the canonical referee gate.  The explicit alternate
+build checks the isolated comparison library without admitting it to that
+gate.  `PaperDependencyAudit` fails if the canonical theorem stops using the
+timeout assembly, imports anything below `Alternates`, or if the public theorem
+set in `Main.lean` changes unexpectedly.  The axiom audits inspect all canonical
+public roots and selected load-bearing milestones; the alternate audit is
+rooted separately at `Alternates/AllPrefix/Audit.lean`.  Rendering and PDF
+inspection occur only after all source and formal gates pass.

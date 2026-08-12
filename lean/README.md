@@ -67,21 +67,21 @@ Collatz definitions:
 - `MovingLowSetup.lean`, `MovingEndpointParameters.lean`,
   `MovingEndpointProfile.lean`, `MovingEndpointAsymptotics.lean`: quantitative
   startup, literal sharp shell profile, and exact `Delta_M` closure;
-- `MovingExecution.lean`, `MovingOrbitCeiling.lean`,
-  `MovingEndpointWitness.lean`: terminal execution, logarithmic clock, and
-  same-witness orbit ceiling;
-- `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`,
-  `MovingEndpointNaturalDensity.lean`: scalar identities, density assembly,
-  and complete literal moving-endpoint theorem.
+- `MovingExecution.lean`, `MovingOrbitCeiling.lean`: retained all-prefix
+  execution and same-witness orbit ceiling;
+- `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`: scalar
+  identities and the shared density assembly;
+- `Alternates/AllPrefix/`: the optional V3.1 witness, natural-density
+  theorem, public wrapper, and axiom audit;
 - `TimeoutCore.lean` through `TimeoutEndpointNaturalDensity.lean`: primary
   V3.2 formalization of the manuscript's first-timeout low phase, sharp shell
   profile, exact dyadic-endpoint discharge, same-witness ceiling, and public
   natural-density theorem.
 
-`Main.lean` exposes the V3.2 timeout moving-endpoint theorem for every bounded
-exponent profile whose exact rank buffer diverges, and retains the V3.1
-all-prefix theorem with the same literal conclusion as a formal alternate. It
-also exposes the fixed-exponent
+`Main.lean` exposes only the V3.2 timeout moving-endpoint theorem for every
+bounded exponent profile whose exact rank buffer diverges. The V3.1
+all-prefix theorem is a separately built formal alternate. `Main` also
+exposes the fixed-exponent
 specialization for every
 `A > 1 / (2 * (1 - H₂(log₃ 2))) = 9.9911133419...` and retains the older
 fixed-tolerance theorem internally together with the stretched-logarithmic,
@@ -92,7 +92,7 @@ the dependency cone of the two headline theorems.
 The package imports Mathlib directly and has no dependency on
 `CollatzEndpointTransport`, `TwoACF`, or the frozen CET/CEP theorem chain.
 
-Build every retained production and audit module:
+Build the canonical production cone and its audits:
 
 ```bash
 lake build
@@ -104,10 +104,10 @@ Build the narrower public axiom-audit target:
 lake build FirstPassageLinearTransport.PaperAudit
 ```
 
-Build the internal moving-producer axiom-audit target:
+Build the optional all-prefix library and its axiom audit:
 
 ```bash
-lake build FirstPassageLinearTransport.MovingEndpointAudit
+lake build FirstPassageLinearTransportAlternates
 ```
 
 Build the separate timeout-producer axiom-audit target:
@@ -132,13 +132,14 @@ lake env lean -DautoImplicit=false -DrelaxedAutoImplicit=false \
   FirstPassageLinearTransport/PaperAudit.lean
 ```
 
-These checks are not scope-equivalent. The full build reconstructs every
-retained source module; `PaperDependencyAudit` checks theorem provenance and
+These checks are not scope-equivalent. The default build reconstructs the
+canonical paper cone; the explicit alternate build reconstructs the retained
+cross-check. `PaperDependencyAudit` checks theorem provenance and
 source-elaboration reachability; `PaperAudit` reports public trusted axioms;
-`MovingEndpointAudit` reports the trust surface of the internal moving
-producer, moving time-support theorem, exact-rate sharp profile, and
-conditional assembly. `TimeoutEndpointAudit` independently reports the
-timeout producer and its final assembly.
+`Alternates/AllPrefix/Audit` reports the trust surface of the retained moving
+producer, time-support theorem, exact-rate sharp profile, and assembly.
+`TimeoutEndpointAudit` independently reports the canonical timeout producer
+and its final assembly.
 
 The exact public declarations and package layout are documented in
 `FirstPassageLinearTransport/README.md`. The manuscript-to-Lean map is in

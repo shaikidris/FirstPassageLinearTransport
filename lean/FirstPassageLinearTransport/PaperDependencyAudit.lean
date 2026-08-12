@@ -14,9 +14,9 @@ import Lean.Server.References
 Declaration-level dependency audit for the standalone first-passage
 linear-transport manuscript. The V3.2 timeout moving-endpoint headline and its
 complete producer/transport/witness chain are included among the public roots;
-`TimeoutEndpointAudit` additionally checks those internal cut vertices.  The
-retained V3.1 all-prefix realization remains mapped as a formal alternate and
-is audited separately by `MovingEndpointAudit`.
+`TimeoutEndpointAudit` additionally checks those internal cut vertices. The
+retained V3.1 all-prefix realization is isolated in
+`FirstPassageLinearTransport.Alternates.AllPrefix` and is not imported here.
 
 Imports show what was available during elaboration; axiom reports show the
 trusted principles of finished declarations; the kernel graph follows
@@ -39,7 +39,9 @@ private structure PaperRoot where
   decl : Name
 
 private def paperRoots : Array PaperRoot := #[
-  ⟨"Theorem 1.1 (timeout moving polylogarithmic endpoint)",
+  ⟨"Theorem 1.1 (canonical timeout moving polylogarithmic endpoint)",
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_moving_polylogarithmic_natural_density_descent⟩,
+  ⟨"Theorem 1.1 (explicit timeout compatibility name)",
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent⟩,
   ⟨"Theorem 1.1 (literal timeout natural-density assembly)",
     `FirstPassageLinearTransport.timeoutEndpointLiteralNaturalDensityDescent⟩,
@@ -79,14 +81,6 @@ private def paperRoots : Array PaperRoot := #[
     `FirstPassageLinearTransport.TimeoutRecertificationRun.orbit_le_start_power⟩,
   ⟨"Theorem 1.1 (timeout logarithmic clock)",
     `FirstPassageLinearTransport.eventually_timeoutRun_elapsed_add_switch_lt_shellClock⟩,
-  ⟨"Formal alternate (all-prefix moving public theorem)",
-    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_moving_polylogarithmic_natural_density_descent⟩,
-  ⟨"Formal alternate (literal all-prefix moving assembly)",
-    `FirstPassageLinearTransport.movingEndpointLiteralNaturalDensityDescent⟩,
-  ⟨"Formal alternate (sharp all-prefix moving shell profile)",
-    `FirstPassageLinearTransport.exists_eventually_movingEndpointGood_shellError⟩,
-  ⟨"Formal alternate (all-prefix moving same-witness execution)",
-    `FirstPassageLinearTransport.eventually_movingEndpointGood_has_shellWitness⟩,
   ⟨"Corollary 1.2(1) (fixed-polylogarithmic descent)",
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent⟩,
   ⟨"Corollary 1.2(1) (endpoint exponent identity)",
@@ -211,6 +205,8 @@ private def paperRoots : Array PaperRoot := #[
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_descent_with_orbit_ceiling⟩,
   ⟨"Corollary 1.5 (quantitative fixed-power count)",
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_quantitative_fixed_power_exceptional_count⟩,
+  ⟨"Corollary 1.5 (literal T_min adapter)",
+    `FirstPassageLinearTransport.orbitMinimum_le_power_iff_hasFixedPowerDescent⟩,
   ⟨"Corollary 1.5 (fixed-depth density pullback)",
     `FirstPassageLinearTransport.bootstrapSet_powerDense⟩,
   ⟨"Corollary 1.5 (graded height clock)",
@@ -232,15 +228,54 @@ private def isProjectModule (n : Name) : Bool :=
 private def mainModule : Name :=
   `FirstPassageLinearTransport.Main
 
+private def expectedMainTheorems : NameSet :=
+  [
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_moving_polylogarithmic_natural_density_descent,
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent,
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent,
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent,
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_natural_density_descent_unclocked,
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_power_natural_density_descent,
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_quantitative_stretched_exceptional_count,
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_raw_stretched_log_natural_density_descent,
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_stretched_log_descent_with_orbit_ceiling,
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_quantitative_fixed_power_exceptional_count,
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_graded_power_natural_density_descent
+  ].foldl (init := {}) fun names theoremName => names.insert theoremName
+
 private def declarationLine (decl : Name) : CommandElabM Nat := do
   match ← findDeclarationRanges? decl with
   | some ranges => pure ranges.range.pos.line
   | none => pure 0
 
+private partial def projectClosureFrom
+    (env : Environment) (pending : List Name) (seen : NameSet) : NameSet :=
+  match pending with
+  | [] => seen
+  | current :: rest =>
+      if seen.contains current then
+        projectClosureFrom env rest seen
+      else
+        let seen := seen.insert current
+        let dependencies := match env.find? current with
+          | some info => info.getUsedConstantsAsSet
+          | none => {}
+        let pending := dependencies.fold (init := rest) fun todo dependency =>
+          if isProjectDecl dependency && !seen.contains dependency then
+            dependency :: todo
+          else
+            todo
+        projectClosureFrom env pending seen
+
+/-- Project-only kernel closure.  Traversal stops at Mathlib constants because
+Mathlib cannot depend back on this package; avoiding the full Mathlib closure
+makes the referee dependency gate deterministic and substantially faster. -/
 private def projectClosure (root : Name) : CommandElabM NameSet := do
-  let used ← liftCoreM <| root.transitivelyUsedConstants
-  pure <| used.fold (init := {}) fun acc decl =>
-    if isProjectDecl decl then acc.insert decl else acc
+  let env ← getEnv
+  let directDependencies := match env.find? root with
+    | some info => info.getUsedConstantsAsSet.toList.filter isProjectDecl
+    | none => []
+  pure <| projectClosureFrom env directDependencies {}
 
 private def sourceReferenceEdges
     (modules : List Name) : CommandElabM (Array (Name × Name)) := do
@@ -262,8 +297,14 @@ private def sourceReferenceEdges
               edges := edges.push (source, dependency)
   pure edges
 
+private def sourceReferenceGraph
+    (edges : Array (Name × Name)) : NameMap (Array Name) :=
+  edges.foldl (init := {}) fun graph edge =>
+    let dependencies := (graph.find? edge.1).getD #[]
+    graph.insert edge.1 (dependencies.push edge.2)
+
 private partial def combinedClosureFrom
-    (env : Environment) (sourceEdges : Array (Name × Name))
+    (env : Environment) (sourceGraph : NameMap (Array Name))
     (roots : List Name) : NameSet :=
   go roots {}
 where
@@ -283,14 +324,15 @@ where
               dependency :: todo
             else
               todo
-          let pending := sourceEdges.foldl (init := pending) fun todo edge =>
-            if edge.1 == current && !seen.contains edge.2 then edge.2 :: todo else todo
+          let sourceDependencies := (sourceGraph.find? current).getD #[]
+          let pending := sourceDependencies.foldl (init := pending) fun todo dependency =>
+            if !seen.contains dependency then dependency :: todo else todo
           go pending seen
 
 private def combinedClosure
-    (env : Environment) (sourceEdges : Array (Name × Name))
+    (env : Environment) (sourceGraph : NameMap (Array Name))
     (root : Name) : NameSet :=
-  combinedClosureFrom env sourceEdges [root]
+  combinedClosureFrom env sourceGraph [root]
 
 private def projectModulesFor
     (env : Environment) (decls : NameSet) : NameSet :=
@@ -324,6 +366,7 @@ elab "#paper_dependency_audit" : command => do
     |>.filter isProjectModule
     |>.mergeSort Name.lt
   let sourceEdges ← sourceReferenceEdges importedProjectModules
+  let sourceGraph := sourceReferenceGraph sourceEdges
   let mut closures : Array (PaperRoot × NameSet × NameSet) := #[]
   let mut unionKernelDecls : NameSet := {}
   let mut unionCombinedDecls : NameSet := {}
@@ -331,7 +374,7 @@ elab "#paper_dependency_audit" : command => do
   for root in paperRoots do
     discard <| getConstInfo root.decl
     let kernelClosure ← projectClosure root.decl
-    let combined := combinedClosure env sourceEdges root.decl
+    let combined := combinedClosure env sourceGraph root.decl
     closures := closures.push (root, kernelClosure, combined)
     unionKernelDecls := kernelClosure.fold (init := unionKernelDecls) fun acc decl =>
       acc.insert decl
@@ -344,6 +387,41 @@ elab "#paper_dependency_audit" : command => do
     logInfo m!"PAPER_ROOT\t{root.paperLabel}\t{root.decl}\t{moduleName}:{line}\t\
       KERNEL_DECLS={kernelClosure.size}\tKERNEL_MODULES={kernelModules.size}\t\
       COMBINED_DECLS={combined.size}\tCOMBINED_MODULES={combinedModules.size}"
+
+  /-
+  Fail loudly if the referee-facing theorem is ever rewired to the retained
+  all-prefix implementation. Import reachability and proof-term reachability
+  are checked separately.
+  -/
+  let canonicalMoving :=
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_moving_polylogarithmic_natural_density_descent
+  let timeoutAssembly :=
+    `FirstPassageLinearTransport.timeoutEndpointLiteralNaturalDensityDescent
+  let allPrefixAssembly :=
+    `FirstPassageLinearTransport.movingEndpointLiteralNaturalDensityDescent
+  let allPrefixShellProducer :=
+    `FirstPassageLinearTransport.exists_eventually_movingEndpointGood_shellError
+  let allPrefixConditionalProfile :=
+    `FirstPassageLinearTransport.movingSeparatedFailureEnvelope_density_sharp_le
+  let allPrefixStartup :=
+    `FirstPassageLinearTransport.eventually_movingLowStageSetup_M0_le
+  let canonicalClosure ← projectClosure canonicalMoving
+  unless canonicalClosure.contains timeoutAssembly do
+    throwError "Canonical moving theorem no longer depends on the timeout assembly"
+  if canonicalClosure.contains allPrefixAssembly then
+    throwError "Canonical moving theorem regressed to the all-prefix assembly"
+  if canonicalClosure.contains allPrefixShellProducer then
+    throwError "Canonical moving theorem regressed to the all-prefix shell producer"
+  if canonicalClosure.contains allPrefixConditionalProfile then
+    throwError "Canonical moving theorem regressed to the all-prefix conditional profile"
+  if canonicalClosure.contains allPrefixStartup then
+    throwError "Canonical moving theorem regressed to the all-prefix startup package"
+  let alternatePrefix := `FirstPassageLinearTransport.Alternates
+  for moduleName in env.header.moduleNames do
+    if alternatePrefix.isPrefixOf moduleName then
+      throwError m!"Canonical paper target imports optional alternate module {moduleName}"
+  logInfo "TIMEOUT_ROUTE_GUARD\tPASS"
+  logInfo "MAIN_ALTERNATE_IMPORT_GUARD\tPASS"
 
   logInfo m!"PAPER_GRAPH_ROOTS\t{paperRoots.size}"
   for (root, _, closure) in closures do
@@ -378,7 +456,23 @@ elab "#paper_dependency_audit" : command => do
   internal results are roots in their own right and must not be classified as
   unused merely because no other mapped theorem depends on them.
   -/
-  let mainTheorems := theoremDeclarationsInModule env mainModule
+  let mainModuleTheorems := theoremDeclarationsInModule env mainModule
+  let mut mainTheorems : Array Name := #[]
+  for theoremName in mainModuleTheorems do
+    let line ← declarationLine theoremName
+    if line > 0 then
+      mainTheorems := mainTheorems.push theoremName
+    else
+      logInfo m!"MAIN_GENERATED_HELPER\t{theoremName}"
+  for theoremName in mainTheorems do
+    unless expectedMainTheorems.contains theoremName do
+      throwError m!"Unexpected public theorem in Main: {theoremName}"
+  for theoremName in expectedMainTheorems.toList do
+    unless mainTheorems.contains theoremName do
+      throwError m!"Expected public theorem missing from Main: {theoremName}"
+  if mainTheorems.size != expectedMainTheorems.size then
+    throwError m!"Unexpected public theorem count in Main: got {mainTheorems.size}, expected {expectedMainTheorems.size}"
+  logInfo "MAIN_PUBLIC_SURFACE_GUARD\tPASS"
   let publicRootSet := paperRoots.foldl
     (init := mainTheorems.foldl (init := ({} : NameSet)) fun roots root =>
       roots.insert root) fun roots root => roots.insert root.decl
@@ -386,7 +480,7 @@ elab "#paper_dependency_audit" : command => do
   let importedModuleSet := importedProjectModules.foldl
     (init := ({} : NameSet)) fun modules moduleName => modules.insert moduleName
   let retainedTheorems := theoremDeclarationsIn env importedModuleSet
-  let mainReachableDecls := combinedClosureFrom env sourceEdges publicRootNames
+  let mainReachableDecls := combinedClosureFrom env sourceGraph publicRootNames
 
   let unreachableTheorems := retainedTheorems.filter fun theoremName =>
     !mainReachableDecls.contains theoremName

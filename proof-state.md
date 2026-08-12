@@ -26,14 +26,16 @@ Current route boundary:
 - low timeout density, transportable target, combined time support, and
   critical rank-buffer profile: `PROVED-PAPER / PROVED-FORMAL`;
 - public moving shell ratio, landing, logarithmic clock, and same-witness
-  ceiling: `PROVED-FORMAL` through the V3.2 timeout route and the retained V3.1
-  all-prefix alternate;
+  ceiling: `PROVED-FORMAL` through the V3.2 timeout route in canonical
+  `Main`; the retained V3.1 all-prefix proof is an optional library;
 - timeout proof route as the manuscript-mapped Lean derivation: `PROVED-FORMAL`;
 - timeout public theorem with the identical literal conclusion:
-  `EXPOSED IN Main.lean`.
+  `EXPOSED IN Main.lean`;
+- all-prefix comparison theorem: `PROVED-FORMAL / ISOLATED UNDER
+  Alternates/AllPrefix / NOT IN DEFAULT TARGET`.
 
 The paper and Lean now prove the same theorem surface by two different
-low-rank producers.  The all-prefix route remains as a formal cross-check; the
+low-rank producers. The all-prefix route remains as a separately built formal cross-check; the
 written V3.2 dependency chain follows the separately formalized timeout
 route.  Both routes reuse the endpoint parameter package, scalar asymptotics,
 and dyadic natural-density assembly.
@@ -84,8 +86,12 @@ V3.1 status:
   `PROVED-PAPER / PROVED-FORMAL`;
 - critical rank-buffer profile and shell failure bound:
   `PROVED-PAPER / PROVED-FORMAL`;
-- moving endpoint, fixed-`A`, log-log, triple-log, and functional consumers:
-  `PROVED-PAPER / PROVED-FORMAL` through the public moving theorem;
+- moving endpoint: `PROVED-PAPER / PROVED-FORMAL`;
+- fixed-`A` theorem with some positive exceptional exponent:
+  `PROVED-PAPER / PROVED-FORMAL`;
+- exact fixed-`A` rate range, log-log/triple-log profiles, and functional
+  consumer: `PROVED-PAPER / GENERIC LEAN PRODUCER AVAILABLE / LITERAL
+  SPECIALIZATIONS PAPER-ONLY`;
 - exact finite positive and boundary controls:
   `EMPIRICAL-SUPPORT / PASS`;
 - manuscript integration, reference audit, and 25-page PDF render:
@@ -118,7 +124,8 @@ This is now a synchronized paper-and-Lean theorem upgrade.  The public theorem
 retains the literal moving rank buffer, shell exceptional profile, logarithmic
 clock, moving landing target, and same-witness orbit ceiling.
 
-Current V3.1 moving-producer synchronization snapshot:
+Historical immutable V3.1 moving-producer synchronization snapshot (the
+hashes below are not current-worktree hashes):
 
 ```text
 b05006a72642799a8044474ef8454462f89e78f80c135acd1ba6b922b869f436  README.md
@@ -163,9 +170,11 @@ Paper status:
 
 - shrinking-time-support fixed-polylogarithmic proof:
   `PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED / RE-AUDIT PASS`;
-- stretched-log landing/ceiling and strict sub-endpoint rates:
-  `PROVED-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
-- exact stretched-log exceptional endpoint:
+- stretched-log same-witness landing/clock/ceiling at the explicit `6.953`
+  clock and unclocked strict sub-endpoint rates:
+  `PROVED-PAPER / ADJACENT FORMAL PROJECTIONS`;
+- one quantitative declaration combining every `c > c_*`, the same-witness
+  ceiling, and the exact exceptional endpoint:
   `PROVED-PAPER / NOT EXPOSED IN PUBLIC LEAN`;
 - shrinking-time-support cut-vertex reconstruction: `PASS`;
 - prior fixed-tolerance freeze audit: `PASS / HISTORICAL`;
@@ -379,11 +388,17 @@ Paper proof-state:
 - timed fixed-power Corollary 1.5: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - fixed-`A` landing part of Corollary 1.2:
   `PROVED-ON-PAPER / PROVED-FORMAL`;
-- moving/log-log/triple-log parts of Theorem 1.1 and Corollary 1.2:
-  `PROVED-ON-PAPER / MOVING HEADLINE PROVED-FORMAL`;
-- Theorem 1.3 literal landing/ceiling and every strict exceptional power below
-  `1-delta`: `PROVED-ON-PAPER / PROVED-FORMAL`;
-- Theorem 1.3 exact exceptional power `1-delta`:
+- Theorem 1.1 moving headline: `PROVED-ON-PAPER / PROVED-FORMAL`;
+- Corollary 1.2 log-log, triple-log, and arbitrary-divergent specializations:
+  `PROVED-ON-PAPER / GENERIC LEAN PRODUCER AVAILABLE / LITERAL PUBLIC
+  SPECIALIZATIONS NOT DECLARED`;
+- Theorem 1.3 same-witness landing/clock/ceiling at the fixed `6.953` clock:
+  `PROVED-ON-PAPER / PROVED-FORMAL AS A QUALITATIVE PROJECTION`;
+- Theorem 1.3 every strict exceptional power below `1-delta`, for the
+  unclocked descent predicate: `PROVED-ON-PAPER / PROVED-FORMAL AS A
+  QUANTITATIVE PROJECTION`;
+- Theorem 1.3 joint count with arbitrary `c > c_*`, same-witness ceiling, and
+  exact exceptional power `1-delta`:
   `PROVED-ON-PAPER / NOT EXPOSED IN PUBLIC LEAN`;
 - raw stretched-logarithmic landing and `10.44 log n` clock:
   `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
@@ -392,8 +407,8 @@ Paper proof-state:
   `PROVED-ON-PAPER / PUBLIC LEAN DECLARATION PENDING`;
 - graded fixed-power clock: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED /
   INDEPENDENT COMPANION`;
-- Theorem 1.3 intermediate-orbit ceiling:
-  `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
+- Theorem 1.3 intermediate-orbit ceiling at the explicit `6.953` shortcut
+  clock: `PROVED-ON-PAPER / PROVED-FORMAL AS A QUALITATIVE PROJECTION`;
 - endpoint `delta = 1`: `NOT CLAIMED`;
 - global or first-priority claim: `NOT MADE`.
 
@@ -406,8 +421,8 @@ Lean closes the manuscript's timeout chain from the literal parent-rank event
 through terminal odd-count containment, direct first-bad transport,
 square-root feasible-time support, exact-rate `q^(-1/2)` tail, critical-buffer
 reassembly, literal same-witness execution, and natural-density assembly.
-`Main.lean` exposes the complete timeout moving theorem and retains the
-all-prefix moving theorem as an alternate derivation of the same public type.
+`Main.lean` exposes only the complete timeout moving theorem. The all-prefix
+theorem of the same type lives under `Alternates/AllPrefix/Main.lean`.
 
 **Package root:** `lean/FirstPassageLinearTransport/`
 **Public module:** `FirstPassageLinearTransport.Main`
@@ -430,8 +445,8 @@ Compiled dependency order:
    `ClockBudget.lean`, `NaturalDensityDescent.lean`: shell assembly,
    quantitative summation, landing, clock, and internal final theorem;
 8. `HeightSensitiveClock.lean`, `GradedClock.lean`,
-   `GradedPowerDescent.lean`: shortened first-passage horizon and smooth
-   graded power clock;
+   `GradedPowerDescent.lean`: shortened first-passage horizon and graded
+   fixed-power clock;
 9. `RawDynamics.lean`, `RawClockBudget.lean`,
    `RawNaturalDensityDescent.lean`: exact raw conversion and `10.44 log n`
    raw theorem;
@@ -453,20 +468,20 @@ Compiled dependency order:
 17. `MovingLowSetup.lean`, `MovingEndpointParameters.lean`,
    `MovingEndpointProfile.lean`, `MovingEndpointAsymptotics.lean`: quantitative
    startup, sharp shell profile, and exact buffer closure;
-18. `MovingExecution.lean`, `MovingOrbitCeiling.lean`,
-   `MovingEndpointWitness.lean`: literal termination, clock, and ceiling;
-19. `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`,
-   `MovingEndpointNaturalDensity.lean`: scalar and density assembly;
+18. `MovingExecution.lean`, `MovingOrbitCeiling.lean`: retained all-prefix
+   execution and ceiling;
+19. `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`: shared
+   scalar and density assembly;
 20. `TimeoutCore.lean` through `TimeoutEndpointNaturalDensity.lean`: literal
    timeout event, endpoint-rate density, mixed run, decreasing potential,
    first-timeout transport and sharp profile, dyadic endpoint discharge,
    orbit ceiling, shell assembly, and the primary V3.2 public theorem;
-21. `Main.lean`: minimal literal referee-facing API exposing both complete
-   moving-endpoint derivations and the companion theorem family;
-22. `PaperDependencyAudit.lean`, `PaperAudit.lean`,
-   `MovingEndpointAudit.lean`, `TimeoutEndpointAudit.lean`: declaration
-   reachability, public trust, retained all-prefix trust, and primary timeout
-   trust reports.
+21. `Main.lean`: minimal literal referee-facing API exposing the canonical
+   timeout theorem and companion theorem family;
+22. `PaperDependencyAudit.lean`, `PaperAudit.lean`, and
+   `TimeoutEndpointAudit.lean`: canonical declaration reachability and trust;
+23. `Alternates/AllPrefix/`: separate optional witness, assembly, public
+   theorem, and axiom audit.
 
 The exact manuscript map is `lean/FORMALIZATION.md`.  The public timed theorem
 is
@@ -484,14 +499,18 @@ witness `k`.
 
 ## Lean acceptance gates
 
-The formalization is complete only when:
+The formally claimed headline cone is complete only when:
 
-1. every paper cut vertex has a named Lean declaration;
-2. an unqualified clean `lake build` succeeds for every retained module in
-   the independent V3 package; targeted root builds do not replace this gate;
+1. every cut vertex claimed as formal has a named Lean declaration, while
+   paper-only theorem portions are explicitly excluded from the formal claim;
+2. an unqualified clean `lake build` succeeds for the canonical V3 package,
+   and each optional library has its own explicit clean build; targeted roots
+   do not replace either gate;
 3. the V3 source contains no `sorry`, `admit`, `axiom`, `unsafe` proof
    escape, or unreviewed placeholder;
-4. `#print axioms` for each public theorem and mapped milestone is audited;
+4. `#print axioms` for each public theorem and the selected load-bearing
+   milestones is audited; other internal declarations are trusted
+   transitively through those roots;
 5. a paper-to-formal map records every hypothesis, quantifier, constant, map
    convention, and density notion;
 6. the public result retains `0 < delta < 1` and natural density one;
@@ -505,16 +524,16 @@ The formalization is complete only when:
     including its constants, offsets, normalization, status, label, and
     anchor checks.
 
-Current 2026-08-12 maintenance result: the complete moving-endpoint chain,
-including the quantitative startup, sharp landing profile, literal shell
-failure set, same-witness landing/clock/ceiling theorem, natural-density
-assembly, and public `Main.lean` theorem, typechecks in the uninterrupted full
-package build.  Direct `#print axioms` audits contain only Lean's standard
-axioms.  After adding the complete timeout route, the semantic gate passes 45
-literal contracts and 35 critical declarations, and the dependency audit
-lists 91 manuscript roots.  The manuscript source and theorem map are
-synchronized; PDF regeneration is intentionally deferred until the current
-source-editing pass is frozen.
+Current 2026-08-13 maintenance result: the complete timeout moving-endpoint
+chain, including the sharp landing profile, literal shell failure set,
+same-witness landing/clock/ceiling theorem, natural-density assembly, and
+public `Main.lean` theorem, typechecks in the canonical build. The optional
+all-prefix library typechecks separately. Direct `#print axioms` audits
+contain only Lean's standard axioms. The semantic gate passes 47 literal
+contracts and 34 canonical critical declarations. The dependency rerun passes
+its timeout-route, alternate-import, and 11-theorem public-surface guards.
+PDF regeneration was run only after this source and formalization
+state was frozen, and the final render now passes.
 
 The primary timeout chain now compiles through `Main.lean`.  It contains
 no low-rank `MovingLowStageSetup` input: its low producer is the literal
@@ -523,43 +542,59 @@ closed by exact halving inside the same witness.
 
 ## Final Lean audit record
 
-The clean source reconstruction and the subsequent stable-source confirmation
-build both passed with Lean `v4.15.0` and the Mathlib revision pinned in
-`lean/lake-manifest.json`.  The V3 headline chain and isolated graded
-companion are both in the default target.  The build log contains upstream
+The clean canonical reconstruction and explicit alternate-library build both
+passed with Lean `v4.15.0` and the Mathlib revision pinned in
+`lean/lake-manifest.json`. The V3 headline chain and isolated graded
+companion are in the default target; the all-prefix comparison is not. The build log contains upstream
 Mathlib doc-string warnings and non-failing `ring_nf` suggestions.
 
-Direct `PaperDependencyAudit` output:
+Current `PaperDependencyAudit` output:
 
 ```text
-PAPER_GRAPH_ROOTS                         91
-PAPER_KERNEL_PROJECT_DECLARATIONS       1221
-PAPER_KERNEL_PROJECT_MODULES              97
-PAPER_COMBINED_PROJECT_DECLARATIONS     1222
-PAPER_COMBINED_PROJECT_MODULES            97
-PAPER_GRAPH_IMPORTED_MODULES              99
-PAPER_SOURCE_REFERENCE_EDGES           12117
-MAIN_FILE_THEOREMS                        12
-PUBLIC_TERMINAL_ROOTS                     90
-RETAINED_PROJECT_THEOREMS               1189
-RETAINED_SOURCE_THEOREMS                 886
-MAIN_REACHABLE_PROJECT_DECLARATIONS     1223
-MAIN_UNREACHABLE_PROJECT_THEOREMS        259
-MAIN_UNREACHABLE_SOURCE_THEOREMS         135
+TIMEOUT_ROUTE_GUARD                     PASS
+MAIN_ALTERNATE_IMPORT_GUARD             PASS
+MAIN_PUBLIC_SURFACE_GUARD               PASS
+PAPER_GRAPH_ROOTS                         89
+PAPER_KERNEL_PROJECT_DECLARATIONS       1071
+PAPER_KERNEL_PROJECT_MODULES              88
+PAPER_COMBINED_PROJECT_DECLARATIONS     1088
+PAPER_COMBINED_PROJECT_MODULES            88
+PAPER_GRAPH_IMPORTED_MODULES              97
+PAPER_SOURCE_REFERENCE_EDGES           11981
+MAIN_FILE_THEOREMS                        11
+PUBLIC_TERMINAL_ROOTS                     87
+RETAINED_PROJECT_THEOREMS               1188
+RETAINED_SOURCE_THEOREMS                 885
+MAIN_REACHABLE_PROJECT_DECLARATIONS     1088
+MAIN_UNREACHABLE_PROJECT_THEOREMS        363
+MAIN_UNREACHABLE_SOURCE_THEOREMS         215
 ```
 
-The larger source reverse-reachability complement reflects the conservative
-package import surface: legacy standalone V2 declarations remain available
+The audit additionally records one range-free compiler-generated helper,
+`HasTimedStretchedLogDescent.eq_1`; the explicit public-surface guard excludes
+such generated helpers and verifies exactly the 11 source-declared theorems
+in `Main.lean`.  The larger source reverse-reachability complement reflects
+the conservative package import surface: legacy standalone V2 declarations remain available
 beside the V3 theorem family.  It is reported for review and is not counted as
-part of the headline dependency chain.  Every manuscript root is listed
-positively in the 91-root map above.
+part of the headline dependency chain.
 
-Direct `PaperAudit` output for every mapped milestone and all public theorems
-contains only Lean's standard axioms `propext`, `Classical.choice`, and
-`Quot.sound`.  It contains no project axiom, `sorryAx`, `native_decide`, or
-other enlarged trust mechanism.
+The final V3.2 manuscript render passes the semantic gate and a complete
+27-page A4 visual inspection.  All pages have nonempty extractable text and a
+consistent page box; the proof-architecture figure, theorem boxes, comparison
+table, equations, code block, references, page numbers, and section
+transitions show no clipping, overlap, black glyphs, or unresolved rendering
+tokens.  The rendered file identity is:
 
-Direct `MovingEndpointAudit` covers the sharp binomial prefactor, moving
+```text
+f8208c6366606631fc87b52382b6cb33c9f5e17a3ed4f704473115166fe09295  paper/collatz_first_passage_natural_density_v3.pdf
+```
+
+Direct `PaperAudit` output for every selected load-bearing root and all public
+theorems contains only Lean's standard axioms `propext`, `Classical.choice`,
+and `Quot.sound`.  It contains no project axiom, `sorryAx`, `native_decide`,
+or other enlarged trust mechanism.
+
+Direct `Alternates/AllPrefix/Audit` covers the sharp binomial prefactor, moving
 parameter rate, quantitative startup, landing-density producer, time-support
 theorem, direct first-bad transport, exact-rate sharp profile, scalar shell
 assembly, same-witness execution, and literal moving theorem.  Its final trust
