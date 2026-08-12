@@ -4,17 +4,19 @@ Generate the proof-architecture figure for
 paper/collatz_first_passage_natural_density.md.
 
 Panel (a) draws a REAL shortcut-Collatz orbit, selected to satisfy the (3.8)
-envelope on its whole certified block, so the picture cannot show dynamically
-impossible behaviour.  Panel (b) is deliberately order-only: Lemma 6.1 has an
-unspecified fixed-parameter constant, so no theorem-calibrated bar ratio is
-claimed or implied.
+envelope on its high certified block, so the picture cannot show dynamically
+impossible behaviour.  Below the switch the annotation records the timeout
+continuation used in Section 6.  Panel (b) is deliberately order-only: Lemmas
+6.1 and 6.3 have unspecified fixed-parameter constants, so no
+theorem-calibrated bar ratio is claimed or implied.
 
 Geometry sources (manuscript):
   (3.8)  rho^k n^{1-eta} <= T^k(n) <= rho^k n^{1+eta}  -- envelope; in log_2 a
          band of slope a_0 - 1 and half-width eta*m, valid for 0 <= k <= log_2 n
-  (5.1)  a_0 < r < 1,  0 < eta < r - a_0
-  (5.3)  q_i = floor(r*m_i),  h_i = tau_{2^{q_i}}(n_i)
-  Lemma 6.1  feasible cumulative times occupy O(sqrt(M log M)) integers
+  (6.1)  a_0 < r_hi < 1,  0 < tau < r_hi - a_0
+  (6.4a) q_i = floor(r_hi*m_i), h_i = tau_{2^{q_i}}(n_i)
+  Lemmas 6.1 and 6.4  feasible cumulative times occupy
+                       O(sqrt(M log M)) integers
 
 Output: paper/fig-architecture.svg      Usage: python3 make_architecture_figure.py
 """
@@ -90,9 +92,10 @@ def main():
         f'width="100%" role="img" aria-labelledby="figt figd" font-family="{SERIF}">')
     add('<title id="figt">Proof architecture and the compressed time support</title>')
     add('<desc id="figd">Panel a: a real shortcut-Collatz orbit descends inside the '
-        'certified envelope of slope a0 minus 1; at each nested threshold it makes a '
-        'first passage into a landing band and the argument is re-certified on a new '
-        'envelope. Panel b: a schematic order comparison records the reduction from '
+        'certified high-rank envelope of slope a0 minus 1; at each high threshold it '
+        'makes a first passage into a landing band and is re-certified until the '
+        'switch, below which the low rule either crosses within the parent rank or '
+        'records a timeout. Panel b: a schematic order comparison records the reduction from '
         'a linear time-tag horizon to square-root-logarithmic feasible support. The '
         'bar lengths do not represent theorem constants.</desc>')
     add('<defs><pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" '
@@ -102,8 +105,8 @@ def main():
     add(f'<rect width="{W}" height="{H}" fill="#ffffff"/>')
 
     add(f'<text x="0" y="14" font-size="12" fill="{INK}">'
-        f'<tspan font-weight="bold">(a)</tspan> certified descent and nested '
-        f'first passages — a real orbit in <tspan font-style="italic">I</tspan>'
+        f'<tspan font-weight="bold">(a)</tspan> high certification and timeout '
+        f'continuation — a real orbit in <tspan font-style="italic">I</tspan>'
         f'<tspan dy="3" font-size="8">M</tspan><tspan dy="-3">, M = 40</tspan></text>')
 
     # thresholds + landing bands
@@ -150,9 +153,9 @@ def main():
     add(f'<line x1="{sx(k0):.1f}" y1="{sy(q0)-6:.1f}" x2="{sx(k0)+16:.1f}" '
         f'y2="{sy(q0)-21:.1f}" stroke="{MUTED}" stroke-width="1"/>')
     add(f'<text x="{sx(k0)+20:.1f}" y="{sy(q0)-23:.1f}" font-size="11" fill="{SEC}">'
-        f'first passage → re-certify on a new envelope (§5)</text>')
+        f'high first passage → re-certify until the switch (§6)</text>')
     add(f'<text x="{X0}" y="{Y1+16}" font-size="11" fill="{MUTED}">'
-        f'… nested blocks continue down to rank L</text>')
+        f'below S: cross within m steps, or charge the timeout tail</text>')
 
     # ---------------- panel (b) ----------------
     add(f'<line x1="0" y1="286" x2="{W}" y2="286" stroke="{RULE}" stroke-width="1"/>')
@@ -170,7 +173,7 @@ def main():
         f'fill="{SEC}">O(M) possible cumulative times</text>')
 
     add(f'<text x="{bx0-10}" y="{y_support+4}" text-anchor="end" font-size="11" '
-        f'fill="{SEC}">Lemma 6.1</text>')
+        f'fill="{SEC}">Lemmas 6.1, 6.3</text>')
     add(f'<rect x="{bx0}" y="{y_support-7}" width="220" height="14" '
         f'fill="{ACCENT}"/>')
     add(f'<text x="{bx0+232}" y="{y_support+4}" font-size="11" fill="{SEC}">'

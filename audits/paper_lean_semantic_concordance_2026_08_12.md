@@ -3,7 +3,7 @@
 **Date:** 2026-08-12
 **Mode:** MATH-TEXT + FORMAL + CONSISTENCY
 **Classification:** MAINTENANCE
-**Scope:** referee-facing headline dependency cone, moving V3.1 additions,
+**Scope:** referee-facing headline dependency cone, V3.2 timeout replacement,
 public companion theorems, and formalization-boundary language.
 
 ## Purpose and limit
@@ -26,20 +26,21 @@ necessary.
 |---|---|---|---|
 | One-block duration corridor | (6.7a): abs(gh-(m-q)) <= tm+t+2 | certified_firstPassage_duration_error | MATCH |
 | Accumulated corridor-and-offset budget | (6.7d): sum (t_i m_i+t_i+3) | durationError t m = t*m+t+3 | MATCH |
-| Certified endpoint shell | (6.7b): m_(i+1)=q_i-1 | MovingRecertificationRun.certified_endpoint_shell_eq | MATCH |
-| Low potential | Lemma 6.4: V_lo(q)=(S+4)q | movingLowStepCost, low branch of movingTimePotential | MATCH |
-| Low step payment | Lemma 6.4: tm+t+3 <= S+3, strict rank drop | movingLow_durationError_le; movingTimePotential_step | MATCH AFTER CORRECTION |
-| High-to-low reserve | Lemma 6.4: (S+4)S | high branch of movingTimePotential | MATCH |
-| Moving time support | (6.17): O(sqrt((M+2) log(M+2))) | eventually_movingFeasibleTimes_card_lt_sqrt | MATCH |
+| Certified high endpoint shell | (6.7b): m_(i+1)=q_i-1 | ShrinkingRecertificationRun.certified_endpoint_shell_eq | MATCH |
+| Timeout event | (6.11): no crossing through the parent-rank time m | no separate timeout declaration | PAPER-ONLY ROUTE |
+| Timeout parity implication | (6.14): s > q_L(m) log_3 2 - 1 | exact_affine_iterate and parityCode_bijective formalize the inputs, not this consumer | PAPER-ONLY ROUTE |
+| Switch endpoint | power of two at q<=S is discharged by deterministic halving; high endpoint failure only for q>S | no timeout analogue needed | PAPER-ONLY BOUNDARY |
+| Timeout landing target | (6.15): actual parent shell p-1, endpoint excluded | no separate timeout target | PAPER-ONLY ROUTE |
+| Combined timeout time support | (6.13), (6.16): high interval plus O(S^2) low duration | public theorem uses the independent moving-potential producer | SAME ORDER / DIFFERENT ROUTE |
 | Endpoint entropy constant | (1.2): A_FP=1/(2(1-H_2(log_3 2))) | timeSupportCriticalExponent_eq_entropy | MATCH |
 | Shortcut clock | c>2/log(4/3) | public Main hypothesis | MATCH / STRICT |
 | Parent landing target | J_q=(2^(q-1),2^q], density divided by 2^q | landingBad q; moving density theorems | MATCH |
-| Moving target tolerance | (6.4c): use eta_(M,q-1) above the switch | movingTargetTolerance | MATCH |
-| Direct reverse loss | (6.5): E_(2^q)(n) < (q+2)/r_* | MovingRecertificationRun.scaledReverseLoss_le | MATCH |
-| Rankwise moving transport | support H times (1+6/r_*)(q+1) times target density | movingFirstBadSourcesAtRank_density_le | MATCH |
-| Critical low target | (6.16): q^(-1/2) 2^(-kappa_* q) + 2^(-q) | MovingLowDensity producer | MATCH |
-| Moving terminal profile | (6.18): sqrt(M log M) times the low target tail, plus high error | movingSeparatedFailureEnvelope_density_terminalProfile | MATCH AT CONDITIONAL SOCKET |
-| Sharp low-tail summation | (6.19): (L+1)2^(-L) + sqrt(L) exp(-b(L-1)) | exists_exact_sharp_critical_low_series_bound; moving_low_firstBad_sharp_exact_sum_le | MATCH / EXACT RATE / CONDITIONAL INPUTS |
+| High target tolerance | (6.4a), (6.8c): use eta_(M,q-1) above the switch | shrinkingTargetTolerance; shrinking high-density producer | MATCH |
+| Direct reverse loss | Proposition 6.4: E_(2^p)(n) < (p+2)/r_* | rank-scaled loss theorem; formal all-prefix route has the analogous literal bound | MATCH AT SHARED INTERFACE |
+| Rankwise timeout transport | support H times O(p+1) times target density | lossFiltered_arbitraryTarget_transport_atTimes_uniform | MATCH AT SHARED INTERFACE |
+| Critical timeout target | (6.15): p^(-1/2) 2^(-kappa_* p), with no endpoint term | no separate timeout producer | PAPER-ONLY ROUTE |
+| Timeout terminal profile | (6.17): sqrt(M log M) sqrt(L) 2^(-kappa_* L), plus high error | public theorem uses the independent all-prefix moving profile | SAME SCALAR CONCLUSION / DIFFERENT ROUTE |
+| Formal alternate sharp low-tail summation | not a V3.2 manuscript dependency | exists_exact_sharp_critical_low_series_bound; moving_low_firstBad_sharp_exact_sum_le | PROVED-FORMAL ALTERNATE |
 | Moving rank buffer | (1.3): kappa_* L_M - 1/2 log_2(M+2) - log_2 log(M+3) | movingRankBuffer | MATCH |
 | Moving shell conclusion | (1.5): 2^(-Delta_M) + M^(-epsilon) | movingEndpointNaturalDensityAssembly | MATCH AT CONDITIONAL CONSUMER |
 | Stretched endpoint | delta=1 excluded; formal rate has strict sigma<1-delta | Main quantitative theorem | MATCH / FORMAL THEOREM IS STRICTLY WEAKER AT RATE ENDPOINT |
@@ -54,7 +55,7 @@ the cumulative center is changed using the exact shell identity.
 
 | Paper result | Formal status | Qualification |
 |---|---|---|
-| Theorem 1.1, moving endpoint | PARTIAL FORMALIZATION | producer, moving time support, direct first-bad transport, and exact-rate conditional sharp profile are formalized; uniform low-stage startup, shell/witness assembly, and public theorem remain open |
+| Theorem 1.1, moving endpoint | PROVED-PAPER / PROVED-FORMAL | identical theorem surface; manuscript uses timeout low blocks, Lean uses the independently completed all-prefix low producer |
 | Corollary 1.2(1), every fixed A>A_FP | PROVED-FORMAL | public Main theorem; its type exposes a positive log exceptional exponent, not the paper's full sharp range |
 | Corollary 1.2(2)--(3), critical secondary profiles | PROVED-PAPER | no public Lean theorem |
 | Theorem 1.3, stretched logarithm | PROVED-FORMAL BELOW ENDPOINT | landing, clock, and ceiling are formal; exceptional power is every strict sigma<1-delta, while the paper proves the endpoint 1-delta |
@@ -63,19 +64,23 @@ the cumulative center is changed using the exact shell identity.
 
 ## Findings repaired in this batch
 
-1. **Moving low-step constant:** the paper said tm+t+2 <= S+3 where the
-   telescoping potential actually consumes tm+t+3. Equation (6.7a) remains
-   correctly +2; only the moving-potential paragraph is corrected.
-2. **Formalization boundary:** MovingFirstBad.lean and MovingProfile.lean now
-   formalize the direct moving first-bad transport and the conditional
-   terminal-profile socket. Status surfaces that still called this adapter
-   absent are updated. This does not promote Theorem 1.1: the concrete
-   moving-parameter instantiation and public assembly remain unfinished.
-3. **Sharp endpoint rate:** MovingSharpTail.lean now translates q=L+j and
-   sums the j-tail uniformly while retaining the actual leading rate b.  Its
-   MovingSharpProfile consumer proves the conditional sqrt(L) exp(-b(L-1))
-   profile without introducing b'<b.  This closes the sharp-profile cut
-   vertex but not uniform startup or the Delta_M shell reassembly.
+1. **Subtractive manuscript cone:** the moving low all-prefix certificate,
+   decreasing potential, startup package, and former intermediate fixed
+   profile were removed from the written headline chain.  The replacement is
+   the totalized timeout event and its terminal binomial tail.
+2. **Endpoint and shell indexing:** above the switch the upper endpoint is a
+   high failure; at or below the switch its power-of-two orbit is discharged
+   deterministically in O(S) steps.  It cannot be a timeout.  A first timeout
+   reached through threshold p therefore lies in the actual parent shell
+   I_(p-1), so the low rank range begins at p=L+1 and the target is normalized
+   by the full band size 2^p.
+3. **Formalization boundary:** the public theorem is fully kernel-checked, but
+   through the earlier all-prefix low producer.  The timeout proof is not
+   represented as a second Lean term.  The map and manuscript now state this
+   rather than claiming proof-route synchronization.
+4. **Scalar preservation:** both routes expose the same rank buffer, shell
+   exceptional ratio, landing, logarithmic clock, and same-witness ceiling.
+   Equality of those outputs does not identify the internal proofs.
 
 ## Release gate
 

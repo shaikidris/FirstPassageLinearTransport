@@ -9,6 +9,29 @@
 
 ## Active V3 promotion
 
+### V3.2 timeout proof replacement
+
+The public moving-endpoint theorem and all displayed constants are unchanged.
+The V3.2 manuscript replaces only the low-rank producer in Section 6.  Below
+the switch, a block either crosses its next threshold within its parent rank
+or is charged to a terminal odd-count timeout tail.  This removes the moving
+low all-prefix certificate, its startup package, and the former intermediate
+fixed-profile theorem from the written headline dependency chain.
+
+Current route boundary:
+
+- high all-prefix barrier, nested direct passage, reverse-loss transport, and
+  square-root high time support: `PROVED-PAPER / PROVED-FORMAL`;
+- low timeout density, transportable target, combined time support, and
+  critical rank-buffer profile: `PROVED-PAPER`;
+- public moving shell ratio, landing, logarithmic clock, and same-witness
+  ceiling: `PROVED-FORMAL` through the independent V3.1 all-prefix low route;
+- timeout proof route as a second Lean derivation: `FORMALIZATION-PENDING`.
+
+The paper and Lean therefore prove the same theorem surface by two different
+low-rank producers.  The formalization disclosure and theorem map must retain
+that distinction until the timeout route itself is encoded.
+
 ### V3.1 moving-endpoint paper promotion
 
 The current worktree strengthens the fixed-exponent V3 theorem at the

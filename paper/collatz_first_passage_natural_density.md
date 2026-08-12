@@ -4,7 +4,7 @@
 
 Independent researcher
 
-**Version:** 3.1 research draft, moving-endpoint first-passage refinement
+**Version:** 3.2 research draft, timeout moving-endpoint refinement
 
 **Content draft:** August 2026
 
@@ -67,9 +67,11 @@ for every fixed \(0<\delta<1\), \(c>c_*\), and \(\beta>0\); the same witnesses
 give every clock constant greater than \(3/\log(4/3)\) for the
 unaccelerated Collatz map.
 
-The proof uses exact parity-cube counting only to certify an all-prefix orbit
-barrier.  It then proceeds deterministically.  Strictly nested thresholds
-turn every later certification failure into a direct first passage from the
+The proof uses exact parity-cube counting twice: an all-prefix barrier controls
+the high-rank orbit, and a terminal odd-count tail controls low-rank blocks
+that fail to cross their next threshold before timeout.  The remaining
+argument is deterministic.  Strictly nested thresholds turn every later
+failure into a sparse condition on a direct first-passage landing from the
 original shell, while shrinking high-rank barriers confine its feasible
 cumulative times to \(O(\sqrt{M\log M})\) values.  Transport over this smaller
 time support replaces a linear horizon loss by a square-root loss and yields
@@ -123,9 +125,9 @@ assert a matching lower bound or optimality theorem.  Second, put
 \[
 \kappa_*=1-H_2(p_*).
 \]
-The entropy rates available from [Proposition 3.3](#prop-barrier-density)
-approach \(\kappa_*\log2\).  The sharp terminal binomial prefactor and the
-compressed feasible-time factor from [Lemma 6.1](#lem-time-support) leave the
+The low-rank timeout tail has entropy rate \(\kappa_*\log2\).  Its sharp
+binomial prefactor and the compressed feasible-time factor from
+[Lemma 6.1](#lem-time-support) leave the
 rank budget
 \[
 \kappa_*L_M-\frac12\log_2M-\log_2\log M.
@@ -309,9 +311,8 @@ descent coefficient \(c_*\).
 ### Proof architecture
 
 The proof has two sharply separated parts and six load-bearing steps.  Its
-probabilistic input is confined to exact parity-cube counting; from
-first-passage reversal onward, the transport and re-certification argument is
-deterministic.
+probabilistic input is confined to exact parity-cube counting; the
+first-passage transport and stopped-run assembly are deterministic.
 
 **Exact probabilistic certification.**
 
@@ -328,23 +329,23 @@ deterministic.
    landing with a direct first passage from the original source shell.
 5. Rank-dependent high barriers confine every cumulative first-bad time to a
    common support of size \(O(\sqrt{M\log M})\).
-6. Support-sensitive transport and a moving low-rank barrier give the exact
-   rank buffer \(\Delta_M\), whose positive divergence yields the critical
-   principal exponent \(A_{\rm FP}\).
+6. Support-sensitive transport and the critical low-rank timeout tail give
+   the exact rank buffer \(\Delta_M\), whose positive divergence yields the
+   critical principal exponent \(A_{\rm FP}\).
 
 Two terminal profiles serve different conclusions.  The one-regime profile in
 [Theorem 5.3](#thm-terminal-profile) yields the endpoint-rate
-stretched-logarithmic companion, whereas the compressed-support profile in
-[Theorem 6.3](#thm-two-regime-profile) yields the strict fixed-exponent
-profile, and [Proposition 6.5](#prop-rank-buffer) sharpens it to the moving
-endpoint used in the headline.
+stretched-logarithmic companion, whereas the timeout profile in
+[Proposition 6.4](#prop-rank-buffer) yields both the strict fixed-exponent
+profile and the moving endpoint used in the headline.
 
 ![The proof architecture.  Panel (a) follows an actual shortcut-Collatz orbit
-inside one certified all-prefix envelope and marks the nested first-passage
-landings at which the deterministic argument re-certifies.  Panel (b) records
+inside the certified high-rank envelope and marks the nested first-passage
+landings; below the switch, the timeout rule replaces re-certification.  Panel
+(b) records
 the proved order reduction in the number of feasible cumulative time tags;
 bar lengths are schematic and do not encode the unspecified constant in
-Lemma 6.1.](fig-architecture.svg){#fig-architecture}
+Lemmas 6.1 and 6.3.](fig-architecture.svg){#fig-architecture}
 
 ### Relation to previous almost-all results
 
@@ -352,8 +353,9 @@ The preceding endpoint-transport preprint [[7]](#ref-endpoint-v1) proves the
 range \(0<\delta<0.251245530155874\ldots\) by a fixed-time
 endpoint-fiber/Rényi estimate followed by endpoint iteration.  The present
 proof is independent of that theorem.  It replaces fixed-time endpoint
-transport by all-prefix certification, first-passage reversal, nested direct
-re-certification, and support-sensitive time aggregation.
+transport by high-rank all-prefix certification, first-passage reversal,
+nested direct passage, a low-rank timeout tail, and support-sensitive time
+aggregation.
 
 The main obstruction is not the contraction of one typical block, but the
 transport of sparse certification failures through a generated sequence of
@@ -1167,137 +1169,77 @@ a_0<r_{\rm hi}<1,
 0<\tau<r_{\rm hi}-a_0,
 \tag{6.1}\label{eq:6-1}
 \]
-and fixed low-rank data
-\[
-a_0<r_{\rm lo}<1,
-\qquad
-0<\eta_{\rm lo}<r_{\rm lo}-a_0.
-\tag{6.2}\label{eq:6-2}
-\]
-Put \(r_*=\min\{r_{\rm hi},r_{\rm lo}\}\).  Fix
-\(L_{\rm loss}\) so large that
-\[
-\frac{q+2}{r_*2^q}\le\frac13
-\qquad(q\ge L_{\rm loss}).
-\]
+and choose the high switch and tolerance below.
 For constants \(D_{\rm hi},C_{\rm sw}>0\), put
 \[
 S_M=\left\lceil C_{\rm sw}\log(M+2)\right\rceil,
-\tag{6.3}\label{eq:6-3}
+\tag{6.2}\label{eq:6-2}
 \]
 and, at a high parent rank \(m\ge S_M\), certify with
 \[
 \eta_{M,m}
 =\min\left\{\tau,
 D_{\rm hi}\sqrt{\frac{\log(M+2)}m}\right\}.
-\tag{6.4}\label{eq:6-4}
-\]
-Below the switch use the fixed tolerance \(\eta_{\rm lo}\).  Let
-\(M_{\rm hi}\) and \(M_{\rm lo}\) be fixed startup ranks for the parameter
-pairs \((r_{\rm hi},\tau)\) and \((r_{\rm lo},\eta_{\rm lo})\), respectively,
-as in Section 5, and put
-\[
-L_0=\max\{2,M_{\rm hi}+1,M_{\rm lo}+1,L_{\rm loss}\}.
-\tag{6.4a}\label{eq:6-4a}
+\tag{6.3}\label{eq:6-3}
 \]
 The high-rank stage construction at tolerance \(\tau\) remains valid after
 lowering its tolerance to \(\eta_{M,m}\); the density of the resulting
 rank-dependent certification sets will be estimated separately below.
 
-The chain below has the same stopping and first-failure logic as the chain in
-Section 5.  Only the tolerance changes: it shrinks above the switch rank and is
-fixed below it.
-
-Here is the literal stopped chain used in this section.  Fix \(M\), write
-\(S=S_M\), and set
+Fix \(M\), write \(S=S_M\), and start with \(n_0=n\in I_M\),
+\(m_0=M\), and elapsed time \(H_0=0\).  If
+\(n_0\notin W_{\eta_{M,M}}\), stop with an initial high failure.
+Otherwise, while a certified checkpoint \(n_i\in I_{m_i}\) has \(m_i\ge S\),
+set
 \[
-(r(m),t_M(m))=
-\begin{cases}
-(r_{\rm hi},\eta_{M,m}),&m\ge S,\\
-(r_{\rm lo},\eta_{\rm lo}),&m<S.
-\end{cases}
-\tag{6.4b}\label{eq:6-4b}
-\]
-For a landing at threshold rank \(q\), define the certification that would
-be used by its lower-shell continuation by
-\[
-\vartheta_{M,S}(q)=
-\begin{cases}
-\eta_{M,q-1},&S\le q-1,\\
-\eta_{\rm lo},&q-1<S.
-\end{cases}
-\tag{6.4c}\label{eq:6-4c}
-\]
-Start with \(n_0=n\in I_M\), parent rank \(m_0=M\), and elapsed time
-\(H_0=0\).  If \(n_0\notin W_{\eta_{M,M}}\), stop with an initial
-certification failure.  Otherwise, from a certified checkpoint
-\(n_i\in I_{m_i}\), set
-\[
-q_i=\lfloor r(m_i)m_i\rfloor,\qquad
+q_i=\lfloor r_{\rm hi}m_i\rfloor,\qquad
 h_i=\tau_{2^{q_i}}(n_i),\qquad
 n_{i+1}=T^{h_i}(n_i),\qquad
 H_{i+1}=H_i+h_i.
-\tag{6.4d}\label{eq:6-4d}
+\tag{6.4}\label{eq:6-4}
 \]
-If \(q_i<L\), stop successfully.  If \(q_i\ge L\) and
-\(n_{i+1}\notin W_{\vartheta_{M,S}(q_i)}\), stop at the unique first failed
-landing, of rank \(q_i\).  Otherwise set
-\(m_{i+1}=\lfloor\log_2n_{i+1}\rfloor\) and continue from \(n_{i+1}\).
+If the landing is the upper endpoint \(2^{q_i}\) and \(q_i\le S\), follow its
+deterministic halving orbit to the terminal rank and stop successfully; this
+costs at most \(S\) further steps and cannot create a timeout.  If the landing
+is \(2^{q_i}\) with \(q_i>S\), stop with a high endpoint failure.  Every
+nonendpoint landing lies in the unique shell \(I_{q_i-1}\).  If \(q_i-1<S\),
+hand it to the timeout rule defined below; if \(q_i-1\ge S\), test it against
+\(W_{\eta_{M,q_i-1}}\).  Its first failed test is a high failure, and a
+successful landing becomes the next checkpoint.  As before, a failed landing
+is never reused.
 
-Put
-\[
-B^{\rm sh}_{M,S,q}
-=\bigl((2^{q-1},2^q]\cap\mathbb N\bigr)
-  \setminus W_{\vartheta_{M,S}(q)}.
-\tag{6.4e}\label{eq:6-4e}
-\]
-Then \(\operatorname{Fail}^{\rm sh}_{M,L}\) is, by definition, the union of
-the initial failures in \(I_M\setminus W_{\eta_{M,M}}\) and the sources
-\(n\in I_M\) for which some executed block \(i\) ends at cumulative time
-\(H_{i+1}\) and rank \(L\le q_i<M\) with
-\(T^{H_{i+1}}(n)\in B^{\rm sh}_{M,S,q_i}\).  This is a first-bad union: the
-bad landing is never used as the source of another certified block.
-
-The nested first-passage proof remains unchanged.  Every first-bad landing
-at threshold rank \(q\) is a direct first passage from the original shell
-and satisfies
-\[
-E_{2^q}(n)<\frac{q+2}{r_*}.
-\tag{6.5}\label{eq:6-5}
-\]
-
-### Lemma 6.1 (duration corridor and feasible-time support) {#lem-time-support}
+### Lemma 6.1 (high-prefix feasible-time support) {#lem-time-support}
 
 There is a constant \(K>0\), depending only on the fixed parameters, such
-that for every outer shell \(I_M\) and every possible first-bad rank \(q\),
-all cumulative first-passage times belong to a finite set
-\(\mathcal H_{M,q}\) satisfying
+that, for every outer shell \(I_M\) and every threshold rank \(q\) reached by
+the high stopped chain, all cumulative first-passage times to its landing band
+belong to a finite set \(\mathcal H^{\rm hi}_{M,q}\) satisfying
 \[
-\#\mathcal H_{M,q}
+\#\mathcal H^{\rm hi}_{M,q}
 \le K\sqrt{(M+2)\log(M+2)}.
-\tag{6.6}\label{eq:6-6}
+\tag{6.5}\label{eq:6-5}
 \]
 
 #### Proof
 
-Write \(g=1-a_0\).  Consider one certified block from a parent shell
-\(I_m\) to threshold \(2^q\), and let \(h\) be its duration and \(t\) its
-active tolerance.  The two deterministic orbit envelopes and the
+Write \(g=1-a_0\).  Consider one high certified block from a parent shell
+\(I_m\) to threshold \(2^q\), and let \(h\) be its duration and
+\(t=\eta_{M,m}\).  The two deterministic orbit envelopes and the
 first-passage band give
 \[
 (1-t)m-q
 \le gh
 <(1+t)(m+1)-q+1.
-\tag{6.7}\label{eq:6-7}
+\tag{6.6}\label{eq:6-6}
 \]
 Thus
 \[
 \left|gh-(m-q)\right|\le tm+t+2.
-\tag{6.7a}\label{eq:6-7a}
+\tag{6.6a}\label{eq:6-6a}
 \]
 
-Now suppose blocks \(0,\ldots,j\) have been executed.  Every landing before
-the last one is certified.  Such a landing lies in
+Suppose high blocks \(0,\ldots,j\) have been executed.  Every landing before
+the last is certified and lies in
 \((2^{q_i-1},2^{q_i}]\).  It cannot equal \(2^{q_i}\): if it did, then at
 time \(q_i\) its certification lower bound would be
 \[
@@ -1305,43 +1247,40 @@ time \(q_i\) its certification lower bound would be
 =2^{(a_0-t)q_i}>1
 =T^{q_i}(2^{q_i}),
 \]
-because every active tolerance satisfies \(t<a_0\).  Hence each certified
+because every high tolerance satisfies \(t<a_0\).  Hence each certified
 landing lies in the unique shell \(I_{q_i-1}\), and therefore
 \[
 m_{i+1}=q_i-1\qquad(0\le i<j).
-\tag{6.7b}\label{eq:6-7b}
+\tag{6.6b}\label{eq:6-6b}
 \]
 This removes the apparent rank branching.  In particular,
 \[
 \sum_{i=0}^{j}(m_i-q_i)=M-q_j-j.
-\tag{6.7c}\label{eq:6-7c}
+\tag{6.6c}\label{eq:6-6c}
 \]
-Summing \eqref{eq:6-7a}, using \eqref{eq:6-7c}, and paying one additional
+Summing \eqref{eq:6-6a}, using \eqref{eq:6-6c}, and paying one additional
 unit per block to change the center from \(M-q_j-j\) to \(M+1-q_j\), gives
 the exact cumulative corridor
 \[
 \left|gH_{j+1}-\bigl((M+1)-q_j\bigr)\right|
 \le
 \sum_{i=0}^{j}(t_i m_i+t_i+3).
-\tag{6.7d}\label{eq:6-7d}
+\tag{6.6d}\label{eq:6-6d}
 \]
 
-For high blocks,
+For every block,
 \[
 t_i m_i\le D_{\rm hi}\sqrt{m_i\log(M+2)},\qquad t_i\le\tau,
 \]
-and \eqref{eq:6-7b} gives
+and \eqref{eq:6-6b} gives
 \(m_{i+1}\le r_{\rm hi}m_i\).  The resulting geometric square-root sum is
-\(O(\sqrt{M\log(M+2)})\).  The low phase starts below \(S_M\), and its
-parent ranks decrease with ratio at most \(r_{\rm lo}\); hence its
-fixed-tolerance contribution is \(O(S_M)\).  Since
-\(S_M=O(\log(M+2))\), the right side of \eqref{eq:6-7d} is at most
-\(K_0\sqrt{(M+2)\log(M+2)}\).
+\(O(\sqrt{M\log(M+2)})\), so the right side of \eqref{eq:6-6d} has the
+same order.
 
-For fixed \(M\) and \(q_j=q\), the center in \eqref{eq:6-7d} is fixed.
+For fixed \(M\) and \(q_j=q\), the center in \eqref{eq:6-6d} is fixed.
 Consequently every feasible integer \(H_{j+1}\) lies in one interval of
 length \(O(\sqrt{M\log(M+2)})\); counting its integer points proves
-\eqref{eq:6-6}.  No union over intermediate rank histories remains.
+\eqref{eq:6-5}.  No union over intermediate high-rank histories remains.
 \(\square\)
 
 The tagged-fiber proof also has the following support-sensitive form.  If
@@ -1355,7 +1294,7 @@ T^h(n)\in B,\ E_Y(n)\le D_q
 \end{array}\right\}
 \le
 \#\mathcal H\left(1+3D_q\frac{2^M}{Y}\right)\#B.
-\tag{6.8}\label{eq:6-8}
+\tag{6.7}\label{eq:6-7}
 \]
 This is [Proposition 4.3](#prop-loss-transport) summed only over the declared
 time tags.  No interval structure or density hypothesis on \(\mathcal H\)
@@ -1375,7 +1314,13 @@ c_0=\frac1{2(\log_2 3)^2},
 \qquad
 C_0=2e^{4c_0}.
 \]
-Then the cap in \eqref{eq:6-4} is inactive at every \(m\ge S_M\), and
+For a high threshold rank \(q\), define the complete landing-band target
+\[
+B^{\rm sh}_{M,S_M,q}
+=\{2^q\}\cup
+\bigl(I_{q-1}\setminus W_{\eta_{M,q-1}}\bigr).
+\]
+Then the cap in \eqref{eq:6-3} is inactive at every \(m\ge S_M\), and
 \[
 \eta_{M,m}^2m=D_{\rm hi}^2\log(M+2).
 \tag{6.8a}\label{eq:6-8a}
@@ -1436,230 +1381,153 @@ p_{\rm hi}
 where \(c_0>0\) is the fixed quadratic maximal-barrier constant.  The first
 term in the minimum pays for the dyadic endpoint boundary at the switch.
 
-### Theorem 6.3 (support-sensitive terminal profile) {#thm-two-regime-profile}
+### Critical timeout low-rank profile
 
-Let \(0<b_{\rm lo}<b_{\rm ent}(\eta_{\rm lo})\) and let
-\(0<c_2<\log2\).  Assume
-\(D_{\rm hi}/\sqrt{C_{\rm sw}}\le\tau\).  There is a fixed
-startup rank \(M_1\ge L_0\), depending only on the displayed parameters,
-such that, for all integers
+The high construction ends when its landing enters below \(S_M\).  Rather
+than adding another all-prefix certificate there, declare a low block
+successful exactly when it reaches its next threshold before its parent-shell
+rank expires.
+
+Let \(L=L_M\asymp\log M\), fix \(K_0>0\), and put
 \[
-M\ge M_1,\qquad L_0\le L<S_M<M,
-\]
-\[
-\boxed{
-\frac{\#\operatorname{Fail}^{\rm sh}_{M,L}}{2^M}
-\ll
-d_{\rm hi}(M)
-+\sqrt{M\log(M+2)}
-\left(
-M^2d_{\rm hi}(M)
-+e^{-b_{\rm lo}L}+e^{-c_2L}
-\right).}
+r_L=1-\frac{K_0}{2L},
+\qquad
+q_L(m)=\lfloor r_Lm\rfloor.
 \tag{6.10}\label{eq:6-10}
 \]
-Outside this failure set, some iterate before
+For sufficiently large \(L\), one has \(0<r_L<1\) and
+\(q_L(m)<m\) whenever \(m\ge L\).  For \(x\in I_m\), define the low timeout
+event without assuming eventual hitting:
 \[
-\frac{M}{1-r_{\rm hi}}+\frac{S_M+1}{1-r_{\rm lo}}
-\]
-lies below \(2^L\).  If \(\tau<\beta\), every iterate through the same
-witness is at most \(n^{1+\beta}\), once \(M\) is sufficiently large.
-
-#### Proof
-
-Choose an intermediate rate
-\(b_{\rm lo}<\widetilde b_{\rm lo}<b_{\rm ent}(\eta_{\rm lo})\), and
-increase \(M_1\) until all fixed barrier startups, the switch inequalities,
-and the loss-filter condition above \eqref{eq:6-3} hold.
-
-Partition by the unique first failed certification rank.  The direct-passage
-identity \eqref{eq:6-5}, [Lemma 6.1](#lem-time-support), and
-\eqref{eq:6-8} give, after division by \(2^M\),
-\[
-\frac{\#\{\text{first failure at rank }q\}}{2^M}
-\ll
-\sqrt{M\log(M+2)}\,(q+1)
-\frac{|B^{\rm sh}_{M,S_M,q}|}{2^q}.
-\tag{6.10a}\label{eq:6-10a}
-\]
-If \(q\ge S_M+1\), then \eqref{eq:6-4c} selects
-\(\eta_{M,q-1}\), including the possible upper endpoint \(2^q\), and
-[Proposition 6.2](#prop-shrinking-high-density) bounds the last factor by
-\(d_{\rm hi}(M)\).  Hence
-\[
-\sum_{q=S_M+1}^{M-1}(q+1)d_{\rm hi}(M)
-\ll M^2d_{\rm hi}(M).
-\tag{6.10b}\label{eq:6-10b}
-\]
-If \(L\le q\le S_M\), then \eqref{eq:6-4c} selects the fixed tolerance
-\(\eta_{\rm lo}\).  Proposition 3.3, applied in \(I_{q-1}\) and with the
-single upper endpoint retained, gives
-\[
-\frac{|B^{\rm sh}_{M,S_M,q}|}{2^q}
-\ll e^{-\widetilde b_{\rm lo}q}+2^{-q}.
-\]
-The two strict rate gaps therefore give
-\[
-\sum_{q=L}^{S_M}(q+1)
-\frac{|B^{\rm sh}_{M,S_M,q}|}{2^q}
-\ll e^{-b_{\rm lo}L}+e^{-c_2L}.
-\tag{6.10c}\label{eq:6-10c}
-\]
-Combining \eqref{eq:6-10a}--\eqref{eq:6-10c} yields the transported terms
-in \eqref{eq:6-10}.  The initial failure contributes \(d_{\rm hi}(M)\) by
-\eqref{eq:6-8b}.
-
-The block ranks decrease geometrically, which gives the displayed clock.
-High blocks use tolerance at most \(\tau\).  Every low block begins below
-\(2^{S_M+1}=(M+2)^{O(1)}=n^{o(1)}\), so its fixed-tolerance envelope is also
-below \(n^{1+\beta}\) eventually. \(\square\)
-
-### Critical moving low-rank profile
-
-The fixed low tolerance in [Theorem 6.3](#thm-two-regime-profile) proves every
-strict exponent above \(A_{\rm FP}\).  To reach its principal endpoint, the
-low parameters must approach their entropy boundary at the same rate as the
-terminal rank.  Put
-\[
-\eta_*=1-a_0.
-\]
-Let \(L=L_M\asymp\log M\), choose fixed sufficiently large constants
-\(K_0,K_1\), and use throughout the low part of the \(M\)-th chain
-\[
-\eta_M=\eta_*-\frac{K_0}{L},
-\qquad
-r_M=1-\frac{K_0}{2L},
-\qquad
-\lambda_M=1-\frac{K_1}{L}.
+\operatorname{To}_{L,m}(x)
+\iff
+T^j(x)>2^{q_L(m)}
+\quad\text{for every }0\le j\le m.
 \tag{6.11}\label{eq:6-11}
 \]
-For every low parent rank \(m\ge L\),
-\[
-(r_M-a_0-\eta_M)m=\frac{K_0m}{2L}\ge\frac{K_0}{2},
-\qquad
-(1-\lambda_M)\eta_Mm\ge K_1\eta_M.
-\tag{6.12}\label{eq:6-12}
-\]
-Choose \(K_0\) large enough to absorb the floor in
-\(q=\lfloor r_Mm\rfloor\), the upper endpoint of the parent shell, and the
-fixed affine startup constants.  The first inequality then guarantees passage
-below \(2^q\) by time \(m\).  The second leaves a uniform positive fraction of
-the multiplicative upper envelope.  Finally,
-\[
-a_0+\eta_M-2\lambda_M\eta_M
-\longrightarrow a_0-\eta_*=2a_0-1>0.
-\tag{6.13}\label{eq:6-13}
-\]
-Thus, after one fixed startup, the additive correction is absorbed uniformly
-for every \(m\ge L\).  This proves the same all-prefix certification and
-first-passage conclusions as the fixed low pair, now with
-\((r_M,\eta_M)\).
+If this event fails, the least \(0\le h\le m\) with
+\(T^h(x)\le2^{q_L(m)}\) is an actual successful first-passage block.
 
-For precision, the moving chain is the stopped chain
-\eqref{eq:6-4b}--\eqref{eq:6-4e} with the high branch unchanged and with
-\((r_{\rm lo},\eta_{\rm lo})\) replaced throughout the low branch by
-\((r_M,\eta_M)\).  Thus a low landing of threshold rank \(q\) is tested
-against \(W_{\eta_M}\), and we write
-\[
-B^{\rm crit}_{M,q}
-=\bigl((2^{q-1},2^q]\cap\mathbb N\bigr)\setminus W_{\eta_M}.
-\]
-The failure set \(\operatorname{Fail}^{\rm crit}_{M,L}\) is the corresponding
-initial failure and first-bad union.  As before, a bad landing is never used
-as the source of a later block.  These definitions make the direct-passage
-identity and the loss estimate \eqref{eq:6-5} applicable without changing
-their proofs.
+When the high stopped chain above lands in a shell below \(S=S_M\), admit
+that landing to the low rule without another all-prefix test.  At a low
+checkpoint \(x_i\in I_{m_i}\), stop successfully
+if \(m_i<L\).  Otherwise test \(\operatorname{To}_{L,m_i}(x_i)\); stop at its
+first occurrence, and if it does not occur execute the least successful
+passage just described.  If the new threshold rank is below \(L\), stop
+successfully; otherwise continue from the physical landing.  Every successful
+low transition has duration at most \(m_i\) and next shell rank at most
+\(q_L(m_i)<m_i\).  Thus the low run is total, closes on its own output, and
+terminates after at most \(S+1\) stages.  Let
+\(\operatorname{Fail}^{\rm to}_{M,L}\) be the union of the unchanged initial
+and first high failures with the unique first low timeout.
 
-Set
-\[
-b_M=\mathcal I\!\left(
-\frac{\lambda_M\eta_M}{\log_2 3}\right),
-\qquad
-b_*=\mathcal I\!\left(\frac{\eta_*}{\log_2 3}\right)
-=\kappa_*\log2.
-\tag{6.14}\label{eq:6-14}
-\]
-The arguments of \(\mathcal I\) remain in a fixed compact subset of
-\((0,1/2)\).  Its derivative is bounded there, so
-\[
-b_M\ge b_*-\frac{C}{L}.
-\tag{6.15}\label{eq:6-15}
-\]
-Apply the sharp-prefactor clause \eqref{eq:3-3a} on the landing shell
-\(I_{q-1}\), retaining its single upper endpoint.  Since
-\(L\le q\le S_M=O(\log M)\) and \(L\asymp\log M\), the factor
-\(\exp(Cq/L)\) is bounded.  Therefore the low first-bad target satisfies
+### Lemma 6.3 (timeout targets and feasible times) {#lem-timeout-low-phase}
+
+Fix \(C>1\).  Uniformly for \(L\le m\le CL\), after one fixed startup,
 \[
 \boxed{
-\frac{|B^{\rm crit}_{M,q}|}{2^q}
-\ll q^{-1/2}2^{-\kappa_*q}+2^{-q}}
-\qquad(L\le q\le S_M).
-\tag{6.16}\label{eq:6-16}
+\frac{\#\{x\in I_m:\operatorname{To}_{L,m}(x)\}}{2^m}
+\ll_{C,K_0}m^{-1/2}2^{-\kappa_*m}.}
+\tag{6.12}\label{eq:6-12}
 \]
-
-### Lemma 6.4 (moving feasible-time support) {#lem-moving-time-support}
-
-For the moving low schedule above, there is a fixed \(K>0\) such that, for all
-sufficiently large \(M\) and every possible first-bad rank \(q\), all
-cumulative first-passage times belong to a finite set
-\(\mathcal H^{\rm mov}_{M,q}\) satisfying
+Moreover, for every sufficiently large outer rank \(M\) and every possible
+first-timeout landing band \(p\), the cumulative times at which that band is
+reached lie in a finite set \(\mathcal H^{\rm to}_{M,p}\) satisfying
 \[
-\#\mathcal H^{\rm mov}_{M,q}
-\le K\sqrt{(M+2)\log(M+2)}.
-\tag{6.17}\label{eq:6-17}
+\#\mathcal H^{\rm to}_{M,p}
+\ll\sqrt{(M+2)\log(M+2)}.
+\tag{6.13}\label{eq:6-13}
 \]
 
 #### Proof
 
-The change \(r_M\to1\) means that the fixed geometric low-phase potential in
-[Lemma 6.1](#lem-time-support) cannot be reused.  Keep its high-phase
-square-root potential and give the high branch a complete low-phase reserve.
-First note that strict integer rank descent permits at most \(S_M\) low
-blocks.  Each such block has parent rank below \(S_M\), and its first-passage
-duration is at most that parent rank.  Thus the total low-phase elapsed time is
-\(O(S_M^2)\).
-
-Writing \(S=S_M\), use the low potential
+Let \(s=s_m(x)\).  The exact affine iterate \eqref{eq:2-6} gives
 \[
-V_{\rm lo}(q)=(S+4)q
+T^m(x)<2\cdot3^s+3^s=3^{s+1},
 \]
-and reserve \((S+4)S\) in the high branch.  Every low parent rank is strictly
-below \(S\).  The corridor-and-offset cost in \eqref{eq:6-7d} is at most
-\(tm+t+3\le S+3\), while strict integer rank descent gives \(q\le m-1\).
-Hence one low step decreases \(V_{\rm lo}\) by at least \(S+4\), paying this
-entire cost.  A
-high-to-low step enters with \(q\le S\) and is paid by the stored reserve.
-No division by \(1-r_M\) occurs.
-
-The exact certified-shell identity \(m_{i+1}=q_i-1\) and the direct nested
-first-passage identity are unchanged, so the common center remains
-\((M+1)-q\).  Telescoping the decreasing potential therefore bounds the full
-corridor width by
+because \(x<2^{m+1}\) and the additive sum is less than \(3^s\).
+A timeout has \(T^m(x)>2^{q_L(m)}\), and therefore
 \[
-O(\sqrt{M\log(M+2)})+O(S_M^2).
+s>q_L(m)\log_3 2-1.
+\tag{6.14}\label{eq:6-14}
 \]
-Since \(S_M=O(\log(M+2))\), the second term is
-\(o(\sqrt{M\log M})\).  All feasible integer times at fixed \(M,q\) lie in
-one interval of this length, proving \eqref{eq:6-17}.  This argument is
-formalized in `MovingTimeSupport.lean`. \(\square\)
+By [Proposition 2.2](#prop-parity-code), \(s_m\) has the exact
+\(\operatorname{Bin}(m,1/2)\) counting law on \(I_m\).  In the declared
+range, the right side of \eqref{eq:6-14}, divided by \(m\), is
+\[
+p_*+O_{C,K_0}(L^{-1}).
+\]
+These thresholds eventually lie in one compact subinterval of \((1/2,1)\).
+The ratio of consecutive terms in the upper binomial tail is then bounded
+strictly below one, so the tail is at most a fixed multiple of its first
+term.  Stirling's inequality and the bounded derivative of
+\(D(p\|1/2)\) on that interval give
+\[
+2^{-m}\sum_{s\ge p m}\binom ms
+\ll
+m^{-1/2}\exp\{-mD(p\|1/2)\}
+\ll m^{-1/2}2^{-\kappa_*m},
+\]
+because \(D(p_*\|1/2)=\kappa_*\log2\) and \(m/L\le C\).
+This proves \eqref{eq:6-12}, including the harmless integer rounding of the
+first tail index.
 
-Eventually \(r_M>r_{\rm hi}\), so the fixed rank-scaled loss denominator
-remains \(r_{\rm hi}\).
+It remains to identify the transportable target and its time support.
+Suppose the first timeout occurs at a low checkpoint \(x_i\).  That checkpoint
+is the landing of the preceding successful block; let \(p\) be that block's
+threshold rank.  Nested passage makes \(H_i\) the direct first-passage time of
+the original source below \(2^p\), with
+\[
+x_i\in(2^{p-1},2^p].
+\]
+The upper endpoint cannot time out, since a power of two crosses every lower
+dyadic threshold by repeated halving.  Hence \(x_i\in I_{p-1}\).  Since the
+run would already have stopped below rank \(L\), and timeouts occur only below
+the switch,
+\[
+L+1\le p\le S.
+\]
+Thus the first-timeout target in the landing band is
+\[
+\mathcal C^{\rm to}_{L,p}
+=\{y\in(2^{p-1},2^p)\cap\mathbb N:
+      \operatorname{To}_{L,p-1}(y)\},
+\qquad
+\frac{|\mathcal C^{\rm to}_{L,p}|}{2^p}
+\ll p^{-1/2}2^{-\kappa_*p}.
+\tag{6.15}\label{eq:6-15}
+\]
+The last estimate is \eqref{eq:6-12} with \(m=p-1\), after changing only its
+fixed constant.
 
-### Proposition 6.5 (critical rank-buffer profile) {#prop-rank-buffer}
+For a fixed high entry threshold, [Lemma 6.1](#lem-time-support) places the
+cumulative high entry times in an interval of length
+\(O(\sqrt{M\log(M+2)})\).  The possible entry thresholds vary over only
+\(O(S)\) ranks, shifting the common center by \(O(S)\).  Low ranks decrease
+strictly, there are at most \(S+1\) successful low stages, and each duration
+is at most \(S\); hence
+\[
+\sum_{\text{successful low stages}}h_i\le S(S+1).
+\tag{6.16}\label{eq:6-16}
+\]
+Taking the Minkowski sum enlarges the high interval by \(O(S^2)\).  Since
+\(S=O(\log(M+2))\), this is
+\(o(\sqrt{M\log M})\), proving \eqref{eq:6-13}. \(\square\)
+
+### Proposition 6.4 (critical rank-buffer profile) {#prop-rank-buffer}
 
 Let \(L_M\asymp\log M\) be an integer terminal-rank sequence.  For every
 fixed \(c>c_*\) and \(\beta>0\), the high parameters and switch constant may
-be chosen so that the moving low chain above has, for some fixed
+be chosen so that the timeout low chain above has, for some fixed
 \(\varepsilon>0\),
 \[
 \boxed{
-\frac{\#\operatorname{Fail}^{\rm crit}_{M,L_M}}{2^M}
+\frac{\#\operatorname{Fail}^{\rm to}_{M,L_M}}{2^M}
 \ll
-\sqrt{M\log M}\left(
+\sqrt{M\log M}\,
 L_M^{1/2}2^{-\kappa_*L_M}
-+L_M2^{-L_M}\right)+M^{-\varepsilon}.}
-\tag{6.18}\label{eq:6-18}
++M^{-\varepsilon}.}
+\tag{6.17}\label{eq:6-17}
 \]
 Outside this failure set, some iterate before \(c\log n\) lies below
 \(2^{L_M}\), and every iterate through the same witness is at most
@@ -1672,50 +1540,71 @@ Choose
 a_0<r_{\rm hi}<1-\frac1{c\log2},
 \qquad
 0<\tau<\min\{r_{\rm hi}-a_0,\beta,a_0\}.
-\tag{6.19}\label{eq:6-19}
+\tag{6.18}\label{eq:6-18}
 \]
 Because \(L_M=O(\log M)\), choose \(C_{\rm sw}\) so that
 \(L_M<S_M\) eventually.  Increase \(D_{\rm hi}\) and then
 \(C_{\rm sw}\), preserving
-\(D_{\rm hi}/\sqrt{C_{\rm sw}}\le\tau\), until the high contribution in
-\eqref{eq:6-10} is \(O(M^{-\varepsilon})\) with a fixed positive margin.
-
-For a low first-bad rank, the direct-passage identity, the retained feasible
-time support, and loss-filtered transport give the rankwise estimate
-\eqref{eq:6-10a}, with \(B^{\rm crit}_{M,q}\) in place of the fixed low
-target.  Equation \eqref{eq:6-16} and elementary geometric-tail summation give
+\(D_{\rm hi}/\sqrt{C_{\rm sw}}\le\tau\), until the initial and transported
+high failures total \(O(M^{-\varepsilon})\) with a fixed positive margin.
+Indeed, [Proposition 6.2](#prop-shrinking-high-density), the direct-passage
+identity, \eqref{eq:6-5}, and \eqref{eq:6-7} bound their total proportion by
 \[
-\sum_{q=L_M}^{S_M}(q+1)
- \frac{|B^{\rm crit}_{M,q}|}{2^q}
-\ll L_M^{1/2}2^{-\kappa_*L_M}+L_M2^{-L_M}.
-\tag{6.20}\label{eq:6-20}
+d_{\rm hi}(M)
++O\!\left(\sqrt{M\log M}\,M^2d_{\rm hi}(M)\right),
 \]
-Combining the low sum with the high contribution proves \eqref{eq:6-18}.
+and the exponent in \(d_{\rm hi}(M)\) may be made arbitrarily large through
+the displayed choice of \(D_{\rm hi}\) and \(C_{\rm sw}\).
 
-The high-phase clock is at most \(M/(1-r_{\rm hi})+o(M)\).  The strict-descent
-estimate in the proof of [Lemma 6.4](#lem-moving-time-support) gives low-phase
-cost \(O((\log M)^2)=o(M)\); hence the total is less than
-\(cM\log2\le c\log n\) eventually.  The high blocks use tolerance at most
-\(\tau<\beta\), while the low phase starts at polylogarithmic height.
-The same deterministic envelopes therefore retain the stated orbit ceiling.
-\(\square\)
+Choose a fixed rational \(0<r_*<r_{\rm hi}\).  Eventually \(r_*<r_{L_M}\).
+Every successful high or low block from parent rank \(m\) to threshold rank
+\(q\) then has duration at most \(m\) and \(q+1>r_*m\).
+[Lemma 5.2](#lem-rank-loss) therefore gives, at a first-timeout target rank
+\(p\),
+\[
+E_{2^p}(n)<\frac{p+2}{r_*}.
+\]
+After increasing the terminal startup, this loss satisfies the smallness
+condition \eqref{eq:4-7}.  Apply the support-sensitive form
+\eqref{eq:6-7} with target \(\mathcal C^{\rm to}_{L_M,p}\) and time set
+\(\mathcal H^{\rm to}_{M,p}\).  Equations \eqref{eq:6-13} and
+\eqref{eq:6-15} give
+\[
+\frac{\#\{\text{first timeout in band }p\}}{2^M}
+\ll
+\sqrt{M\log M}\,(p+1)p^{-1/2}2^{-\kappa_*p}.
+\]
+The geometric tail satisfies
+\[
+\sum_{p=L_M+1}^{S_M}(p+1)p^{-1/2}2^{-\kappa_*p}
+\ll L_M^{1/2}2^{-\kappa_*L_M}.
+\tag{6.19}\label{eq:6-19}
+\]
+Combining this with the high contribution proves \eqref{eq:6-17}.
+
+The high-phase clock is at most \(M/(1-r_{\rm hi})+o(M)\), while
+\eqref{eq:6-16} makes the low cost \(O((\log M)^2)=o(M)\); a deterministic
+switch-endpoint tail costs only another \(O(S_M)\).  The choice
+\eqref{eq:6-18} therefore gives total time below
+\(cM\log2\le c\log n\).  High blocks use tolerance at most \(\tau<\beta\).
+Every low block starts below \(2^{S_M+1}\), lasts at most its parent rank,
+and satisfies \(T(z)<2z\); its whole segment is consequently at most
+\(2^{2S_M+1}=M^{O(1)}=n^{o(1)}\).  The same witness therefore retains the
+stated ceiling. \(\square\)
 
 For later use, define the exact rank buffer
 \[
 \Delta_M=
 \kappa_*L_M-\frac12\log_2(M+2)-\log_2\log(M+3).
-\tag{6.21}\label{eq:6-21}
+\tag{6.20}\label{eq:6-20}
 \]
-If \(L_M\asymp\log M\), then the first term in \eqref{eq:6-18} is
-\(O(2^{-\Delta_M})\).  If additionally \(\Delta_M\to\infty\), then
-\(L_M\ge(A_{\rm FP}+o(1))\log_2M\); since \(A_{\rm FP}>1/2\), the term
-containing \(2^{-L_M}\) is absorbed into a fixed negative power of \(M\).
-Thus
+If \(L_M\asymp\log M\), then the first term in \eqref{eq:6-17} is
+\(O(2^{-\Delta_M})\).  Thus
 \[
 \boxed{
-\frac{\#\operatorname{Fail}^{\rm crit}_{M,L_M}}{2^M}
+\frac{\#\operatorname{Fail}^{\rm to}_{M,L_M}}{2^M}
 \ll2^{-\Delta_M}+M^{-\varepsilon}.}
-\tag{6.22}\label{eq:6-22}
+\tag{6.21}\label{eq:6-21}
 \]
 
 ### Proof of [Theorem 1.1](#thm-moving-polylog)
@@ -1723,14 +1612,14 @@ Thus
 For the bounded profile \((A_M)\), use the terminal rank in \eqref{eq:1-3}.
 Condition \eqref{eq:1-4} implies \(L_M\asymp\log M\): the upper bound follows
 from boundedness, and the lower bound follows from the definition of
-\(\Delta_M\).  Proposition 6.5 and \eqref{eq:6-22} therefore give the
+\(\Delta_M\).  Proposition 6.4 and \eqref{eq:6-21} therefore give the
 shellwise estimate \eqref{eq:1-5}.
 
 The same condition makes \(A_M\) eventually positive.  Since the profile is
 bounded and \(n\in I_M\),
 \[
 2^{L_M}\le2(M+2)^{A_M}\ll(\log n)^{A_M},
-\tag{6.23}\label{eq:6-23}
+\tag{6.22}\label{eq:6-22}
 \]
 with a constant uniform in \(M\).  This converts the terminal rank to the
 stated landing.  Finally, the right side of \eqref{eq:1-5} tends to zero, so
@@ -1744,7 +1633,7 @@ For fixed \(A>A_{\rm FP}\), take \(A_M=A\).  Then
 2^{-\Delta_M}\ll
 M^{-\kappa_*(A-A_{\rm FP})}\log M.
 \]
-The high exponent in Proposition 6.5 can be chosen larger than any prescribed
+The high exponent in Proposition 6.4 can be chosen larger than any prescribed
 \(\gamma<\kappa_*(A-A_{\rm FP})\).  Splitting the dyadic shell sum at half
 the top rank gives the first assertion.
 
@@ -1764,7 +1653,7 @@ A_{\rm FP}\log_2(M+2)
 +\frac1{\kappa_*}\log_2\log(M+3)
 +D\log_2\log\log(M+4)
 \right\rceil.
-\tag{6.24}\label{eq:6-24}
+\tag{6.23}\label{eq:6-23}
 \]
 Then \(2^{-\Delta_M}\ll(\log\log M)^{-D\kappa_*}\), and the shell split
 gives every \(\gamma<D\kappa_*\).  The three displayed targets follow by
@@ -1776,18 +1665,17 @@ numbers \(x_j\uparrow\infty\) so rapidly that
 \(\log j/\log x_j\to0\).  The step function equal to \(j\) on
 \([x_j,x_{j+1})\) is an eventually nondecreasing subpower minorant
 \(\widetilde\Omega\le\Omega\), after a harmless fixed shift of its argument.
-Use \eqref{eq:6-24} with the final term replaced by
+Use \eqref{eq:6-23} with the final term replaced by
 \(\log_2\widetilde\Omega(\log(M+4))\).  Its rank buffer tends to infinity,
 and the resulting smaller target implies the asserted \(\Omega\)-target.
 \(\square\)
 
 ## 7. Quantitative companions
 
-The terminal profiles have different quantitative consumers.  The
-[support-sensitive profile](#thm-two-regime-profile) gives every strict fixed
-polylogarithmic exponent, and its moving refinement
-[Proposition 6.5](#prop-rank-buffer) gives the endpoint profile in the
-headline.  The [one-regime profile](#thm-terminal-profile) gives the sharper
+The terminal profiles have different quantitative consumers.
+[Proposition 6.4](#prop-rank-buffer) gives every strict fixed
+polylogarithmic exponent and the moving endpoint in the headline.  The
+[one-regime profile](#thm-terminal-profile) gives the sharper
 stretched-logarithmic exceptional rate and the clock consequences recorded
 here.
 
@@ -1844,16 +1732,15 @@ Thus a one-regime chain has raw time at most
 \left(\frac3{2\log2}+\frac\eta{\log3}\right)\log n+o(\log n).
 \tag{7.6}\label{eq:7-6}
 \]
-For the fixed-low two-regime chain, \eqref{eq:7-6} applies to the high phase
-and the low phase has \(O(S_M)\) shortcut steps.  For the moving endpoint,
-the low phase has \(O(S_M^2)\) shortcut steps by \eqref{eq:6-17}.  Both are
-\(o(\log n)\) and incur at most twice as many raw steps.  As
+For the timeout endpoint, \eqref{eq:7-6} applies to the high phase and the
+low phase has \(O(S_M^2)=o(\log n)\) shortcut steps by \eqref{eq:6-16};
+those low steps incur at most twice as many raw steps.  As
 \(r\downarrow a_0\) and \(\eta\downarrow0\), the coefficient in
 \eqref{eq:7-6} tends to
 \[
 \frac3{\log(4/3)}.
 \]
-The high parameters in \eqref{eq:6-19} can therefore be chosen to satisfy any fixed
+The high parameters in \eqref{eq:6-18} can therefore be chosen to satisfy any fixed
 shortcut and raw budgets strictly above their respective limits.  To retain
 the literal raw-orbit ceiling in [Corollary 1.4](#cor-raw-clock), run the
 argument with an
@@ -1897,10 +1784,10 @@ weakening its displayed exceptional-set rate; these are separate comparison
 axes, as recorded in [Corollary 1.2](#cor-endpoint-profiles).
 
 The proofs of Theorems 1.1 and 1.3 use only the optimized first-passage chain:
-the parity-vector
-bijection, maximal-barrier estimate, first-passage reversal, exact
-reverse-product loss, nested direct re-certification, and compressed
-feasible-time support.  These proofs use no fixed-time endpoint-fiber moment,
+the parity-vector bijection, high-rank maximal-barrier estimate, low-rank
+timeout tail, first-passage reversal, exact reverse-product loss, nested
+direct passage, and compressed feasible-time support.  These proofs use no
+fixed-time endpoint-fiber moment,
 Fourier estimate, stochastic independence between orbit blocks, mixing
 statement, Diophantine reduction, or generated-target equidistribution
 hypothesis.  The Boolean walk in
@@ -1918,9 +1805,9 @@ theorem and proof architecture, reviewed the resulting artifacts, and accepts
 responsibility for the manuscript.  Finite diagnostics are supporting
 evidence only and are not premises of any theorem.
 
-The separate Lean package formalizes the optimized chain from loss-filtered
-transport through the natural-density assembly, as well as the fixed-depth
-graded-clock companion.  Its public `Main` theorem now includes
+The separate Lean package kernel-checks the exact public theorem surface from
+loss-filtered transport through the natural-density assembly, as well as the
+fixed-depth graded-clock companion.  Its public `Main` theorem includes
 [Theorem 1.1](#thm-moving-polylog): for every bounded exponent profile with
 \(\Delta_M\to+\infty\), it exposes the literal shell exceptional ratio,
 moving landing, logarithmic clock, and same-witness orbit ceiling.  The public
@@ -1931,26 +1818,22 @@ inequality.  The exact upper range for that fixed-\(A\) exceptional exponent
 is paper-level.  For
 [Theorem 1.3](#thm-stretched-log), Lean formalizes the literal landing and
 ceiling together with every strict exceptional power below \(1-\delta\); the
-endpoint power \(1-\delta\) in \eqref{eq:1-8} is paper-level.  The internal
-Lean modules additionally formalize the sharp binomial prefactor
-\eqref{eq:3-3a}, the moving low parameters \eqref{eq:6-11}, the
-real-to-lattice barrier rounding, and the literal moving landing-density
-producer through the endpoint rate.  It also formalizes the moving stopped
-run, direct nested first passage, exact certified landing shell, decreasing
-rank potential, and square-root feasible-time support of
-[Lemma 6.4](#lem-moving-time-support).  It further formalizes direct moving
-first-bad transport and the sharp \(q^{-1/2}\) terminal profile, retaining the
-actual endpoint rate without a strict rate loss.  Finally it formalizes the
-uniform low-stage startup \(M_0\le L\), the exact \(\Delta_M\) scalar closure,
-the literal shell failure set, and the same-witness assembly.  Thus the
-complete moving-endpoint refinement is represented in the public formal API.
+endpoint power \(1-\delta\) in \eqref{eq:1-8} is paper-level.
 
-The frozen fixed-exponent formal snapshot is the access-controlled
+The public moving-endpoint declaration currently reaches this same theorem
+through the previously formalized all-prefix low producer.  The timeout
+substitution in [Lemma 6.3](#lem-timeout-low-phase) and
+[Proposition 6.4](#prop-rank-buffer) is a manuscript-level alternate proof and
+has not yet been encoded as a second Lean proof term.  Thus the theorem
+statement, constants, shell exceptional ratio, and same-witness conclusion
+are kernel-checked, while the new subtractive proof route remains a separate
+formalization task.
+
+The access-controlled
 [GitHub repository](https://github.com/shaikidris/FirstPassageLinearTransport)
-at commit `e382a241e73ac2f0a958b7411f7778584f3dc48d`; repository access can be
-provided to referees on request.  That commit remains the earlier fixed-\(A\)
-snapshot; the complete V3.1 moving theorem will receive a new immutable
-snapshot after the synchronized audit is accepted.  The
+at commit `43c8615c72feb639a8cc3dfed8e545ab98812b92` contains the complete
+public moving-endpoint theorem; repository access can be provided to referees
+on request.  The
 formal package uses Lean `4.15.0` (commit
 `11651562caae`) and Mathlib revision
 `9837ca9d65d9de6fad1ef4381750ca688774e608`.  From the repository's `lean/`
