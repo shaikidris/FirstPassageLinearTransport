@@ -1,10 +1,11 @@
 # V3.1 moving-endpoint promotion audit
 
-**Review date:** 2026-08-11  
-**Mode:** `MATH-TEXT + SCALAR + EMPIRICAL + FORMAL-BOUNDARY + RENDER`  
-**Branch:** `v3-fixed-polylog`  
-**Baseline:** fixed-exponent V3 theorem at commit `e382a241`  
-**Verdict:** `ACCEPT PAPER UPGRADE / FORMAL EXTENSION PENDING`
+**Review date:** 2026-08-11
+**Mode:** `MATH-TEXT + SCALAR + EMPIRICAL + FORMAL-BOUNDARY + RENDER`
+**Reviewer context:** `AUTHOR-AUDIT` (internal; not independent verification)
+**Branch:** `v3-fixed-polylog`
+**Baseline:** fixed-exponent V3 theorem at commit `e382a241`
+**Verdict:** `ACCEPT PAPER UPGRADE / MOVING PRODUCER FORMALIZED / PUBLIC EXTENSION PENDING`
 
 ## 1. Promoted statement
 
@@ -215,23 +216,62 @@ its boundary calibration; they are not premises of the theorem.
 
 The public Lean theorem proves the fixed-\(A\) landing, clock, same-witness
 ceiling, natural-density-one conclusion, and a positive logarithmic
-exceptional exponent.  It does not yet expose:
+exceptional exponent.  The internal moving modules now additionally prove:
 
 - the compact-regime \(m^{-1/2}\) binomial prefactor;
-- the moving low schedule;
-- Proposition 6.4 or Theorem 1.1;
+- the moving low parameters and their endpoint-rate loss;
+- exact real-to-lattice barrier rounding;
+- the literal moving landing-density producer;
+- the moving stopped run and direct nested first-passage identity;
+- the exact certified landing shell and common-center cumulative corridor;
+- the decreasing low-rank potential and uniform
+  \(O(\sqrt{M\log M})\) moving feasible-time support;
+- the scalar natural-density assembly from a completed moving shell profile.
+
+These internal results are audited by `MovingEndpointAudit.lean`.  The public
+theorem still does not expose:
+
+- Proposition 6.5 or Theorem 1.1;
 - the exact fixed-\(A\) exceptional range;
 - the exact stretched-log exceptional endpoint \(1-\delta\).
 
 The manuscript, `README.md`, `proof-state.md`, `lean/FORMALIZATION.md`, and
 the strings in `PaperDependencyAudit.lean` now state this narrower boundary.
-The unchanged public Lean build must not be described as a formal proof of
+The direct moving first-bad transport and conditional terminal-profile socket
+are formalized in `MovingFirstBad.lean` and `MovingProfile.lean`. The remaining
+cut vertex is an eventual shell-density and same-witness producer that
+discharges the socket. Until it is connected to the conditional moving
+assembly, the public Lean build must not be described as a formal proof of
 the V3.1 moving headline.
+
+### Internal moving-time-support closure
+
+The moving time-support argument is now formalized without altering the
+fixed-parameter statement or implementation of Lemma 6.1.  The new
+`MovingTimeSupport.lean` module proves the literal moving stopped run, direct
+nested first passage, the exact certified rank identity
+\(m_{i+1}=q_i-1\), and the common center \((M+1)-q\).
+
+The formal potential uses the correct orientation.  Below the switch it is
+\((S+4)q\), so every strict integer rank drop releases at least \(S+4\), which
+pays the entire one-block duration error.  Above the switch the unchanged
+high-phase square-root potential carries the reserve \((S+4)S\).  This gives
+an exact pre-asymptotic support-cardinality bound and then, for
+\(S_M=O(\log M)\), the uniform \(O(\sqrt{M\log M})\) result stated as
+Lemma 6.4.  No factor \(1/(1-r_M)\) is introduced.
+
+The updated `MovingEndpointAudit.lean` report lists only Lean's standard
+`propext`, `Classical.choice`, and `Quot.sound` axioms for every new root.
+
+**Status:** `PROVED-FORMAL / AXIOM AUDIT PASS`.
 
 ## 8. Closeout
 
 ```text
 MOVING ENDPOINT:                  PROVED-PAPER
+MOVING ANALYTIC PRODUCER:         PROVED-FORMAL / AXIOM AUDIT PASS
+MOVING FEASIBLE-TIME SUPPORT:     PROVED-FORMAL / AXIOM AUDIT PASS
+MOVING FIRST-BAD/PROFILE SOCKET: PROVED-FORMAL / AXIOM AUDIT PASS
 FIXED-A SPECIALIZATION:          PROVED-PAPER / PROVED-FORMAL (partial rate API)
 LOG-LOG AND TRIPLE-LOG PROFILES: PROVED-PAPER
 FUNCTIONAL DIVERGENT MULTIPLIER: PROVED-PAPER / QUALITATIVE
@@ -239,8 +279,11 @@ PURE CRITICAL ENDPOINT:          NOT PROVED
 EMPIRICAL CONTROLS:              PASS
 PDF RENDER:                      PASS / 25 A4 PAGES
 FULL MOVING LEAN HEADLINE:       NOT YET PROVED-FORMAL
-RELEASE STATUS:                  NOT PROMOTED / NOT COMMITTED
+REPOSITORY MILESTONE:            COMMITTED / PUSHED PRIVATE AT dc7b544
+PUBLIC MOVING PROMOTION:         PENDING PROFILE ADAPTER
 ```
 
 The paper upgrade is mathematically coherent and substantially stronger in
-terminal scale.  It is not yet a fully synchronized paper/Lean promotion.
+terminal scale. Its analytic producer, time support, and conditional
+first-bad profile are formally verified, while the full paper/Lean promotion
+remains pending at the eventual shell-density and witness producer.

@@ -1,12 +1,12 @@
 # Allikvere V2: external mathematics and citation audit
 
 **Artifact reviewed:** J. Allikvere, *Almost all Collatz orbits attain almost
-bounded values in natural density*, version 2 (2026)  
-**Primary record:** <https://doi.org/10.5281/zenodo.21499244>  
-**Review date:** 2026-08-07  
-**Modes:** `MATH-TEXT + LITERATURE`  
-**Reviewer context:** `EXTERNAL-REFEREE`  
-**Formal mode:** not applicable; no proof-assistant artifact is supplied  
+bounded values in natural density*, version 2 (2026)
+**Primary record:** <https://doi.org/10.5281/zenodo.21499244>
+**Review date:** 2026-08-07
+**Modes:** `MATH-TEXT + LITERATURE`
+**Reviewer context:** `EXTERNAL-REFEREE`
+**Formal mode:** not applicable; no proof-assistant artifact is supplied
 **Overall result:** `NO CONFIRMED MATHEMATICAL GAP FOUND; CITATION-SAFE ONLY
 AS AN UNREFEREED PREPRINT CLAIM`
 

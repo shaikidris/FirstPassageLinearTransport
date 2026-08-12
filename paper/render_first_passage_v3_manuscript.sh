@@ -13,6 +13,8 @@ output_pdf="$output_dir/collatz_first_passage_natural_density_v3.pdf"
 mathjax_file="$tmp_dir/mathjax3-tex-chtml.js"
 chrome_bin="${CHROME_BIN:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 
+python3 -B "$repo_dir/audits/audit_paper_lean_semantics.py"
+
 mkdir -p "$tmp_dir" "$output_dir"
 
 if [[ ! -s "$mathjax_file" ]]; then
