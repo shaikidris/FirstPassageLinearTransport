@@ -60,10 +60,17 @@ all-block rank-scaled loss budget, entropy-sharp Boolean barrier, complete
 two-regime exceptional profile, literal terminal witness, mixed-run orbit
 ceiling, endpoint parameter selection, and the referee-facing fixed-polylog
 theorem in `Main.lean` for every fixed `A > A_FP`.  The sharp binomial
-prefactor, moving low parameters, rounded barrier, and literal moving
-low-rank landing-density estimate through the endpoint rate are now
-formalized in the internal moving-endpoint modules, but are not yet connected
-to a public Lean theorem.  The formal package therefore
+prefactor, moving low parameters, rounded barrier, literal moving low-rank
+landing-density estimate through the endpoint rate, and uniform moving
+`O(sqrt (M log M))` feasible-time support are now formalized in the internal
+moving-endpoint modules. Direct moving first-bad transport and the conditional
+terminal-profile socket are also formalized.  The sharp conditional socket now
+retains the literal `q^(-1/2)` landing prefactor and the unchanged endpoint
+rate, giving `(L+1) 2^(-L) + sqrt(L) exp(-b (L-1))`.  Uniform moving-stage
+startup, the eventual `Delta_M` shell-density and same-witness producer, and
+the public assembly remain open formal cut vertices.
+
+The formal package therefore
 verifies the fixed-exponent landing, clock, ceiling, and a positive
 logarithmic exceptional exponent, not the full V3.1 moving headline or the
 paper's exact endpoint ranges for the exceptional exponent. The frozen
@@ -79,6 +86,24 @@ imports its capstone theorem chain.
 The repository must remain private. No release, visibility change, or push to
 a public repository is authorized by work on this branch.
 
+Before every manuscript render or release candidate, run:
+
+```text
+python3 -B audits/audit_paper_lean_semantics.py
+```
+
+The V3 render script invokes this gate automatically. It checks the fragile
+paper/Lean contracts, mapped declaration presence, theorem-status wording,
+and reference resolution. From `lean/`, a release candidate must also pass
+the full-package gate:
+
+```text
+lake build
+```
+
+The full build is intentional: it catches new or orphaned modules even when
+they are not yet imported by `Main.lean`.
+
 ## Contents
 
 - `paper/collatz_first_passage_natural_density.md`: canonical manuscript;
@@ -91,6 +116,8 @@ a public repository is authorized by work on this branch.
   cut-vertex reconstruction;
 - `audits/review_v31_moving_endpoint_promotion_2026_08_11.md`: V3.1 moving
   endpoint proof, scalar-budget, render, and formal-boundary audit;
+- `audits/paper_lean_semantic_concordance_2026_08_12.md`: literal paper/Lean
+  contract concordance and semantic-drift regression gate;
 - `audits/`: manuscript-only mathematical, literature, content, and desk
   records;
 - `audits/review_post_freeze_corollaries_2026_08_06.md`: downstream
@@ -102,6 +129,9 @@ a public repository is authorized by work on this branch.
 - `audits/review_v3_streamlined_headline_cone_2026_08_09.md`: optimized
   manuscript-cone, Tao-bridge comparison, formal-map, and render audit;
 - `lean/`: independent minimal Lean 4 package;
+- `lean/FirstPassageLinearTransport/MovingEndpointAudit.lean`: axiom audit
+  for the internal sharp-prefactor, moving-density producer, moving
+  time-support theorem, and conditional moving assembly;
 - `proof-state.md`: synchronized paper hashes, status ledger, and formalization
   acceptance gates.
 

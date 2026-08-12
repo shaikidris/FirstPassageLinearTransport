@@ -3,8 +3,8 @@
 **Record date:** 2026-08-11
 **V3 project root:** `/Users/shaik.i/research/collatz/FirstPassageLinearTransport`
 
-**Frozen V1 repository:** `/Users/shaik.i/research/collatz/CET`  
-**Frozen V1 tag:** `v1.0.1`  
+**Frozen V1 repository:** `/Users/shaik.i/research/collatz/CET`
+**Frozen V1 tag:** `v1.0.1`
 **Frozen V1 commit:** `16766542edaf1aac67ea1ad474c1193c9c8939c9`
 
 ## Active V3 promotion
@@ -49,8 +49,10 @@ final multiplier is not claimed.
 
 V3.1 status:
 
-- sharp compact-regime maximal-walk prefactor: `PROVED-PAPER`;
-- moving low-parameter deterministic envelope: `PROVED-PAPER`;
+- sharp compact-regime maximal-walk prefactor:
+  `PROVED-PAPER / PROVED-FORMAL`;
+- moving low-parameter deterministic envelope and endpoint-rate loss:
+  `PROVED-PAPER / PROVED-FORMAL`;
 - critical rank-buffer profile and shell failure bound: `PROVED-PAPER`;
 - moving endpoint, fixed-`A`, log-log, triple-log, and functional consumers:
   `PROVED-PAPER`;
@@ -58,22 +60,62 @@ V3.1 status:
   `EMPIRICAL-SUPPORT / PASS`;
 - manuscript integration, reference audit, and 25-page PDF render:
   `PASS / VISUAL PASS`;
+- private repository milestone `dc7b544`:
+  `COMMITTED / PUSHED`;
 - fixed-`A` landing/clock/ceiling and some positive logarithmic exceptional
   exponent: `PROVED-FORMAL` by the frozen public theorem;
 - exact fixed-`A` exceptional range
   `gamma < kappa_* (A - A_FP)`: `PROVED-PAPER / NOT EXPOSED IN PUBLIC LEAN`;
 - sharp prefactor, moving parameters, rounded barrier, and literal endpoint-rate
-  landing density: `PROVED-FORMAL` in internal modules;
-- moving low-phase transport/profile and public moving endpoint:
-  `FORMALIZATION IN PROGRESS`;
+  landing density: `PROVED-FORMAL / AXIOM AUDIT PASS` in internal modules;
+- moving stopped run, certified shell collapse, decreasing potential, and
+  `O(sqrt(M log M))` feasible-time support:
+  `PROVED-PAPER / PROVED-FORMAL`;
+- moving scalar natural-density assembly from a completed shell profile:
+  `PROVED-FORMAL / CONDITIONAL CONSUMER`;
+- moving direct first-bad transport and conditional terminal profile:
+  `PROVED-FORMAL / AXIOM AUDIT PASS`;
+- exact-rate sharp `q^(-1/2)` low profile, uniformly for `b >= b0 > 0`:
+  `PROVED-FORMAL / AXIOM AUDIT PASS`;
+- uniform moving-stage startup with `pLo.M0 <= L`:
+  `LEAN-OPEN`;
+- moving `Delta_M` shell-density/same-witness producer and public moving endpoint:
+  `LEAN-OPEN`;
 - public Lean `Main` headline: `UNCHANGED / FIXED-A ONLY`;
 - pure `A=A_FP` endpoint with bounded tertiary multiplier: `NOT PROVED`.
 
-This is a real paper theorem upgrade but not yet a fully synchronized formal
-headline.  No release-ready or full-formalization claim may be made until the
-moving analytic cut vertex and its downstream public theorem are represented
-in Lean, or the artifact is explicitly released as a paper-only extension
-with the narrower formal boundary stated in the manuscript.
+This is a real paper theorem upgrade with its analytic producer formalized,
+but not yet a fully synchronized formal headline.  No full-formalization claim
+may be made until the eventual shell-density and same-witness producer
+discharges the conditional profile and is connected to the moving assembly
+and downstream public theorem.
+
+Current V3.1 moving-producer synchronization snapshot:
+
+```text
+b05006a72642799a8044474ef8454462f89e78f80c135acd1ba6b922b869f436  README.md
+c5bb560aeef006478521f47b528b8499f397ceef70098439e010612121bc8057  lean/README.md
+e8d6f65b1d0a6103b0ec6875aceccfa81486e798109a2b66945d5c27eca84753  lean/FORMALIZATION.md
+dc6ac3c667a2382d0ef9cebce169b548852438a1f7c44393beb53b34916c4bce  lean/FirstPassageLinearTransport/README.md
+d5ab34546aebd63c1f2ce6bd5e5e0dd0999e08be7f6b1143a31f21431061186d  lean/FirstPassageLinearTransport/Main.lean
+7539545f6e52cd0d1a5315930bb2cbb33763565a94babb8579b19e99243d0afd  lean/FirstPassageLinearTransport/SharpEntropyBarrier.lean
+2d06d490579c943d3b19604f499b93c11977fe40264807cb9028aee4bf87f160  lean/FirstPassageLinearTransport/MovingLowParameters.lean
+d1124c053d70a292bf9999b6b887d6affe67fdbb84de13a78445335e852f7e64  lean/FirstPassageLinearTransport/MovingLowDensity.lean
+327b380fa945d33b7de1337ae9aa70c4ad551246fcd2b8c4772ae90d203ca00b  lean/FirstPassageLinearTransport/MovingTimeSupport.lean
+b58030f427c9b923c1e141582a17f08f0ff387f9b0603dff4a4f7e072c795fce  lean/FirstPassageLinearTransport/MovingFirstBad.lean
+b801ea266a34cf862fa54919d7f7cd3565c649aa0507fa7376bda7aff813759f  lean/FirstPassageLinearTransport/MovingProfile.lean
+4aa652d7a30b8b44299dbfe0c4e2b6d8147e3b3ef46c627fcff20d2dbc4f280e  lean/FirstPassageLinearTransport/MovingEndpointScalars.lean
+52ab2f3a00492728f9dfc32a99578d919a0e15601ebfca6281aced6c71b38c00  lean/FirstPassageLinearTransport/MovingEndpointAssembly.lean
+7259e7352ced99704f0b7c6b2df4bb97de632727d77d3dc48798a63d25065b8b  lean/FirstPassageLinearTransport/MovingEndpointAudit.lean
+688ad6c3d41b55b7a215a383c163edc90bb4429ec6e27281f0870eea17baeeba  lean/FirstPassageLinearTransport/PaperAudit.lean
+799e279050c4705eae556d3ebe0de0a9a3b0795a7ffe3648cb9ed0e6b9fbe2bc  lean/FirstPassageLinearTransport/PaperDependencyAudit.lean
+66d66e24ddbf3230c66fbfd7eebe8b36dfb2ddd51a7edbd1db9f57a8fbfbe49d  paper/collatz_first_passage_natural_density.md
+c88068d4de2f93084f185cad9d221885619d784632f1bc7ccaaac0e524d8635a  paper/collatz_first_passage_natural_density_v3.pdf
+acd0a18f10889f9789c2b5a038e8ceb3d0d893e48e1684bfb685741d919e4606  paper/render_first_passage_v3_manuscript.sh
+1246951beec3364321a8b5aaf72f44aa4bff4221ff257bf04e403543272987dd  audits/review_v31_moving_endpoint_promotion_2026_08_11.md
+655f06b652483487c5d2e31cc1ae7ea828c40ec5c62cb49a06d38ba7df6c8ff6  audits/audit_paper_lean_semantics.py
+74465e904c846b4cbd695c5a6af8236521fe22d42705b8f0223d37ae82ad5abf  audits/paper_lean_semantic_concordance_2026_08_12.md
+```
 
 ### Frozen V3.0 fixed-exponent baseline
 
@@ -105,7 +147,8 @@ Paper status:
   Tao-bridge comparison: `PASS / NONSEMANTIC EXPOSITION`;
 - referee-flow constants explanation, target-only containment qualification,
   and statement-level path-ceiling comparison: `PASS / NONSEMANTIC EXPOSITION`;
-- manuscript-only Lean dependency and axiom roots: `PASS / 67 ROOTS`.
+- fixed-parameter manuscript dependency roots: `PASS / 58 ROOTS`;
+- moving analytic producer axiom roots: `PASS / SEPARATE AUDIT`.
 
 V3 formal status:
 
@@ -297,18 +340,21 @@ a3f8c4ae196682a40f43fd5ecfcb539e8485fa2dddb9837c9764c9bb997794f1  lean/FirstPass
 
 Paper proof-state:
 
-- V3.1 moving-endpoint manuscript audit: `IN PROGRESS / NO PROMOTION YET`;
+- V3.1 moving-endpoint manuscript audit:
+  `ACCEPT / COMMITTED PRIVATE / PUBLIC LEAN PROMOTION PENDING`;
 - frozen fixed-exponent manuscript-only mathematical audit: `ACCEPT`;
 - literature audit: `PASS WITH BOUNDED PRIORITY SCOPE`;
 - formal proof-assistant evidence for the fixed-`A` specialization and existing
   companions: `FULL BUILD PASSED`;
 - formal proof-assistant evidence for the V3.1 moving headline:
-  `INCOMPLETE / ANALYTIC PRODUCER FORMALIZED / PROFILE ADAPTER OPEN`;
+  `INCOMPLETE / ANALYTIC PRODUCER, TIME SUPPORT, AND CONDITIONAL ASSEMBLY
+  FORMALIZED / FIRST-BAD PROFILE ADAPTER OPEN`;
 - timed fixed-power Corollary 1.5: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
 - fixed-`A` landing part of Corollary 1.2:
   `PROVED-ON-PAPER / PROVED-FORMAL`;
 - moving/log-log/triple-log parts of Theorem 1.1 and Corollary 1.2:
-  `PROVED-ON-PAPER / ANALYTIC PRODUCER PROVED-FORMAL / PUBLIC ASSEMBLY OPEN`;
+  `PROVED-ON-PAPER / ANALYTIC PRODUCER AND TIME SUPPORT PROVED-FORMAL /
+  PUBLIC ASSEMBLY OPEN`;
 - Theorem 1.3 literal landing/ceiling and every strict exceptional power below
   `1-delta`: `PROVED-ON-PAPER / PROVED-FORMAL`;
 - Theorem 1.3 exact exceptional power `1-delta`:
@@ -323,15 +369,20 @@ Paper proof-state:
 
 ## Formalization triage
 
-**Classification:** `CLOSURE FOR THE FROZEN FIXED-A CHAIN / FORMAL EXTENSION
-PENDING FOR V3.1`.
+**Classification:** `CLOSURE FOR THE FROZEN FIXED-A CHAIN / MOVING ANALYTIC
+PRODUCER AND TIME SUPPORT FORMALIZED / PUBLIC V3.1 EXTENSION PENDING`.
 
-Lean closes the frozen fixed-`A` paper dependency chain.  It is not evidence
-for the new sharp-prefactor analytic step or for the V3.1 moving headline.  A
-successful build of the unchanged fixed-parameter modules must not be
-described as formal verification of that stronger theorem.
+Lean closes the frozen fixed-`A` paper dependency chain and now separately
+formalizes the sharp-prefactor, moving landing-density producer, moving
+feasible-time support, direct first-bad transport, and the exact-rate
+conditional `q^(-1/2)` terminal profile. It does not yet close the V3.1 moving
+headline: uniform low-stage startup and an eventual `Delta_M` shell-density
+and same-witness producer must still discharge the profile hypotheses, and
+`MovingEndpointAssembly.lean` remains a conditional consumer.
+A successful build of these modules must not be described as formal
+verification of the complete stronger theorem.
 
-**Package root:** `lean/FirstPassageLinearTransport/`  
+**Package root:** `lean/FirstPassageLinearTransport/`
 **Public module:** `FirstPassageLinearTransport.Main`
 
 Compiled dependency order:
@@ -364,8 +415,20 @@ Compiled dependency order:
     polynomial startup factor, and the same-witness clock/landing/ceiling
     theorem;
 13. `Main.lean`: minimal literal referee-facing API;
-14. `PaperDependencyAudit.lean`, `PaperAudit.lean`: declaration/source
-   reachability and trusted-axiom reports.
+14. `SharpEntropyBarrier.lean`, `MovingLowParameters.lean`,
+   `MovingLowDensity.lean`: sharp-prefactor and moving target-density producer;
+15. `MovingTimeSupport.lean`: literal moving stopped run, certified-shell
+   collapse, decreasing low-rank potential, and square-root feasible-time
+   support;
+16. `MovingFirstBad.lean`, `MovingProfile.lean`: direct moving first-bad
+    transport and the conditional support-sensitive terminal-profile socket;
+17. `MovingSharpTail.lean`, `MovingSharpProfile.lean`: exact-rate
+    `q^(-1/2)` tail summation and the conditional sharp first-bad profile;
+18. `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`: scalar
+   density assembly and conditional moving consumer;
+19. `PaperDependencyAudit.lean`, `PaperAudit.lean`,
+   `MovingEndpointAudit.lean`: fixed-parameter reachability, public trust, and
+   internal moving-producer trust reports.
 
 The exact manuscript map is `lean/FORMALIZATION.md`.  The public timed theorem
 is
@@ -386,9 +449,9 @@ witness `k`.
 The formalization is complete only when:
 
 1. every paper cut vertex has a named Lean declaration;
-2. a clean `lake build` succeeds for every retained module in the independent
-   V2 package;
-3. the V2 source contains no `sorry`, `admit`, `axiom`, `unsafe` proof
+2. an unqualified clean `lake build` succeeds for every retained module in
+   the independent V3 package; targeted root builds do not replace this gate;
+3. the V3 source contains no `sorry`, `admit`, `axiom`, `unsafe` proof
    escape, or unreviewed placeholder;
 4. `#print axioms` for each public theorem and mapped milestone is audited;
 5. a paper-to-formal map records every hypothesis, quantifier, constant, map
@@ -400,6 +463,17 @@ The formalization is complete only when:
    or public theorem rename;
 10. production files follow the CET header, semantic-module, naming, and
     documentation conventions.
+11. the manuscript render passes `audits/audit_paper_lean_semantics.py`,
+    including its constants, offsets, normalization, status, label, and
+    anchor checks.
+
+Current 2026-08-12 maintenance result: the exact-rate sharp tail and its
+conditional moving consumer typecheck, and their direct `#print axioms` audit
+contains only Lean's standard axioms.  The semantic gate passes 34 literal
+contracts and 14 mapped declarations, and the synchronized 25-page PDF render
+passes.  The standard Lake target entered an anomalous full Mathlib cache
+replay and was stopped without a project error; the uninterrupted
+full-package Lake gate remains required before release-candidate status.
 
 ## Final Lean audit record
 
@@ -438,6 +512,13 @@ Direct `PaperAudit` output for every mapped milestone and all public theorems
 contains only Lean's standard axioms `propext`, `Classical.choice`, and
 `Quot.sound`.  It contains no project axiom, `sorryAx`, `native_decide`, or
 other enlarged trust mechanism.
+
+Direct `MovingEndpointAudit` output for the sharp binomial prefactor, moving
+parameter rate, literal landing-density producer, moving time-support theorem,
+direct first-bad transport, exact-rate sharp conditional profile, scalar shell
+assembly, and conditional moving consumer has the same standard-axiom set and
+no enlarged trust mechanism. This trust result does not fill uniform moving
+startup or the remaining `Delta_M` shell-density and same-witness producer.
 
 ## Ledger
 

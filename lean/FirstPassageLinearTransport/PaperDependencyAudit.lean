@@ -13,8 +13,11 @@ import Lean.Server.References
 
 Declaration-level dependency audit for the formally represented
 fixed-parameter portion of the standalone first-passage linear-transport
-manuscript.  The V3.1 sharp-prefactor and moving-endpoint additions are
-paper-only and are deliberately absent from the roots below.
+manuscript. The V3.1 sharp-prefactor, moving-endpoint producer, time support,
+and conditional first-bad profile are formalized internally and audited by
+`MovingEndpointAudit`; they are deliberately absent from the public roots
+below because the eventual shell-density and witness producer and the public
+headline remain incomplete.
 
 Imports show what was available during elaboration; axiom reports show the
 trusted principles of finished declarations; the kernel graph follows

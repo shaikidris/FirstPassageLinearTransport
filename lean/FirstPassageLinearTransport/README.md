@@ -42,6 +42,23 @@ The verified development is split by mathematical role.
   `ShrinkingOrbitCeiling.lean`, `ShrinkingNaturalDensityDescent.lean`:
   endpoint parameters, literal recursive execution, orbit ceiling, prefix
   count, and density-one assembly for the strengthened headline.
+- `SharpEntropyBarrier.lean`, `MovingLowParameters.lean`,
+  `MovingLowDensity.lean`: sharp compact-regime prefactor, moving parameters,
+  rounding, and the literal moving landing-density producer.
+- `MovingTimeSupport.lean`: literal moving high/low stopped runs, direct nested
+  first passage, certified shell collapse, the decreasing low-rank potential,
+  and the uniform square-root-logarithmic cumulative-time support.
+- `MovingFirstBad.lean`, `MovingProfile.lean`: moving first-bad transport on
+  the compressed time support, common reverse-loss budget for any rational
+  `rStar` dominated by both regimes, and the conditional support-sensitive
+  terminal profile.
+- `MovingSharpTail.lean`, `MovingSharpProfile.lean`: exact-rate
+  `q^(-1/2)` terminal summation and its conditional moving first-bad profile;
+  no strict `b' < b` rate loss is used by the endpoint-sensitive consumer.
+- `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`: moving scalar
+  schedules and the conditional natural-density consumer.  Uniform moving
+  startup, the eventual `Delta_M` shell-density and same-witness producer,
+  and the public moving headline remain open.
 - `Pullback.lean`, `Parameters.lean`, `Bootstrap.lean`: stopped-map pullback,
   stage construction, and repeated bootstrap.
 - `Scalar.lean`, `Constants.lean`, `HeadlineParameters.lean`: scalar
@@ -56,6 +73,8 @@ The verified development is split by mathematical role.
 - `PaperDependencyAudit.lean`: compiled-declaration and `.ilean` source
   dependency report with reverse reachability.
 - `PaperAudit.lean`: public `#print axioms` report.
+- `MovingEndpointAudit.lean`: internal moving-producer and conditional-assembly
+  `#print axioms` report.
 
 The exact fixed-polylogarithmic headline declaration is
 `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent`.
@@ -77,7 +96,15 @@ The unclocked consequence is
 The timed fixed-power consequence is
 `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_power_natural_density_descent`.
 The graded-power declaration is retained as additional formal
-companion mathematics and is not part of the streamlined V3 manuscript.
+companion mathematics in Appendix A and is not part of either headline
+dependency chain.
+
+The V3.1 moving endpoint is proved in the manuscript but is not yet a public
+Lean theorem. The internal analytic producer, moving feasible-time support,
+direct first-bad transport, and exact-rate conditional sharp profile are
+formalized. Uniform moving-stage startup and the eventual `Delta_M`
+shell-density/same-witness producer must still discharge the profile
+hypotheses before `MovingEndpointAssembly.lean` can supply the public theorem.
 
 The timed theorem quantifies over every real `delta` with `0 < delta < 1` and
 produces a natural-density-one set on which every sufficiently large member

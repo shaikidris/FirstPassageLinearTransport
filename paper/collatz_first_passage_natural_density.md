@@ -336,7 +336,7 @@ Two terminal profiles serve different conclusions.  The one-regime profile in
 [Theorem 5.3](#thm-terminal-profile) yields the endpoint-rate
 stretched-logarithmic companion, whereas the compressed-support profile in
 [Theorem 6.3](#thm-two-regime-profile) yields the strict fixed-exponent
-profile, and [Proposition 6.4](#prop-rank-buffer) sharpens it to the moving
+profile, and [Proposition 6.5](#prop-rank-buffer) sharpens it to the moving
 endpoint used in the headline.
 
 ![The proof architecture.  Panel (a) follows an actual shortcut-Collatz orbit
@@ -1597,23 +1597,56 @@ Apply the sharp-prefactor clause \eqref{eq:3-3a} on the landing shell
 \tag{6.16}\label{eq:6-16}
 \]
 
-The change \(r_M\to1\) requires one modification to the time-support proof.
-The high phase is unchanged.  In the low phase, strict integer threshold
-descent gives at most \(S_M\) blocks; every low parent rank and every low
-block duration is at most \(S_M\).  Each term in the right side of the
-cumulative corridor \eqref{eq:6-7d} is also \(O(S_M)\).  Hence both the low
-elapsed time and its contribution to the corridor width are
+### Lemma 6.4 (moving feasible-time support) {#lem-moving-time-support}
+
+For the moving low schedule above, there is a fixed \(K>0\) such that, for all
+sufficiently large \(M\) and every possible first-bad rank \(q\), all
+cumulative first-passage times belong to a finite set
+\(\mathcal H^{\rm mov}_{M,q}\) satisfying
 \[
-O(S_M^2)=O((\log M)^2)
-=o(\sqrt{M\log M}).
+\#\mathcal H^{\rm mov}_{M,q}
+\le K\sqrt{(M+2)\log(M+2)}.
 \tag{6.17}\label{eq:6-17}
 \]
-Consequently [Lemma 6.1](#lem-time-support) retains its
-\(O(\sqrt{M\log M})\) conclusion for the moving low schedule.  Eventually
-\(r_M>r_{\rm hi}\), so the fixed rank-scaled loss denominator remains
-\(r_{\rm hi}\).
 
-### Proposition 6.4 (critical rank-buffer profile) {#prop-rank-buffer}
+#### Proof
+
+The change \(r_M\to1\) means that the fixed geometric low-phase potential in
+[Lemma 6.1](#lem-time-support) cannot be reused.  Keep its high-phase
+square-root potential and give the high branch a complete low-phase reserve.
+First note that strict integer rank descent permits at most \(S_M\) low
+blocks.  Each such block has parent rank below \(S_M\), and its first-passage
+duration is at most that parent rank.  Thus the total low-phase elapsed time is
+\(O(S_M^2)\).
+
+Writing \(S=S_M\), use the low potential
+\[
+V_{\rm lo}(q)=(S+4)q
+\]
+and reserve \((S+4)S\) in the high branch.  Every low parent rank is strictly
+below \(S\).  The corridor-and-offset cost in \eqref{eq:6-7d} is at most
+\(tm+t+3\le S+3\), while strict integer rank descent gives \(q\le m-1\).
+Hence one low step decreases \(V_{\rm lo}\) by at least \(S+4\), paying this
+entire cost.  A
+high-to-low step enters with \(q\le S\) and is paid by the stored reserve.
+No division by \(1-r_M\) occurs.
+
+The exact certified-shell identity \(m_{i+1}=q_i-1\) and the direct nested
+first-passage identity are unchanged, so the common center remains
+\((M+1)-q\).  Telescoping the decreasing potential therefore bounds the full
+corridor width by
+\[
+O(\sqrt{M\log(M+2)})+O(S_M^2).
+\]
+Since \(S_M=O(\log(M+2))\), the second term is
+\(o(\sqrt{M\log M})\).  All feasible integer times at fixed \(M,q\) lie in
+one interval of this length, proving \eqref{eq:6-17}.  This argument is
+formalized in `MovingTimeSupport.lean`. \(\square\)
+
+Eventually \(r_M>r_{\rm hi}\), so the fixed rank-scaled loss denominator
+remains \(r_{\rm hi}\).
+
+### Proposition 6.5 (critical rank-buffer profile) {#prop-rank-buffer}
 
 Let \(L_M\asymp\log M\) be an integer terminal-rank sequence.  For every
 fixed \(c>c_*\) and \(\beta>0\), the high parameters and switch constant may
@@ -1659,10 +1692,11 @@ target.  Equation \eqref{eq:6-16} and elementary geometric-tail summation give
 \]
 Combining the low sum with the high contribution proves \eqref{eq:6-18}.
 
-The high-phase clock is at most \(M/(1-r_{\rm hi})+o(M)\).  The low phase
-costs only \(O((\log M)^2)=o(M)\) by \eqref{eq:6-17}; hence the total is
-less than \(cM\log2\le c\log n\) eventually.  The high blocks use tolerance
-at most \(\tau<\beta\), while the low phase starts at polylogarithmic height.
+The high-phase clock is at most \(M/(1-r_{\rm hi})+o(M)\).  The strict-descent
+estimate in the proof of [Lemma 6.4](#lem-moving-time-support) gives low-phase
+cost \(O((\log M)^2)=o(M)\); hence the total is less than
+\(cM\log2\le c\log n\) eventually.  The high blocks use tolerance at most
+\(\tau<\beta\), while the low phase starts at polylogarithmic height.
 The same deterministic envelopes therefore retain the stated orbit ceiling.
 \(\square\)
 
@@ -1689,7 +1723,7 @@ Thus
 For the bounded profile \((A_M)\), use the terminal rank in \eqref{eq:1-3}.
 Condition \eqref{eq:1-4} implies \(L_M\asymp\log M\): the upper bound follows
 from boundedness, and the lower bound follows from the definition of
-\(\Delta_M\).  Proposition 6.4 and \eqref{eq:6-22} therefore give the
+\(\Delta_M\).  Proposition 6.5 and \eqref{eq:6-22} therefore give the
 shellwise estimate \eqref{eq:1-5}.
 
 The same condition makes \(A_M\) eventually positive.  Since the profile is
@@ -1710,7 +1744,7 @@ For fixed \(A>A_{\rm FP}\), take \(A_M=A\).  Then
 2^{-\Delta_M}\ll
 M^{-\kappa_*(A-A_{\rm FP})}\log M.
 \]
-The high exponent in Proposition 6.4 can be chosen larger than any prescribed
+The high exponent in Proposition 6.5 can be chosen larger than any prescribed
 \(\gamma<\kappa_*(A-A_{\rm FP})\).  Splitting the dyadic shell sum at half
 the top rank gives the first assertion.
 
@@ -1752,7 +1786,7 @@ and the resulting smaller target implies the asserted \(\Omega\)-target.
 The terminal profiles have different quantitative consumers.  The
 [support-sensitive profile](#thm-two-regime-profile) gives every strict fixed
 polylogarithmic exponent, and its moving refinement
-[Proposition 6.4](#prop-rank-buffer) gives the endpoint profile in the
+[Proposition 6.5](#prop-rank-buffer) gives the endpoint profile in the
 headline.  The [one-regime profile](#thm-terminal-profile) gives the sharper
 stretched-logarithmic exceptional rate and the clock consequences recorded
 here.
@@ -1895,12 +1929,20 @@ strict and hence slightly stronger than the manuscript's weak inequality.
 The exact upper range for that exceptional exponent is paper-level.  For
 [Theorem 1.3](#thm-stretched-log), Lean formalizes the literal landing and
 ceiling together with every strict exceptional power below \(1-\delta\); the
-endpoint power \(1-\delta\) in \eqref{eq:1-8} is paper-level.  The sharp binomial prefactor
-\eqref{eq:3-3a}, the moving low parameters \eqref{eq:6-11}, and the moving
-endpoint theorem are proved in the manuscript but are not yet represented by
-a public Lean theorem.  Accordingly the formal artifact is evidence for the
-fixed-exponent specialization, not a machine-checked proof of the new moving
-endpoint refinement.
+endpoint power \(1-\delta\) in \eqref{eq:1-8} is paper-level.  The internal
+Lean modules additionally formalize the sharp binomial prefactor
+\eqref{eq:3-3a}, the moving low parameters \eqref{eq:6-11}, the
+real-to-lattice barrier rounding, and the literal moving landing-density
+producer through the endpoint rate.  It also formalizes the moving stopped
+run, direct nested first passage, exact certified landing shell, decreasing
+rank potential, and square-root feasible-time support of
+[Lemma 6.4](#lem-moving-time-support).  It further formalizes direct moving
+first-bad transport and the conditional sharp \(q^{-1/2}\) terminal profile,
+retaining the actual endpoint rate without a strict rate loss.  Uniform
+low-stage startup, the \(\Delta_M\) shell-density and same-witness assembly,
+and the public moving theorem remain to be formalized.  Accordingly the
+formal artifact proves the fixed-exponent specialization and these moving
+components, but not yet the complete moving-endpoint refinement.
 
 The frozen fixed-exponent formal snapshot is the access-controlled
 [GitHub repository](https://github.com/shaikidris/FirstPassageLinearTransport)
@@ -1912,13 +1954,15 @@ formal package uses Lean `4.15.0` (commit
 `11651562caae`) and Mathlib revision
 `9837ca9d65d9de6fad1ef4381750ca688774e608`.  From the repository's `lean/`
 directory, the referee-facing build command is
-`lake build FirstPassageLinearTransport.PaperDependencyAudit
+`lake build FirstPassageLinearTransport.MovingEndpointAudit
+FirstPassageLinearTransport.PaperDependencyAudit
 FirstPassageLinearTransport.PaperAudit FirstPassageLinearTransport.Main`.
-The theorem dictionary is `lean/FORMALIZATION.md`; the dependency and axiom
-reports are respectively
-`lean/FirstPassageLinearTransport/PaperDependencyAudit.lean` and
-`lean/FirstPassageLinearTransport/PaperAudit.lean`.  The build, placeholder
-scan, dependency report, and public-root axiom audit pass, with logical
+The theorem dictionary is `lean/FORMALIZATION.md`; the dependency, public-root
+axiom, and moving-producer axiom reports are respectively
+`lean/FirstPassageLinearTransport/PaperDependencyAudit.lean`,
+`lean/FirstPassageLinearTransport/PaperAudit.lean`, and
+`lean/FirstPassageLinearTransport/MovingEndpointAudit.lean`.  The build,
+placeholder scan, dependency report, and both axiom audits pass, with logical
 dependencies `propext`, `Classical.choice`, and `Quot.sound`.  These checks
 supplement rather than replace the written proof.
 

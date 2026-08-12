@@ -51,13 +51,28 @@ Collatz definitions:
 - `ShrinkingParameters.lean`, `ShrinkingExecution.lean`,
   `ShrinkingOrbitCeiling.lean`, `ShrinkingNaturalDensityDescent.lean`: strict
   endpoint selection, literal termination, same-witness ceiling, and the
-  assembled quantitative natural-density theorem.
+  assembled quantitative natural-density theorem;
+- `SharpEntropyBarrier.lean`, `MovingLowParameters.lean`,
+  `MovingLowDensity.lean`: the internal sharp-prefactor and moving
+  landing-density producer;
+- `MovingTimeSupport.lean`: the literal moving stopped run, direct nested
+  first passage, exact certified landing shell, decreasing rank potential,
+  and uniform `O(sqrt (M log M))` feasible-time support without a
+  `1 / (1 - rLo)` loss;
+- `MovingFirstBad.lean`, `MovingProfile.lean`: direct support-sensitive moving
+  first-bad transport and the conditional terminal-profile socket;
+- `MovingSharpTail.lean`, `MovingSharpProfile.lean`: exact-rate summation of
+  the `q^(-1/2)` landing profile and its conditional moving first-bad consumer;
+- `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`: scalar moving
+  shell assembly and the conditional final consumer. Uniform moving-stage
+  startup, the eventual `Delta_M` shell-density and same-witness producer, and
+  the connection to the public theorem remain open.
 
 `Main.lean` exposes the strengthened V3 theorem for every
 `A > 1 / (2 * (1 - H₂(log₃ 2))) = 9.9911133419...` and retains the older
 fixed-tolerance theorem internally together with the stretched-logarithmic,
 fixed-power, raw-clock, and graded-clock statements as companions.  The
-graded declaration is again mapped to Corollary 1.4, while remaining outside
+graded declaration is mapped to Corollary 1.5, while remaining outside
 the dependency cone of the two headline theorems.
 
 The package imports Mathlib directly and has no dependency on
@@ -73,6 +88,12 @@ Build the narrower public axiom-audit target:
 
 ```bash
 lake build FirstPassageLinearTransport.PaperAudit
+```
+
+Build the internal moving-producer axiom-audit target:
+
+```bash
+lake build FirstPassageLinearTransport.MovingEndpointAudit
 ```
 
 Print the declaration/source dependency report directly:
@@ -93,7 +114,10 @@ lake env lean -DautoImplicit=false -DrelaxedAutoImplicit=false \
 
 These checks are not scope-equivalent. The full build reconstructs every
 retained source module; `PaperDependencyAudit` checks theorem provenance and
-source-elaboration reachability; `PaperAudit` reports trusted axioms.
+source-elaboration reachability; `PaperAudit` reports public trusted axioms;
+`MovingEndpointAudit` reports the trust surface of the internal moving
+producer, moving time-support theorem, exact-rate sharp profile, and
+conditional assembly.
 
 The exact public declarations and package layout are documented in
 `FirstPassageLinearTransport/README.md`. The manuscript-to-Lean map is in
