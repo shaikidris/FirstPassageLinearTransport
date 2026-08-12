@@ -1970,17 +1970,20 @@ request.  The
 formal package uses Lean `4.15.0` (commit
 `11651562caae`) and Mathlib revision
 `9837ca9d65d9de6fad1ef4381750ca688774e608`.  From the repository's `lean/`
-directory, the referee-facing build command is
-`lake build FirstPassageLinearTransport.TimeoutEndpointAudit
-FirstPassageLinearTransport.MovingEndpointAudit
-FirstPassageLinearTransport.PaperDependencyAudit
-FirstPassageLinearTransport.PaperAudit FirstPassageLinearTransport.Main`.
-The theorem dictionary is `lean/FORMALIZATION.md`.  The dependency,
-public-root, timeout-route, and all-prefix-route axiom reports are
-`lean/FirstPassageLinearTransport/PaperDependencyAudit.lean`,
-`lean/FirstPassageLinearTransport/PaperAudit.lean`,
-`lean/FirstPassageLinearTransport/TimeoutEndpointAudit.lean`, and
-`lean/FirstPassageLinearTransport/MovingEndpointAudit.lean`, respectively.  The build,
+directory, run:
+
+```text
+lake build FirstPassageLinearTransport.TimeoutEndpointAudit \
+  FirstPassageLinearTransport.MovingEndpointAudit \
+  FirstPassageLinearTransport.PaperDependencyAudit \
+  FirstPassageLinearTransport.PaperAudit FirstPassageLinearTransport.Main
+```
+
+The theorem dictionary is `lean/FORMALIZATION.md`.  The audit files are
+`PaperDependencyAudit.lean` for dependencies, `PaperAudit.lean` for the
+public roots, `TimeoutEndpointAudit.lean` for the timeout route, and
+`MovingEndpointAudit.lean` for the all-prefix alternate; all four lie in
+`lean/FirstPassageLinearTransport/`.  The build,
 placeholder scan, dependency report, and all axiom audits pass, with logical
 dependencies `propext`, `Classical.choice`, and `Quot.sound`.  These checks
 supplement rather than replace the written proof.
