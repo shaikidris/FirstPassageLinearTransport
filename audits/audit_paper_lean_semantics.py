@@ -70,19 +70,22 @@ def main() -> int:
             r"\sum_{i=0}^{j}(t_i m_i+t_i+3).",
         ),
         LiteralCheck(
-            "paper moving low potential",
+            "paper timeout event is totalized at the parent rank",
             PAPER,
-            r"V_{\rm lo}(q)=(S+4)q",
+            r"T^j(x)>2^{q_L(m)}"
+            r"\quad\text{for every }0\le j\le m.",
         ),
         LiteralCheck(
-            "paper moving low corridor-and-offset cost",
+            "paper timeout threshold retains the endpoint-scale perturbation",
             PAPER,
-            r"tm+t+3\le S+3",
+            r"r_L=1-\frac{K_0}{2L},"
+            r"\qquad"
+            r"q_L(m)=\lfloor r_Lm\rfloor.",
         ),
         LiteralCheck(
-            "paper high branch carries complete low reserve",
+            "paper low successful durations have a uniform total budget",
             PAPER,
-            r"reserve \((S+4)S\) in the high branch",
+            r"\sum_{\text{successful low stages}}h_i\le S(S+1).",
         ),
         LiteralCheck(
             "paper certified landing is in shell q-1",
@@ -90,10 +93,16 @@ def main() -> int:
             r"m_{i+1}=q_i-1\qquad(0\le i<j)",
         ),
         LiteralCheck(
-            "paper moving support scale",
+            "paper switch endpoint is discharged deterministically",
             PAPER,
-            r"\#\mathcal H^{\rm mov}_{M,q}"
-            r"\le K\sqrt{(M+2)\log(M+2)}.",
+            r"If the landing is the upper endpoint \(2^{q_i}\) and \(q_i\le S\), follow its"
+            r"deterministic halving orbit to the terminal rank and stop successfully",
+        ),
+        LiteralCheck(
+            "paper timeout support scale",
+            PAPER,
+            r"\#\mathcal H^{\rm to}_{M,p}"
+            r"\ll\sqrt{(M+2)\log(M+2)}.",
         ),
         LiteralCheck(
             "paper critical exponent",
@@ -106,27 +115,27 @@ def main() -> int:
             r"\kappa_*L_M-\frac12\log_2(M+2)-\log_2\log(M+3)",
         ),
         LiteralCheck(
-            "paper moving target uses the actual parent shell q-1",
+            "paper timeout target uses the actual parent shell p-1",
             PAPER,
-            r"\eta_{M,q-1},&S\le q-1",
+            r"\operatorname{To}_{L,p-1}(y)",
         ),
         LiteralCheck(
-            "paper direct reverse-loss bound",
+            "paper direct reverse-loss bound at a timeout target",
             PAPER,
-            r"E_{2^q}(n)<\frac{q+2}{r_*}.",
+            r"E_{2^p}(n)<\frac{p+2}{r_*}.",
         ),
         LiteralCheck(
-            "paper low target is normalized by the full threshold band",
+            "paper timeout target is normalized by the full threshold band",
             PAPER,
-            r"\frac{|B^{\rm crit}_{M,q}|}{2^q}"
-            r"\ll q^{-1/2}2^{-\kappa_*q}+2^{-q}",
+            r"\frac{|\mathcal C^{\rm to}_{L,p}|}{2^p}"
+            r"\ll p^{-1/2}2^{-\kappa_*p}.",
         ),
         LiteralCheck(
-            "paper moving profile retains the square-root time support",
+            "paper timeout profile retains the square-root time support",
             PAPER,
-            r"\sqrt{M\log M}\left("
+            r"\sqrt{M\log M}\,"
             r"L_M^{1/2}2^{-\kappa_*L_M}"
-            r"+L_M2^{-L_M}\right)+M^{-\varepsilon}",
+            r"+M^{-\varepsilon}.",
         ),
         LiteralCheck(
             "paper moving shell theorem uses the exact critical buffer",
@@ -156,12 +165,17 @@ def main() -> int:
         LiteralCheck(
             "formal map records moving profile socket",
             FORMALIZATION,
-            "moving first-bad transport/profile adapter",
+            "first-bad transport/profile adapter",
         ),
         LiteralCheck(
             "formal map records the public moving theorem",
             FORMALIZATION,
             "collatz_first_passage_moving_polylogarithmic_natural_density_descent",
+        ),
+        LiteralCheck(
+            "formal map separates the timeout proof route",
+            FORMALIZATION,
+            "The timeout proof route is not yet separately formalized",
         ),
         LiteralCheck(
             "proof state records quantitative moving startup as formal",
@@ -323,6 +337,16 @@ def main() -> int:
             "moving low-phase first-bad transport/profile adapter is absent",
             "formal boundary predates MovingFirstBad/MovingProfile",
         ),
+        (
+            PAPER,
+            r"V_{\rm lo}(q)=(S+4)q",
+            "removed all-prefix low potential returned to the V3.2 manuscript",
+        ),
+        (
+            PAPER,
+            r"B^{\rm crit}_{M,q}",
+            "removed moving all-prefix target returned to the V3.2 manuscript",
+        ),
     ]
     for path, phrase, reason in forbidden:
         if compact(phrase) in compact(read(path)):
@@ -342,6 +366,18 @@ def main() -> int:
 
     labels = re.findall(r"\\label\{([^}]+)\}", paper)
     references = re.findall(r"\\(?:eqref|ref|autoref)\{([^}]+)\}", paper)
+    tagged_labels = re.findall(
+        r"\\tag\{([A-Za-z0-9]+)\.([0-9]+[a-z]?)\}"
+        r"\\label\{(eq:[A-Za-z0-9]+-[0-9]+[a-z]?)\}",
+        paper,
+    )
+    for section, item, label in tagged_labels:
+        expected = f"eq:{section.lower()}-{item}"
+        if label != expected:
+            failures.append(
+                f"display tag/label mismatch: {section}.{item} uses {label}, "
+                f"expected {expected}"
+            )
     duplicate_labels = sorted({label for label in labels if labels.count(label) > 1})
     missing_labels = sorted(set(references) - set(labels))
     if duplicate_labels:

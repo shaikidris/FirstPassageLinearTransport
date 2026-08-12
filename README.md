@@ -1,6 +1,6 @@
 # First-Passage Linear Transport
 
-**Project line:** private V3.1 moving-endpoint promotion worktree
+**Project line:** private V3.2 timeout moving-endpoint refinement
 **Author:** Idris Ali Shaik
 
 This branch promotes the first-passage architecture from stretched-logarithmic
@@ -18,7 +18,7 @@ A_FP = 1 / (2 * (1 - H_2(log_3 2))) = 9.9911133419...,
 kappa_* = 1 - H_2(log_3 2).
 ```
 
-The V3.1 paper-level headline allows a bounded moving exponent `A_M` whenever
+The V3.2 paper-level headline allows a bounded moving exponent `A_M` whenever
 the rank buffer
 
 ```text
@@ -54,7 +54,9 @@ the graded fixed-power clock.  The graded result is presented as a
 compact independent companion: it records the sharp time--descent tradeoff
 without entering the optimized fixed-polylogarithmic dependency chain.
 
-The V3.1 manuscript proof is integrated. The Lean development compiles the
+The V3.2 manuscript proof is integrated.  It uses high-rank all-prefix
+certification and replaces the former moving low all-prefix certificate by a
+terminal odd-count timeout tail.  The Lean development compiles the
 loss-filtered target transport, nested direct first-passage collapse,
 all-block rank-scaled loss budget, entropy-sharp Boolean barrier, complete
 two-regime exceptional profile, literal terminal witness, mixed-run orbit
@@ -70,11 +72,14 @@ rate, giving `(L+1) 2^(-L) + sqrt(L) exp(-b (L-1))`.  The quantitative
 moving-stage startup, exact `Delta_M` shell profile, literal same-witness
 execution, and public moving-endpoint theorem are now formalized as well.
 
-The formal package therefore verifies the complete moving-endpoint headline,
-including its literal shell exceptional profile, logarithmic clock, and
-same-witness ceiling.  The paper's sharper fixed-`A` exceptional exponent
-range and Theorem 1.3's endpoint exceptional power remain paper-level.  The
-frozen V2.3.1 theorem family remains available as companion mathematics.
+The formal package verifies the complete moving-endpoint headline, including
+its literal shell exceptional profile, logarithmic clock, and same-witness
+ceiling, through the previously formalized all-prefix low producer.  The
+timeout proof route is not yet separately formalized; it is a shorter paper
+proof of the same public conclusion.  The paper's sharper fixed-`A`
+exceptional exponent range and Theorem 1.3's endpoint exceptional power remain
+paper-level.  The frozen V2.3.1 theorem family remains available as companion
+mathematics.
 
 ## Release boundary
 
@@ -116,6 +121,9 @@ they are not yet imported by `Main.lean`.
   cut-vertex reconstruction;
 - `audits/review_v31_moving_endpoint_promotion_2026_08_11.md`: V3.1 moving
   endpoint proof, scalar-budget, render, and formal-boundary audit;
+- `audits/review_v32_timeout_integrated_replacement_2026_08_12.md`: V3.2
+  subtractive timeout proof, endpoint-boundary, route-separation, and render
+  audit;
 - `audits/paper_lean_semantic_concordance_2026_08_12.md`: literal paper/Lean
   contract concordance and semantic-drift regression gate;
 - `audits/`: manuscript-only mathematical, literature, content, and desk
