@@ -3,7 +3,7 @@ Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
-import FirstPassageLinearTransport.MovingEndpointAssembly
+import FirstPassageLinearTransport.MovingEndpointNaturalDensity
 import FirstPassageLinearTransport.MovingLowDensity
 import FirstPassageLinearTransport.MovingTimeSupport
 import FirstPassageLinearTransport.MovingFirstBad
@@ -13,11 +13,10 @@ import FirstPassageLinearTransport.MovingSharpProfile
 /-!
 # Moving-endpoint formalization axiom audit
 
-This module audits the internal V3.1 moving-endpoint producer, the moving
-feasible-time support, the first-bad transport/profile adapter, and the
-exact-rate sharp `q^{-1/2}` profile.  The public moving headline is not yet
-exposed in `Main.lean`; uniform moving-stage startup, the eventual shell
-producer, and the public assembly remain separate cut vertices.
+This module audits the complete V3.1 moving-endpoint chain: analytic producer,
+quantitative startup, feasible-time support, first-bad transport, exact-rate
+sharp `q^{-1/2}` profile, scalar buffer closure, same-witness execution, and
+literal natural-density assembly.
 -/
 
 #print axioms FirstPassageLinearTransport.exists_barrierHitCount_real_normalized_le_binaryBarrierRate
@@ -29,6 +28,7 @@ producer, and the public assembly remain separate cut vertices.
 #print axioms FirstPassageLinearTransport.movingFeasibleTimes_card_le_potential
 #print axioms FirstPassageLinearTransport.eventually_movingFeasibleTimes_card_lt_sqrt
 #print axioms FirstPassageLinearTransport.eventually_nonempty_movingLowStageSetup
+#print axioms FirstPassageLinearTransport.eventually_movingLowStageSetup_M0_le
 #print axioms FirstPassageLinearTransport.MovingRecertificationRun.toCertifiedRankChain
 #print axioms FirstPassageLinearTransport.MovingRecertificationRun.scaledReverseLoss_le
 #print axioms FirstPassageLinearTransport.movingFirstBadSourcesAtRank_subset_transport
@@ -37,5 +37,9 @@ producer, and the public assembly remain separate cut vertices.
 #print axioms FirstPassageLinearTransport.movingSeparatedFailureEnvelope_density_terminalProfile
 #print axioms FirstPassageLinearTransport.exists_exact_sharp_critical_low_series_bound
 #print axioms FirstPassageLinearTransport.moving_low_firstBad_sharp_exact_sum_le
+#print axioms FirstPassageLinearTransport.moving_low_firstBad_sharp_exact_sum_canonical_le
+#print axioms FirstPassageLinearTransport.exists_eventually_movingEndpointGood_shellError
+#print axioms FirstPassageLinearTransport.eventually_movingEndpointGood_has_shellWitness
 #print axioms FirstPassageLinearTransport.naturalDensityOne_of_movingShellError
 #print axioms FirstPassageLinearTransport.movingEndpointNaturalDensityAssembly
+#print axioms FirstPassageLinearTransport.movingEndpointLiteralNaturalDensityDescent

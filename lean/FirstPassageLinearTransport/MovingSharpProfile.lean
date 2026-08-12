@@ -84,7 +84,7 @@ theorem movingFirstBadSourcesAtRank_sharp_density_le
 /-- Conditional sharp low-rank contribution at the exact landing rate.
 The constant is uniform for every actual entropy rate `b ≥ b₀`; the output
 retains `b` itself and therefore preserves the critical endpoint buffer. -/
-theorem moving_low_firstBad_sharp_exact_sum_le
+theorem moving_low_firstBad_sharp_exact_sum_canonical_le
     {P : ShrinkingBarrierRunData} {rLo tLo : ℝ}
     (pLo : StageSetup rLo tLo) {rStar : ℚ}
     (hrStar : 0 < rStar) (hStarHi : rStar ≤ P.rHi)
@@ -104,16 +104,16 @@ theorem moving_low_firstBad_sharp_exact_sum_le
           (C / Real.sqrt ((q - 1 : ℕ) : ℝ)) *
             Real.exp (-(b * ((q - 1 : ℕ) : ℝ))))
     (hb₀ : 0 < b₀) (hb₀b : b₀ ≤ b) :
-    ∃ K : ℝ, 0 < K ∧
-      ∑ q in Finset.Icc L S,
+    ∑ q in Finset.Icc L S,
           ((movingFirstBadSourcesAtRank P pLo M S q).card : ℝ) /
             (2 : ℝ) ^ M ≤
-        H * (1 + 6 / (rStar : ℝ)) * K *
+        H * (1 + 6 / (rStar : ℝ)) *
+          exactSharpCriticalLowSeriesConstant b₀ C *
           (((L + 1 : ℕ) : ℝ) * Real.exp (-(Real.log 2 * (L : ℝ))) +
             Real.sqrt L * Real.exp (-(b * ((L - 1 : ℕ) : ℝ)))) := by
-  obtain ⟨K0, hK0, hseries⟩ :=
-    exists_exact_sharp_critical_low_series_bound hb₀ hC
-  refine ⟨K0, hK0, ?_⟩
+  obtain ⟨_hK0, hseries⟩ :=
+    exactSharpCriticalLowSeriesConstant_spec hb₀ hC
+  let K0 := exactSharpCriticalLowSeriesConstant b₀ C
   have hrR : (0 : ℝ) < (rStar : ℝ) := by exact_mod_cast hrStar
   have hcoef0 : 0 ≤ H * (1 + 6 / (rStar : ℝ)) := by positivity
   have hterm : ∀ q ∈ Finset.Icc L S,
@@ -162,7 +162,42 @@ theorem moving_low_firstBad_sharp_exact_sum_le
       exact hseries hb₀b hL hLS
     _ = H * (1 + 6 / (rStar : ℝ)) * K0 *
         (((L + 1 : ℕ) : ℝ) * Real.exp (-(Real.log 2 * (L : ℝ))) +
-          Real.sqrt L * Real.exp (-(b * ((L - 1 : ℕ) : ℝ)))) := by ring
+          Real.sqrt L * Real.exp (-(b * ((L - 1 : ℕ) : ℝ)))) := by
+      ring
+
+/-- Existential compatibility wrapper for the canonical low-rank profile. -/
+theorem moving_low_firstBad_sharp_exact_sum_le
+    {P : ShrinkingBarrierRunData} {rLo tLo : ℝ}
+    (pLo : StageSetup rLo tLo) {rStar : ℚ}
+    (hrStar : 0 < rStar) (hStarHi : rStar ≤ P.rHi)
+    (hStarLo : (rStar : ℝ) ≤ rLo)
+    (htLoA : tLo < a0)
+    {M L S : ℕ} {H C b₀ b : ℝ}
+    (hM : 1 ≤ M) (hLS : L ≤ S) (hSM : S < M) (hL : 2 ≤ L)
+    (hH0 : 0 ≤ H) (hC : 0 ≤ C)
+    (hsmall : ∀ q ∈ Finset.Icc L S,
+      ((((q + 2 : ℕ) : ℚ) / rStar) /
+        ((2 ^ q : ℕ) : ℚ)) ≤ 1 / 3)
+    (hTimes : ∀ q ∈ Finset.Icc L S,
+      ((movingFeasibleTimes P pLo M S q).card : ℝ) ≤ H)
+    (hLow : ∀ q ∈ Finset.Icc L S,
+      ((landingBad q tLo).card : ℝ) / (2 : ℝ) ^ q ≤
+        1 / (2 : ℝ) ^ q +
+          (C / Real.sqrt ((q - 1 : ℕ) : ℝ)) *
+            Real.exp (-(b * ((q - 1 : ℕ) : ℝ))))
+    (hb₀ : 0 < b₀) (hb₀b : b₀ ≤ b) :
+    ∃ K : ℝ, 0 < K ∧
+      ∑ q in Finset.Icc L S,
+          ((movingFirstBadSourcesAtRank P pLo M S q).card : ℝ) /
+            (2 : ℝ) ^ M ≤
+        H * (1 + 6 / (rStar : ℝ)) * K *
+          (((L + 1 : ℕ) : ℝ) * Real.exp (-(Real.log 2 * (L : ℝ))) +
+            Real.sqrt L * Real.exp (-(b * ((L - 1 : ℕ) : ℝ)))) := by
+  refine ⟨exactSharpCriticalLowSeriesConstant b₀ C,
+    (exactSharpCriticalLowSeriesConstant_spec hb₀ hC).1, ?_⟩
+  exact moving_low_firstBad_sharp_exact_sum_canonical_le pLo hrStar
+    hStarHi hStarLo htLoA hM hLS hSM hL hH0 hC hsmall hTimes hLow
+    hb₀ hb₀b
 
 
 end

@@ -352,19 +352,26 @@ theorem exact_sharp_critical_low_series_Icc_le
         3 * Cpref * weightedTailConstant b₀ (b₀ / 2) *
           Real.sqrt L * Real.exp (-(b * ((L - 1 : ℕ) : ℝ))) := by ring
 
-/-- Uniform package for the exact-rate critical tail.  The constant depends
-only on a positive lower entropy rate `b₀` and the producer prefactor; the
-terminal exponential retains every actual `b ≥ b₀`. -/
-theorem exists_exact_sharp_critical_low_series_bound
+/-- Canonical uniform constant for the exact-rate critical tail. -/
+def exactSharpCriticalLowSeriesConstant (b₀ Cpref : ℝ) : ℝ :=
+  max
+    (weightedTailConstant (Real.log 2) (Real.log 2 / 2))
+    (3 * Cpref * weightedTailConstant b₀ (b₀ / 2)) + 1
+
+/-- Uniform exact-rate critical-tail estimate for the canonical constant.
+The terminal exponential retains every actual `b ≥ b₀`. -/
+theorem exactSharpCriticalLowSeriesConstant_spec
     {b₀ Cpref : ℝ} (hb₀ : 0 < b₀) (hCpref : 0 ≤ Cpref) :
-    ∃ K : ℝ, 0 < K ∧ ∀ {b : ℝ}, b₀ ≤ b → ∀ {L U : ℕ},
+    0 < exactSharpCriticalLowSeriesConstant b₀ Cpref ∧
+      ∀ {b : ℝ}, b₀ ≤ b → ∀ {L U : ℕ},
       2 ≤ L → L ≤ U →
       ∑ q in Finset.Icc L U,
           ((q + 1 : ℕ) : ℝ) *
             (Real.exp (-(Real.log 2 * (q : ℝ))) +
               Cpref / Real.sqrt ((q - 1 : ℕ) : ℝ) *
                 Real.exp (-(b * ((q - 1 : ℕ) : ℝ)))) ≤
-        K * (((L + 1 : ℕ) : ℝ) * Real.exp (-(Real.log 2 * (L : ℝ))) +
+        exactSharpCriticalLowSeriesConstant b₀ Cpref *
+          (((L + 1 : ℕ) : ℝ) * Real.exp (-(Real.log 2 * (L : ℝ))) +
           Real.sqrt L * Real.exp (-(b * ((L - 1 : ℕ) : ℝ)))) := by
   let Kdy := weightedTailConstant (Real.log 2) (Real.log 2 / 2)
   let Kent := 3 * Cpref * weightedTailConstant b₀ (b₀ / 2)
@@ -386,20 +393,20 @@ theorem exists_exact_sharp_critical_low_series_bound
       linarith
     exact mul_nonneg (mul_nonneg (by norm_num) hCpref)
       (div_nonneg (by positivity) hden.le)
-  let K := max Kdy Kent + 1
+  let K := exactSharpCriticalLowSeriesConstant b₀ Cpref
   have hK : 0 < K := by
-    dsimp [K]
+    dsimp [K, exactSharpCriticalLowSeriesConstant, Kdy, Kent]
     exact add_pos_of_nonneg_of_pos
       (le_max_of_le_left hKdy0) zero_lt_one
-  refine ⟨K, hK, ?_⟩
+  refine ⟨hK, ?_⟩
   intro b hb₀b L U hL hLU
   have htail := exact_sharp_critical_low_series_Icc_le
     hb₀ hb₀b hCpref hL hLU
   have hdyK : Kdy ≤ K := by
-    dsimp [K]
+    dsimp [K, exactSharpCriticalLowSeriesConstant, Kdy, Kent]
     exact (le_max_left Kdy Kent).trans (by linarith)
   have hentK : Kent ≤ K := by
-    dsimp [K]
+    dsimp [K, exactSharpCriticalLowSeriesConstant, Kdy, Kent]
     exact (le_max_right Kdy Kent).trans (by linarith)
   have hbase0 : 0 ≤
       ((L + 1 : ℕ) : ℝ) * Real.exp (-(Real.log 2 * (L : ℝ))) := by
@@ -425,6 +432,22 @@ theorem exists_exact_sharp_critical_low_series_bound
         (mul_le_mul_of_nonneg_right hentK hentbase0)
     _ = K * (((L + 1 : ℕ) : ℝ) * Real.exp (-(Real.log 2 * (L : ℝ))) +
           Real.sqrt L * Real.exp (-(b * ((L - 1 : ℕ) : ℝ)))) := by ring
+
+/-- Existential compatibility wrapper for the canonical sharp-tail
+constant. -/
+theorem exists_exact_sharp_critical_low_series_bound
+    {b₀ Cpref : ℝ} (hb₀ : 0 < b₀) (hCpref : 0 ≤ Cpref) :
+    ∃ K : ℝ, 0 < K ∧ ∀ {b : ℝ}, b₀ ≤ b → ∀ {L U : ℕ},
+      2 ≤ L → L ≤ U →
+      ∑ q in Finset.Icc L U,
+          ((q + 1 : ℕ) : ℝ) *
+            (Real.exp (-(Real.log 2 * (q : ℝ))) +
+              Cpref / Real.sqrt ((q - 1 : ℕ) : ℝ) *
+                Real.exp (-(b * ((q - 1 : ℕ) : ℝ)))) ≤
+        K * (((L + 1 : ℕ) : ℝ) * Real.exp (-(Real.log 2 * (L : ℝ))) +
+          Real.sqrt L * Real.exp (-(b * ((L - 1 : ℕ) : ℝ)))) := by
+  refine ⟨exactSharpCriticalLowSeriesConstant b₀ Cpref, ?_⟩
+  exact exactSharpCriticalLowSeriesConstant_spec hb₀ hCpref
 end
 
 end FirstPassageLinearTransport

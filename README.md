@@ -66,15 +66,15 @@ landing-density estimate through the endpoint rate, and uniform moving
 moving-endpoint modules. Direct moving first-bad transport and the conditional
 terminal-profile socket are also formalized.  The sharp conditional socket now
 retains the literal `q^(-1/2)` landing prefactor and the unchanged endpoint
-rate, giving `(L+1) 2^(-L) + sqrt(L) exp(-b (L-1))`.  Uniform moving-stage
-startup, the eventual `Delta_M` shell-density and same-witness producer, and
-the public assembly remain open formal cut vertices.
+rate, giving `(L+1) 2^(-L) + sqrt(L) exp(-b (L-1))`.  The quantitative
+moving-stage startup, exact `Delta_M` shell profile, literal same-witness
+execution, and public moving-endpoint theorem are now formalized as well.
 
-The formal package therefore
-verifies the fixed-exponent landing, clock, ceiling, and a positive
-logarithmic exceptional exponent, not the full V3.1 moving headline or the
-paper's exact endpoint ranges for the exceptional exponent. The frozen
-V2.3.1 theorem family remains available as companion mathematics.
+The formal package therefore verifies the complete moving-endpoint headline,
+including its literal shell exceptional profile, logarithmic clock, and
+same-witness ceiling.  The paper's sharper fixed-`A` exceptional exponent
+range and Theorem 1.3's endpoint exceptional power remain paper-level.  The
+frozen V2.3.1 theorem family remains available as companion mathematics.
 
 ## Release boundary
 

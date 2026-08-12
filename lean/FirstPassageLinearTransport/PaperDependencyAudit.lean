@@ -11,13 +11,10 @@ import Lean.Server.References
 /-!
 # First-passage manuscript dependency audit
 
-Declaration-level dependency audit for the formally represented
-fixed-parameter portion of the standalone first-passage linear-transport
-manuscript. The V3.1 sharp-prefactor, moving-endpoint producer, time support,
-and conditional first-bad profile are formalized internally and audited by
-`MovingEndpointAudit`; they are deliberately absent from the public roots
-below because the eventual shell-density and witness producer and the public
-headline remain incomplete.
+Declaration-level dependency audit for the standalone first-passage
+linear-transport manuscript. The V3.1 moving-endpoint headline and its
+complete producer/transport/witness chain are included among the public roots;
+`MovingEndpointAudit` additionally checks the internal cut vertices.
 
 Imports show what was available during elaboration; axiom reports show the
 trusted principles of finished declarations; the kernel graph follows
@@ -40,6 +37,14 @@ private structure PaperRoot where
   decl : Name
 
 private def paperRoots : Array PaperRoot := #[
+  ⟨"Theorem 1.1 (moving polylogarithmic endpoint)",
+    `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_moving_polylogarithmic_natural_density_descent⟩,
+  ⟨"Theorem 1.1 (literal moving natural-density assembly)",
+    `FirstPassageLinearTransport.movingEndpointLiteralNaturalDensityDescent⟩,
+  ⟨"Proposition 6.5 (sharp moving shell profile)",
+    `FirstPassageLinearTransport.exists_eventually_movingEndpointGood_shellError⟩,
+  ⟨"Theorem 1.1 (moving same-witness execution)",
+    `FirstPassageLinearTransport.eventually_movingEndpointGood_has_shellWitness⟩,
   ⟨"Corollary 1.2(1) (fixed-polylogarithmic descent)",
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent⟩,
   ⟨"Corollary 1.2(1) (endpoint exponent identity)",

@@ -55,10 +55,15 @@ The verified development is split by mathematical role.
 - `MovingSharpTail.lean`, `MovingSharpProfile.lean`: exact-rate
   `q^(-1/2)` terminal summation and its conditional moving first-bad profile;
   no strict `b' < b` rate loss is used by the endpoint-sensitive consumer.
-- `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`: moving scalar
-  schedules and the conditional natural-density consumer.  Uniform moving
-  startup, the eventual `Delta_M` shell-density and same-witness producer,
-  and the public moving headline remain open.
+- `MovingLowSetup.lean`, `MovingEndpointParameters.lean`,
+  `MovingEndpointProfile.lean`, `MovingEndpointAsymptotics.lean`: quantitative
+  startup, sharp literal shell profile, and exact `Delta_M` closure.
+- `MovingExecution.lean`, `MovingOrbitCeiling.lean`,
+  `MovingEndpointWitness.lean`: terminal execution, logarithmic clock, and
+  same-witness orbit ceiling.
+- `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`,
+  `MovingEndpointNaturalDensity.lean`: scalar identities, density assembly,
+  and the complete literal moving-endpoint theorem.
 - `Pullback.lean`, `Parameters.lean`, `Bootstrap.lean`: stopped-map pullback,
   stage construction, and repeated bootstrap.
 - `Scalar.lean`, `Constants.lean`, `HeadlineParameters.lean`: scalar
@@ -99,12 +104,11 @@ The graded-power declaration is retained as additional formal
 companion mathematics in Appendix A and is not part of either headline
 dependency chain.
 
-The V3.1 moving endpoint is proved in the manuscript but is not yet a public
-Lean theorem. The internal analytic producer, moving feasible-time support,
-direct first-bad transport, and exact-rate conditional sharp profile are
-formalized. Uniform moving-stage startup and the eventual `Delta_M`
-shell-density/same-witness producer must still discharge the profile
-hypotheses before `MovingEndpointAssembly.lean` can supply the public theorem.
+The V3.1 moving endpoint is exposed publicly as
+`QuantitativeCollatzMain.collatz_first_passage_moving_polylogarithmic_natural_density_descent`.
+Its type retains the bounded moving exponent, exact diverging rank buffer,
+literal shell exceptional ratio, logarithmic clock, moving landing target,
+and same-witness orbit ceiling.
 
 The timed theorem quantifies over every real `delta` with `0 < delta < 1` and
 produces a natural-density-one set on which every sufficiently large member
