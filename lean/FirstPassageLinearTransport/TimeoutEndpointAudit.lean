@@ -37,4 +37,5 @@ natural-density theorem.
 
 open FirstPassageLinearTransport.QuantitativeCollatzMain
 
+#print axioms collatz_first_passage_moving_polylogarithmic_natural_density_descent
 #print axioms collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent

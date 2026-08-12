@@ -9,10 +9,10 @@ import FirstPassageLinearTransport.PaperDependencyAudit
 /-!
 # First-passage manuscript axiom audit
 
-Public `#print axioms` surface for the standalone V3.2 manuscript.  The
+Public `#print axioms` surface for the standalone V3.2 manuscript. The
 timeout implementation is audited at finer granularity by
-`TimeoutEndpointAudit`; the retained all-prefix alternate is audited by
-`MovingEndpointAudit`.  This module reports logical
+`TimeoutEndpointAudit`. The optional all-prefix library has its own audit
+outside the canonical target. This module reports logical
 trust; `PaperDependencyAudit` separately reports declaration and
 source-elaboration reachability, while a full `lake build` remains the
 source-reconstruction gate.
@@ -88,6 +88,7 @@ source-reconstruction gate.
   FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent
 
 -- Quantitative companions retained in the streamlined manuscript.
+#print axioms FirstPassageLinearTransport.orbitMinimum_le_power_iff_hasFixedPowerDescent
 #print axioms FirstPassageLinearTransport.stageLength_le_heightSensitiveHorizon
 #print axioms FirstPassageLinearTransport.rawOrbit_rawTime_eq_orbit
 #print axioms FirstPassageLinearTransport.eventuallyShellRawClockLt

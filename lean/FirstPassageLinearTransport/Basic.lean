@@ -60,6 +60,34 @@ def HasStretchedLogDescent (δ : ℝ) (n : ℕ) : Prop :=
 def HasFixedPowerDescent (alpha : ℝ) (n : ℕ) : Prop :=
   ReachesBelow n ((n : ℝ) ^ alpha)
 
+/-- The least value attained by the full shortcut orbit.  This is the literal
+formal counterpart of the manuscript's `T_min`. -/
+noncomputable def orbitMinimum (n : ℕ) : ℕ :=
+  sInf (Set.range fun k : ℕ => orbit k n)
+
+theorem orbitMinimum_eq_orbit (n : ℕ) :
+    ∃ k : ℕ, orbitMinimum n = orbit k n := by
+  obtain ⟨k, hk⟩ :=
+    Nat.sInf_mem (Set.range_nonempty fun k : ℕ => orbit k n)
+  exact ⟨k, by simpa [orbitMinimum] using hk.symm⟩
+
+theorem orbitMinimum_le_iff_reachesBelow {n : ℕ} {Y : ℝ} :
+    (orbitMinimum n : ℝ) ≤ Y ↔ ReachesBelow n Y := by
+  constructor
+  · intro h
+    obtain ⟨k, hk⟩ := orbitMinimum_eq_orbit n
+    exact ⟨k, by simpa [hk] using h⟩
+  · rintro ⟨k, hk⟩
+    calc
+      (orbitMinimum n : ℝ) ≤ orbit k n := by
+        exact_mod_cast Nat.sInf_le (Set.mem_range_self k)
+      _ ≤ Y := hk
+
+theorem orbitMinimum_le_power_iff_hasFixedPowerDescent {alpha : ℝ} {n : ℕ} :
+    (orbitMinimum n : ℝ) ≤ (n : ℝ) ^ alpha ↔
+      HasFixedPowerDescent alpha n := by
+  exact orbitMinimum_le_iff_reachesBelow
+
 /-- The same conclusion together with a shortcut-time clock. -/
 def HasTimedStretchedLogDescent (δ clock : ℝ) (n : ℕ) : Prop :=
   ∃ k : ℕ,

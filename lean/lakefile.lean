@@ -13,4 +13,16 @@ require mathlib from git
 @[default_target]
 lean_lib FirstPassageLinearTransport where
   moreLeanArgs := #["-DmaxHeartbeats=20000000"]
-  globs := #[.submodules `FirstPassageLinearTransport]
+  globs := #[
+    .one `FirstPassageLinearTransport.Main,
+    .one `FirstPassageLinearTransport.PaperAudit,
+    .one `FirstPassageLinearTransport.PaperDependencyAudit,
+    .one `FirstPassageLinearTransport.TimeoutEndpointAudit
+  ]
+
+/-- Optional retained V3.1 route. It is compiled only when this library or one
+of its modules is requested explicitly. -/
+lean_lib FirstPassageLinearTransportAlternates where
+  roots := #[`FirstPassageLinearTransport.Alternates]
+  moreLeanArgs := #["-DmaxHeartbeats=20000000"]
+  globs := #[.submodules `FirstPassageLinearTransport.Alternates]

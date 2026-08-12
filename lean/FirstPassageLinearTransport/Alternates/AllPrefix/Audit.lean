@@ -3,12 +3,7 @@ Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
-import FirstPassageLinearTransport.MovingEndpointNaturalDensity
-import FirstPassageLinearTransport.MovingLowDensity
-import FirstPassageLinearTransport.MovingTimeSupport
-import FirstPassageLinearTransport.MovingFirstBad
-import FirstPassageLinearTransport.MovingProfile
-import FirstPassageLinearTransport.MovingSharpProfile
+import FirstPassageLinearTransport.Alternates.AllPrefix.Main
 
 /-!
 # All-prefix moving-endpoint formalization axiom audit
@@ -44,3 +39,7 @@ The V3.2 timeout realization has its own `TimeoutEndpointAudit`.
 #print axioms FirstPassageLinearTransport.naturalDensityOne_of_movingShellError
 #print axioms FirstPassageLinearTransport.movingEndpointNaturalDensityAssembly
 #print axioms FirstPassageLinearTransport.movingEndpointLiteralNaturalDensityDescent
+
+open FirstPassageLinearTransport.Alternates.AllPrefix
+
+#print axioms collatz_first_passage_all_prefix_moving_polylogarithmic_natural_density_descent

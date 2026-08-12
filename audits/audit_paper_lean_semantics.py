@@ -20,6 +20,9 @@ PAPER = ROOT / "paper" / "collatz_first_passage_natural_density.md"
 FORMALIZATION = ROOT / "lean" / "FORMALIZATION.md"
 PROOF_STATE = ROOT / "proof-state.md"
 LEAN_ROOT = ROOT / "lean" / "FirstPassageLinearTransport"
+MAIN_LEAN = LEAN_ROOT / "Main.lean"
+ALTERNATE_MAIN = LEAN_ROOT / "Alternates" / "AllPrefix" / "Main.lean"
+LAKEFILE = ROOT / "lean" / "lakefile.lean"
 RENDER_SCRIPT = ROOT / "paper" / "render_first_passage_v3_manuscript.sh"
 
 
@@ -150,7 +153,7 @@ def main() -> int:
         LiteralCheck(
             "paper fixed-power count keeps a strict rate endpoint",
             PAPER,
-            r"for every fixed \(0<\sigma<1\).",
+            r"for every fixed \(0<\sigma<1\), where \(c_{\alpha,\sigma}>0\).",
         ),
         LiteralCheck(
             "paper graded clock coefficient",
@@ -168,9 +171,9 @@ def main() -> int:
             "first-bad transport/profile adapter",
         ),
         LiteralCheck(
-            "formal map records the public moving theorem",
+            "formal map records the canonical timeout theorem",
             FORMALIZATION,
-            "collatz_first_passage_moving_polylogarithmic_natural_density_descent",
+            "Theorem 1.1, canonical timeout moving endpoint",
         ),
         LiteralCheck(
             "formal map records timeout proof route as primary",
@@ -181,6 +184,17 @@ def main() -> int:
             "formal map records the public timeout theorem",
             FORMALIZATION,
             "collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent",
+        ),
+        LiteralCheck(
+            "formal map records the isolated all-prefix alternate",
+            FORMALIZATION,
+            "FirstPassageLinearTransport.Alternates.AllPrefix."
+            "collatz_first_passage_all_prefix_moving_polylogarithmic_natural_density_descent",
+        ),
+        LiteralCheck(
+            "manuscript referee instructions retain the full package build",
+            PAPER,
+            "lake build",
         ),
         LiteralCheck(
             "proof state records quantitative moving startup as formal",
@@ -315,8 +329,6 @@ def main() -> int:
         "FirstPassageLinearTransport.moving_low_firstBad_sharp_exact_sum_le",
         "FirstPassageLinearTransport.eventually_movingLowStageSetup_M0_le",
         "FirstPassageLinearTransport.exists_eventually_movingEndpointGood_shellError",
-        "FirstPassageLinearTransport.eventually_movingEndpointGood_has_shellWitness",
-        "FirstPassageLinearTransport.movingEndpointLiteralNaturalDensityDescent",
         "FirstPassageLinearTransport.QuantitativeCollatzMain."
         "collatz_first_passage_moving_polylogarithmic_natural_density_descent",
         "FirstPassageLinearTransport.three_pow_timeoutTargetRank_lt_three_pow_oddCount_succ",
@@ -342,12 +354,55 @@ def main() -> int:
         "collatz_first_passage_quantitative_stretched_exceptional_count",
         "FirstPassageLinearTransport.QuantitativeCollatzMain."
         "collatz_first_passage_raw_stretched_log_natural_density_descent",
+        "FirstPassageLinearTransport."
+        "orbitMinimum_le_power_iff_hasFixedPowerDescent",
         "FirstPassageLinearTransport.QuantitativeCollatzMain."
         "collatz_first_passage_graded_power_natural_density_descent",
     ]
     for declaration in critical_declarations:
         if not declaration_present(declaration, lean_text):
             failures.append(f"mapped Lean declaration is absent: {declaration}")
+
+    main_lean = read(MAIN_LEAN)
+    alternate_main = read(ALTERNATE_MAIN)
+    lakefile = read(LAKEFILE)
+
+    def theorem_block(name: str) -> str | None:
+        match = re.search(
+            rf"\btheorem\s+{re.escape(name)}\b(.*?)(?=\n(?:/--|theorem|end\b))",
+            main_lean,
+            flags=re.DOTALL,
+        )
+        return None if match is None else match.group(1)
+
+    canonical_block = theorem_block(
+        "collatz_first_passage_moving_polylogarithmic_natural_density_descent"
+    )
+    if canonical_block is None:
+        failures.append("canonical moving theorem block is absent")
+    else:
+        canonical_compact = compact(canonical_block)
+        if "timeoutEndpointLiteralNaturalDensityDescent" not in canonical_compact:
+            failures.append("canonical moving theorem no longer consumes the timeout assembly")
+        if "movingEndpointLiteralNaturalDensityDescent" in canonical_compact:
+            failures.append("canonical moving theorem regressed to the all-prefix assembly")
+
+    if "Alternates.AllPrefix" in main_lean:
+        failures.append("canonical Main imports or names the optional all-prefix library")
+    alternate_compact = compact(alternate_main)
+    if (
+        "collatz_first_passage_all_prefix_moving_polylogarithmic_natural_density_descent"
+        not in alternate_compact
+    ):
+        failures.append("isolated all-prefix public theorem is absent")
+    if "movingEndpointLiteralNaturalDensityDescent" not in alternate_compact:
+        failures.append("isolated all-prefix theorem no longer consumes its assembly")
+    if "timeoutEndpointLiteralNaturalDensityDescent" in alternate_compact:
+        failures.append("isolated all-prefix theorem unexpectedly consumes timeout assembly")
+    if ".submodules`FirstPassageLinearTransport]" in compact(lakefile):
+        failures.append("default Lake target again includes every optional module")
+    if "lean_libFirstPassageLinearTransportAlternates" not in compact(lakefile):
+        failures.append("separate all-prefix Lean library target is absent")
 
     exact_profile = re.search(
         r"\btheorem\s+moving_low_firstBad_sharp_exact_sum_le\b(.*?):=\s*by",
@@ -410,6 +465,11 @@ def main() -> int:
             PAPER,
             "has not yet been encoded as a second Lean proof term",
             "manuscript disclosure still marks the completed timeout route as pending",
+        ),
+        (
+            PROOF_STATE,
+            "Theorem 1.3 literal landing/ceiling and every strict exceptional power below",
+            "proof state conflates the two non-combinable Theorem 1.3 projections",
         ),
     ]
     for path, phrase, reason in forbidden:

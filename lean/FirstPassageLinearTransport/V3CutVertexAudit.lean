@@ -6,10 +6,12 @@ Authors: Idris Ali Shaik
 import FirstPassageLinearTransport.Main
 
 /-!
-# V3 cut-vertex axiom audit
+# Historical fixed-exponent V3 cut-vertex axiom audit
 
-This audit prints the trusted axioms of every cut vertex and of the public V3
-headline in the optimized fixed-polylogarithmic chain.
+This retained audit prints the trusted axioms of the fixed-exponent V3 chain.
+It does not claim coverage of the later moving/timeout headline.  The canonical
+route is audited by `TimeoutEndpointAudit`; the optional historical comparison
+is audited separately by `Alternates.AllPrefix.Audit`.
 -/
 
 #print axioms FirstPassageLinearTransport.lossFiltered_arbitraryTarget_transport_uniform

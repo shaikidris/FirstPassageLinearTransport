@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.MovingEndpointAssembly
-import FirstPassageLinearTransport.MovingEndpointWitness
+import FirstPassageLinearTransport.Alternates.AllPrefix.Witness
 
 /-!
 # Complete moving-endpoint natural-density theorem

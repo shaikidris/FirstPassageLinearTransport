@@ -60,12 +60,12 @@ The verified development is split by mathematical role.
 - `MovingLowSetup.lean`, `MovingEndpointParameters.lean`,
   `MovingEndpointProfile.lean`, `MovingEndpointAsymptotics.lean`: quantitative
   startup, sharp literal shell profile, and exact `Delta_M` closure.
-- `MovingExecution.lean`, `MovingOrbitCeiling.lean`,
-  `MovingEndpointWitness.lean`: terminal execution, logarithmic clock, and
-  same-witness orbit ceiling.
-- `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`,
-  `MovingEndpointNaturalDensity.lean`: scalar identities, density assembly,
-  and the complete literal moving-endpoint theorem.
+- `MovingExecution.lean`, `MovingOrbitCeiling.lean`: retained all-prefix
+  execution and same-witness orbit ceiling.
+- `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`: shared
+  scalar identities and density assembly.
+- `Alternates/AllPrefix/`: optional all-prefix witness, natural-density
+  theorem, public wrapper, and axiom audit.
 - `TimeoutCore.lean`, `TimeoutDensity.lean`, `TimeoutRun.lean`,
   `TimeoutTimeSupport.lean`: literal low timeout, endpoint-rate tail, mixed
   run, direct-passage collapse, decreasing low potential, and compressed
@@ -92,8 +92,8 @@ The verified development is split by mathematical role.
 - `PaperDependencyAudit.lean`: compiled-declaration and `.ilean` source
   dependency report with reverse reachability.
 - `PaperAudit.lean`: public `#print axioms` report.
-- `MovingEndpointAudit.lean`, `TimeoutEndpointAudit.lean`: independent
-  all-prefix and timeout producer `#print axioms` reports.
+- `Alternates/AllPrefix/Audit.lean`, `TimeoutEndpointAudit.lean`: separate
+  all-prefix and canonical timeout `#print axioms` reports.
 
 The exact fixed-polylogarithmic headline declaration is
 `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent`.
@@ -118,22 +118,21 @@ The graded-power declaration is retained as additional formal
 companion mathematics in Appendix A and is not part of either headline
 dependency chain.
 
-The V3.2 timeout moving endpoint is exposed publicly as
-`QuantitativeCollatzMain.collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent`.
+The canonical V3.2 timeout moving endpoint is exposed publicly as
+`QuantitativeCollatzMain.collatz_first_passage_moving_polylogarithmic_natural_density_descent`.
 Its type retains the bounded moving exponent, exact diverging rank buffer,
 literal shell exceptional ratio, logarithmic clock, moving landing target,
 and same-witness orbit ceiling.
 
 The V3.1 all-prefix realization is retained as
-`QuantitativeCollatzMain.collatz_first_passage_moving_polylogarithmic_natural_density_descent`.
-It has the same public type.  The timeout theorem's low phase imports no moving
-low-stage certificate or startup package; both routes share the endpoint
-parameter and natural-density assembly infrastructure.
+`Alternates.AllPrefix.collatz_first_passage_all_prefix_moving_polylogarithmic_natural_density_descent`.
+It has the same theorem type but lives in a separate non-default library. The
+canonical timeout theorem's low phase imports no alternate module; both routes
+share neutral endpoint-parameter and density-assembly infrastructure.
 
-The V3.2 timeout derivation is separately exposed as
+For compatibility and explicit route naming, the canonical timeout theorem is
+also aliased as
 `QuantitativeCollatzMain.collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent`.
-It has the same public type but its low phase imports no moving low-stage
-certificate or startup package.
 
 The timed theorem quantifies over every real `delta` with `0 < delta < 1` and
 produces a natural-density-one set on which every sufficiently large member

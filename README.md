@@ -78,10 +78,14 @@ low-phase derivations that share the endpoint parameters, scalar asymptotics,
 and dyadic assembly.  The V3.2 primary route uses the manuscript's literal
 first-timeout event, the sharp timeout density, a decreasing low potential,
 direct first-bad transport, and exact halving of the dyadic upper endpoint.
-The retained V3.1 alternate uses an all-prefix moving low producer.  Both reach
+The retained V3.1 alternate uses an all-prefix moving low producer and proves
 the same literal shell exceptional profile, logarithmic clock, and
-same-witness ceiling in `Main.lean`.  The paper's sharper fixed-`A`
-exceptional exponent range and Theorem 1.3's endpoint exceptional power remain
+same-witness ceiling in the optional `Alternates/AllPrefix` library. It is
+not imported by `Main.lean` or built by the default target. The paper's
+sharper fixed-`A` rate range,
+its displayed log-log/triple-log/functional specializations, the joint
+quantitative predicate and arbitrary clock of Theorem 1.3, the full raw
+transfer of Corollary 1.4, and the literal Theorem 5.3 capstone remain
 paper-level.  The frozen V2.3.1 theorem family remains available as companion
 mathematics.
 
@@ -130,6 +134,9 @@ they are not yet imported by `Main.lean`.
   audit;
 - `audits/paper_lean_semantic_concordance_2026_08_12.md`: literal paper/Lean
   contract concordance and semantic-drift regression gate;
+- `audits/review_v32_full_paper_lean_sync_2026_08_12.md`: six-heading
+  paper-to-Lean contract, timeout-route negative control, dependency counts,
+  trust report, and final PDF inspection;
 - `audits/`: manuscript-only mathematical, literature, content, and desk
   records;
 - `audits/review_post_freeze_corollaries_2026_08_06.md`: downstream
@@ -141,19 +148,18 @@ they are not yet imported by `Main.lean`.
 - `audits/review_v3_streamlined_headline_cone_2026_08_09.md`: optimized
   manuscript-cone, Tao-bridge comparison, formal-map, and render audit;
 - `lean/`: independent minimal Lean 4 package;
-- `lean/FirstPassageLinearTransport/MovingEndpointAudit.lean`: axiom audit
-  for the retained all-prefix moving realization;
+- `lean/FirstPassageLinearTransport/Alternates/AllPrefix/Audit.lean`: optional
+  axiom audit for the retained all-prefix moving realization;
 - `lean/FirstPassageLinearTransport/TimeoutEndpointAudit.lean`: axiom audit
   for the primary V3.2 timeout realization and public theorem;
 - `proof-state.md`: synchronized paper hashes, status ledger, and formalization
   acceptance gates.
 
-The fixed-exponent V3 manuscript proof and public formal chain have been
-reconstructed through all five cut vertices. The public Lean theorem counts exactly the
-integers lacking its displayed witness, matching the manuscript after the
-Lean theorem's harmless strict landing inequality.  The V3.1 paper extension
-adds the sharp maximal-walk prefactor and moving rank buffer above that frozen
-formal boundary.  The full-package build, placeholder scan,
+The canonical moving-endpoint theorem has been reconstructed through its
+timeout cut vertices.  Its public Lean theorem counts exactly the integers
+lacking its displayed witness, matching Theorem 1.1 after the Lean theorem's
+harmless strict landing inequality and common-constant strengthening.  The
+full-package build, placeholder scan,
 declaration-level dependency report, public-root trust audit, manuscript
 reference audit, and distinct V3 PDF inspection are recorded separately. See
 `lean/FORMALIZATION.md` and `proof-state.md` for the exact boundary.

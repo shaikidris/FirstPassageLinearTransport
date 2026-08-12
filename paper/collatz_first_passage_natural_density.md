@@ -107,8 +107,9 @@ I_M=[2^M,2^{M+1})\cap\mathbb N
 be the \(M\)-th dyadic shell; we call \(M\) its shell rank.  A set
 \(S\subseteq\mathbb N\) has natural density one if
 \[
-\frac{\#(S\cap[1,X])}{X}\longrightarrow1.
+\frac{\#\{1\le n\le X:n\notin S\}}{X}\longrightarrow0,
 \]
+or, equivalently, if \(\#(S\cap[1,X])/X\to1\).
 Put
 \[
 a_0=\frac{\log_2 3}{2}.
@@ -191,8 +192,8 @@ Assume
 \tag{1.4}\label{eq:1-4}
 \]
 For every fixed \(c>c_*\) and \(\beta>0\), there are constants
-\(C_{\rm tar},C_{\rm exc},\varepsilon>0\) and \(M_0\) such that the following
-holds.  Let \(\mathcal E_M\) be the set of \(n\in I_M\) for which no integer
+\(C_{\rm tar},C_{\rm exc},\varepsilon>0\) and an integer \(M_0\ge1\) such that
+the following holds.  Let \(\mathcal E_M\) be the set of \(n\in I_M\) for which no integer
 \(0\le k<c\log n\) simultaneously satisfies
 \[
 T^k(n)\le C_{\rm tar}(\log n)^{A_M},
@@ -220,9 +221,10 @@ The ceiling in \(L_M\) changes \(\Delta_M\) by only \(O(1)\).  Hence, when
 
 ### Corollary 1.2 (explicit descent scales) {#cor-endpoint-profiles}
 
-Fix \(c>c_*\) and \(\beta>0\).  In each of the following statements the
-landing has a constant \(C_{\rm tar}>0\), occurs before \(c\log n\) shortcut
-steps, and its witness satisfies
+Fix \(c>c_*\) and \(\beta>0\).  Each numbered statement below has its own
+constant \(C_{\rm tar}>0\), allowed to depend on all parameters displayed in
+that statement.  The landing occurs before \(c\log n\) shortcut steps, and its
+witness satisfies
 \(\max_{j\le k}T^j(n)\le n^{1+\beta}\).
 
 1. For every fixed \(A>A_{\rm FP}\) and every
@@ -252,8 +254,9 @@ steps, and its witness satisfies
 
 More generally, the final factor in \eqref{eq:1-7} may be replaced, on a
 natural-density-one set, by \(\Omega(\log\log n)\) for any prescribed
-function \(\Omega(x)\to\infty\).  The constants and the retained set may
-depend on \(\Omega,c,\beta\).
+function \(\Omega:[1,\infty)\to(0,\infty)\) with \(\Omega(x)\to\infty\).
+No monotonicity is required.  The constants and the retained set may depend
+on \(\Omega,c,\beta\).
 
 Every target above is \(o(n)\), so it is a genuine descent for all sufficiently
 large \(n\).  The assertions are density-one rather than pointwise.  Neither
@@ -311,6 +314,9 @@ with an integer \(\ell<c_{\rm raw}\log n\) and the raw-orbit ceiling
 \[
 \max_{0\le j\le\ell}\operatorname{Col}^j(n)\le n^{1+\beta}.
 \]
+All parameter ranges remain exactly as stated in those results; their
+existential constants may additionally depend on \(c_{\rm raw}\).  The same
+raw index \(\ell\) supplies both the corresponding landing and this ceiling.
 Since \(3/\log(4/3)=10.42817849\ldots\), the explicit constant \(10.44\)
 remains admissible.
 
@@ -324,11 +330,14 @@ X\exp(-c_{\alpha,\sigma}(\log X)^\sigma)
 \right)
 \tag{1.10}\label{eq:1-10}
 \]
-for every fixed \(0<\sigma<1\).
+for every fixed \(0<\sigma<1\), where \(c_{\alpha,\sigma}>0\).
 
 If \(0<\alpha<1\), then for every fixed \(\varepsilon>0\) the same
-fixed-power target is also reached on a natural-density-one set before
+fixed-power target is also reached on a natural-density-one set: for every
+sufficiently large retained \(n\), there is an integer \(k\ge0\) with
+\(T^k(n)\le n^\alpha\) and
 \[
+k<
 \left(
 \frac{2(1-\alpha)}{\log(4/3)}+\varepsilon
 \right)\log n
@@ -1182,8 +1191,9 @@ certification failure before it reaches rank below \(L\).
 
 ### Theorem 5.3 (fixed-barrier failure bound) {#thm-terminal-profile}
 
-Under \eqref{eq:5-1}, for the fixed startup rank \(M_0\) chosen above there
-is a constant \(C>0\) such that, for all integers \(M\ge L\ge M_0\),
+Under \eqref{eq:5-1}, there are an integer
+\(M_0=M_0(r,\eta,c_\eta)\ge1\) and a constant \(C>0\) such that, for all
+integers \(M\ge L\ge M_0\),
 \[
 \boxed{
 \frac{\#\operatorname{Fail}_{M,L}}{2^M}
@@ -1905,11 +1915,13 @@ tertiary multiplier.  The moving theorem improves the terminal scale while
 weakening its displayed exceptional-set rate; these are separate comparison
 axes, as recorded in [Corollary 1.2](#cor-endpoint-profiles).
 
-The proofs of Theorems 1.1 and 1.3 use only the optimized first-passage chain:
-the parity-vector bijection, large-rank prefix-deviation estimate, small-rank
-timeout tail, first-passage reversal, exact reverse-product loss, direct
-passage along decreasing thresholds, and the reduced set of possible passage
-times.  These proofs use no
+Theorem 1.1 uses the parity-vector bijection, large-rank prefix-deviation
+estimate, small-rank timeout tail, first-passage reversal, exact
+reverse-product loss, direct passage along decreasing thresholds, and the
+reduced set of possible passage times.  Theorem 1.3 instead uses the
+fixed-barrier failure bound of Theorem 5.3 after the shared first-passage and
+reverse-loss lemmas; it does not use the small-rank timeout substitution.
+Neither proof uses a
 fixed-time endpoint-fiber moment,
 Fourier estimate, stochastic independence between orbit blocks, mixing
 statement, Diophantine reduction, or generated-target equidistribution
@@ -1941,31 +1953,40 @@ and \(\beta>0\), with a positive logarithmic exceptional exponent; its landing
 inequality is strict and hence slightly stronger than the manuscript's weak
 inequality.  The exact upper range for that fixed-\(A\) exceptional exponent
 is paper-level.  For
-[Theorem 1.3](#thm-stretched-log), Lean formalizes the literal landing and
-ceiling together with every strict exceptional power below \(1-\delta\); the
-endpoint power \(1-\delta\) in \eqref{eq:1-8} is paper-level.
+[Theorem 1.3](#thm-stretched-log), one public Lean declaration formalizes the
+literal same-witness landing, clock, and ceiling at the explicit shortcut
+clock \(6.953\log n\), while another formalizes the unclocked exceptional
+count for every strict power below \(1-\delta\).  These projections do not
+recover the theorem's joint quantitative predicate or its arbitrary strict
+clock \(c>c_*\).  No single public declaration currently combines them, and
+the endpoint power \(1-\delta\) in \eqref{eq:1-8} is paper-level.
 For [Corollary 1.4](#cor-raw-clock), the current public raw declaration
 formalizes the stretched-logarithmic landing with the \(10.44\log n\) clock.
 The moving-polylogarithmic raw specialization, its same-witness raw-orbit
 ceiling, and the transferred quantitative rates are presently paper-level.
+The literal capstone statement of [Theorem 5.3](#thm-terminal-profile) is also
+paper-level: Lean checks its finite first-bad aggregation, recursive-run, and
+terminal-profile components, but no single declaration currently combines
+those components with the theorem's real-valued rank parameter and full
+successful-witness conclusion.
 
-The package now contains two complete low-rank proof terms for the
-shell-dependent theorem.  They share the endpoint parameters, scalar
-asymptotics, and dyadic natural-density assembly.  The route mapped to this
+The package contains the canonical timeout proof term and, in a separate
+optional library, the earlier all-prefix cross-check. They share endpoint
+parameters, scalar asymptotics, and dyadic natural-density assembly. The route mapped to this
 V3.2 manuscript mirrors the timeout substitution in
 [Lemma 6.3](#lem-timeout-low-phase) and
 [Proposition 6.4](#prop-rank-buffer): it kernel-checks the literal timeout
 event and endpoint-rate tail, the mixed run and decreasing low potential,
 first-timeout transport, exact dyadic-endpoint halving, and the same-witness
-clock and ceiling.  The retained comparison route uses the earlier all-prefix
-argument at small shell ranks.  The two routes expose identical public
-conclusions; the all-prefix route is not a dependency of the written timeout
-proof.
+clock and ceiling. The retained comparison route uses the earlier all-prefix
+argument at small shell ranks. It proves the same proposition in
+`FirstPassageLinearTransport.Alternates.AllPrefix.Main`, but is neither
+imported by the referee-facing `Main` module nor built by the default target.
 
 The access-controlled
 [GitHub repository](https://github.com/shaikidris/FirstPassageLinearTransport)
-contains the complete public theorem and both formal derivations on its
-current private branch; repository access can be provided to referees on
+contains the complete public theorem and the separately packaged alternate on
+its current private branch; repository access can be provided to referees on
 request.  The
 formal package uses Lean `4.15.0` (commit
 `11651562caae`) and Mathlib revision
@@ -1973,17 +1994,17 @@ formal package uses Lean `4.15.0` (commit
 directory, run:
 
 ```text
+lake build
 lake build FirstPassageLinearTransport.TimeoutEndpointAudit \
-  FirstPassageLinearTransport.MovingEndpointAudit \
   FirstPassageLinearTransport.PaperDependencyAudit \
   FirstPassageLinearTransport.PaperAudit FirstPassageLinearTransport.Main
+lake build FirstPassageLinearTransportAlternates
 ```
 
 The theorem dictionary is `lean/FORMALIZATION.md`.  The audit files are
 `PaperDependencyAudit.lean` for dependencies, `PaperAudit.lean` for the
-public roots, `TimeoutEndpointAudit.lean` for the timeout route, and
-`MovingEndpointAudit.lean` for the all-prefix alternate; all four lie in
-`lean/FirstPassageLinearTransport/`.  The build,
+public roots, and `TimeoutEndpointAudit.lean` for the timeout route. The
+optional all-prefix audit is `Alternates/AllPrefix/Audit.lean`. The canonical build,
 placeholder scan, dependency report, and all axiom audits pass, with logical
 dependencies `propext`, `Classical.choice`, and `Quot.sound`.  These checks
 supplement rather than replace the written proof.
