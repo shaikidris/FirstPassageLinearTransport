@@ -9,8 +9,9 @@ import FirstPassageLinearTransport.PaperDependencyAudit
 /-!
 # First-passage manuscript axiom audit
 
-Public `#print axioms` surface for the standalone V3.1 manuscript.  The
-moving-endpoint implementation is also audited at finer granularity by
+Public `#print axioms` surface for the standalone V3.2 manuscript.  The
+timeout implementation is audited at finer granularity by
+`TimeoutEndpointAudit`; the retained all-prefix alternate is audited by
 `MovingEndpointAudit`.  This module reports logical
 trust; `PaperDependencyAudit` separately reports declaration and
 source-elaboration reachability, while a full `lake build` remains the
@@ -58,6 +59,11 @@ source-reconstruction gate.
 -- Optimized fixed-polylogarithmic assembly and literal referee-facing theorem.
 #print axioms
   FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_moving_polylogarithmic_natural_density_descent
+#print axioms
+  FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent
+#print axioms FirstPassageLinearTransport.timeoutEndpointLiteralNaturalDensityDescent
+#print axioms FirstPassageLinearTransport.exists_eventually_timeoutEndpointGood_shellError
+#print axioms FirstPassageLinearTransport.eventually_timeoutEndpointGood_has_shellWitness
 #print axioms FirstPassageLinearTransport.timeSupportCriticalExponent_eq_entropy
 #print axioms FirstPassageLinearTransport.lossFiltered_arbitraryTarget_transport_atTimes_uniform
 #print axioms FirstPassageLinearTransport.ShrinkingRecertificationRun.directFirstPassage

@@ -55,8 +55,9 @@ Collatz definitions:
 - `SharpEntropyBarrier.lean`, `MovingLowParameters.lean`,
   `MovingLowDensity.lean`: the internal sharp-prefactor and moving
   landing-density producer;
-- `MovingTimeSupport.lean`: the literal moving stopped run, direct nested
-  first passage, exact certified landing shell, decreasing rank potential,
+- `MovingTimeSupport.lean`: the literal moving stopped run, direct passage
+  along decreasing thresholds, exact certified landing shell, decreasing
+  rank potential,
   and uniform `O(sqrt (M log M))` feasible-time support without a
   `1 / (1 - rLo)` loss;
 - `MovingFirstBad.lean`, `MovingProfile.lean`: direct support-sensitive moving
@@ -72,9 +73,15 @@ Collatz definitions:
 - `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`,
   `MovingEndpointNaturalDensity.lean`: scalar identities, density assembly,
   and complete literal moving-endpoint theorem.
+- `TimeoutCore.lean` through `TimeoutEndpointNaturalDensity.lean`: primary
+  V3.2 formalization of the manuscript's first-timeout low phase, sharp shell
+  profile, exact dyadic-endpoint discharge, same-witness ceiling, and public
+  natural-density theorem.
 
-`Main.lean` exposes the V3.1 moving-endpoint theorem for every bounded exponent
-profile whose exact rank buffer diverges. It also exposes the fixed-exponent
+`Main.lean` exposes the V3.2 timeout moving-endpoint theorem for every bounded
+exponent profile whose exact rank buffer diverges, and retains the V3.1
+all-prefix theorem with the same literal conclusion as a formal alternate. It
+also exposes the fixed-exponent
 specialization for every
 `A > 1 / (2 * (1 - H₂(log₃ 2))) = 9.9911133419...` and retains the older
 fixed-tolerance theorem internally together with the stretched-logarithmic,
@@ -103,6 +110,12 @@ Build the internal moving-producer axiom-audit target:
 lake build FirstPassageLinearTransport.MovingEndpointAudit
 ```
 
+Build the separate timeout-producer axiom-audit target:
+
+```bash
+lake build FirstPassageLinearTransport.TimeoutEndpointAudit
+```
+
 Print the declaration/source dependency report directly:
 
 ```bash
@@ -124,7 +137,8 @@ retained source module; `PaperDependencyAudit` checks theorem provenance and
 source-elaboration reachability; `PaperAudit` reports public trusted axioms;
 `MovingEndpointAudit` reports the trust surface of the internal moving
 producer, moving time-support theorem, exact-rate sharp profile, and
-conditional assembly.
+conditional assembly. `TimeoutEndpointAudit` independently reports the
+timeout producer and its final assembly.
 
 The exact public declarations and package layout are documented in
 `FirstPassageLinearTransport/README.md`. The manuscript-to-Lean map is in
