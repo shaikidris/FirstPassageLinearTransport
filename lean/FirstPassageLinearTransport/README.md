@@ -12,8 +12,8 @@ The verified development is split by mathematical role.
 - `FirstPassage.lean`, `Transport.lean`: first-passage reversal, rigidity,
   tagged fibers, and arbitrary-target linear transport.
 - `LossTransport.lean`, `NestedRecertification.lean`, `RankScaledLoss.lean`:
-  loss-filtered transport, nested first-passage collapse, and the all-block
-  rank-scaled reverse-loss budget.
+  loss-filtered transport, direct-passage collapse along decreasing
+  thresholds, and the all-block rank-scaled reverse-loss budget.
 - `EntropyBarrier.lean`, `AdjustableEnvelope.lean`,
   `AdjustableBarrierDensity.lean`: exact entropy optimization, adjustable
   orbit envelope, startup discharge, and entropy-sharp shell tail.
@@ -23,7 +23,8 @@ The verified development is split by mathematical role.
 - `TwoRegimeRun.lean`, `TwoRegimeProfile.lean`, `TwoRegimeClock.lean`,
   `TwoRegimeExecution.lean`, `TwoRegimeSchedules.lean`,
   `TwoRegimeTailAsymptotics.lean`, `TwoRegimePolylogProfile.lean`:
-  high/low re-certification, clock, schedules, and quantitative shell profile.
+  the retained high/low certified comparison chain, its clock, schedules, and
+  quantitative shell profile.
 - `FixedPolylogParameters.lean`, `TwoRegimePolylogExecution.lean`,
   `TwoRegimeOrbitCeiling.lean`: endpoint selection, terminal witness,
   natural-log target, and same-witness orbit ceiling for the retained
@@ -45,8 +46,9 @@ The verified development is split by mathematical role.
 - `SharpEntropyBarrier.lean`, `MovingLowParameters.lean`,
   `MovingLowDensity.lean`: sharp compact-regime prefactor, moving parameters,
   rounding, and the literal moving landing-density producer.
-- `MovingTimeSupport.lean`: literal moving high/low stopped runs, direct nested
-  first passage, certified shell collapse, the decreasing low-rank potential,
+- `MovingTimeSupport.lean`: literal moving high/low stopped runs, direct passage
+  along decreasing thresholds, certified shell collapse, the decreasing
+  low-rank potential,
   and the uniform square-root-logarithmic cumulative-time support.
 - `MovingFirstBad.lean`, `MovingProfile.lean`: moving first-bad transport on
   the compressed time support, common reverse-loss budget for any rational
@@ -64,6 +66,18 @@ The verified development is split by mathematical role.
 - `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`,
   `MovingEndpointNaturalDensity.lean`: scalar identities, density assembly,
   and the complete literal moving-endpoint theorem.
+- `TimeoutCore.lean`, `TimeoutDensity.lean`, `TimeoutRun.lean`,
+  `TimeoutTimeSupport.lean`: literal low timeout, endpoint-rate tail, mixed
+  run, direct-passage collapse, decreasing low potential, and compressed
+  feasible-time support.
+- `TimeoutFirstBad.lean`, `TimeoutProfile.lean`, `TimeoutEnvelope.lean`,
+  `TimeoutExecution.lean`: first-timeout transport, sharp aggregation, total
+  shell execution, and exact dyadic-endpoint discharge.
+- `TimeoutEndpointProfile.lean`, `TimeoutEndpointAsymptotics.lean`,
+  `TimeoutOrbitCeiling.lean`, `TimeoutEndpointWitness.lean`,
+  `TimeoutEndpointNaturalDensity.lean`: literal timeout shell error,
+  critical-buffer closure, same-witness clock/ceiling, and the primary public
+  natural-density theorem.
 - `Pullback.lean`, `Parameters.lean`, `Bootstrap.lean`: stopped-map pullback,
   stage construction, and repeated bootstrap.
 - `Scalar.lean`, `Constants.lean`, `HeadlineParameters.lean`: scalar
@@ -78,8 +92,8 @@ The verified development is split by mathematical role.
 - `PaperDependencyAudit.lean`: compiled-declaration and `.ilean` source
   dependency report with reverse reachability.
 - `PaperAudit.lean`: public `#print axioms` report.
-- `MovingEndpointAudit.lean`: internal moving-producer and conditional-assembly
-  `#print axioms` report.
+- `MovingEndpointAudit.lean`, `TimeoutEndpointAudit.lean`: independent
+  all-prefix and timeout producer `#print axioms` reports.
 
 The exact fixed-polylogarithmic headline declaration is
 `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent`.
@@ -104,11 +118,22 @@ The graded-power declaration is retained as additional formal
 companion mathematics in Appendix A and is not part of either headline
 dependency chain.
 
-The V3.1 moving endpoint is exposed publicly as
-`QuantitativeCollatzMain.collatz_first_passage_moving_polylogarithmic_natural_density_descent`.
+The V3.2 timeout moving endpoint is exposed publicly as
+`QuantitativeCollatzMain.collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent`.
 Its type retains the bounded moving exponent, exact diverging rank buffer,
 literal shell exceptional ratio, logarithmic clock, moving landing target,
 and same-witness orbit ceiling.
+
+The V3.1 all-prefix realization is retained as
+`QuantitativeCollatzMain.collatz_first_passage_moving_polylogarithmic_natural_density_descent`.
+It has the same public type.  The timeout theorem's low phase imports no moving
+low-stage certificate or startup package; both routes share the endpoint
+parameter and natural-density assembly infrastructure.
+
+The V3.2 timeout derivation is separately exposed as
+`QuantitativeCollatzMain.collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent`.
+It has the same public type but its low phase imports no moving low-stage
+certificate or startup package.
 
 The timed theorem quantifies over every real `delta` with `0 < delta < 1` and
 produces a natural-density-one set on which every sufficiently large member

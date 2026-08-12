@@ -1,5 +1,10 @@
 # V3.2 integrated timeout-replacement audit
 
+> **Formalization update.** The `FORMALIZATION-PENDING` entries below record
+> the state at the time of this audit.  The timeout route has since been
+> completed through the public `Main.lean` theorem and is mapped and audited in
+> `lean/FORMALIZATION.md`, `TimeoutEndpointAudit.lean`, and `proof-state.md`.
+
 **Date:** 2026-08-12
 **Mode:** MATH-TEXT + CONSISTENCY + RENDER
 **Classification:** THEOREM-PRESERVING PROOF REPLACEMENT

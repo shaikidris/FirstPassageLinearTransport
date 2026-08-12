@@ -90,13 +90,13 @@ def main():
     add = P.append
     add(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
         f'width="100%" role="img" aria-labelledby="figt figd" font-family="{SERIF}">')
-    add('<title id="figt">Proof architecture and the compressed time support</title>')
+    add('<title id="figt">Proof architecture and the reduced set of possible passage times</title>')
     add('<desc id="figd">Panel a: a real shortcut-Collatz orbit descends inside the '
         'certified high-rank envelope of slope a0 minus 1; at each high threshold it '
-        'makes a first passage into a landing band and is re-certified until the '
+        'makes a first passage into a landing band and is certified until the '
         'switch, below which the low rule either crosses within the parent rank or '
         'records a timeout. Panel b: a schematic order comparison records the reduction from '
-        'a linear time-tag horizon to square-root-logarithmic feasible support. The '
+        'all times in a linear horizon to O(sqrt(M log M)) possible passage times. The '
         'bar lengths do not represent theorem constants.</desc>')
     add('<defs><pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" '
         'patternUnits="userSpaceOnUse">'
@@ -153,14 +153,14 @@ def main():
     add(f'<line x1="{sx(k0):.1f}" y1="{sy(q0)-6:.1f}" x2="{sx(k0)+16:.1f}" '
         f'y2="{sy(q0)-21:.1f}" stroke="{MUTED}" stroke-width="1"/>')
     add(f'<text x="{sx(k0)+20:.1f}" y="{sy(q0)-23:.1f}" font-size="11" fill="{SEC}">'
-        f'high first passage → re-certify until the switch (§6)</text>')
+        f'high first passage → certify until the switch (§6)</text>')
     add(f'<text x="{X0}" y="{Y1+16}" font-size="11" fill="{MUTED}">'
         f'below S: cross within m steps, or charge the timeout tail</text>')
 
     # ---------------- panel (b) ----------------
     add(f'<line x1="0" y1="286" x2="{W}" y2="286" stroke="{RULE}" stroke-width="1"/>')
     add(f'<text x="0" y="306" font-size="12" fill="{INK}">'
-        f'<tspan font-weight="bold">(b)</tspan> the time-tag compression used by '
+        f'<tspan font-weight="bold">(b)</tspan> reduction in possible passage times used by '
         f'the transport argument <tspan font-style="italic">(orders only)</tspan></text>')
 
     bx0, bx1 = 135, 625
@@ -177,9 +177,9 @@ def main():
     add(f'<rect x="{bx0}" y="{y_support-7}" width="220" height="14" '
         f'fill="{ACCENT}"/>')
     add(f'<text x="{bx0+232}" y="{y_support+4}" font-size="11" fill="{SEC}">'
-        f'O(√(M log M)) feasible times</text>')
+        f'O(√(M log M)) possible passage times</text>')
     add(f'<text x="{bx0}" y="407" font-size="10.5" fill="{MUTED}">'
-        f'relative support O(√(log M / M)) → 0; bar lengths are schematic</text>')
+        f'fraction of the linear horizon O(√(log M / M)) → 0; bar lengths are schematic</text>')
 
     add('</svg>')
     out = "\n".join(P) + "\n"

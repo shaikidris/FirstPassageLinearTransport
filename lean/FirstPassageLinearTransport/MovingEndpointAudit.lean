@@ -11,12 +11,13 @@ import FirstPassageLinearTransport.MovingProfile
 import FirstPassageLinearTransport.MovingSharpProfile
 
 /-!
-# Moving-endpoint formalization axiom audit
+# All-prefix moving-endpoint formalization axiom audit
 
-This module audits the complete V3.1 moving-endpoint chain: analytic producer,
-quantitative startup, feasible-time support, first-bad transport, exact-rate
-sharp `q^{-1/2}` profile, scalar buffer closure, same-witness execution, and
-literal natural-density assembly.
+This module audits the retained V3.1 all-prefix low-rank realization of the
+moving-endpoint theorem: analytic producer, quantitative startup, feasible-time
+support, first-bad transport, exact-rate sharp `q^{-1/2}` profile, scalar
+buffer closure, same-witness execution, and literal natural-density assembly.
+The V3.2 timeout realization has its own `TimeoutEndpointAudit`.
 -/
 
 #print axioms FirstPassageLinearTransport.exists_barrierHitCount_real_normalized_le_binaryBarrierRate

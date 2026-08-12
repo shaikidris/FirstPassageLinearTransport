@@ -173,9 +173,14 @@ def main() -> int:
             "collatz_first_passage_moving_polylogarithmic_natural_density_descent",
         ),
         LiteralCheck(
-            "formal map separates the timeout proof route",
+            "formal map records timeout proof route as primary",
             FORMALIZATION,
-            "The timeout proof route is not yet separately formalized",
+            "The timeout proof route is separately formalized and is the primary V3.2",
+        ),
+        LiteralCheck(
+            "formal map records the public timeout theorem",
+            FORMALIZATION,
+            "collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent",
         ),
         LiteralCheck(
             "proof state records quantitative moving startup as formal",
@@ -187,6 +192,12 @@ def main() -> int:
             "proof state records the moving endpoint assembly as formal",
             PROOF_STATE,
             "moving `Delta_M` shell-density/same-witness producer and public moving endpoint:"
+            " `PROVED-FORMAL`",
+        ),
+        LiteralCheck(
+            "proof state records timeout route as manuscript-mapped formal proof",
+            PROOF_STATE,
+            "timeout proof route as the manuscript-mapped Lean derivation:"
             " `PROVED-FORMAL`",
         ),
     ]
@@ -264,6 +275,27 @@ def main() -> int:
             "Lean public moving endpoint exposes one same-witness conclusion",
             "collatz_first_passage_moving_polylogarithmic_natural_density_descent",
         ),
+        (
+            "Lean timeout event uses every time through the parent deadline",
+            "def LowStageTimeout (K₀ : ℝ) (L m x : ℕ) : Prop :="
+            " ∀ j : Fin (m + 1), 2 ^ timeoutTargetRank K₀ L m < orbit j x",
+        ),
+        (
+            "Lean timeout low potential is current-rank weighted",
+            "(S : ℝ) * (q : ℝ)",
+        ),
+        (
+            "Lean timeout high potential carries the square switch reserve",
+            "+ (S : ℝ) ^ 2",
+        ),
+        (
+            "Lean timeout target density is normalized by the full landing band",
+            "((timeoutLandingBad K₀ L p).card : ℝ) / (2 : ℝ) ^ p ≤",
+        ),
+        (
+            "Lean public timeout endpoint exposes one same-witness conclusion",
+            "collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent",
+        ),
     ]
     compact_lean = compact(lean_text)
     for name, required in lean_literal_checks:
@@ -287,6 +319,23 @@ def main() -> int:
         "FirstPassageLinearTransport.movingEndpointLiteralNaturalDensityDescent",
         "FirstPassageLinearTransport.QuantitativeCollatzMain."
         "collatz_first_passage_moving_polylogarithmic_natural_density_descent",
+        "FirstPassageLinearTransport.three_pow_timeoutTargetRank_lt_three_pow_oddCount_succ",
+        "FirstPassageLinearTransport.timeoutShellBad_subset_terminalOddUpperShell",
+        "FirstPassageLinearTransport.exists_card_timeoutShellBad_endpointRate_le",
+        "FirstPassageLinearTransport.TimeoutRecertificationRun.directFirstPassage",
+        "FirstPassageLinearTransport.TimeoutRecertificationRun.toCertifiedRankChain",
+        "FirstPassageLinearTransport.TimeoutRecertificationRun.scaledReverseLoss_le",
+        "FirstPassageLinearTransport.TimeoutRecertificationRun.deviation_add_potential_le",
+        "FirstPassageLinearTransport.eventually_timeoutFeasibleTimes_card_lt_sqrt",
+        "FirstPassageLinearTransport.timeoutFirstBadSourcesAtRank_subset_transport",
+        "FirstPassageLinearTransport.timeoutFirstBadSourcesAtRank_card_le",
+        "FirstPassageLinearTransport.timeout_low_firstBad_sharp_sum_canonical_le",
+        "FirstPassageLinearTransport.timeoutSeparatedFailureEnvelope_density_sharp_le",
+        "FirstPassageLinearTransport.timeoutSource_terminal_or_failure",
+        "FirstPassageLinearTransport.eventually_timeoutEndpointGood_has_shellWitness",
+        "FirstPassageLinearTransport.timeoutEndpointLiteralNaturalDensityDescent",
+        "FirstPassageLinearTransport.QuantitativeCollatzMain."
+        "collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent",
         "FirstPassageLinearTransport.QuantitativeCollatzMain."
         "collatz_first_passage_fixed_polylogarithmic_natural_density_descent",
         "FirstPassageLinearTransport.QuantitativeCollatzMain."
@@ -346,6 +395,21 @@ def main() -> int:
             PAPER,
             r"B^{\rm crit}_{M,q}",
             "removed moving all-prefix target returned to the V3.2 manuscript",
+        ),
+        (
+            FORMALIZATION,
+            "The timeout proof route is not yet separately formalized",
+            "formal theorem map still marks the completed timeout route as open",
+        ),
+        (
+            PROOF_STATE,
+            "timeout proof route as a second Lean derivation: `FORMALIZATION-PENDING`",
+            "proof state still marks the completed timeout route as pending",
+        ),
+        (
+            PAPER,
+            "has not yet been encoded as a second Lean proof term",
+            "manuscript disclosure still marks the completed timeout route as pending",
         ),
     ]
     for path, phrase, reason in forbidden:

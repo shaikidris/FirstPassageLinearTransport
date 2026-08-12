@@ -57,7 +57,8 @@ without entering the optimized fixed-polylogarithmic dependency chain.
 The V3.2 manuscript proof is integrated.  It uses high-rank all-prefix
 certification and replaces the former moving low all-prefix certificate by a
 terminal odd-count timeout tail.  The Lean development compiles the
-loss-filtered target transport, nested direct first-passage collapse,
+loss-filtered target transport, direct-passage collapse along decreasing
+thresholds,
 all-block rank-scaled loss budget, entropy-sharp Boolean barrier, complete
 two-regime exceptional profile, literal terminal witness, mixed-run orbit
 ceiling, endpoint parameter selection, and the referee-facing fixed-polylog
@@ -72,11 +73,14 @@ rate, giving `(L+1) 2^(-L) + sqrt(L) exp(-b (L-1))`.  The quantitative
 moving-stage startup, exact `Delta_M` shell profile, literal same-witness
 execution, and public moving-endpoint theorem are now formalized as well.
 
-The formal package verifies the complete moving-endpoint headline, including
-its literal shell exceptional profile, logarithmic clock, and same-witness
-ceiling, through the previously formalized all-prefix low producer.  The
-timeout proof route is not yet separately formalized; it is a shorter paper
-proof of the same public conclusion.  The paper's sharper fixed-`A`
+The formal package now verifies the complete moving-endpoint headline by two
+low-phase derivations that share the endpoint parameters, scalar asymptotics,
+and dyadic assembly.  The V3.2 primary route uses the manuscript's literal
+first-timeout event, the sharp timeout density, a decreasing low potential,
+direct first-bad transport, and exact halving of the dyadic upper endpoint.
+The retained V3.1 alternate uses an all-prefix moving low producer.  Both reach
+the same literal shell exceptional profile, logarithmic clock, and
+same-witness ceiling in `Main.lean`.  The paper's sharper fixed-`A`
 exceptional exponent range and Theorem 1.3's endpoint exceptional power remain
 paper-level.  The frozen V2.3.1 theorem family remains available as companion
 mathematics.
@@ -138,8 +142,9 @@ they are not yet imported by `Main.lean`.
   manuscript-cone, Tao-bridge comparison, formal-map, and render audit;
 - `lean/`: independent minimal Lean 4 package;
 - `lean/FirstPassageLinearTransport/MovingEndpointAudit.lean`: axiom audit
-  for the internal sharp-prefactor, moving-density producer, moving
-  time-support theorem, and conditional moving assembly;
+  for the retained all-prefix moving realization;
+- `lean/FirstPassageLinearTransport/TimeoutEndpointAudit.lean`: axiom audit
+  for the primary V3.2 timeout realization and public theorem;
 - `proof-state.md`: synchronized paper hashes, status ledger, and formalization
   acceptance gates.
 
