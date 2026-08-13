@@ -16,13 +16,12 @@ parity vectors, polylogarithmic descent
 
 ## Abstract
 
-Let \(T(n)=n/2\) for even \(n\) and \(T(n)=(3n+1)/2\) for odd \(n\), and
-write \(T_{\min}(n)=\min_{k\ge0}T^k(n)\).  Put
+Let \(T(n)=n/2\) for even \(n\) and \(T(n)=(3n+1)/2\) for odd \(n\).  Put
 \(\kappa_*=1-H_2(\log_3 2)\),
 \(A_{\rm FP}=(2\kappa_*)^{-1}=9.9911133419\ldots\), and
 \(c_*=2/\log(4/3)=6.9521189935\ldots\), where \(H_2\) is binary entropy.
 For every fixed \(A>A_{\rm FP}\), \(c>c_*\), \(\beta>0\), and
-\(0<\gamma<\kappa_*(A-A_{\rm FP})\), all but
+\(0<\gamma<\kappa_*(A-A_{\rm FP})\), there is \(C_{\rm tar}>0\) such that all but
 \(O_{A,c,\beta,\gamma}(X/(\log X)^\gamma)\) integers \(n\le X\) possess an
 iterate with \(k<c\log n\) such that
 \[
@@ -31,8 +30,8 @@ T^k(n)\le C_{\rm tar}(\log n)^A,
 \max_{0\le j\le k}T^j(n)\le n^{1+\beta}.
 \]
 The proof reaches the critical principal exponent \(A_{\rm FP}\), but only
-with an explicit log-log factor: for every fixed \(D>0\), the target can be
-replaced by
+with an explicit log-log factor: for every fixed \(D>0\), with a possibly
+different \(C_{\rm tar}\), the target can be replaced by
 \[
 C_{\rm tar}(\log n)^{A_{\rm FP}}
 (\log\log n)^{2A_{\rm FP}}(\log\log\log n)^D,
@@ -42,18 +41,23 @@ with exceptional count
 \(0<\gamma<D\kappa_*\).  Any prescribed divergent function admits a
 divergent subpower minorant that may replace the final factor.  The pure
 target \(C(\log n)^{A_{\rm FP}}\), and a bounded final multiplier at the
-critical secondary scale, are not asserted.  For the weaker target
-\(\exp((\log n)^{1-\delta})\), \(0<\delta<1\), the exceptional count improves
-to \(O(X\exp(-\gamma(\log X)^{1-\delta}))\).  The same witnesses give every
-unaccelerated clock constant greater than \(3/\log(4/3)\).
+critical secondary scale, are not asserted.  For every fixed
+\(0<\delta<1\), \(c>c_*\), and \(\beta>0\), the weaker target
+\(\exp((\log n)^{1-\delta})\), under the same shortcut clock and orbit ceiling,
+has exceptional count
+\(O_{\delta,c,\beta}(X\exp(-\gamma_{\delta,c,\beta}
+(\log X)^{1-\delta}))\) for some \(\gamma_{\delta,c,\beta}>0\).  The same
+witnesses give every unaccelerated clock constant greater than
+\(3/\log(4/3)\).
 
-The proof counts parity words exactly on each dyadic shell.  Large-scale
-prefix bounds control the orbit, while a terminal odd-step tail controls
-small blocks that time out.  Decreasing thresholds identify every later
-failure with a direct first passage of the original orbit, and the possible
-cumulative passage times occupy only \(O(\sqrt{M\log M})\) values.  Counting
-only those times replaces a linear loss by a square-root loss.  All statements
-are almost-all results, not pointwise assertions.
+The proof counts parity words exactly on each dyadic shell
+\([2^M,2^{M+1})\).  Large-scale prefix bounds control the orbit, while a
+terminal odd-step tail controls small blocks that time out.  Decreasing
+thresholds identify every later failure with a direct first passage of the
+original orbit, and the possible cumulative passage times occupy only
+\(O(\sqrt{M\log M})\) values.  Counting only those times replaces a linear
+loss by a square-root loss.  All statements are almost-all results, not
+pointwise assertions.
 
 ## 1. Introduction and main results
 

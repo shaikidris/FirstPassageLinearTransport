@@ -72,9 +72,22 @@ def manuscript_anchor_audit(
     return anchors, references, duplicates, missing, orphans
 
 
+def markdown_section(text: str, heading: str, next_heading: str) -> str:
+    """Extract one Markdown section, failing if its boundaries drift."""
+
+    start_token = f"## {heading}"
+    end_token = f"## {next_heading}"
+    if text.count(start_token) != 1 or text.count(end_token) != 1:
+        raise RuntimeError(
+            f"cannot isolate Markdown section {heading!r} before {next_heading!r}"
+        )
+    return text.split(start_token, 1)[1].split(end_token, 1)[0]
+
+
 def main() -> int:
     failures: list[str] = []
     paper = read(PAPER)
+    abstract = markdown_section(paper, "Abstract", "1. Introduction and main results")
     lean_files = sorted(LEAN_ROOT.glob("*.lean"))
     lean_text = "\n".join(read(path) for path in lean_files)
 
@@ -242,6 +255,47 @@ def main() -> int:
                 f"missing literal contract [{check.name}] in "
                 f"{check.path.relative_to(ROOT)}"
             )
+
+    abstract_checks = [
+        (
+            "fixed-A exceptional-rate range",
+            r"0<\gamma<\kappa_*(A-A_{\rm FP})",
+        ),
+        (
+            "fixed-A landing constant is quantified",
+            r"there is \(C_{\rm tar}>0\) such that",
+        ),
+        (
+            "critical target retains its secondary factors",
+            r"(\log\log n)^{2A_{\rm FP}}(\log\log\log n)^D",
+        ),
+        (
+            "pure critical target is explicitly excluded",
+            r"The pure target \(C(\log n)^{A_{\rm FP}}\)",
+        ),
+        (
+            "stretched-log claim repeats its full parameter range",
+            r"\(0<\delta<1\), \(c>c_*\), and \(\beta>0\)",
+        ),
+        (
+            "stretched-log claim retains the same clock and ceiling",
+            "under the same shortcut clock and orbit ceiling",
+        ),
+        (
+            "stretched-log rate names its dependent positive exponent",
+            r"\gamma_{\delta,c,\beta}>0",
+        ),
+        (
+            "passage-time scale defines its dyadic-shell rank",
+            r"dyadic shell \([2^M,2^{M+1})\)",
+        ),
+    ]
+    for name, required in abstract_checks:
+        if compact(required) not in compact(abstract):
+            failures.append(f"missing abstract contract [{name}]")
+
+    if abstract.count(r"T_{\min}") == 1:
+        failures.append("abstract defines or mentions T_min exactly once")
 
     lean_literal_checks = [
         (
@@ -551,7 +605,10 @@ def main() -> int:
         return 1
 
     print("paper_lean_semantic_audit=PASS")
-    print(f"literal_contracts={len(checks) + len(lean_literal_checks)}")
+    print(
+        "literal_contracts="
+        f"{len(checks) + len(abstract_checks) + len(lean_literal_checks)}"
+    )
     print(f"critical_declarations={len(critical_declarations)}")
     print(f"equation_labels={len(labels)} equation_references={len(references)}")
     print(
