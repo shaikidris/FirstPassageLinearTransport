@@ -16,48 +16,52 @@ parity vectors, polylogarithmic descent
 
 ## Abstract
 
-Let \(T(n)=n/2\) for even \(n\) and \(T(n)=(3n+1)/2\) for odd \(n\).  Put
+Let \(T\) be the shortcut Collatz map, with \(T(n)=n/2\) for even \(n\) and
+\(T(n)=(3n+1)/2\) for odd \(n\).  Put
 \(\kappa_*=1-H_2(\log_3 2)\),
 \(A_{\rm FP}=(2\kappa_*)^{-1}=9.9911133419\ldots\), and
 \(c_*=2/\log(4/3)=6.9521189935\ldots\), where \(H_2\) is binary entropy.
-For every fixed \(A>A_{\rm FP}\), \(c>c_*\), \(\beta>0\), and
-\(0<\gamma<\kappa_*(A-A_{\rm FP})\), there is \(C_{\rm tar}>0\) such that all but
-\(O_{A,c,\beta,\gamma}(X/(\log X)^\gamma)\) integers \(n\le X\) possess an
-iterate with \(k<c\log n\) such that
+In ordinary natural density, for every fixed \(A>A_{\rm FP}\), \(c>c_*\),
+\(\beta>0\), and \(0<\gamma<\kappa_*(A-A_{\rm FP})\), there is
+\(C_{\rm tar}>0\) such that, as \(X\to\infty\), all but
+\(O_{A,c,\beta,\gamma}(X/(\log X)^\gamma)\) integers \(n\le X\) admit an
+integer \(k<c\log n\) satisfying
 \[
 T^k(n)\le C_{\rm tar}(\log n)^A,
 \qquad
 \max_{0\le j\le k}T^j(n)\le n^{1+\beta}.
 \]
-The proof reaches the critical principal exponent \(A_{\rm FP}\), but only
-with an explicit log-log factor: for every fixed \(D>0\), with a possibly
-different \(C_{\rm tar}\), the target can be replaced by
+At the critical principal exponent \(A_{\rm FP}\), the same clock and ceiling
+hold after adding explicit log-log factors: for every fixed \(D>0\), with a
+possibly different \(C_{\rm tar}\), the target is
 \[
 C_{\rm tar}(\log n)^{A_{\rm FP}}
 (\log\log n)^{2A_{\rm FP}}(\log\log\log n)^D,
 \]
 with exceptional count
 \(O_{D,c,\beta,\gamma}(X/(\log\log\log X)^\gamma)\) whenever
-\(0<\gamma<D\kappa_*\).  Any prescribed divergent function admits a
-divergent subpower minorant that may replace the final factor.  The pure
-target \(C(\log n)^{A_{\rm FP}}\), and a bounded final multiplier at the
-critical secondary scale, are not asserted.  For every fixed
-\(0<\delta<1\), \(c>c_*\), and \(\beta>0\), the weaker target
-\(\exp((\log n)^{1-\delta})\), under the same shortcut clock and orbit ceiling,
-has exceptional count
+\(0<\gamma<D\kappa_*\).  More generally, for every prescribed
+\(\Omega(x)\to\infty\), the conclusion holds with \(\Omega(\log\log n)\) in
+place of the final factor.  The pure target
+\(C(\log n)^{A_{\rm FP}}\), and a bounded final multiplier at the critical
+secondary scale, are not asserted.  For every fixed \(0<\delta<1\),
+\(c>c_*\), and \(\beta>0\), the same conclusion for the weaker target
+\(\exp((\log n)^{1-\delta})\) holds, under the same shortcut clock and orbit
+ceiling, with exceptional count
 \(O_{\delta,c,\beta}(X\exp(-\gamma_{\delta,c,\beta}
-(\log X)^{1-\delta}))\) for some \(\gamma_{\delta,c,\beta}>0\).  The same
-witnesses give every unaccelerated clock constant greater than
+(\log X)^{1-\delta}))\) for some \(\gamma_{\delta,c,\beta}>0\).  The
+corresponding statement for the unaccelerated Collatz map, whose odd step is
+\(n\mapsto3n+1\), allows every clock constant greater than
 \(3/\log(4/3)\).
 
 The proof counts parity words exactly on each dyadic shell
 \([2^M,2^{M+1})\).  Large-scale prefix bounds control the orbit, while a
-terminal odd-step tail controls small blocks that time out.  Decreasing
-thresholds identify every later failure with a direct first passage of the
-original orbit, and the possible cumulative passage times occupy only
-\(O(\sqrt{M\log M})\) values.  Counting only those times replaces a linear
-loss by a square-root loss.  All statements are almost-all results, not
-pointwise assertions.
+terminal odd-step tail controls small blocks that fail to cross their next
+threshold within the allotted steps.  Decreasing thresholds identify every
+later failure with a direct first passage of the original orbit, and the
+possible cumulative passage times occupy only \(O(\sqrt{M\log M})\) values.
+Counting only those times replaces a linear loss by a square-root loss.  All
+statements are almost-all results, not pointwise assertions.
 
 ## 1. Introduction and main results
 
@@ -91,10 +95,6 @@ Put
 a_0=\frac{\log_2 3}{2}.
 \tag{1.1}\label{eq:1-1}
 \]
-Thus \(a_0-1\) is the mean base-two logarithm of the multiplicative main
-term under the exact uniform parity coding used below; the affine correction
-is treated separately before the first-passage argument begins.
-
 Define binary entropy by
 \[
 H_2(p)=-p\log_2p-(1-p)\log_2(1-p),
@@ -142,10 +142,7 @@ Its divergence is the endpoint condition in the main theorem.  For
 \(A\kappa_*=1/2\), giving \(A_{\rm FP}=1/(2\kappa_*)\).  At equality the
 remaining logarithmic margin forces an additional slowly growing factor.
 Thus \(A_{\rm FP}\) is a threshold of the present argument rather than an
-intrinsic constant of the Collatz map.  Within this assembly, lowering the
-leading exponent below \(A_{\rm FP}\) would require either replacing the
-\(M^{1/2}\) feasible-time factor by \(M^\theta\) with \(\theta<1/2\), or
-avoiding the first-passage union bound that multiplies by this cardinality.
+intrinsic constant of the Collatz map.
 
 The main theorem permits a bounded exponent sequence \((A_M)\), fixed in
 advance, with one exponent for each shell \(I_M\).  This single formulation
