@@ -5,7 +5,7 @@ Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.ShrinkingOrbitCeiling
 import FirstPassageLinearTransport.FiniteStartup
-import FirstPassageLinearTransport.TwoRegimePolylogExecution
+import FirstPassageLinearTransport.PolylogTarget
 
 /-!
 # Fixed-polylogarithmic natural-density descent with compressed time support

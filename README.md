@@ -114,8 +114,13 @@ the full-package gate:
 lake build
 ```
 
-The full build is intentional: it catches new or orphaned modules even when
-they are not yet imported by `Main.lean`.
+The default build is intentionally the import-closed canonical `Main` cone
+plus its three audits. Its explicit module list makes a clean checkout fail
+if a required source dependency is omitted and prevents every module under
+the optional `Alternates/AllPrefix` namespace from entering the canonical
+artifact. The alternate has its own explicit build gate. A deeper set of
+seven moving-profile imports remains visible in the canonical source cone and
+is the next recorded packaging cut vertex.
 
 ## Contents
 
@@ -137,6 +142,9 @@ they are not yet imported by `Main.lean`.
 - `audits/review_v32_full_paper_lean_sync_2026_08_12.md`: six-heading
   paper-to-Lean contract, timeout-route negative control, dependency counts,
   trust report, and final PDF inspection;
+- `audits/review_referee_lean_surface_and_packaging_2026_08_13.md`:
+  referee-facing theorem tiers, exact declaration/import-cone audit, safe
+  neutral-module extraction, and the remaining packaging cut vertex;
 - `audits/`: manuscript-only mathematical, literature, content, and desk
   records;
 - `audits/review_post_freeze_corollaries_2026_08_06.md`: downstream

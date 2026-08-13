@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.TimeoutOrbitCeiling
-import FirstPassageLinearTransport.TwoRegimePolylogExecution
+import FirstPassageLinearTransport.PolylogTarget
 
 /-!
 # Same-witness execution for the timeout endpoint
