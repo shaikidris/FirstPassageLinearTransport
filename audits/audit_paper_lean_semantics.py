@@ -90,6 +90,8 @@ def main() -> int:
     abstract = markdown_section(paper, "Abstract", "1. Introduction and main results")
     lean_files = sorted(LEAN_ROOT.glob("*.lean"))
     lean_text = "\n".join(read(path) for path in lean_files)
+    all_lean_files = sorted(LEAN_ROOT.rglob("*.lean"))
+    all_lean_text = "\n".join(read(path) for path in all_lean_files)
 
     checks = [
         LiteralCheck(
@@ -136,6 +138,16 @@ def main() -> int:
             PAPER,
             r"\#\mathcal H^{\rm to}_{M,p}"
             r"\ll\sqrt{(M+2)\log(M+2)}.",
+        ),
+        LiteralCheck(
+            "paper restricted-time transport states its small-loss hypothesis",
+            PAPER,
+            r"D_q/Y\le1/3",
+        ),
+        LiteralCheck(
+            "paper high-failure transport discharges the small-loss hypothesis",
+            PAPER,
+            r"D_q/2^q=(q+2)/(r_{\rm hi}2^q)\le1/3",
         ),
         LiteralCheck(
             "paper critical exponent",
@@ -283,7 +295,7 @@ def main() -> int:
         ),
         (
             "pure critical target is explicitly excluded",
-            r"The pure target \(C(\log n)^{A_{\rm FP}}\)",
+            r"the pure target \(C(\log n)^{A_{\rm FP}}\)",
         ),
         (
             "stretched-log claim repeats its full parameter range",
@@ -291,7 +303,7 @@ def main() -> int:
         ),
         (
             "stretched-log claim retains the same clock and ceiling",
-            "under the same shortcut clock and orbit ceiling, with exceptional count",
+            "with the same shortcut clock and orbit ceiling",
         ),
         (
             "stretched-log rate names its dependent positive exponent",
@@ -303,16 +315,17 @@ def main() -> int:
         ),
         (
             "arbitrary divergent factor states its theorem payoff",
-            r"for every prescribed \(\Omega(x)\to\infty\), the conclusion holds with"
-            r" \(\Omega(\log\log n)\) in place of the final factor",
+            r"The final factor may more generally be replaced by"
+            r" \(\Omega(\log\log n)\) for any prescribed \(\Omega(x)\to\infty\)",
         ),
         (
-            "unaccelerated odd step is defined",
-            r"unaccelerated Collatz map, whose odd step is \(n\mapsto3n+1\)",
+            "unaccelerated odd step and strict raw clock are explicit",
+            r"unaccelerated Collatz map, whose odd step is \(n\mapsto3n+1\),"
+            r" every clock constant greater than \(3/\log(4/3)\) is allowed",
         ),
         (
             "timeout mechanism is described without coined jargon",
-            "fail to cross their next threshold within the allotted steps",
+            "small blocks that miss their next threshold in time",
         ),
     ]
     for name, required in abstract_checks:
@@ -459,7 +472,7 @@ def main() -> int:
         "collatz_first_passage_graded_power_natural_density_descent",
     ]
     for declaration in critical_declarations:
-        if not declaration_present(declaration, lean_text):
+        if not declaration_present(declaration, all_lean_text):
             failures.append(f"mapped Lean declaration is absent: {declaration}")
 
     main_lean = read(MAIN_LEAN)
