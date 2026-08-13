@@ -258,6 +258,18 @@ def main() -> int:
 
     abstract_checks = [
         (
+            "dynamics is named as the shortcut Collatz map",
+            "Let \\(T\\) be the shortcut Collatz map",
+        ),
+        (
+            "density notion is explicit",
+            "In ordinary natural density",
+        ),
+        (
+            "counting limit is explicit",
+            r"as \(X\to\infty\)",
+        ),
+        (
             "fixed-A exceptional-rate range",
             r"0<\gamma<\kappa_*(A-A_{\rm FP})",
         ),
@@ -279,7 +291,7 @@ def main() -> int:
         ),
         (
             "stretched-log claim retains the same clock and ceiling",
-            "under the same shortcut clock and orbit ceiling",
+            "under the same shortcut clock and orbit ceiling, with exceptional count",
         ),
         (
             "stretched-log rate names its dependent positive exponent",
@@ -289,6 +301,19 @@ def main() -> int:
             "passage-time scale defines its dyadic-shell rank",
             r"dyadic shell \([2^M,2^{M+1})\)",
         ),
+        (
+            "arbitrary divergent factor states its theorem payoff",
+            r"for every prescribed \(\Omega(x)\to\infty\), the conclusion holds with"
+            r" \(\Omega(\log\log n)\) in place of the final factor",
+        ),
+        (
+            "unaccelerated odd step is defined",
+            r"unaccelerated Collatz map, whose odd step is \(n\mapsto3n+1\)",
+        ),
+        (
+            "timeout mechanism is described without coined jargon",
+            "fail to cross their next threshold within the allotted steps",
+        ),
     ]
     for name, required in abstract_checks:
         if compact(required) not in compact(abstract):
@@ -296,6 +321,9 @@ def main() -> int:
 
     if abstract.count(r"T_{\min}") == 1:
         failures.append("abstract defines or mentions T_min exactly once")
+    for forbidden in ("possess an iterate with", "subpower minorant", "time out"):
+        if forbidden in abstract:
+            failures.append(f"forbidden desk-risk phrase in abstract: {forbidden}")
 
     lean_literal_checks = [
         (
