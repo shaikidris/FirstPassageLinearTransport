@@ -4,9 +4,9 @@
 
 Independent researcher
 
-**Version:** 3.2 research draft, timeout proof of shell-dependent descent
+**Version:** 3.2 — submission draft
 
-**Content draft:** August 2026
+**Date:** August 2026
 
 **2020 Mathematics Subject Classification:** Primary 11B83; Secondary 37P99,
 60G40
@@ -40,27 +40,25 @@ C_{\rm tar}(\log n)^{A_{\rm FP}}
 \]
 with exceptional count
 \(O_{D,c,\beta,\gamma}(X/(\log\log\log X)^\gamma)\) whenever
-\(0<\gamma<D\kappa_*\).  More generally, for every prescribed
-\(\Omega(x)\to\infty\), the conclusion holds with \(\Omega(\log\log n)\) in
-place of the final factor.  The pure target
-\(C(\log n)^{A_{\rm FP}}\), and a bounded final multiplier at the critical
-secondary scale, are not asserted.  For every fixed \(0<\delta<1\),
-\(c>c_*\), and \(\beta>0\), the same conclusion for the weaker target
-\(\exp((\log n)^{1-\delta})\) holds, under the same shortcut clock and orbit
-ceiling, with exceptional count
+\(0<\gamma<D\kappa_*\).  The final factor may more generally be replaced by
+\(\Omega(\log\log n)\) for any prescribed \(\Omega(x)\to\infty\).  Neither
+the pure target \(C(\log n)^{A_{\rm FP}}\) nor a bounded final multiplier at
+the critical secondary scale is asserted.  For every fixed \(0<\delta<1\),
+\(c>c_*\), and \(\beta>0\), the weaker target
+\(\exp((\log n)^{1-\delta})\) is reached with exceptional count
 \(O_{\delta,c,\beta}(X\exp(-\gamma_{\delta,c,\beta}
-(\log X)^{1-\delta}))\) for some \(\gamma_{\delta,c,\beta}>0\).  The
-corresponding statement for the unaccelerated Collatz map, whose odd step is
-\(n\mapsto3n+1\), allows every clock constant greater than
-\(3/\log(4/3)\).
+(\log X)^{1-\delta}))\) for some \(\gamma_{\delta,c,\beta}>0\), with the same
+shortcut clock and orbit ceiling.  For the unaccelerated Collatz map, whose
+odd step is \(n\mapsto3n+1\), every clock constant greater than
+\(3/\log(4/3)\) is allowed.
 
 The proof counts parity words exactly on each dyadic shell
 \([2^M,2^{M+1})\).  Large-scale prefix bounds control the orbit, while a
-terminal odd-step tail controls small blocks that fail to cross their next
-threshold within the allotted steps.  Decreasing thresholds identify every
-later failure with a direct first passage of the original orbit, and the
-possible cumulative passage times occupy only \(O(\sqrt{M\log M})\) values.
-Counting only those times replaces a linear loss by a square-root loss.  All
+terminal odd-step tail controls small blocks that miss their next threshold in
+time.
+Decreasing thresholds turn every later failure into a direct first passage of
+the original orbit.  Only \(O(\sqrt{M\log M})\) cumulative passage times are
+possible, replacing a linear counting loss by a square-root loss.  All
 statements are almost-all results, not pointwise assertions.
 
 ## 1. Introduction and main results
@@ -213,7 +211,7 @@ witness satisfies
    fails for at most \(O_{A,c,\beta,\gamma}(X/(\log X)^\gamma)\) integers
    \(n\le X\).
 
-2. For every fixed \(B>1/\kappa_*=2A_{\rm FP}\) and every
+2. For every fixed \(B>2A_{\rm FP}\) (equivalently \(B\kappa_*>1\)) and every
    \(0<\gamma<B\kappa_*-1\), the target
    \[
    C_{\rm tar}(\log n)^{A_{\rm FP}}(\log\log n)^B
@@ -244,7 +242,8 @@ the conclusion also holds with the larger factor \(\Omega(\log\log n)\).
 No monotonicity is required of \(\Omega\).  The constants and the retained set
 may depend on \(\Omega,c,\beta\).
 
-Every numbered target above, and the proof-native \(\widetilde\Omega\)-target,
+Every numbered target above, and the moving \(\widetilde\Omega\)-target
+constructed above,
 is \(o(n)\), so it is a genuine descent for all sufficiently large \(n\).
 The assertions are density-one rather than pointwise.  Neither the landing
 constant \(C_{\rm tar}\) nor the onset of the asymptotic comparison is made
@@ -434,7 +433,7 @@ the table.
 | Tao [[5]](#ref-tao) | logarithmic | every \(f(n)\to\infty\) | no single global clock in the headline theorem; logarithmic-density estimate |
 | Mazur [[4]](#ref-mazur) | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | \(<436\log n\) unaccelerated steps; fixed-target logarithmic rate |
 | Allikvere [[1]](#ref-allikvere) | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | \(<12\log n\) unaccelerated steps; \(O((\log N_0)^{-1/29}+X^{-1/2000})\) for a fixed target |
-| This paper | natural | \((\log n)^{A_{\rm FP}}(\log\log n)^{2A_{\rm FP}}\widetilde\Omega(\log\log n)\)<br>\(\widetilde\Omega(x)=x^{o(1)}\to\infty\), chosen eventually below each prescribed \(\Omega\to\infty\); also every fixed \((\log n)^A\), \(A>A_{\rm FP}\) | every shortcut constant \(>c_*\); every unaccelerated constant \(>3/\log(4/3)\); target-dependent quantitative rates and an orbit-height bound through the witnessing time |
+| This paper | natural | \(C_{\rm tar}(\log n)^A\) for every fixed \(A>A_{\rm FP}\); moving critical endpoint in [Corollary 1.2](#cor-endpoint-profiles) | every shortcut constant \(>c_*\); every unaccelerated constant \(>3/\log(4/3)\); target-dependent quantitative rates and an orbit-height bound through the witnessing time |
 
 [Theorem 1.1](#thm-moving-polylog) additionally bounds every preceding
 iterate through the same witnessing time:
@@ -443,17 +442,22 @@ headline statements in [[1]](#ref-allikvere) or [[4]](#ref-mazur); this is a
 comparison of stated outputs, not a claim that their proof-internal trajectory
 estimates cannot yield related bounds.
 
-The proof-native moving polylogarithmic target is smaller than every fixed
-power and every fixed stretched-logarithmic target in
-[Theorem 1.3](#thm-stretched-log), but it still contains the fixed divergent core
-\((\log n)^{A_{\rm FP}}(\log\log n)^{2A_{\rm FP}}\).  It is therefore weaker
-than an arbitrary diverging function.  At the target-only level, Tao's theorem
-specializes to every target displayed here, albeit in logarithmic rather than
-natural density.  Thus the present theorem does not supersede the
+The moving target of [Theorem 1.1](#thm-moving-polylog) includes the critical
+specialization
+\(C_{\rm tar}(\log n)^{A_{\rm FP}}(\log\log n)^{2A_{\rm FP}}
+\widetilde\Omega(\log\log n)\), where
+\(\widetilde\Omega(x)=x^{o(1)}\to\infty\) may be chosen eventually below each
+prescribed \(\Omega(x)\to\infty\).  It is smaller than every fixed power and
+every fixed stretched-logarithmic target in
+[Theorem 1.3](#thm-stretched-log), but it still contains the fixed divergent
+core \((\log n)^{A_{\rm FP}}(\log\log n)^{2A_{\rm FP}}\).  It is therefore
+weaker than an arbitrary diverging function.  At the target-only level, Tao's
+theorem specializes to every target displayed here, albeit in logarithmic
+rather than natural density.  Thus the present theorem does not supersede the
 arbitrary-threshold conclusions of [[1]](#ref-allikvere) or
 [[4]](#ref-mazur).  Conversely, those target statements do not supply the
-present natural-density rates, logarithmic clock, or orbit-height bound,
-and the clock scale already appears in [[2]](#ref-inselmann).  These axes are
+present natural-density rates, logarithmic clock, or orbit-height bound, and
+the clock scale already appears in [[2]](#ref-inselmann).  These axes are
 deliberately not collapsed into a single ordering.
 
 Allikvere conditions Tao's Syracuse/Fourier inputs on the total valuation and
@@ -1345,16 +1349,11 @@ leaving a corridor centered only at the outer rank \(M\) and the final
 threshold rank \(q\).
 
 Suppose high blocks \(0,\ldots,j\) have been executed.  Every landing before
-the last is certified and lies in
-\((2^{q_i-1},2^{q_i}]\).  It cannot equal \(2^{q_i}\): if it did, then at
-time \(q_i\) its certification lower bound would be
-\[
-\rho^{q_i}(2^{q_i})^{1-t}
-=2^{(a_0-t)q_i}>1
-=T^{q_i}(2^{q_i}),
-\]
-because every high tolerance satisfies \(t<a_0\).  Hence each certified
-landing lies in the unique shell \(I_{q_i-1}\), and therefore
+the last is a continuing checkpoint in \((2^{q_i-1},2^{q_i}]\).  By the
+stopping rule in \eqref{eq:6-4}, a landing equal to \(2^{q_i}\) terminates the
+chain: it is followed by deterministic halving when \(q_i\le S\), and is a
+high endpoint failure when \(q_i>S\).  Thus no continuing checkpoint is an
+upper endpoint.  Each lies in the unique shell \(I_{q_i-1}\), and therefore
 \[
 m_{i+1}=q_i-1\qquad(0\le i<j).
 \tag{6.6b}\label{eq:6-6b}
@@ -1390,9 +1389,8 @@ length \(O(\sqrt{M\log(M+2)})\); counting its integer points proves
 \(\square\)
 
 The fixed-time, fixed-landing count also has the following restricted-time
-form.  If
-\(\mathcal H\) is any finite set of positive times, \(B\subseteq J_Y\),
-and the scaled reverse loss is at most \(D_q\), then
+form.  If \(\mathcal H\) is any finite set of positive times,
+\(B\subseteq J_Y\), and \(D_q\ge0\) satisfies \(D_q/Y\le1/3\), then
 \[
 \#\left\{n\in I_M:
 \begin{array}{l}
@@ -1737,9 +1735,17 @@ identity, \eqref{eq:6-5}, and \eqref{eq:6-7} bound their total proportion by
 d_{\rm hi}(M)
 +O\!\left(\sqrt{M\log M}\,M^2d_{\rm hi}(M)\right),
 \]
-since for each high target rank \(q\), \eqref{eq:6-5} supplies
-\(O(\sqrt{M\log M})\) times, the reverse loss in \eqref{eq:6-7} is
-\(O(M)\), and there are at most \(M+1\) possible ranks.
+where the transported contribution is estimated as follows.  For a high target
+rank \(q\), let \(B_q\) be its bad landing target.  Every producing block has
+duration at most its parent rank \(m\) and \(q+1>r_{\rm hi}m\), so the generic
+rank-scaled-loss statement after [Lemma 5.2](#lem-rank-loss) gives
+\(E_{2^q}(n)<D_q:=(q+2)/r_{\rm hi}\).  Increase the fixed startup so that
+\(D_q/2^q=(q+2)/(r_{\rm hi}2^q)\le1/3\) for every high target rank.  Thus
+\eqref{eq:6-7} applies.  Since \(|B_q|\le2^qd_{\rm hi}(M)\), it gives, after
+division by \(2^M\), a band proportion
+\(\ll\sqrt{M\log M}(2^{q-M}+D_q)d_{\rm hi}(M)
+\ll\sqrt{M\log M}\,M d_{\rm hi}(M)\).  Summing over at most \(M+1\)
+possible ranks proves the displayed total.
 The exponent in \(d_{\rm hi}(M)\) may be made arbitrarily large through
 the displayed choice of \(D_{\rm hi}\) and \(C_{\rm sw}\).
 
@@ -1781,9 +1787,10 @@ switch-endpoint tail costs only another \(O(S_M)\).  The choice
 \(cM\log2\le c\log n\).  High blocks use tolerance at most \(\tau<\beta\).
 Every low block starts below \(2^{S_M+1}\) and lasts at most its parent rank.
 Every state before its final landing is above a threshold greater than one,
-so its next iterate satisfies \(T(z)<2z\).  Its whole segment is consequently
-at most \(2^{2S_M+1}=M^{O(1)}=n^{o(1)}\).  The same witness therefore retains
-the stated ceiling. \(\square\)
+so its next iterate satisfies \(T(z)<2z\).  Consequently each low segment
+remains below \(2^{2S_M+1}=M^{O(1)}=n^{o(1)}\).  Together with the high-block
+envelope and \(\tau<\beta\), this proves the stated same-witness ceiling.
+\(\square\)
 
 For the main theorem, define the exponent margin
 \[
@@ -1880,7 +1887,7 @@ asymptotic to \(A_{\rm FP}\log_2M\), as required in
 \Delta_M\ge
 \kappa_*\log_2\widetilde\Omega(z_M)\longrightarrow+\infty.
 \]
-Monotonicity gives a proof-native
+Monotonicity gives an explicitly constructed
 \(\widetilde\Omega(\log\log n)\)-target, which is \(o(n)\).  Since
 \(\widetilde\Omega\le\Omega\) eventually, it also implies the asserted larger
 \(\Omega\)-target.

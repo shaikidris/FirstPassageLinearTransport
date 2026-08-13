@@ -11,3 +11,9 @@
 #references {
   break-before: auto;
 }
+
+#references ~ p {
+  margin-bottom: 1.5mm;
+  font-size: 9.2pt;
+  line-height: 1.32;
+}
