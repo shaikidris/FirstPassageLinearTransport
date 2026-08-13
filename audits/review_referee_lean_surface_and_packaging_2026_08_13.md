@@ -1,4 +1,4 @@
-# Referee-facing Lean surface and packaging audit
+# Referee-facing Lean declaration surface and packaging audit
 
 ## Scope
 
@@ -10,7 +10,9 @@ are narrower:
 1. Which declarations should a referee meet first?
 2. Which modules are genuinely in those declarations' proof terms?
 3. Which imported modules are packaging debt rather than theorem dependency?
-4. Which manuscript claims still lack one literal public Lean declaration?
+4. Which theorems, definitions, structures, and opaque declarations inside a
+   mixed module actually feed those retained roots?
+5. Which manuscript claims still lack one literal public Lean declaration?
 
 This is a maintenance/compression pass.  It does not authorize weakening or
 renaming theorem statements.
@@ -94,8 +96,10 @@ lemmas may be imported by both routes.
 
 The earlier fixed two-regime and all-prefix producer files are retained source
 mathematics, but they should not enter the canonical build merely because a
-generic scalar conversion was defined in one of them.  They may be moved only
-after the timeout route is fully decoupled from their declarations.
+generic scalar conversion was defined in one of them.  The fixed two-regime
+route now builds through `FirstPassageLinearTransportLegacy`; the all-prefix
+route builds through `FirstPassageLinearTransportAlternates`. Neither belongs
+to the canonical default library.
 
 ## Paper-to-Lean boundaries that block aggressive pruning
 
@@ -119,96 +123,136 @@ Therefore the current 11-theorem `Main` surface should not simply be shortened
 and declared final.  The exact manuscript theorems must first replace the
 partial projections that currently stand in for them.
 
-## First safe cleanup batch
+## Two-resolution audit
 
-The following dependency-neutral changes are justified:
+The earlier module-only report was insufficient.  An imported file can contain
+one necessary scalar and twenty declarations from an obsolete route.  The
+audit now uses two distinct graphs:
 
-- extract `fixedPolylogTargetConstant`, `shellClock_le_natLog`, and
-  `shellPolylogTarget_le_natLog` to neutral `PolylogTarget.lean`;
-- extract `eventually_sqrt_mul_log_le_linear` to neutral
-  `AsymptoticBounds.lean`;
-- make the timeout witness import `PolylogTarget`, not the old two-regime
-  execution;
-- make the timeout orbit-ceiling module import `AsymptoticBounds`, not the
-  moving all-prefix orbit-ceiling module;
-- remove redundant direct `Main` imports of `OrbitCeiling`,
-  `TwoRegimeOrbitCeiling`, and `FiniteStartup`;
-- remove superseded two-regime declarations from the canonical axiom audit;
-- make the canonical Lake module list import-closed, so a clean checkout does
-  not depend on stale `.olean` files.
+1. the module import graph, including `.ilean` source-elaboration edges; and
+2. the declaration dependency graph, rooted separately at the 11 public
+   `Main` declarations and the named manuscript cut vertices.
 
-This lowers the `Main` source import closure from 97 to 95 modules.  It does
-not yet eliminate the deeper moving-profile leakage through
-`TimeoutEndpointProfile -> MovingEndpointAsymptotics`.
+The declaration pass includes source-declared definitions, theorems, opaque
+declarations, and inductive types.  Compiler-generated eliminators such as
+`recOn`, `casesOn`, and `noConfusion` are excluded from the primary-source
+count. `audits/partition_lean_reachability.py` combines that compiled result
+with the recursive import graph and exact source ranges, emits the reproducible
+manifest, and performs rollback-protected moves. “Outside” means outside the
+declared retained cones; environment attributes and clean reconstruction are
+additional reachability gates, so kernel unreachability alone never authorizes
+a move.
 
-After this batch the exact imported-but-unused remainder has seven modules:
+## Safe separation completed in this pass
 
-- `MovingEndpointProfile`;
-- `MovingFirstBad`;
-- `MovingLowDensity`;
-- `MovingLowSetup`;
-- `MovingProfile`;
-- `MovingSharpProfile`;
-- `TwoRegimeProfile`.
+The timeout route no longer imports the six all-prefix producer modules
+`MovingEndpointProfile`, `MovingFirstBad`, `MovingLowDensity`,
+`MovingLowSetup`, `MovingProfile`, and `MovingSharpProfile`.  Their Lake globs
+belong to the separately built alternate library.
 
-They are not seven missing proofs. They are old-route source imports whose
-declarations do not occur in the audited canonical proof terms.
+Two small all-prefix adapters were moved to
+`Alternates/AllPrefix/LowStagePackage.lean` and
+`Alternates/AllPrefix/Asymptotics.lean`.  Their theorem names and statements
+were preserved.  The canonical timeout scalar consumer now imports the
+neutral `TimeSupportScalars.lean`; it no longer imports the 21-declaration
+`Alternates/AllPrefix/Implementation/MovingTimeSupport.lean` merely for
+`movingTimeSupportConstant`.
 
-## Next safe cut vertex
+Together with the earlier `PolylogTarget.lean` and
+`AsymptoticBounds.lean` extractions, this lowers the canonical source import
+closure from 97 modules at the original baseline, through 95, to 89.  The
+exact combined proof/source cone is now also 89 modules: there is no remaining
+import-only project module in the canonical graph.
 
-The next refactor is scalar decoupling, not bulk file movement:
+The historical fixed two-regime parameter package, schedules, tail profile,
+literal recertification run, execution, and orbit-ceiling modules have moved
+to the separately built legacy library. Route-neutral material was retained
+in `PolylogTerminalSchedule.lean`, `RankTransportAsymptotics.lean`,
+`TerminalTailAsymptotics.lean`, `FirstPassageLandingShell.lean`, and
+`TimeSupportScalars.lean`.
 
-1. Extract the common time-support coefficient and endpoint scalar closure
-   from the moving execution modules.
-2. Prove the timeout profile against those neutral scalar lemmas directly.
-3. Confirm that `MovingEndpointProfile`, `MovingSharpProfile`,
-   `MovingLowSetup`, `MovingFirstBad`, and their execution modules disappear
-   from the canonical source closure.
-4. Only then move the complete all-prefix implementation under its optional
-   package.
+At declaration resolution, eleven all-prefix-only moving-low displacement,
+margin, and entropy-rate declarations were moved to
+`Alternates/AllPrefix/MovingLowParameters.lean`. The canonical
+`MovingLowParameters.lean` is now pure: all 12 of its primary declarations
+are reachable from public `Main`. Six compatibility-only projection lemmas
+were moved from `TimeoutRun.lean` to
+`Legacy/TimeoutRunProjections.lean`; all 28 declarations remaining in the
+canonical timeout-run module are now reachable from public `Main`.
 
-The acceptance gate is stronger than a successful incremental build:
+## Declaration-level result
 
-- clean canonical build from an empty project build directory;
-- separate alternate build;
-- unchanged public theorem types;
-- only `propext`, `Classical.choice`, and `Quot.sound` in the axiom audit;
-- zero alternate-module imports in canonical `Main`;
-- zero imported-but-unused paper modules, or a documented reason for each.
+The recursive partition is now executable, rather than a manual review list.
+`audits/partition_lean_reachability.py` scans the local import graph from the
+canonical, alternate, and legacy roots and consumes exact declaration
+reachability and source ranges from the compiled Lean audit. Its write modes
+relocate whole modules and mixed-file declarations transactionally, with
+automatic rollback unless every affected library rebuilds.
+
+The canonical import closure now contains 908 primary source declarations:
+
+| Class | Declarations |
+|---|---:|
+| In the public `Main` dependency cone | 865 |
+| In named manuscript cut-vertex cones only | 33 |
+| Environment-registered reconstruction dependencies | 10 |
+| Movable outside both retained cones | 0 |
+
+Before the declaration-aware separation, the corresponding total was 1,142,
+with 244 outside the retained cones. Thus 234 declarations have left the
+canonical surface without changing a public theorem type. Fifty-eight from
+the final mixed-file queue are preserved under `Extras/Unreachable/`; the
+earlier alternate and legacy cuts preserve the others in their route-specific
+libraries. The optional
+all-prefix and legacy libraries are compiled and axiom-audited separately, so
+their private dependency cones are intentionally not counted as a canonical
+`Main` cone. No canonical module is now wholly outside all retained
+declaration cones.
+
+The ten retained complement declarations are `[simp]`-registered rules. A
+first clean reconstruction demonstrated why they are genuine dependencies:
+proof-term and `.ilean` reachability alone omitted the two Boolean-walk rules,
+but later `simp` calls consumed them through Lean's environment. The harness
+therefore classifies registered declarations before extraction and the clean
+build is the final authority.
+
+Whole optional implementations are now physically separate as well: nine
+all-prefix modules live under `Alternates/AllPrefix/Implementation/`, and
+seven historical two-regime modules live under `Legacy/Implementation/`.
+The default canonical Lake target includes neither directory nor the extras
+archive.
 
 ## Decision
 
-Continue systematically.  Do not delete theorem files merely to make the file
-count resemble the paper page count.  First reduce the canonical import cone
-and complete the literal manuscript declarations.  After those two gates, put
-headline, companion, alternate, audit, and legacy modules into visibly
-separate packages.
+Freeze this recursive partition as the packaging gate. Physical file count is
+not the theorem count: all 89 modules in the canonical import closure are
+actual dependencies of `Main`. Future declarations outside the public or
+named referee roots must be placed in the extras, alternate, or legacy
+library, or explicitly justified as an environment-registered reconstruction
+dependency. No theorem was deleted merely because it was unreachable.
 
 ## Verification of this batch
 
-The project build directory was moved to a recoverable temporary backup and
-all canonical project modules were rebuilt from source against the pinned
-Mathlib cache. The canonical build and the separately registered all-prefix
-library both passed. Direct public, timeout, and alternate axiom reports
-contain only `propext`, `Classical.choice`, and `Quot.sound`. The semantic
-paper/Lean audit passes 47 literal contracts and 34 critical declarations.
-
-Post-change dependency summary:
+The canonical `Main` and dependency audit build, and the separately
+registered extras, all-prefix, and legacy library builds, pass after the separation. The public
+theorem count and theorem types are unchanged.  The trust guards remain
+green; direct axiom reports contain only `propext`, `Classical.choice`, and
+`Quot.sound`.
 
 ```text
 TIMEOUT_ROUTE_GUARD                     PASS
 MAIN_ALTERNATE_IMPORT_GUARD             PASS
 MAIN_PUBLIC_SURFACE_GUARD               PASS
 PAPER_GRAPH_ROOTS                         89
-PAPER_KERNEL_PROJECT_MODULES              88
-PAPER_COMBINED_PROJECT_MODULES            88
-PAPER_GRAPH_IMPORTED_MODULES              95
-PAPER_IMPORT_ONLY_MODULES                   7
+PAPER_KERNEL_PROJECT_MODULES              89
+PAPER_COMBINED_PROJECT_MODULES            89
+PAPER_GRAPH_IMPORTED_MODULES              89
+PAPER_IMPORT_ONLY_MODULES                   0
 MAIN_FILE_THEOREMS                        11
+RETAINED_PRIMARY_SOURCE_DECLARATIONS      908
+MAIN_REACHABLE_SOURCE_DECLARATIONS        865
+PAPER_ONLY_REACHABLE_SOURCE_DECLARATIONS   33
+UNREACHABLE_SOURCE_DECLARATIONS            10
+MOVABLE_UNREACHABLE_DECLARATIONS             0
+ENVIRONMENT_REGISTERED_DECLARATIONS         10
 ```
-
-The raw source count is now 107 rather than 105 because two shared lemmas were
-extracted into neutral one-purpose modules. This is an intentional increase
-in physical files that decreases route coupling and the canonical import
-cone. The alternate library now owns `MovingExecution` and
-`MovingOrbitCeiling` explicitly.

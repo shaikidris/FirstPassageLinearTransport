@@ -25,12 +25,6 @@ polylogarithmic landing target. -/
 def fixedPolylogTargetConstant (A : ℝ) : ℝ :=
   2 * (1 / Real.log 2 + 2) ^ A
 
-theorem fixedPolylogTargetConstant_pos (A : ℝ) :
-    0 < fixedPolylogTargetConstant A := by
-  unfold fixedPolylogTargetConstant
-  have hbase : 0 < 1 / Real.log 2 + 2 := by
-    positivity
-  exact mul_pos (by norm_num) (Real.rpow_pos_of_pos hbase A)
 
 /-- The shell clock is no larger than the corresponding natural-logarithm
 clock for a nonnegative clock coefficient. -/

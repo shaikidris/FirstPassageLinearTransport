@@ -5,6 +5,7 @@ Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.Alternates.AllPrefix.NaturalDensity
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # Retained all-prefix moving-endpoint alternate
 

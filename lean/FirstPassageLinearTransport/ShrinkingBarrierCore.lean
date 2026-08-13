@@ -199,14 +199,6 @@ theorem certified_firstPassage_duration_corridor
     hmono.lt_iff_lt.mp hpowUpper
   constructor <;> nlinarith
 
-/-- Width of the real duration corridor before division by the positive
-central drift gap. -/
-theorem duration_corridor_linear_width
-    (t : ℝ) (m q : ℕ) :
-    ((1 + t) * ((m : ℝ) + 1) - (q : ℝ) + 1) -
-        ((1 - t) * (m : ℝ) - (q : ℝ)) =
-      2 * t * (m : ℝ) + t + 2 := by
-  ring
 
 end
 

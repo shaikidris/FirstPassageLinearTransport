@@ -25,13 +25,6 @@ tolerance. -/
 def adjustableBarrierHeight (lambda t : ℝ) (M : ℕ) : ℝ :=
   lambda * t * M / logTwoThree
 
-theorem adjustableBarrierHeight_nonneg
-    {lambda t : ℝ} {M : ℕ} (hlambda : 0 ≤ lambda) (ht : 0 ≤ t) :
-    0 ≤ adjustableBarrierHeight lambda t M := by
-  unfold adjustableBarrierHeight
-  exact div_nonneg
-    (mul_nonneg (mul_nonneg hlambda ht) (Nat.cast_nonneg M))
-    logTwoThree_pos.le
 
 theorem three_rpow_adjustableBarrierHeight
     (lambda t : ℝ) (M : ℕ) :

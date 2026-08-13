@@ -5,6 +5,7 @@ Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.Alternates.AllPrefix.Main
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # All-prefix moving-endpoint formalization axiom audit
 

@@ -3,8 +3,9 @@ Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
-import FirstPassageLinearTransport.TwoRegimeRun
+import FirstPassageLinearTransport.Legacy.TwoRegimeRecertificationRun
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # Exact two-regime failure profile
 

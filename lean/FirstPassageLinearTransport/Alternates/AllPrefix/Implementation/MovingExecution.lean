@@ -4,8 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.MovingEndpointParameters
-import FirstPassageLinearTransport.MovingFirstBad
+import FirstPassageLinearTransport.Alternates.AllPrefix.Implementation.MovingFirstBad
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # Literal execution of the moving re-certification chain
 

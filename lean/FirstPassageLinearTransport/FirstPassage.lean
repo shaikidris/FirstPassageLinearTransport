@@ -19,11 +19,7 @@ namespace FirstPassageLinearTransport
 def IsFirstPassage (Y n h : ℕ) : Prop :=
   orbit h n ≤ Y ∧ ∀ j : ℕ, j < h → Y < orbit j n
 
-theorem firstPassage_landing_le {Y n h : ℕ} (hfp : IsFirstPassage Y n h) :
-    orbit h n ≤ Y := hfp.1
 
-theorem firstPassage_before_gt {Y n h j : ℕ} (hfp : IsFirstPassage Y n h)
-    (hj : j < h) : Y < orbit j n := hfp.2 j hj
 
 /-- The final crossing cannot be an odd shortcut step. -/
 theorem firstPassage_final_even {Y n k : ℕ}

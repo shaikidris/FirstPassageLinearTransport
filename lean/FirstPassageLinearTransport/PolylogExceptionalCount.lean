@@ -357,31 +357,6 @@ theorem eventually_halfNatLog_profile_le_natLog
     ring
   simpa [L, K, x, q, hrewrite] using hmono.trans_eq hrewrite
 
-/-- Natural-logarithm form of the quantitative prefix estimate. -/
-theorem eventually_badCount_assembleDyadic_le_natLog_profile
-    (S : ℕ → Set ℕ) (M₀ : ℕ) (B kappa : ℝ)
-    (hB : 0 ≤ B) (hkappa : 0 ≤ kappa)
-    (hshell : ∀ M, M₀ ≤ M →
-      shellExceptionalRatio (S M) M ≤
-        B * (((M : ℝ) + 2) ^ (-kappa))) :
-    ∀ᶠ N : ℕ in atTop,
-      (badCount (assembleDyadic S) N : ℝ) ≤
-        ((1 + 2 * B) * (2 * Real.log 2) ^ kappa) *
-          N * (Real.log N) ^ (-kappa) := by
-  have hPrefix := eventually_badCount_assembleDyadic_le_polylog_profile
-    S M₀ B kappa hB hkappa hshell
-  have hScale := eventually_halfNatLog_profile_le_natLog hkappa
-  filter_upwards [hPrefix, hScale] with N hPrefix hScale
-  have hCoeff : 0 ≤ (1 + 2 * B) * (N : ℝ) := by positivity
-  calc
-    (badCount (assembleDyadic S) N : ℝ) ≤
-        (1 + 2 * B) * N *
-          ((((Nat.log 2 N) / 2 : ℕ) : ℝ) + 2) ^ (-kappa) := hPrefix
-    _ ≤ (1 + 2 * B) * N *
-          ((2 * Real.log 2) ^ kappa * (Real.log N) ^ (-kappa)) :=
-      mul_le_mul_of_nonneg_left hScale hCoeff
-    _ = ((1 + 2 * B) * (2 * Real.log 2) ^ kappa) *
-          N * (Real.log N) ^ (-kappa) := by ring
 
 end
 

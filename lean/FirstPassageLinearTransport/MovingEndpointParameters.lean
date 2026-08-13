@@ -3,7 +3,7 @@ Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
-import FirstPassageLinearTransport.MovingLowSetup
+import FirstPassageLinearTransport.MovingLowParameters
 import FirstPassageLinearTransport.ShrinkingParameters
 
 /-!
@@ -41,14 +41,6 @@ structure MovingEndpointParameterPackage (Amax c beta : ℝ) where
   K₀_gt_six : 6 < K₀
   K₁_pos : 0 < K₁
   K₁_reserve : 8 ≤ K₁ * driftGap
-
-/-- The moving low-stage package together with the exact startup bound used
-by the literal continuation step. -/
-def MovingLowStagePackage
-    {Amax c beta : ℝ}
-    (P : MovingEndpointParameterPackage Amax c beta) (L : ℕ) :=
-  {p : StageSetup (movingLowRatio P.K₀ L) (movingLowTolerance P.K₀ L) //
-    p.M0 ≤ L}
 
 /-- Every admissible clock and ceiling pair admits fixed high data and moving
 low constants with all required strict margins. -/
@@ -102,16 +94,6 @@ theorem exists_movingEndpointParameterPackage
     K₀_gt_six := by norm_num [K₀]
     K₁_pos := hK₁
     K₁_reserve := hreserve }⟩
-
-/-- The quantitative moving startup produces a usable low-stage package at
-every sufficiently large terminal rank. -/
-theorem MovingEndpointParameterPackage.eventually_lowStagePackage
-    {Amax c beta : ℝ} (P : MovingEndpointParameterPackage Amax c beta) :
-    ∀ᶠ L : ℕ in atTop, Nonempty (MovingLowStagePackage P L) := by
-  filter_upwards [eventually_movingLowStageSetup_M0_le P.K₀_gt_six]
-    with L hL
-  rcases hL with ⟨p, hp⟩
-  exact ⟨⟨p, hp⟩⟩
 
 end
 

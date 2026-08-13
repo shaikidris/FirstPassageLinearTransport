@@ -32,25 +32,6 @@ def HasTimeoutTerminalLanding
         TimeoutRecertificationRun P K₀ L M S n elapsed q ∧
         orbit elapsed n = 2 ^ q)
 
-/-- Either form of terminal landing gives an actual iterate below `2^L`. -/
-theorem HasTimeoutTerminalLanding.orbit_le
-    {P : TimeoutHighRunData} {K₀ : ℝ}
-    {L M S n : ℕ}
-    (hterm : HasTimeoutTerminalLanding P K₀ L M S n) :
-    ∃ h : ℕ, orbit h n ≤ 2 ^ L := by
-  rcases hterm with hrun | hdyadic
-  · rcases hrun with ⟨elapsed, q, hqL, hrun⟩
-    exact ⟨elapsed, hrun.directFirstPassage.1.trans
-      (Nat.pow_le_pow_right (by omega) hqL)⟩
-  · rcases hdyadic with ⟨elapsed, q, hLq, _hqS, hrun, heq⟩
-    let j := q - L
-    have hjq : j ≤ q := Nat.sub_le _ _
-    have horbit : orbit j (2 ^ q) = 2 ^ L := by
-      rw [timeout_orbit_two_pow hjq]
-      congr
-      omega
-    refine ⟨j + elapsed, ?_⟩
-    rw [orbit_add, heq, horbit]
 
 /-- A failed high certification at a reached threshold is literal membership
 in the corresponding high landing target. -/

@@ -26,10 +26,19 @@ These are separate checks.
 
 For every mapped referee-facing root below, this audit reports its source
 module and line, kernel and combined source/kernel closures, and transitive
-edges between manuscript milestones. It then runs reverse reachability from
-all theorems exported by `Main` plus the mapped internal roots and reports
-every retained source theorem outside that combined closure. The ordinary
-clean build remains a separate source-reconstruction gate.
+edges between manuscript milestones. It then runs reverse reachability at two
+resolutions. The theorem report starts from every theorem exported by `Main`
+plus the mapped internal roots. The declaration report separately classifies
+every source-authored theorem, definition, opaque declaration, axiom, or
+inductive declaration as reachable from the public `Main` surface, reachable
+only from an important manuscript cut vertex, reachable only from another
+mapped companion root visible in the canonical environment, or outside all
+three cones. The optional all-prefix library is audited separately and is not
+counted by this canonical declaration pass. This distinction prevents
+an imported file from hiding unrelated declarations merely because one theorem
+in that file is needed. The ordinary clean build remains a separate
+source-reconstruction gate. Optional declarations moved to alternate or
+legacy libraries are intentionally absent from this canonical environment.
 -/
 
 open Lean Elab Command
@@ -248,6 +257,17 @@ private def declarationLine (decl : Name) : CommandElabM Nat := do
   | some ranges => pure ranges.range.pos.line
   | none => pure 0
 
+/-- Exact source span retained by Lean for a declaration.  The external
+partition harness consumes this field; unlike a textual declaration regex it
+also handles attributes, equations, structures, and multi-line commands. -/
+private def declarationRangeText (decl : Name) : CommandElabM String := do
+  match ← findDeclarationRanges? decl with
+  | some ranges =>
+      let start := ranges.range.pos
+      let stop := ranges.range.endPos
+      pure s!"{start.line}:{start.column}-{stop.line}:{stop.column}"
+  | none => pure "0:0-0:0"
+
 private partial def projectClosureFrom
     (env : Environment) (pending : List Name) (seen : NameSet) : NameSet :=
   match pending with
@@ -359,6 +379,34 @@ private def theoremDeclarationsIn
 private def theoremDeclarationsInModule
     (env : Environment) (moduleName : Name) : Array Name :=
   theoremDeclarationsIn env (({} : NameSet).insert moduleName)
+
+private def isPrimarySourceDeclaration : ConstantInfo → Bool
+  | .axiomInfo _ | .defnInfo _ | .thmInfo _ | .opaqueInfo _ | .inductInfo _ => true
+  | .quotInfo _ | .ctorInfo _ | .recInfo _ => false
+
+private partial def finalString? : Name → Option String
+  | .anonymous => none
+  | .str _ suffix => some suffix
+  | .num pre _ => finalString? pre
+
+private def isGeneratedEliminator (decl : Name) : Bool :=
+  match finalString? decl with
+  | some suffix =>
+      suffix == "recOn" || suffix == "casesOn" || suffix == "noConfusion"
+  | none => false
+
+private def declarationKind : ConstantInfo → String
+  | .axiomInfo _ => "axiom"
+  | .defnInfo _ => "definition"
+  | .thmInfo _ => "theorem"
+  | .opaqueInfo _ => "opaque"
+  | .inductInfo _ => "inductive"
+  | .quotInfo _ => "quotient"
+  | .ctorInfo _ => "constructor"
+  | .recInfo _ => "recursor"
+
+private def companionPaperRoot (root : PaperRoot) : Bool :=
+  root.paperLabel.startsWith "Formal alternate"
 
 elab "#paper_dependency_audit" : command => do
   let env ← getEnv
@@ -481,6 +529,107 @@ elab "#paper_dependency_audit" : command => do
     (init := ({} : NameSet)) fun modules moduleName => modules.insert moduleName
   let retainedTheorems := theoremDeclarationsIn env importedModuleSet
   let mainReachableDecls := combinedClosureFrom env sourceGraph publicRootNames
+
+  /-
+  The broad theorem report above deliberately protects every mapped root.
+  The declaration-level report below is more discriminating: a declaration
+  needed by an internal manuscript cut vertex is not described as part of the
+  public `Main` proof. Roots labelled as formal alternates in the manuscript
+  map are treated as companion roots here; the separately packaged all-prefix
+  realization is not imported by this audit.
+  -/
+  let mainOnlyReachableDecls :=
+    combinedClosureFrom env sourceGraph mainTheorems.toList
+  let canonicalPaperRootNames := paperRoots.toList
+    |>.filter (!companionPaperRoot ·)
+    |>.map (·.decl)
+  let companionPaperRootNames := paperRoots.toList
+    |>.filter companionPaperRoot
+    |>.map (·.decl)
+  let canonicalPaperReachableDecls :=
+    combinedClosureFrom env sourceGraph canonicalPaperRootNames
+  let companionPaperReachableDecls :=
+    combinedClosureFrom env sourceGraph companionPaperRootNames
+
+  let retainedProjectDeclarations := env.constants.toList.filter fun entry =>
+    let (decl, info) := entry
+    isProjectDecl decl && isPrimarySourceDeclaration info &&
+      !isGeneratedEliminator decl &&
+      match env.getModuleFor? decl with
+      | some moduleName => importedModuleSet.contains moduleName
+      | none => false
+
+  let mut retainedSourceDeclarations : Array (Name × ConstantInfo × Nat) := #[]
+  for entry in retainedProjectDeclarations do
+    let (decl, info) := entry
+    let line ← declarationLine decl
+    if line > 0 then
+      retainedSourceDeclarations := retainedSourceDeclarations.push (decl, info, line)
+
+  let mut mainSourceDeclarations : Array (Name × ConstantInfo × Nat) := #[]
+  let mut paperOnlySourceDeclarations : Array (Name × ConstantInfo × Nat) := #[]
+  let mut companionOnlySourceDeclarations : Array (Name × ConstantInfo × Nat) := #[]
+  let mut unreachableSourceDeclarations : Array (Name × ConstantInfo × Nat) := #[]
+  for entry in retainedSourceDeclarations do
+    let (decl, info, line) := entry
+    if mainOnlyReachableDecls.contains decl then
+      mainSourceDeclarations := mainSourceDeclarations.push (decl, info, line)
+    else if canonicalPaperReachableDecls.contains decl then
+      paperOnlySourceDeclarations := paperOnlySourceDeclarations.push (decl, info, line)
+    else if companionPaperReachableDecls.contains decl then
+      companionOnlySourceDeclarations := companionOnlySourceDeclarations.push (decl, info, line)
+    else
+      unreachableSourceDeclarations := unreachableSourceDeclarations.push (decl, info, line)
+
+  logInfo m!"RETAINED_PRIMARY_PROJECT_DECLARATIONS\t{retainedProjectDeclarations.length}"
+  logInfo m!"RETAINED_PRIMARY_SOURCE_DECLARATIONS\t{retainedSourceDeclarations.size}"
+  logInfo m!"MAIN_REACHABLE_SOURCE_DECLARATIONS\t{mainSourceDeclarations.size}"
+  logInfo m!"PAPER_ONLY_REACHABLE_SOURCE_DECLARATIONS\t{paperOnlySourceDeclarations.size}"
+  logInfo m!"COMPANION_ONLY_REACHABLE_SOURCE_DECLARATIONS\t{companionOnlySourceDeclarations.size}"
+  logInfo m!"UNREACHABLE_SOURCE_DECLARATIONS\t{unreachableSourceDeclarations.size}"
+
+  for moduleName in importedProjectModules do
+    let inModule := retainedSourceDeclarations.filter fun entry =>
+      env.getModuleFor? entry.1 == some moduleName
+    if !inModule.isEmpty then
+      let mainCount := (inModule.filter fun entry =>
+        mainOnlyReachableDecls.contains entry.1).size
+      let paperCount := (inModule.filter fun entry =>
+        !mainOnlyReachableDecls.contains entry.1 &&
+          canonicalPaperReachableDecls.contains entry.1).size
+      let companionCount := (inModule.filter fun entry =>
+        !mainOnlyReachableDecls.contains entry.1 &&
+          !canonicalPaperReachableDecls.contains entry.1 &&
+          companionPaperReachableDecls.contains entry.1).size
+      let unreachableCount := inModule.size - mainCount - paperCount - companionCount
+      logInfo m!"DECLARATION_REACHABILITY_MODULE\t{moduleName}\t\
+        SOURCE_PRIMARY={inModule.size}\tMAIN={mainCount}\tPAPER_ONLY={paperCount}\t\
+        COMPANION_ONLY={companionCount}\tUNREACHABLE={unreachableCount}"
+
+  for entry in mainSourceDeclarations do
+    let (decl, info, line) := entry
+    let moduleName := (env.getModuleFor? decl).getD `unknown
+    let sourceRange ← declarationRangeText decl
+    logInfo m!"MAIN_SOURCE_DECLARATION\t{declarationKind info}\t\
+      {moduleName}:{line}\t{decl}\tRANGE={sourceRange}"
+  for entry in paperOnlySourceDeclarations do
+    let (decl, info, line) := entry
+    let moduleName := (env.getModuleFor? decl).getD `unknown
+    let sourceRange ← declarationRangeText decl
+    logInfo m!"PAPER_ONLY_SOURCE_DECLARATION\t{declarationKind info}\t\
+      {moduleName}:{line}\t{decl}\tRANGE={sourceRange}"
+  for entry in companionOnlySourceDeclarations do
+    let (decl, info, line) := entry
+    let moduleName := (env.getModuleFor? decl).getD `unknown
+    let sourceRange ← declarationRangeText decl
+    logInfo m!"COMPANION_ONLY_SOURCE_DECLARATION\t{declarationKind info}\t\
+      {moduleName}:{line}\t{decl}\tRANGE={sourceRange}"
+  for entry in unreachableSourceDeclarations do
+    let (decl, info, line) := entry
+    let moduleName := (env.getModuleFor? decl).getD `unknown
+    let sourceRange ← declarationRangeText decl
+    logInfo m!"UNREACHABLE_SOURCE_DECLARATION\t{declarationKind info}\t\
+      {moduleName}:{line}\t{decl}\tRANGE={sourceRange}"
 
   let unreachableTheorems := retainedTheorems.filter fun theoremName =>
     !mainReachableDecls.contains theoremName

@@ -5,6 +5,7 @@ Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.ShrinkingTailAsymptotics
 import FirstPassageLinearTransport.PolylogExceptionalCount
+import FirstPassageLinearTransport.RankTransportAsymptotics
 
 /-!
 # Canonical shrinking-barrier fixed-polylogarithmic profile

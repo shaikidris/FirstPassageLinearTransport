@@ -457,31 +457,25 @@ Compiled dependency order:
     polynomial startup factor, and the same-witness clock/landing/ceiling
     theorem;
 13. `SharpEntropyBarrier.lean`, `MovingLowParameters.lean`,
-   `MovingLowDensity.lean`: sharp-prefactor and moving target-density producer;
-14. `MovingTimeSupport.lean`: literal moving stopped run, certified-shell
-   collapse, decreasing low-rank potential, and square-root feasible-time
-   support;
-15. `MovingFirstBad.lean`, `MovingProfile.lean`: direct moving first-bad
-    transport and the conditional support-sensitive terminal-profile socket;
-16. `MovingSharpTail.lean`, `MovingSharpProfile.lean`: exact-rate
-    `q^(-1/2)` tail summation and the conditional sharp first-bad profile;
-17. `MovingLowSetup.lean`, `MovingEndpointParameters.lean`,
-   `MovingEndpointProfile.lean`, `MovingEndpointAsymptotics.lean`: quantitative
-   startup, sharp shell profile, and exact buffer closure;
-18. `MovingExecution.lean`, `MovingOrbitCeiling.lean`: retained all-prefix
-   execution and ceiling;
-19. `MovingEndpointScalars.lean`, `MovingEndpointAssembly.lean`: shared
-   scalar and density assembly;
-20. `TimeoutCore.lean` through `TimeoutEndpointNaturalDensity.lean`: literal
+   `MovingEndpointParameters.lean`, `MovingEndpointScalars.lean`,
+   `MovingSharpTail.lean`, `MovingEndpointAsymptotics.lean`,
+   `TimeSupportScalars.lean`, and `MovingEndpointAssembly.lean`: shared sharp
+   scalar inputs and final density assembly; this layer contains no
+   all-prefix moving failure set;
+14. `TimeoutCore.lean` through `TimeoutEndpointNaturalDensity.lean`: literal
    timeout event, endpoint-rate density, mixed run, decreasing potential,
    first-timeout transport and sharp profile, dyadic endpoint discharge,
    orbit ceiling, shell assembly, and the primary V3.2 public theorem;
-21. `Main.lean`: minimal literal referee-facing API exposing the canonical
+15. `Main.lean`: minimal literal referee-facing API exposing the canonical
    timeout theorem and companion theorem family;
-22. `PaperDependencyAudit.lean`, `PaperAudit.lean`, and
+16. `PaperDependencyAudit.lean`, `PaperAudit.lean`, and
    `TimeoutEndpointAudit.lean`: canonical declaration reachability and trust;
-23. `Alternates/AllPrefix/`: separate optional witness, assembly, public
-   theorem, and axiom audit.
+
+The separately registered alternate library owns the all-prefix implementation
+modules under `Alternates/AllPrefix/Implementation/`, followed by the adapters,
+witness, assembly, public theorem, and axiom audit under
+`Alternates/AllPrefix/`. These modules are not part of the canonical order
+above.
 
 The exact manuscript map is `lean/FORMALIZATION.md`.  The public timed theorem
 is
@@ -535,19 +529,30 @@ theorem count. It separates five surfaces:
 4. the optional all-prefix proof realization;
 5. retained legacy assembly.
 
-The first safe batch extracts route-neutral target and asymptotic lemmas into
-`PolylogTarget.lean` and `AsymptoticBounds.lean`, removes redundant `Main`
-imports and superseded two-regime audit roots, and makes the default Lake
-library an explicit import-closed canonical package. This reduces the
-canonical `Main` source import closure from 97 to 95 project modules while
-leaving theorem statements unchanged. The larger reduction must wait for
-the common endpoint-scalar closure to be detached from the moving/all-prefix
-implementation; the exact plan is in
+The audit now operates at two resolutions: the module import/source graph and
+the dependency graph of every primary source definition, theorem, opaque
+declaration, and inductive type. Route-neutral target, asymptotic, and
+time-support scalars were extracted into `PolylogTarget.lean`,
+`AsymptoticBounds.lean`, and `TimeSupportScalars.lean`. Six all-prefix producer
+modules now belong only to the separately built alternate library. Their
+route-specific moving-low parameter refinements live under
+`Alternates/AllPrefix`; the historical fixed two-regime route lives under
+`Legacy/` and has its own Lake library.
+
+This reduces the canonical `Main` source import closure from 97 to 89 project
+modules while leaving public theorem statements unchanged. The exact combined
+proof/source cone also has 89 modules, with no import-only project module. A
+recursive, transaction-safe partition harness now enforces the same boundary
+at declaration resolution. Of the 908 primary source declarations remaining
+in the canonical closure, 865 feed public `Main`, 33 feed named manuscript cut
+vertices only, and ten are environment-registered `[simp]` reconstruction
+dependencies. There is no remaining declaration that is both movable and
+outside the retained cones. Fifty-eight former mixed-file declarations are
+preserved under the non-default `Extras/Unreachable/` library; nine all-prefix
+modules and seven historical two-regime modules are physically isolated under
+their `Implementation/` directories. The exact method and evidence are in
+`audits/partition_lean_reachability.py` and
 `audits/review_referee_lean_surface_and_packaging_2026_08_13.md`.
-The remaining imported-but-unused set has seven modules:
-`MovingEndpointProfile`, `MovingFirstBad`, `MovingLowDensity`,
-`MovingLowSetup`, `MovingProfile`, `MovingSharpProfile`, and
-`TwoRegimeProfile`.
 
 The public `Main` surface remains at 11 declarations for now. It must not be
 pruned merely for presentation while the exact joint manuscript forms of
@@ -557,14 +562,15 @@ separation follows those literal formalizations, not before them.
 Current 2026-08-13 maintenance result: the complete timeout moving-endpoint
 chain, including the sharp landing profile, literal shell failure set,
 same-witness landing/clock/ceiling theorem, natural-density assembly, and
-public `Main.lean` theorem, typechecks in the canonical build. The optional
-all-prefix library typechecks separately. Direct `#print axioms` audits
-contain only Lean's standard axioms. The semantic gate passes 47 literal
+public `Main.lean` theorem, typechecks in the canonical build. The preserved
+extras, optional all-prefix, and historical legacy libraries typecheck
+separately. Direct `#print axioms` audits
+contain only Lean's standard axioms. The semantic gate passes 63 literal
 contracts and 34 canonical critical declarations. The dependency rerun passes
 its timeout-route, alternate-import, and 11-theorem public-surface guards.
 The canonical project cone was rebuilt from an empty project build directory
-against the pinned Mathlib cache; the separately registered all-prefix
-library also passes. This batch does not alter the manuscript or PDF, so no
+against the pinned Mathlib cache; the separately registered extras,
+all-prefix, and legacy libraries also pass. This batch does not alter the manuscript or PDF, so no
 new render is required before the next manuscript change.
 
 The primary timeout chain now compiles through `Main.lean`.  It contains
@@ -588,27 +594,32 @@ MAIN_ALTERNATE_IMPORT_GUARD             PASS
 MAIN_PUBLIC_SURFACE_GUARD               PASS
 PAPER_GRAPH_ROOTS                         89
 PAPER_KERNEL_PROJECT_DECLARATIONS       1071
-PAPER_KERNEL_PROJECT_MODULES              88
+PAPER_KERNEL_PROJECT_MODULES              89
 PAPER_COMBINED_PROJECT_DECLARATIONS     1088
-PAPER_COMBINED_PROJECT_MODULES            88
-PAPER_GRAPH_IMPORTED_MODULES              97
-PAPER_SOURCE_REFERENCE_EDGES           11981
+PAPER_COMBINED_PROJECT_MODULES            89
+PAPER_GRAPH_IMPORTED_MODULES              89
+PAPER_SOURCE_REFERENCE_EDGES            8699
 MAIN_FILE_THEOREMS                        11
 PUBLIC_TERMINAL_ROOTS                     87
-RETAINED_PROJECT_THEOREMS               1188
-RETAINED_SOURCE_THEOREMS                 885
+RETAINED_PROJECT_THEOREMS                938
+RETAINED_SOURCE_THEOREMS                 680
 MAIN_REACHABLE_PROJECT_DECLARATIONS     1088
-MAIN_UNREACHABLE_PROJECT_THEOREMS        363
-MAIN_UNREACHABLE_SOURCE_THEOREMS         215
+MAIN_UNREACHABLE_PROJECT_THEOREMS        113
+MAIN_UNREACHABLE_SOURCE_THEOREMS          10
+RETAINED_PRIMARY_SOURCE_DECLARATIONS     908
+MAIN_REACHABLE_SOURCE_DECLARATIONS       865
+PAPER_ONLY_REACHABLE_SOURCE_DECLARATIONS  33
+UNREACHABLE_SOURCE_DECLARATIONS           10
 ```
 
 The audit additionally records one range-free compiler-generated helper,
 `HasTimedStretchedLogDescent.eq_1`; the explicit public-surface guard excludes
 such generated helpers and verifies exactly the 11 source-declared theorems
-in `Main.lean`.  The larger source reverse-reachability complement reflects
-the conservative package import surface: legacy standalone V2 declarations remain available
-beside the V3 theorem family.  It is reported for review and is not counted as
-part of the headline dependency chain.
+in `Main.lean`. The ten source reverse-reachability declarations are
+environment-registered `[simp]` rules required by clean source reconstruction.
+The partition harness reports zero movable declarations outside the public and
+named paper cones; extras, optional, and historical routes build in separate
+libraries.
 
 The final V3.2 manuscript render passes the semantic gate and a complete
 27-page A4 visual inspection.  All pages have nonempty extractable text and a

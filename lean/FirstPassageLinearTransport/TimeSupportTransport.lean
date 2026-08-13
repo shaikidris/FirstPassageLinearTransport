@@ -136,22 +136,6 @@ theorem lossFiltered_arbitraryTarget_transport_atTimes_uniform
     _ = (times.card : ℚ) * (1 + 3 * D) *
         (2 : ℚ) ^ M / (Y : ℚ) * (B.card : ℚ) := by ring
 
-/-- An arbitrary source restriction cannot increase the support-sensitive
-transport count. -/
-theorem lossFiltered_arbitraryTarget_transport_atTimes_restricted
-    {M Y : ℕ} (times B A : Finset ℕ) {D : ℚ}
-    (hY : 0 < Y) (hD : 0 ≤ D)
-    (hsmall : D / (Y : ℚ) ≤ 1 / 3) (hYM : Y < 2 ^ M) :
-    (((lossFilteredTransportedSourcesAtTimes M Y times B D) ∩ A).card : ℚ) ≤
-      (times.card : ℚ) * (1 + 3 * D) *
-        (2 : ℚ) ^ M / (Y : ℚ) * (B.card : ℚ) := by
-  have hcard :
-      (((lossFilteredTransportedSourcesAtTimes M Y times B D) ∩ A).card : ℚ) ≤
-        ((lossFilteredTransportedSourcesAtTimes M Y times B D).card : ℚ) := by
-    exact_mod_cast Finset.card_le_card Finset.inter_subset_left
-  exact hcard.trans
-    (lossFiltered_arbitraryTarget_transport_atTimes_uniform
-      times B hY hD hsmall hYM)
 
 end
 

@@ -3,10 +3,11 @@ Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
-import FirstPassageLinearTransport.MovingEndpointAsymptotics
-import FirstPassageLinearTransport.MovingOrbitCeiling
+import FirstPassageLinearTransport.Alternates.AllPrefix.Asymptotics
+import FirstPassageLinearTransport.Alternates.AllPrefix.Implementation.MovingOrbitCeiling
 import FirstPassageLinearTransport.PolylogTarget
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # Same-witness execution for the moving endpoint
 

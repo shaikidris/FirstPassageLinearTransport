@@ -98,33 +98,6 @@ inductive MixedRecertificationRun (rStar : ℚ) (n : ℕ) : ℕ → ℕ → Prop
         (elapsed + stageLength p (orbit elapsed n))
         (rationalTargetRank r m)
 
-theorem MixedRecertificationRun.elapsed_pos
-    {rStar : ℚ} {n elapsed q : ℕ}
-    (hrun : MixedRecertificationRun rStar n elapsed q) : 0 < elapsed := by
-  cases hrun with
-  | first p hStar hm0 hnShell hnGood =>
-      exact stageLength_pos p hm0 hnShell hnGood
-  | next hrun p hStar hm0 hsourceShell hsourceGood hgap =>
-      have hstage := stageLength_pos p hm0 hsourceShell hsourceGood
-      omega
-
-theorem MixedRecertificationRun.currentRank_pos
-    {rStar : ℚ} {n elapsed q : ℕ}
-    (hrun : MixedRecertificationRun rStar n elapsed q) : 0 < q := by
-  cases hrun with
-  | @first r eta p m hStar hm0 hnShell hnGood =>
-      have ht := p.target_one_lt m hm0
-      rw [targetScale_rat] at ht
-      by_contra hq
-      have : rationalTargetRank r m = 0 := Nat.eq_zero_of_not_pos hq
-      simp [this] at ht
-  | @next elapsed qprev hrun r eta p m hStar hm0 hsourceShell hsourceGood hgap =>
-      have ht := p.target_one_lt m hm0
-      rw [targetScale_rat] at ht
-      by_contra hq
-      have : rationalTargetRank r m = 0 := Nat.eq_zero_of_not_pos hq
-      simp [this] at ht
-
 /-- Every variable-regime run is one exact rank chain for `rStar`. -/
 theorem MixedRecertificationRun.toCertifiedRankChain
     {rStar : ℚ} (hrStar : 0 < rStar) {n elapsed q : ℕ}
@@ -137,53 +110,6 @@ theorem MixedRecertificationRun.toCertifiedRankChain
   | next hrun p hStar hm0 hsourceShell hsourceGood hgap ih =>
       exact CertifiedRankChain.next_of_stage_common
         p hrStar hStar ih hm0 hsourceShell hsourceGood hgap
-
-/-- A failed endpoint of a variable-regime run lies in the literal bad
-landing band for whichever certification tolerance is active at that rank. -/
-theorem MixedRecertificationRun.endpoint_mem_landingBad
-    {rStar : ℚ} (hrStar : 0 < rStar) {t : ℝ}
-    {n elapsed q : ℕ}
-    (hrun : MixedRecertificationRun rStar n elapsed q)
-    (hbad : orbit elapsed n ∉ initialWindowGood t) :
-    orbit elapsed n ∈ landingBad q t := by
-  have hchain := hrun.toCertifiedRankChain hrStar
-  have hfp := hchain.directFirstPassage
-  have hband := firstPassage_band hrun.elapsed_pos hfp
-  have hq := hrun.currentRank_pos
-  apply mem_landingBad.mpr
-  refine ⟨?_, hband.2, hbad⟩
-  rw [show q = (q - 1) + 1 by omega, pow_succ] at hband
-  omega
-
-/-- A variable-regime failed endpoint supplies the same generated first-bad
-witness consumed by the exact direct transport envelope. -/
-theorem MixedRecertificationRun.toGeneratedFirstBadLanding
-    {rStar : ℚ} (hrStar : 0 < rStar) {t : ℝ}
-    {n elapsed q L U H : ℕ}
-    (hrun : MixedRecertificationRun rStar n elapsed q)
-    (hLq : L ≤ q) (hqU : q ≤ U) (hhH : elapsed ≤ H)
-    (hbad : orbit elapsed n ∉ initialWindowGood t) :
-    HasGeneratedFirstBadLanding rStar t n L U H :=
-  hasGeneratedFirstBadLanding_of_chain hLq hqU hrun.elapsed_pos hhH
-    (hrun.toCertifiedRankChain hrStar)
-    (hrun.endpoint_mem_landingBad hrStar hbad)
-
-/-- Rank-dependent certification failure used at the high/low switch.  The
-single switch rank is deliberately the union of both complements. -/
-def TwoRegimeTargetFailure
-    (tHi tLo : ℝ) (S q y : ℕ) : Prop :=
-  (S < q ∧ y ∉ initialWindowGood tHi) ∨
-  (q = S ∧ (y ∉ initialWindowGood tHi ∨ y ∉ initialWindowGood tLo)) ∨
-  (q < S ∧ y ∉ initialWindowGood tLo)
-
-/-- A literal variable-regime run whose endpoint fails the certification
-selected by its final threshold rank. -/
-def HasTwoRegimeFirstBadLanding
-    (rStar : ℚ) (tHi tLo : ℝ) (n L S U H : ℕ) : Prop :=
-  ∃ elapsed q : ℕ,
-    L ≤ q ∧ q ≤ U ∧ elapsed ≤ H ∧
-    MixedRecertificationRun rStar n elapsed q ∧
-    TwoRegimeTargetFailure tHi tLo S q (orbit elapsed n)
 
 end
 
