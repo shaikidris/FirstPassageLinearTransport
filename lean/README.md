@@ -36,6 +36,9 @@ Collatz definitions:
 - `TwoRegimePolylogExecution.lean`: the literal terminal witness, explicit
   natural-log target conversion, density-one assembly, and quantitative
   exceptional-count consumer;
+- `PolylogTarget.lean`, `AsymptoticBounds.lean`: route-neutral target and
+  asymptotic conversion lemmas shared by the canonical timeout proof and the
+  retained all-prefix implementation;
 - `TwoRegimeOrbitCeiling.lean`: high/low intermediate-orbit propagation and
   the complete fixed-tolerance fixed-polylogarithmic theorem;
 - `TimeSupportTransport.lean`: arbitrary-target transport on an explicit
@@ -132,9 +135,10 @@ lake env lean -DautoImplicit=false -DrelaxedAutoImplicit=false \
   FirstPassageLinearTransport/PaperAudit.lean
 ```
 
-These checks are not scope-equivalent. The default build reconstructs the
-canonical paper cone; the explicit alternate build reconstructs the retained
-cross-check. `PaperDependencyAudit` checks theorem provenance and
+These checks are not scope-equivalent. The default library has an explicit,
+import-closed module list and reconstructs the canonical paper cone plus its
+audits; the explicit alternate build reconstructs the retained cross-check.
+`PaperDependencyAudit` checks theorem provenance and
 source-elaboration reachability; `PaperAudit` reports public trusted axioms;
 `Alternates/AllPrefix/Audit` reports the trust surface of the retained moving
 producer, time-support theorem, exact-rate sharp profile, and assembly.

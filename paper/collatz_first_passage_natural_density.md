@@ -166,7 +166,10 @@ Its divergence is the endpoint condition in the main theorem.  For
 \(A\kappa_*=1/2\), giving \(A_{\rm FP}=1/(2\kappa_*)\).  At equality the
 remaining logarithmic margin forces an additional slowly growing factor.
 Thus \(A_{\rm FP}\) is a threshold of the present argument rather than an
-intrinsic constant of the Collatz map.
+intrinsic constant of the Collatz map.  Within this assembly, lowering the
+leading exponent below \(A_{\rm FP}\) would require either replacing the
+\(M^{1/2}\) feasible-time factor by \(M^\theta\) with \(\theta<1/2\), or
+avoiding the first-passage union bound that multiplies by this cardinality.
 
 The main theorem permits a bounded exponent sequence \((A_M)\), fixed in
 advance, with one exponent for each shell \(I_M\).  This single formulation
@@ -1573,29 +1576,56 @@ Let \(s=s_m(x)\).  The exact affine iterate \eqref{eq:2-6} gives
 T^m(x)<2\cdot3^s+3^s=3^{s+1},
 \]
 because \(x<2^{m+1}\) and the additive sum is less than \(3^s\).
+Indeed, if the odd letters occur at positions
+\(i_1<\cdots<i_s\), then \(i_j\le m-s+j-1\), so that sum is at most
+\[
+\sum_{j=1}^s\frac{3^{s-j}}{2^{s-j+1}}
+=\left(\frac32\right)^s-1<3^s
+\]
+(with value zero when \(s=0\)).
 A timeout has \(T^m(x)>2^{q_L(m)}\), and therefore
 \[
 s>q_L(m)\log_3 2-1.
 \tag{6.14}\label{eq:6-14}
 \]
 By [Proposition 2.2](#prop-parity-code), \(s_m\) has the exact
-\(\operatorname{Bin}(m,1/2)\) counting law on \(I_m\).  In the declared
-range, the right side of \eqref{eq:6-14}, divided by \(m\), is
+\(\operatorname{Bin}(m,1/2)\) counting law on \(I_m\).  Put
+\(\theta_{L,m}=r_Lm-q_L(m)\in[0,1)\).  The normalized real threshold in
+\eqref{eq:6-14} satisfies the exact identity
 \[
-p_*+O_{C,K_0}(L^{-1}).
+\pi_{L,m}:=\frac{q_L(m)p_*-1}{m}
+=p_*-\frac{K_0p_*}{2L}-\frac{\theta_{L,m}p_*+1}{m}<p_*.
+\tag{6.14a}\label{eq:6-14a}
 \]
+Write the normalized first integer in the resulting upper tail as
+\(u_{L,m}\).
+By \eqref{eq:6-14a}, it lies in
+\((\pi_{L,m},\pi_{L,m}+1/m]\), and hence is still strictly below \(p_*\).
+Thus the timeout cut is subcritical, but differs from \(p_*\) by only
+\(O_{C,K_0}(L^{-1})\) when \(L\le m\le CL\).
 These thresholds eventually lie in one compact subinterval of \((1/2,1)\).
 The ratio of consecutive terms in the upper binomial tail is then bounded
 strictly below one, so the tail is at most a fixed multiple of its first
 term.  Stirling's inequality and the bounded derivative of
 \(D(p\|1/2)\) on that interval give
 \[
-2^{-m}\sum_{s\ge p m}\binom ms
+2^{-m}\sum_{s\ge u_{L,m}m}\binom ms
 \ll
-m^{-1/2}\exp\{-mD(p\|1/2)\}
+m^{-1/2}\exp\{-mD(u_{L,m}\|1/2)\}
 \ll m^{-1/2}2^{-\kappa_*m},
 \]
-because \(D(p_*\|1/2)=\kappa_*\log2\) and \(m/L\le C\).
+because \(D(p_*\|1/2)=\kappa_*\log2\).  More explicitly, if \(K_D\) bounds
+\(|\partial_pD(p\|1/2)|\) on the fixed compact interval above, then
+\[
+0\le m\bigl(D(p_*\|1/2)-D(u_{L,m}\|1/2)\bigr)
+\le K_D\left(\frac{CK_0p_*}{2}+p_*+1\right)
+=:K_{\rm rate}(C,K_0).
+\]
+Consequently the subcritical cut costs only the fixed multiplier
+\(C_{\rm to}(C,K_0):=e^{K_{\rm rate}(C,K_0)}\), which is included in
+\(\ll_{C,K_0}\).  In [Proposition 6.4](#prop-rank-buffer), the chosen schedule
+fixes \(C\) and \(K_0\), so that proposition may absorb \(C_{\rm to}(C,K_0)\)
+without changing the rate \(\kappa_*\).
 This proves \eqref{eq:6-12}, including the harmless integer rounding of the
 first tail index.
 
@@ -1682,7 +1712,10 @@ identity, \eqref{eq:6-5}, and \eqref{eq:6-7} bound their total proportion by
 d_{\rm hi}(M)
 +O\!\left(\sqrt{M\log M}\,M^2d_{\rm hi}(M)\right),
 \]
-and the exponent in \(d_{\rm hi}(M)\) may be made arbitrarily large through
+since for each high target rank \(q\), \eqref{eq:6-5} supplies
+\(O(\sqrt{M\log M})\) times, the reverse loss in \eqref{eq:6-7} is
+\(O(M)\), and there are at most \(M+1\) possible ranks.
+The exponent in \(d_{\rm hi}(M)\) may be made arbitrarily large through
 the displayed choice of \(D_{\rm hi}\) and \(C_{\rm sw}\).
 
 Choose a fixed rational \(0<r_*<r_{\rm hi}\).  Eventually \(r_*<r_{L_M}\).
@@ -1693,6 +1726,11 @@ a first-timeout target rank \(p\),
 \[
 E_{2^p}(n)<\frac{p+2}{r_*}.
 \]
+Since \(L_M\asymp\log M\) and
+\(S_M=C_{\rm sw}\log(M+2)+O(1)\), a fixed \(C>1\), depending only on the
+chosen schedule, satisfies \(p-1\le S_M-1\le CL_M\) eventually.  Thus
+[Lemma 6.3](#lem-timeout-low-phase) applies uniformly to every timeout band
+\(L_M+1\le p\le S_M\).
 After increasing the terminal startup, this loss satisfies the smallness
 condition \eqref{eq:4-7}.  Apply the restricted-time form
 \eqref{eq:6-7} with target \(\mathcal C^{\rm to}_{L_M,p}\) and time set
@@ -1769,6 +1807,9 @@ than any prescribed
 \(\gamma<\kappa_*(A-A_{\rm FP})\).  Splitting the dyadic shell sum at half
 the top rank gives the first assertion.
 
+The remaining assertions use [Proposition 6.4](#prop-rank-buffer) directly
+with the terminal ranks displayed below.  Exponentiating \(2^{L_M}\) and
+using \(M\asymp\log n\) then gives their stated landing targets.
 For the second assertion take
 \[
 L_M=\left\lceil
@@ -1788,8 +1829,7 @@ A_{\rm FP}\log_2(M+2)
 \tag{6.23}\label{eq:6-23}
 \]
 Then \(2^{-\Delta_M}\ll(\log\log M)^{-D\kappa_*}\), and the shell split
-gives every \(\gamma<D\kappa_*\).  The three displayed targets follow by
-exponentiating their terminal ranks and using \(M\asymp\log n\).
+gives every \(\gamma<D\kappa_*\).
 
 For the final functional statement, let \(\Omega(x)\to\infty\).  Choose
 numbers \(x_j\uparrow\infty\) so rapidly that

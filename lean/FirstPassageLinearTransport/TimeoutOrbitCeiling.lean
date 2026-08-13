@@ -4,7 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.TimeoutEndpointAsymptotics
-import FirstPassageLinearTransport.MovingOrbitCeiling
+import FirstPassageLinearTransport.AsymptoticBounds
+import FirstPassageLinearTransport.OrbitCeiling
 
 /-!
 # Clock and orbit ceiling for timeout runs

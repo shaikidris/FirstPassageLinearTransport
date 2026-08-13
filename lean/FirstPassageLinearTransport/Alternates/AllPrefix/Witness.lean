@@ -5,7 +5,7 @@ Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.MovingEndpointAsymptotics
 import FirstPassageLinearTransport.MovingOrbitCeiling
-import FirstPassageLinearTransport.TwoRegimePolylogExecution
+import FirstPassageLinearTransport.PolylogTarget
 
 /-!
 # Same-witness execution for the moving endpoint

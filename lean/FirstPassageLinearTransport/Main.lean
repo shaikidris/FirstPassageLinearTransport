@@ -7,11 +7,8 @@ import FirstPassageLinearTransport.PowerDescent
 import FirstPassageLinearTransport.GradedPowerDescent
 import FirstPassageLinearTransport.RawNaturalDensityDescent
 import FirstPassageLinearTransport.QuantitativeNaturalDensityDescent
-import FirstPassageLinearTransport.OrbitCeiling
-import FirstPassageLinearTransport.TwoRegimeOrbitCeiling
 import FirstPassageLinearTransport.ShrinkingNaturalDensityDescent
 import FirstPassageLinearTransport.TimeoutEndpointNaturalDensity
-import FirstPassageLinearTransport.FiniteStartup
 
 /-!
 # Referee-facing first-passage transport API

@@ -524,6 +524,36 @@ The formally claimed headline cone is complete only when:
     including its constants, offsets, normalization, status, label, and
     anchor checks.
 
+### Referee-facing Lean surface and packaging
+
+The 2026-08-13 compression audit does not equate Lean file count with paper
+theorem count. It separates five surfaces:
+
+1. manuscript headline declarations;
+2. important isolated paper cut vertices;
+3. compatibility and convenience consequences;
+4. the optional all-prefix proof realization;
+5. retained legacy assembly.
+
+The first safe batch extracts route-neutral target and asymptotic lemmas into
+`PolylogTarget.lean` and `AsymptoticBounds.lean`, removes redundant `Main`
+imports and superseded two-regime audit roots, and makes the default Lake
+library an explicit import-closed canonical package. This reduces the
+canonical `Main` source import closure from 97 to 95 project modules while
+leaving theorem statements unchanged. The larger reduction must wait for
+the common endpoint-scalar closure to be detached from the moving/all-prefix
+implementation; the exact plan is in
+`audits/review_referee_lean_surface_and_packaging_2026_08_13.md`.
+The remaining imported-but-unused set has seven modules:
+`MovingEndpointProfile`, `MovingFirstBad`, `MovingLowDensity`,
+`MovingLowSetup`, `MovingProfile`, `MovingSharpProfile`, and
+`TwoRegimeProfile`.
+
+The public `Main` surface remains at 11 declarations for now. It must not be
+pruned merely for presentation while the exact joint manuscript forms of
+Theorem 1.3 and Corollary 1.4 remain paper-only. Headline/companion module
+separation follows those literal formalizations, not before them.
+
 Current 2026-08-13 maintenance result: the complete timeout moving-endpoint
 chain, including the sharp landing profile, literal shell failure set,
 same-witness landing/clock/ceiling theorem, natural-density assembly, and
@@ -532,8 +562,10 @@ all-prefix library typechecks separately. Direct `#print axioms` audits
 contain only Lean's standard axioms. The semantic gate passes 47 literal
 contracts and 34 canonical critical declarations. The dependency rerun passes
 its timeout-route, alternate-import, and 11-theorem public-surface guards.
-PDF regeneration was run only after this source and formalization
-state was frozen, and the final render now passes.
+The canonical project cone was rebuilt from an empty project build directory
+against the pinned Mathlib cache; the separately registered all-prefix
+library also passes. This batch does not alter the manuscript or PDF, so no
+new render is required before the next manuscript change.
 
 The primary timeout chain now compiles through `Main.lean`.  It contains
 no low-rank `MovingLowStageSetup` input: its low producer is the literal
