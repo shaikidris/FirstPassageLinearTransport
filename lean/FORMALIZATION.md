@@ -81,6 +81,13 @@ the raw stretched-log clock, the stretched-log same-witness ceiling, and the
 graded fixed-power clock. The compatibility and unclocked declarations are
 convenience projections, not additional manuscript headlines.
 
+The public types themselves display the literal shortcut-orbit witnesses. In
+particular, the two quantitative exceptional-count theorems inline their
+existential orbit events, and the moving theorem inlines the entropy-buffer
+formula and terminal-rank ceiling rather than exposing an opaque schedule
+name. The module-level semantic dictionary gives the exact shortcut and raw
+Collatz maps and the natural-density convention.
+
 The moving-endpoint theorem is a public Lean headline.  The V3.2 internal
 modules formalize the manuscript proof through a literal parent-rank timeout,
 its exact terminal odd-count tail, decreasing-rank timeout run, combined
