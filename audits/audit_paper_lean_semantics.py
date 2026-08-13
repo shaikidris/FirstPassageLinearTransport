@@ -3,8 +3,9 @@
 
 This is deliberately not a theorem prover. It guards fragile literal
 contracts that a successful Lean build cannot see: copied constants, rank
-offsets, strict endpoints, paper/formal status language, and reference
-resolution. The accompanying concordance records the human semantic audit.
+offsets, strict endpoints, paper/formal status language, reference resolution,
+and reverse anchor reachability. The accompanying concordance records the
+human semantic audit.
 """
 
 from __future__ import annotations
@@ -53,6 +54,22 @@ def declaration_present(name: str, lean_text: str) -> bool:
         rf"(?:[A-Za-z0-9_']+\.)*{leaf}\b"
     )
     return re.search(pattern, lean_text) is not None
+
+
+def manuscript_anchor_audit(
+    text: str,
+) -> tuple[list[str], list[str], list[str], list[str], list[str]]:
+    """Return anchors, references, duplicates, missing targets, and orphans."""
+
+    anchors = re.findall(r"\{#([A-Za-z0-9_.:-]+)\}", text)
+    anchors += re.findall(r"<span\s+id=[\"']([^\"']+)[\"']", text)
+    references = re.findall(r"\]\(#([A-Za-z0-9_.:-]+)\)", text)
+    anchor_set = set(anchors)
+    reference_set = set(references)
+    duplicates = sorted({anchor for anchor in anchors if anchors.count(anchor) > 1})
+    missing = sorted(reference_set - anchor_set)
+    orphans = sorted(anchor_set - reference_set)
+    return anchors, references, duplicates, missing, orphans
 
 
 def main() -> int:
@@ -509,17 +526,23 @@ def main() -> int:
     if missing_labels:
         failures.append(f"unresolved equation references: {', '.join(missing_labels)}")
 
-    anchors = re.findall(r"\{#([A-Za-z0-9_.:-]+)\}", paper)
-    anchors += re.findall(r"<span\s+id=[\"']([^\"']+)[\"']", paper)
-    anchor_references = re.findall(r"\]\(#([A-Za-z0-9_.:-]+)\)", paper)
-    duplicate_anchors = sorted(
-        {anchor for anchor in anchors if anchors.count(anchor) > 1}
-    )
-    missing_anchors = sorted(set(anchor_references) - set(anchors))
+    (
+        anchors,
+        anchor_references,
+        duplicate_anchors,
+        missing_anchors,
+        orphan_anchors,
+    ) = manuscript_anchor_audit(paper)
     if duplicate_anchors:
-        failures.append(f"duplicate manuscript anchors: {', '.join(duplicate_anchors)}")
+        failures.append(
+            f"duplicate manuscript anchors: {', '.join(duplicate_anchors)}"
+        )
     if missing_anchors:
         failures.append(f"unresolved manuscript anchors: {', '.join(missing_anchors)}")
+    if orphan_anchors:
+        failures.append(
+            f"orphan manuscript anchors: {', '.join(orphan_anchors)}"
+        )
 
     if failures:
         print("paper_lean_semantic_audit=FAIL")
@@ -531,7 +554,10 @@ def main() -> int:
     print(f"literal_contracts={len(checks) + len(lean_literal_checks)}")
     print(f"critical_declarations={len(critical_declarations)}")
     print(f"equation_labels={len(labels)} equation_references={len(references)}")
-    print(f"anchors={len(anchors)} anchor_references={len(anchor_references)}")
+    print(
+        f"anchors={len(anchors)} anchor_references={len(anchor_references)} "
+        f"orphan_anchors={len(orphan_anchors)}"
+    )
     return 0
 
 

@@ -16,74 +16,44 @@ parity vectors, polylogarithmic descent
 
 ## Abstract
 
-Let
-\[
-T(n)=
-\begin{cases}
-n/2,&n\equiv0\pmod2,\\
-(3n+1)/2,&n\equiv1\pmod2,
-\end{cases}
-\qquad
-T_{\min}(n)=\min_{k\geq0}T^k(n).
-\]
-Put
-\[
-\kappa_*=1-H_2(\log_3 2),
-\qquad
-A_{\rm FP}=\frac1{2(1-H_2(\log_3 2))}
-=9.9911133419\ldots,
-\qquad
-c_* = \frac2{\log(4/3)}
-=6.9521189935\ldots,
-\]
-where \(H_2\) is binary entropy.  For every fixed
-\(A>A_{\rm FP}\), \(c>c_*\), and \(\beta>0\), and every
+Let \(T(n)=n/2\) for even \(n\) and \(T(n)=(3n+1)/2\) for odd \(n\), and
+write \(T_{\min}(n)=\min_{k\ge0}T^k(n)\).  Put
+\(\kappa_*=1-H_2(\log_3 2)\),
+\(A_{\rm FP}=(2\kappa_*)^{-1}=9.9911133419\ldots\), and
+\(c_*=2/\log(4/3)=6.9521189935\ldots\), where \(H_2\) is binary entropy.
+For every fixed \(A>A_{\rm FP}\), \(c>c_*\), \(\beta>0\), and
 \(0<\gamma<\kappa_*(A-A_{\rm FP})\), all but
-\(O_{A,c,\beta,\gamma}(X/(\log X)^\gamma)\) integers \(n\le X\)
-possess a shortcut-Collatz iterate, before \(c\log n\) steps, satisfying
+\(O_{A,c,\beta,\gamma}(X/(\log X)^\gamma)\) integers \(n\le X\) possess an
+iterate with \(k<c\log n\) such that
 \[
 T^k(n)\le C_{\rm tar}(\log n)^A,
 \qquad
 \max_{0\le j\le k}T^j(n)\le n^{1+\beta}.
 \]
-More sharply, the proof reaches the critical principal exponent
-\(A_{\rm FP}\), but only with an explicit log-log factor.  For every fixed
-\(D>0\), the target can be replaced by
+The proof reaches the critical principal exponent \(A_{\rm FP}\), but only
+with an explicit log-log factor: for every fixed \(D>0\), the target can be
+replaced by
 \[
 C_{\rm tar}(\log n)^{A_{\rm FP}}
 (\log\log n)^{2A_{\rm FP}}(\log\log\log n)^D,
 \]
 with exceptional count
-\(O_{D,c,\beta,\gamma}(X/(\log\log\log X)^\gamma)\) for every
-\(0<\gamma<D\kappa_*\).  More generally, for every prescribed divergent
-function \(\Omega\), the proof produces a divergent subpower minorant
-that is eventually bounded above by \(\Omega\) and may replace the final
-factor; hence the conclusion also holds with the larger \(\Omega\)-factor.
-The pure target \(C(\log n)^{A_{\rm FP}}\), and the critical secondary scale
-with a bounded final multiplier, are not asserted.
+\(O_{D,c,\beta,\gamma}(X/(\log\log\log X)^\gamma)\) whenever
+\(0<\gamma<D\kappa_*\).  Any prescribed divergent function admits a
+divergent subpower minorant that may replace the final factor.  The pure
+target \(C(\log n)^{A_{\rm FP}}\), and a bounded final multiplier at the
+critical secondary scale, are not asserted.  For the weaker target
+\(\exp((\log n)^{1-\delta})\), \(0<\delta<1\), the exceptional count improves
+to \(O(X\exp(-\gamma(\log X)^{1-\delta}))\).  The same witnesses give every
+unaccelerated clock constant greater than \(3/\log(4/3)\).
 
-For the weaker target \(\exp((\log n)^{1-\delta})\), the same method gives
-the sharper exceptional count
-\[
-O_{\delta,c,\beta}\!\left(
-X\exp(-\gamma_{\delta,c,\beta}(\log X)^{1-\delta})
-\right)
-\]
-for every fixed \(0<\delta<1\), \(c>c_*\), and \(\beta>0\); the same witnesses
-give every clock constant greater than \(3/\log(4/3)\) for the
-unaccelerated Collatz map.
-
-The proof counts the possible parity words exactly for integers in each range
-\([2^M,2^{M+1})\).  At large scales, a bound on every parity prefix controls
-the orbit; at small scales, the terminal odd-step count controls blocks that
-fail to cross their next threshold in time.  The remaining argument is
-deterministic.  Because the thresholds decrease, each later failure occurs at
-the first crossing of a lower threshold by the original orbit.  The
-large-scale prefix bounds restrict
-the possible cumulative crossing times to \(O(\sqrt{M\log M})\) values.
-Counting only those times replaces a linear loss by a square-root loss and
-yields the displayed exponent.  The result is an almost-all statement and
-makes no claim for every starting value.
+The proof counts parity words exactly on each dyadic shell.  Large-scale
+prefix bounds control the orbit, while a terminal odd-step tail controls
+small blocks that time out.  Decreasing thresholds identify every later
+failure with a direct first passage of the original orbit, and the possible
+cumulative passage times occupy only \(O(\sqrt{M\log M})\) values.  Counting
+only those times replaces a linear loss by a square-root loss.  All statements
+are almost-all results, not pointwise assertions.
 
 ## 1. Introduction and main results
 
@@ -431,7 +401,7 @@ landings; below the switch, the timeout rule replaces low-rank certification.
 Panel (b) records
 the proved reduction in the number of possible cumulative passage times;
 bar lengths are schematic and do not encode the unspecified constant in
-Lemmas 6.1 and 6.3.](fig-architecture.svg){#fig-architecture}
+Lemmas 6.1 and 6.3.](fig-architecture.svg)
 
 ### Relation to previous almost-all results
 
@@ -635,7 +605,7 @@ even letter divides every existing term by two.  An odd letter multiplies
 every existing term by \(3/2\) and adds \(1/2\).  This is exactly the
 displayed update. \(\square\)
 
-## 3. A dense set with controlled parity prefixes {#sec-barrier}
+## 3. A dense set with controlled parity prefixes
 
 The parity bijection identifies a complete dyadic shell with the Boolean
 cube.  We now discard the sparse words whose prefixes deviate too far from
@@ -887,7 +857,7 @@ on all sufficiently large shells.  Enlarge \(K_{\eta,c}\) to absorb the
 finite startup.  Summing the resulting geometric shell series proves the
 global density assertion. \(\square\)
 
-## 4. First-passage linear transport {#sec-transport}
+## 4. First-passage linear transport
 
 The barrier identifies a sparse set of bad orbit values.  To count the
 original sources that reach such values, we must transport an arbitrary set
