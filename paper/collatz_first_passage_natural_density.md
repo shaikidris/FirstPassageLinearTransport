@@ -46,19 +46,21 @@ T^k(n)\le C_{\rm tar}(\log n)^A,
 \qquad
 \max_{0\le j\le k}T^j(n)\le n^{1+\beta}.
 \]
-More sharply, the fixed exponent may approach the critical value.  For every
-fixed \(D>0\), the target can be replaced by
+More sharply, the proof reaches the critical principal exponent
+\(A_{\rm FP}\), but only with an explicit log-log factor.  For every fixed
+\(D>0\), the target can be replaced by
 \[
 C_{\rm tar}(\log n)^{A_{\rm FP}}
 (\log\log n)^{2A_{\rm FP}}(\log\log\log n)^D,
 \]
 with exceptional count
 \(O_{D,c,\beta,\gamma}(X/(\log\log\log X)^\gamma)\) for every
-\(0<\gamma<D\kappa_*\).  More generally, the final factor may be replaced,
-on a natural-density-one set, by any prescribed function of
-\(\log\log n\) tending to infinity.  The pure target
-\(C(\log n)^{A_{\rm FP}}\), and the critical secondary scale with a bounded
-final multiplier, are not asserted.
+\(0<\gamma<D\kappa_*\).  More generally, for every prescribed divergent
+function \(\Omega\), the proof produces a divergent subpower minorant
+that is eventually bounded above by \(\Omega\) and may replace the final
+factor; hence the conclusion also holds with the larger \(\Omega\)-factor.
+The pure target \(C(\log n)^{A_{\rm FP}}\), and the critical secondary scale
+with a bounded final multiplier, are not asserted.
 
 For the weaker target \(\exp((\log n)^{1-\delta})\), the same method gives
 the sharper exceptional count
@@ -196,7 +198,9 @@ Assume
 \]
 For every fixed \(c>c_*\) and \(\beta>0\), there are constants
 \(C_{\rm tar},C_{\rm exc},\varepsilon>0\) and an integer \(M_0\ge1\) such that
-the following holds.  Let \(\mathcal E_M\) be the set of \(n\in I_M\) for which no integer
+the following holds.  These constants may depend on the bounded sequence
+\((A_M)\), as well as on \(c\) and \(\beta\), but are independent of \(M\).
+Let \(\mathcal E_M\) be the set of \(n\in I_M\) for which no integer
 \(0\le k<c\log n\) simultaneously satisfies
 \[
 T^k(n)\le C_{\rm tar}(\log n)^{A_M},
@@ -255,16 +259,25 @@ witness satisfies
    fails for at most
    \(O_{D,c,\beta,\gamma}(X/(\log\log\log X)^\gamma)\) integers \(n\le X\).
 
-More generally, the final factor in \eqref{eq:1-7} may be replaced, on a
-natural-density-one set, by \(\Omega(\log\log n)\) for any prescribed
-function \(\Omega:[1,\infty)\to(0,\infty)\) with \(\Omega(x)\to\infty\).
-No monotonicity is required.  The constants and the retained set may depend
-on \(\Omega,c,\beta\).
+More generally, for any prescribed function
+\(\Omega:[1,\infty)\to(0,\infty)\) with \(\Omega(x)\to\infty\), there is an
+eventually nondecreasing function \(\widetilde\Omega\) such that
+\[
+1\le\widetilde\Omega(x)\le\Omega(x)\quad\text{eventually},\qquad
+\widetilde\Omega(x)\to\infty,\qquad
+\widetilde\Omega(x)=x^{o(1)},
+\]
+and the final factor in \eqref{eq:1-7} may be replaced, on a
+natural-density-one set, by \(\widetilde\Omega(\log\log n)\).  Consequently
+the conclusion also holds with the larger factor \(\Omega(\log\log n)\).
+No monotonicity is required of \(\Omega\).  The constants and the retained set
+may depend on \(\Omega,c,\beta\).
 
-Every target above is \(o(n)\), so it is a genuine descent for all sufficiently
-large \(n\).  The assertions are density-one rather than pointwise.  Neither
-the landing constant \(C_{\rm tar}\) nor the onset of the asymptotic comparison
-is made effective.
+Every numbered target above, and the proof-native \(\widetilde\Omega\)-target,
+is \(o(n)\), so it is a genuine descent for all sufficiently large \(n\).
+The assertions are density-one rather than pointwise.  Neither the landing
+constant \(C_{\rm tar}\) nor the onset of the asymptotic comparison is made
+effective.
 
 ::: {.theorem-block}
 
@@ -450,7 +463,7 @@ the table.
 | Tao [[5]](#ref-tao) | logarithmic | every \(f(n)\to\infty\) | no single global clock in the headline theorem; logarithmic-density estimate |
 | Mazur [[4]](#ref-mazur) | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | \(<436\log n\) unaccelerated steps; fixed-target logarithmic rate |
 | Allikvere [[1]](#ref-allikvere) | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | \(<12\log n\) unaccelerated steps; \(O((\log N_0)^{-1/29}+X^{-1/2000})\) for a fixed target |
-| This paper | natural | \((\log n)^{A_{\rm FP}}(\log\log n)^{2A_{\rm FP}}\Omega(\log\log n)\), every \(\Omega\to\infty\); also every fixed \((\log n)^A\), \(A>A_{\rm FP}\) | every shortcut constant \(>c_*\); every unaccelerated constant \(>3/\log(4/3)\); target-dependent quantitative rates and an orbit-height bound through the witnessing time |
+| This paper | natural | \((\log n)^{A_{\rm FP}}(\log\log n)^{2A_{\rm FP}}\widetilde\Omega(\log\log n)\)<br>\(\widetilde\Omega(x)=x^{o(1)}\to\infty\), chosen eventually below each prescribed \(\Omega\to\infty\); also every fixed \((\log n)^A\), \(A>A_{\rm FP}\) | every shortcut constant \(>c_*\); every unaccelerated constant \(>3/\log(4/3)\); target-dependent quantitative rates and an orbit-height bound through the witnessing time |
 
 [Theorem 1.1](#thm-moving-polylog) additionally bounds every preceding
 iterate through the same witnessing time:
@@ -459,9 +472,9 @@ headline statements in [[1]](#ref-allikvere) or [[4]](#ref-mazur); this is a
 comparison of stated outputs, not a claim that their proof-internal trajectory
 estimates cannot yield related bounds.
 
-The moving polylogarithmic target is smaller than every fixed power and every
-fixed stretched-logarithmic target in [Theorem 1.3](#thm-stretched-log), but
-it still contains the fixed divergent core
+The proof-native moving polylogarithmic target is smaller than every fixed
+power and every fixed stretched-logarithmic target in
+[Theorem 1.3](#thm-stretched-log), but it still contains the fixed divergent core
 \((\log n)^{A_{\rm FP}}(\log\log n)^{2A_{\rm FP}}\).  It is therefore weaker
 than an arbitrary diverging function.  At the target-only level, Tao's theorem
 specializes to every target displayed here, albeit in logarithmic rather than
@@ -1407,7 +1420,7 @@ length \(O(\sqrt{M\log(M+2)})\); counting its integer points proves
 
 The fixed-time, fixed-landing count also has the following restricted-time
 form.  If
-\(\mathcal H\) is any finite set of positive times, \(B\subseteq[1,Y]\),
+\(\mathcal H\) is any finite set of positive times, \(B\subseteq J_Y\),
 and the scaled reverse loss is at most \(D_q\), then
 \[
 \#\left\{n\in I_M:
@@ -1478,9 +1491,42 @@ For completeness, the uniform quadratic estimate used here is
 \tag{6.8d}\label{eq:6-8d}
 \]
 When \(m\ge4\) and \(tm\ge2\), apply [Lemma 3.1](#lem-entropy-barrier) at
-height \(tm/(2\log_2 3)\) and use
-\(\mathcal I(u)\ge2u^2\); the correction argument of
-[Lemma 3.2](#lem-affine-correction) then gives the required orbit envelope.
+height
+\[
+h=\frac{tm}{2\log_2 3},
+\qquad 3^h=2^{tm/2}.
+\]
+Here \(h<m/2\), since \(t\le1<\log_2 3\), so the height is in the range of
+[Lemma 3.1](#lem-entropy-barrier).
+If \(H_m\le h\), then \(|d_k|\le h\) for every \(k\le m\).  Since
+\(n\ge2^m\),
+\[
+3^{-h}=2^{-tm/2}\ge n^{-t},
+\qquad
+3^h=2^{tm/2}\le2^{-tm/2}n^t.
+\]
+Thus the multiplicative term in \eqref{eq:3-6} lies above
+\(\rho^kn^{1-t}\) and below
+\(2^{-tm/2}\rho^kn^{1+t}\).  The unused upper-envelope slack is at least
+\[
+\left(1-2^{-tm/2}\right)\rho^m2^{(1+t)m}
+\ge\frac12\,2^{(a_0+t)m}.
+\]
+Meanwhile [Lemma 3.2](#lem-affine-correction) and \(d_k\le h\) bound the
+additive term in \eqref{eq:3-6} by
+\[
+(2+\sqrt3)3^{2h}=(2+\sqrt3)2^{tm}.
+\]
+For \(m\ge4\), this is at most the displayed slack because
+\(2^{a_0m}/2\ge2^{4a_0}/2=9/2>2+\sqrt3\).  Hence
+\(H_m\le h\) implies \(x\in W_t\), or equivalently
+\(I_m\setminus W_t\subseteq\{x\in I_m:H_m(x)>h\}\).  By
+[Proposition 2.2](#prop-parity-code), [Lemma 3.1](#lem-entropy-barrier), and
+\(\mathcal I(u)\ge2u^2\), the complementary proportion is at most
+\[
+2\exp\!\left(-\frac{t^2m}{2(\log_2 3)^2}\right)
+=2e^{-c_0t^2m}.
+\]
 Outside this startup regime, \(t^2m\le4\), so the trivial shell bound is
 absorbed by \(C_0=2e^{4c_0}\).  Thus \eqref{eq:6-8d} is uniform in \(t\).
 Applying it with \(t=\eta_{M,M}\) and using \eqref{eq:6-8a} proves
@@ -1597,10 +1643,18 @@ By [Proposition 2.2](#prop-parity-code), \(s_m\) has the exact
 =p_*-\frac{K_0p_*}{2L}-\frac{\theta_{L,m}p_*+1}{m}<p_*.
 \tag{6.14a}\label{eq:6-14a}
 \]
-Write the normalized first integer in the resulting upper tail as
-\(u_{L,m}\).
-By \eqref{eq:6-14a}, it lies in
-\((\pi_{L,m},\pi_{L,m}+1/m]\), and hence is still strictly below \(p_*\).
+Since \(s\) is integral, \eqref{eq:6-14} is equivalent to
+\[
+s\ge k_{L,m},
+\qquad
+k_{L,m}:=\lfloor q_L(m)p_*\rfloor.
+\]
+Put \(u_{L,m}=k_{L,m}/m\).  Then
+\[
+\pi_{L,m}<u_{L,m}\le\pi_{L,m}+\frac1m
+=\frac{q_L(m)p_*}{m}<p_*,
+\]
+where the last inequality uses \(q_L(m)<m\).
 Thus the timeout cut is subcritical, but differs from \(p_*\) by only
 \(O_{C,K_0}(L^{-1})\) when \(L\le m\le CL\).
 These thresholds eventually lie in one compact subinterval of \((1/2,1)\).
@@ -1835,11 +1889,30 @@ For the final functional statement, let \(\Omega(x)\to\infty\).  Choose
 numbers \(x_j\uparrow\infty\) so rapidly that
 \(\Omega(x)\ge j\) for every \(x\ge x_j\) and
 \(\log j/\log x_j\to0\).  The step function equal to \(j\) on
-\([x_j,x_{j+1})\) is an eventually nondecreasing subpower minorant
-\(\widetilde\Omega\le\Omega\), after a harmless fixed shift of its argument.
-Use \eqref{eq:6-23} with the final term replaced by
-\(\log_2\widetilde\Omega(\log(M+4))\).  Its exponent margin tends to infinity,
-and the resulting smaller target implies the asserted \(\Omega\)-target.
+\([x_j,x_{j+1})\), with a fixed value on the finite initial interval, is an
+eventually nondecreasing function satisfying, eventually,
+\(1\le\widetilde\Omega\le\Omega\) and
+\[
+\widetilde\Omega(x)\to\infty,
+\qquad
+\frac{\log\widetilde\Omega(x)}{\log x}\longrightarrow0.
+\]
+Thus \(\widetilde\Omega(x)=x^{o(1)}\).
+For sufficiently large \(M\), put \(z_M=\log(M\log2)\), so that
+\(z_M\ge1\) and \(z_M\le\log\log n\) for every \(n\in I_M\).  Use the
+terminal rank in \eqref{eq:6-23} with the final term replaced by
+\(\log_2\widetilde\Omega(z_M)\).  Since
+\(\log_2\widetilde\Omega(z_M)=o(\log\log M)\), this rank is still
+asymptotic to \(A_{\rm FP}\log_2M\), as required in
+[Proposition 6.4](#prop-rank-buffer), while
+\[
+\Delta_M\ge
+\kappa_*\log_2\widetilde\Omega(z_M)\longrightarrow+\infty.
+\]
+Monotonicity gives a proof-native
+\(\widetilde\Omega(\log\log n)\)-target, which is \(o(n)\).  Since
+\(\widetilde\Omega\le\Omega\) eventually, it also implies the asserted larger
+\(\Omega\)-target.
 \(\square\)
 
 ## 7. Quantitative companions
@@ -1972,6 +2045,41 @@ individual Collatz orbit.  The independent graded-clock companion uses only
 a fixed finite dense-set pullback and is not on either headline dependency
 chain.
 
+## 9. Method ceiling and future directions
+
+The endpoint in this paper is set by the first term of \eqref{eq:6-17}.
+To separate the leading power from logarithmic factors, suppose a future
+replacement for the feasible-time summation contributed
+\(M^{\theta+o(1)}\) in place of the present \(M^{1/2+o(1)}\), while retaining
+the same timeout tail and reverse-loss estimate.  The scalar budget would then
+require
+\[
+\kappa_*L_M>\theta\log_2M+o(\log M).
+\]
+For \(L_M\sim A\log_2M\), its corresponding method threshold would be
+\(A>\theta/\kappa_*\).  This is only a conditional calculation: the paper
+proves \(\theta=1/2\), not any smaller value.
+
+[Lemma 6.1](#lem-time-support) already replaces a union over high-rank
+histories by one interval of feasible times.  Further improvement must control
+the aggregate over the points of that interval, rather than merely reorganize
+the histories that produced it.  Two possible mechanisms are a signed or
+target-weighted estimate for the actual first-passage landings before taking
+an absolute upper bound, or a restart-closed renewal estimate for the mass
+surviving a low-rank timeout.  Neither estimate is proved here.
+
+Even eliminating every positive power of \(M\) from the feasible-time cost
+would leave the local factor
+\(L_M^{1/2}2^{-\kappa_*L_M}\).  It would therefore make the scalar budget
+compatible with terminal ranks \(L_M\to\infty\) arbitrarily slowly, but not
+with a fixed terminal rank.  A fixed bound requires a different
+survivor-killing estimate whose exceptional mass decays with the outer rank
+\(M\), for a fixed clock strictly above \(c_*\).  If such an estimate reached
+a fixed interval \([1,C]\), and the finitely many integers in that interval
+were verified to reach \(1\), it would imply convergence to \(1\) on a set of
+natural density one.  That substantially stronger conclusion is outside the
+present theorem.
+
 ## Research and software disclosure
 
 Generative-AI systems were used in proof exploration, adversarial auditing,
@@ -1980,54 +2088,33 @@ theorem and proof architecture, reviewed the resulting artifacts, and accepts
 responsibility for the manuscript.  Finite diagnostics are supporting
 evidence only and are not premises of any theorem.
 
-The separate Lean package kernel-checks the public theorem chain from
-bounded-reverse-loss transport through the natural-density assembly, as well
-as the
-fixed-depth graded-clock companion.  Its public `Main` theorem includes
-[Theorem 1.1](#thm-moving-polylog): for every bounded exponent sequence with
-\(\Delta_M\to+\infty\), it exposes the literal shell exceptional ratio,
-moving landing, logarithmic clock, and orbit-height bound through the same
-witness.  The public
-fixed-\(A\) specialization has the strict ranges \(A>A_{\rm FP}\), \(c>c_*\),
-and \(\beta>0\), with a positive logarithmic exceptional exponent; its landing
-inequality is strict and hence slightly stronger than the manuscript's weak
-inequality.  The exact upper range for that fixed-\(A\) exceptional exponent
-is paper-level.  For
-[Theorem 1.3](#thm-stretched-log), one public Lean declaration formalizes the
-literal same-witness landing, clock, and ceiling at the explicit shortcut
-clock \(6.953\log n\), while another formalizes the unclocked exceptional
-count for every strict power below \(1-\delta\).  These projections do not
-recover the theorem's joint quantitative predicate or its arbitrary strict
-clock \(c>c_*\).  No single public declaration currently combines them, and
-the endpoint power \(1-\delta\) in \eqref{eq:1-8} is paper-level.
-For [Corollary 1.4](#cor-raw-clock), the current public raw declaration
-formalizes the stretched-logarithmic landing with the \(10.44\log n\) clock.
-The moving-polylogarithmic raw specialization, its same-witness raw-orbit
-ceiling, and the transferred quantitative rates are presently paper-level.
-The literal capstone statement of [Theorem 5.3](#thm-terminal-profile) is also
-paper-level: Lean checks its finite first-bad aggregation, recursive-run, and
-terminal-profile components, but no single declaration currently combines
-those components with the theorem's real-valued rank parameter and full
-successful-witness conclusion.
+The separate Lean package kernel-checks the canonical timeout route to the
+exported `Main` declaration corresponding to
+[Theorem 1.1](#thm-moving-polylog).  For every bounded exponent sequence with
+\(\Delta_M\to+\infty\), that declaration exposes the literal shell
+exceptional ratio, moving landing, logarithmic clock, and orbit-height bound
+through the same witness.  The package also exports the fixed-\(A\)
+specialization and the fixed-depth graded-clock companion.  The earlier
+all-prefix construction is retained in an optional library, but is neither
+imported by `Main` nor built by the default target.
 
-The package contains the canonical timeout proof term and, in a separate
-optional library, the earlier all-prefix cross-check. They share endpoint
-parameters, scalar asymptotics, and dyadic natural-density assembly. The route mapped to this
-V3.2 manuscript mirrors the timeout substitution in
-[Lemma 6.3](#lem-timeout-low-phase) and
-[Proposition 6.4](#prop-rank-buffer): it kernel-checks the literal timeout
-event and endpoint-rate tail, the mixed run and decreasing low potential,
-first-timeout transport, exact dyadic-endpoint halving, and the same-witness
-clock and ceiling. The retained comparison route uses the earlier all-prefix
-argument at small shell ranks. It proves the same proposition in
-`FirstPassageLinearTransport.Alternates.AllPrefix.Main`, but is neither
-imported by the referee-facing `Main` module nor built by the default target.
+Some quantitative companions are presently represented by separate formal
+projections rather than one declaration with every paper quantifier.  In
+particular, Lean checks the explicit \(6.953\log n\) stretched-logarithmic
+witness, every strict subendpoint exceptional power, and the raw
+\(10.44\log n\) stretched-logarithmic landing.  The joint statement of
+[Theorem 1.3](#thm-stretched-log), its exact endpoint exceptional power, the
+moving raw specialization in [Corollary 1.4](#cor-raw-clock), and the literal
+capstone form of [Theorem 5.3](#thm-terminal-profile) remain paper-level; their
+structural components are formalized separately.  The exact declaration map
+and these boundaries are recorded in `lean/FORMALIZATION.md`.
 
 The access-controlled
 [GitHub repository](https://github.com/shaikidris/FirstPassageLinearTransport)
-contains the complete public theorem and the separately packaged alternate on
-its current private branch; repository access can be provided to referees on
-request.  The
+contains the exported theorem and the separately packaged alternate on
+its private branch.  The audited Lean source is commit
+`921e15ad1eb67e605afbcebb740b96253e2d6944`; repository access can be provided
+to referees on request.  The
 formal package uses Lean `4.15.0` (commit
 `11651562caae`) and Mathlib revision
 `9837ca9d65d9de6fad1ef4381750ca688774e608`.  From the repository's `lean/`
