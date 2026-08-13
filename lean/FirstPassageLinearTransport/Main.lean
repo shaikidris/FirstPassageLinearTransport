@@ -36,10 +36,11 @@ abstract map or an unproved input.
 * `badCount S X` counts the positive integers `n <= X` outside `S`;
 * `NaturalDensityOne S` means `badCount S X / X` tends to zero as
   `X` tends to infinity;
-* `HasStretchedLogDescent delta n` means that some literal shortcut iterate
-  is at most `exp ((log n)^(1-delta))`;
-* `HasFixedPowerDescent alpha n` means that some literal shortcut iterate is
-  at most `n^alpha`.
+* the moving headline writes its entropy buffer explicitly using the integer
+  terminal rank `ceil (A M * logb 2 (M + 2))`;
+* the quantitative exceptional sets are written literally as the existence of
+  a shortcut iterate below the displayed target, rather than through an
+  auxiliary descent predicate.
 
 Thus the declarations below are unconditional statements about the displayed
 Collatz maps, with every parameter range, clock, target, and density notion
@@ -64,7 +65,13 @@ theorem collatz_first_passage_moving_polylogarithmic_natural_density_descent
     (hUpper : ∀ M : ℕ, A M ≤ Amax)
     (hc : 2 / Real.log (4 / 3) < c)
     (hbeta : 0 < beta)
-    (hbuffer : Tendsto (movingRankBuffer A) atTop atTop) :
+    (hbuffer : Tendsto
+      (fun M : ℕ =>
+        (1 - binaryEntropyBaseTwo logThreeTwo) *
+            (⌈A M * Real.logb 2 ((M : ℝ) + 2)⌉₊ : ℝ) -
+          (1 / 2) * Real.logb 2 ((M : ℝ) + 2) -
+          Real.logb 2 (Real.log ((M : ℝ) + 3)))
+      atTop atTop) :
     ∃ C eps : ℝ,
       0 < C ∧ 0 < eps ∧
       NaturalDensityOne
@@ -81,16 +88,29 @@ theorem collatz_first_passage_moving_polylogarithmic_natural_density_descent
             (orbit k n : ℝ) < C * (Real.log n) ^ (A M) ∧
             ∀ j : ℕ, j ≤ k →
               (orbit j n : ℝ) ≤ (n : ℝ) ^ (1 + beta)} M ≤
-          C * ((2 : ℝ) ^ (-(movingRankBuffer A M)) +
+          C * ((2 : ℝ) ^ (-((1 - binaryEntropyBaseTwo logThreeTwo) *
+              (⌈A M * Real.logb 2 ((M : ℝ) + 2)⌉₊ : ℝ) -
+            (1 / 2) * Real.logb 2 ((M : ℝ) + 2) -
+            Real.logb 2 (Real.log ((M : ℝ) + 3)))) +
             (((M : ℝ) + 2) ^ (-eps)))) := by
   have hc' : fixedPolylogClockCritical < c := by
     simpa [fixedPolylogClockCritical_eq_paper] using hc
+  have hbuffer' : Tendsto (movingRankBuffer A) atTop atTop := by
+    change Tendsto
+      (fun M : ℕ =>
+        (1 - binaryEntropyBaseTwo logThreeTwo) *
+            (⌈A M * Real.logb 2 ((M : ℝ) + 2)⌉₊ : ℝ) -
+          (1 / 2) * Real.logb 2 ((M : ℝ) + 2) -
+          Real.logb 2 (Real.log ((M : ℝ) + 3)))
+      atTop atTop
+    exact hbuffer
   obtain ⟨C, eps, hC, heps, hDense, hShell, _hWitness⟩ :=
-    timeoutEndpointLiteralNaturalDensityDescent hAmax hc' hbeta hbuffer
+    timeoutEndpointLiteralNaturalDensityDescent hAmax hc' hbeta hbuffer'
       (Eventually.of_forall hUpper)
   refine ⟨C, eps, hC, heps, ?_, ?_⟩
   · simpa [assembleDyadic, timeoutEndpointWitnessGood] using hDense
-  · simpa [timeoutEndpointWitnessGood] using hShell
+  · simpa [timeoutEndpointWitnessGood, movingRankBuffer, criticalRankBuffer,
+      movingTerminalRank, firstPassageEntropyGap] using hShell
 
 /-- Compatibility name making the timeout implementation explicit. The
 canonical theorem immediately above has the identical proposition and is the
@@ -101,7 +121,13 @@ theorem collatz_first_passage_timeout_moving_polylogarithmic_natural_density_des
     (hUpper : ∀ M : ℕ, A M ≤ Amax)
     (hc : 2 / Real.log (4 / 3) < c)
     (hbeta : 0 < beta)
-    (hbuffer : Tendsto (movingRankBuffer A) atTop atTop) :
+    (hbuffer : Tendsto
+      (fun M : ℕ =>
+        (1 - binaryEntropyBaseTwo logThreeTwo) *
+            (⌈A M * Real.logb 2 ((M : ℝ) + 2)⌉₊ : ℝ) -
+          (1 / 2) * Real.logb 2 ((M : ℝ) + 2) -
+          Real.logb 2 (Real.log ((M : ℝ) + 3)))
+      atTop atTop) :
     ∃ C eps : ℝ,
       0 < C ∧ 0 < eps ∧
       NaturalDensityOne
@@ -118,7 +144,10 @@ theorem collatz_first_passage_timeout_moving_polylogarithmic_natural_density_des
             (orbit k n : ℝ) < C * (Real.log n) ^ (A M) ∧
             ∀ j : ℕ, j ≤ k →
               (orbit j n : ℝ) ≤ (n : ℝ) ^ (1 + beta)} M ≤
-          C * ((2 : ℝ) ^ (-(movingRankBuffer A M)) +
+          C * ((2 : ℝ) ^ (-((1 - binaryEntropyBaseTwo logThreeTwo) *
+              (⌈A M * Real.logb 2 ((M : ℝ) + 2)⌉₊ : ℝ) -
+            (1 / 2) * Real.logb 2 ((M : ℝ) + 2) -
+            Real.logb 2 (Real.log ((M : ℝ) + 3)))) +
             (((M : ℝ) + 2) ^ (-eps)))) :=
   collatz_first_passage_moving_polylogarithmic_natural_density_descent
     hAmax hUpper hc hbeta hbuffer
@@ -285,10 +314,15 @@ theorem collatz_first_passage_quantitative_stretched_exceptional_count
     (hdelta0 : 0 < delta) (hdelta1 : delta < 1)
     (hsigma0 : 0 < sigma) (hsigma : sigma < 1 - delta) :
     ∃ c : ℝ, 0 < c ∧ ∀ᶠ X : ℕ in atTop,
-      (badCount {n | HasStretchedLogDescent delta n} X : ℝ) ≤
+      (badCount
+        {n : ℕ | ∃ k : ℕ,
+          (orbit k n : ℝ) ≤
+            Real.exp ((Real.log n) ^ (1 - delta))} X : ℝ) ≤
         5 * X * Real.exp (-c * (Real.log X) ^ sigma) :=
-  firstPassageLinearTransportQuantitativeStretched
-    hdelta0 hdelta1 hsigma0 hsigma
+  by
+    simpa [HasStretchedLogDescent, ReachesBelow] using
+      (firstPassageLinearTransportQuantitativeStretched
+        hdelta0 hdelta1 hsigma0 hsigma)
 
 /-- **Raw Collatz clock.** The same stretched-logarithmic target is reached
 before `10.44 * log n` literal raw Collatz steps. -/
@@ -328,10 +362,14 @@ theorem collatz_first_passage_quantitative_fixed_power_exceptional_count
     {alpha sigma : ℝ} (halpha : 0 < alpha)
     (hsigma0 : 0 < sigma) (hsigma1 : sigma < 1) :
     ∃ c : ℝ, 0 < c ∧ ∀ᶠ X : ℕ in atTop,
-      (badCount {n | HasFixedPowerDescent alpha n} X : ℝ) ≤
+      (badCount
+        {n : ℕ | ∃ k : ℕ,
+          (orbit k n : ℝ) ≤ (n : ℝ) ^ alpha} X : ℝ) ≤
         5 * X * Real.exp (-c * (Real.log X) ^ sigma) :=
-  firstPassageLinearTransportQuantitativeFixedPower
-    halpha hsigma0 hsigma1
+  by
+    simpa [HasFixedPowerDescent, ReachesBelow] using
+      (firstPassageLinearTransportQuantitativeFixedPower
+        halpha hsigma0 hsigma1)
 
 /-- **Graded fixed-power shortcut clock.** Reaching `n^alpha` pays only the
 fraction `1-alpha` of the full limiting clock, up to arbitrary slack. -/

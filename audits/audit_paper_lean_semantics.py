@@ -423,7 +423,12 @@ def main() -> int:
             "collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent",
         ),
     ]
-    compact_lean = compact(lean_text)
+    # The reachability cleanup deliberately moved the retained all-prefix
+    # contracts under `Alternates/AllPrefix/Implementation`.  Semantic
+    # contracts are audited across every packaged Lean source; the separate
+    # dependency audit below still enforces that canonical `Main` does not
+    # import the optional library.
+    compact_lean = compact(all_lean_text)
     for name, required in lean_literal_checks:
         if compact(required) not in compact_lean:
             failures.append(f"missing literal Lean contract [{name}]")
@@ -518,7 +523,7 @@ def main() -> int:
 
     exact_profile = re.search(
         r"\btheorem\s+moving_low_firstBad_sharp_exact_sum_le\b(.*?):=\s*by",
-        lean_text,
+        all_lean_text,
         flags=re.DOTALL,
     )
     if exact_profile is None:
