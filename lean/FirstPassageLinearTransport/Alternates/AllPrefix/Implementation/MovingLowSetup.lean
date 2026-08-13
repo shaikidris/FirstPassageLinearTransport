@@ -3,9 +3,10 @@ Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
-import FirstPassageLinearTransport.MovingLowParameters
+import FirstPassageLinearTransport.Alternates.AllPrefix.MovingLowParameters
 import FirstPassageLinearTransport.Parameters
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # Quantitative startup for the moving low stage
 

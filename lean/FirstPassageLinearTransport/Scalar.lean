@@ -83,16 +83,6 @@ theorem stageCount_gt_sub_one {omega : ℝ} (M : ℕ) :
   unfold stageCount
   exact Nat.sub_one_lt_floor _
 
-theorem stageCount_tendsto_atTop {omega : ℝ} (homega : 0 < omega) :
-    Tendsto (stageCount omega) atTop atTop := by
-  unfold stageCount
-  have hcast : Tendsto (fun M : ℕ => (M : ℝ)) atTop atTop :=
-    tendsto_natCast_atTop_atTop
-  have hadd : Tendsto (fun M : ℕ => (M : ℝ) + 4) atTop atTop :=
-    tendsto_atTop_add_const_right atTop (4 : ℝ) hcast
-  have hlog : Tendsto (fun M : ℕ => Real.log ((M : ℝ) + 4))
-      atTop atTop := Real.tendsto_log_atTop.comp hadd
-  exact tendsto_nat_floor_atTop.comp (hlog.const_mul_atTop homega)
 
 end
 

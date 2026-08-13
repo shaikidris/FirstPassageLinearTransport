@@ -42,29 +42,12 @@ def ShrinkingBarrierRunData.toTimeoutHigh
   D_pos := P.D_pos
   tau_lt_a0 := P.tau_lt_a0
 
-@[simp] theorem ShrinkingBarrierRunData.toTimeoutHigh_rHi
-    (P : ShrinkingBarrierRunData) : P.toTimeoutHigh.rHi = P.rHi := rfl
-
-@[simp] theorem ShrinkingBarrierRunData.toTimeoutHigh_tau
-    (P : ShrinkingBarrierRunData) : P.toTimeoutHigh.tau = P.tau := rfl
-
-@[simp] theorem ShrinkingBarrierRunData.toTimeoutHigh_D
-    (P : ShrinkingBarrierRunData) : P.toTimeoutHigh.D = P.D := rfl
-
-@[simp] theorem ShrinkingBarrierRunData.toTimeoutHigh_pHi
-    (P : ShrinkingBarrierRunData) : P.toTimeoutHigh.pHi = P.pHi := rfl
-
 /-- The shrinking high tolerance, capped by the fixed high-stage package. -/
 def timeoutHighTolerance
     (P : TimeoutHighRunData) (M m : ℕ) : ℝ :=
   if m = 0 then P.tau
   else min P.tau
     (P.D * Real.sqrt (Real.log ((M : ℝ) + 2) / (m : ℝ)))
-
-@[simp] theorem ShrinkingBarrierRunData.toTimeoutHigh_tolerance
-    (P : ShrinkingBarrierRunData) (M m : ℕ) :
-    timeoutHighTolerance P.toTimeoutHigh M m =
-      shrinkingHighTolerance P M m := rfl
 
 theorem timeoutHighTolerance_pos
     (P : TimeoutHighRunData) (M m : ℕ) :
@@ -100,10 +83,6 @@ def timeoutHighSetup
   P.pHi.lowerTolerance (timeoutHighTolerance P M m)
     (timeoutHighTolerance_pos P M m)
     (timeoutHighTolerance_le_tau P M m)
-
-@[simp] theorem timeoutHighSetup_M0
-    (P : TimeoutHighRunData) (M m : ℕ) :
-    (timeoutHighSetup P M m).M0 = P.pHi.M0 := rfl
 
 /-- A completed low timeout block: the first passage occurs by the parent
 shell deadline. -/

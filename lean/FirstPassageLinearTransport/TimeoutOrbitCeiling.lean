@@ -177,16 +177,21 @@ theorem eventually_timeoutRun_elapsed_add_switch_lt_shellClock
   let margin := c * Real.log 2 - 1 / driftGap
   have hmargin : 0 < margin := sub_pos.mpr P.clock_pressure
   have hT0 : 0 ≤ T := by
-    have hrHi0 : 0 < (P.run.rHi : ℝ) := P.run.pHi.r_pos
-    have hsqrt1 : Real.sqrt (P.run.rHi : ℝ) < 1 := by
-      nlinarith [Real.sq_sqrt hrHi0.le, Real.sqrt_nonneg (P.run.rHi : ℝ),
-        P.run.pHi.r_lt_one]
-    have hden : 0 < 1 - Real.sqrt (P.run.rHi : ℝ) := sub_pos.mpr hsqrt1
-    have hnum : 0 ≤ P.run.D + P.run.tau + 3 := by
-      linarith [P.run.D_pos, P.run.pHi.eta_pos]
+    have hrHi0 : 0 < (P.run.toTimeoutHigh.rHi : ℝ) :=
+      P.run.toTimeoutHigh.pHi.r_pos
+    have hsqrt1 : Real.sqrt (P.run.toTimeoutHigh.rHi : ℝ) < 1 := by
+      nlinarith [Real.sq_sqrt hrHi0.le,
+        Real.sqrt_nonneg (P.run.toTimeoutHigh.rHi : ℝ),
+        P.run.toTimeoutHigh.pHi.r_lt_one]
+    have hden : 0 < 1 - Real.sqrt (P.run.toTimeoutHigh.rHi : ℝ) :=
+      sub_pos.mpr hsqrt1
+    have hnum : 0 ≤
+        P.run.toTimeoutHigh.D + P.run.toTimeoutHigh.tau + 3 := by
+      linarith [P.run.toTimeoutHigh.D_pos,
+        P.run.toTimeoutHigh.pHi.eta_pos]
     have hinner : 0 ≤
-        (P.run.D + P.run.tau + 3) /
-            (1 - Real.sqrt (P.run.rHi : ℝ)) +
+        (P.run.toTimeoutHigh.D + P.run.toTimeoutHigh.tau + 3) /
+            (1 - Real.sqrt (P.run.toTimeoutHigh.rHi : ℝ)) +
           (P.Cswitch + 5) ^ 2 := by positivity
     have hratio : 0 ≤ 2 / driftGap :=
       div_nonneg (by norm_num) driftGap_pos.le

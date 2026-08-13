@@ -5,9 +5,12 @@ Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.MovingEndpointParameters
 import FirstPassageLinearTransport.MovingEndpointScalars
-import FirstPassageLinearTransport.MovingSharpProfile
+import FirstPassageLinearTransport.Alternates.AllPrefix.Implementation.MovingSharpProfile
+import FirstPassageLinearTransport.RankTransportAsymptotics
 import FirstPassageLinearTransport.ShrinkingTailAsymptotics
+import FirstPassageLinearTransport.Alternates.AllPrefix.LowStagePackage
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # Literal sharp profile for the moving endpoint
 

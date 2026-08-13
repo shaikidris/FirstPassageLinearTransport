@@ -3,9 +3,11 @@ Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
-import FirstPassageLinearTransport.MovingLowParameters
+import FirstPassageLinearTransport.Alternates.AllPrefix.MovingLowParameters
 import FirstPassageLinearTransport.ShrinkingSchedules
+import FirstPassageLinearTransport.TimeSupportScalars
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # Feasible cumulative times for a moving low-rank barrier
 
@@ -587,13 +589,6 @@ theorem movingFeasibleTimes_card_le_potential
       simpa [times] using hempty
     rw [hactual]
     exact Nat.zero_le _
-
-/-- Explicit constant in the eventual moving feasible-time support. -/
-def movingTimeSupportConstant
-    (P : ShrinkingBarrierRunData) (C : ℝ) : ℝ :=
-  2 + 2 / driftGap *
-    ((P.D + P.tau + 3) / (1 - Real.sqrt (P.rHi : ℝ)) +
-      (C + 5) ^ 2)
 
 private theorem eventually_log_sq_le_sqrt_mul :
     ∀ᶠ M : ℕ in atTop,

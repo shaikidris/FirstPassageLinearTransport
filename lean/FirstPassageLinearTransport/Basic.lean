@@ -145,14 +145,6 @@ theorem oddCount_succ (n k : ℕ) :
     oddCount n (k + 1) = oddCount n k + (parityBit n k : ℕ) := by
   simp [oddCount, Finset.sum_range_succ]
 
-theorem oddCount_le (n k : ℕ) : oddCount n k ≤ k := by
-  unfold oddCount
-  calc
-    ∑ i ∈ Finset.range k, (parityBit n i : ℕ)
-        ≤ ∑ _i ∈ Finset.range k, 1 := by
-          exact Finset.sum_le_sum fun i hi => by
-            omega
-    _ = k := by simp
 
 @[simp] theorem mem_dyadicShell {M n : ℕ} :
     n ∈ dyadicShell M ↔ 2 ^ M ≤ n ∧ n < 2 ^ (M + 1) := by
@@ -162,10 +154,5 @@ theorem card_dyadicShell (M : ℕ) : (dyadicShell M).card = 2 ^ M := by
   simp [dyadicShell, pow_succ]
   omega
 
-theorem timedDescent_implies_descent {δ clock : ℝ} {n : ℕ}
-    (h : HasTimedStretchedLogDescent δ clock n) :
-    HasStretchedLogDescent δ n := by
-  rcases h with ⟨k, _hk, hdrop⟩
-  exact ⟨k, hdrop⟩
 
 end FirstPassageLinearTransport

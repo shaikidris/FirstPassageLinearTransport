@@ -3,11 +3,12 @@ Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
-import FirstPassageLinearTransport.MovingFirstBad
-import FirstPassageLinearTransport.MovingProfile
+import FirstPassageLinearTransport.Alternates.AllPrefix.Implementation.MovingFirstBad
+import FirstPassageLinearTransport.Alternates.AllPrefix.Implementation.MovingProfile
 import FirstPassageLinearTransport.MovingSharpTail
-import FirstPassageLinearTransport.MovingLowDensity
+import FirstPassageLinearTransport.Alternates.AllPrefix.Implementation.MovingLowDensity
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # Sharp moving terminal profile
 

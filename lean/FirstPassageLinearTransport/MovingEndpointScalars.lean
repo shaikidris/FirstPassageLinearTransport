@@ -40,12 +40,6 @@ theorem firstPassageEntropyGap_pos : 0 < firstPassageEntropyGap := by
       exact one_div_neg.mpr hden
     linarith
 
-theorem timeSupportCriticalExponent_mul_entropyGap :
-    timeSupportCriticalExponent * firstPassageEntropyGap = 1 / 2 := by
-  rw [timeSupportCriticalExponent_eq_entropy]
-  change 1 / (2 * firstPassageEntropyGap) * firstPassageEntropyGap = 1 / 2
-  field_simp [ne_of_gt firstPassageEntropyGap_pos]
-  ring
 
 /-- The natural-log endpoint rate is the base-two entropy gap multiplied by
 `log 2`. -/
@@ -61,10 +55,6 @@ theorem firstPassageEndpointRate_eq_entropyGap_mul_logTwo :
 def movingTerminalRank (A : ℕ → ℝ) (M : ℕ) : ℕ :=
   ⌈A M * Real.logb 2 ((M : ℝ) + 2)⌉₊
 
-theorem movingTerminalRank_lower (A : ℕ → ℝ) (M : ℕ) :
-    A M * Real.logb 2 ((M : ℝ) + 2) ≤
-      (movingTerminalRank A M : ℝ) := by
-  exact Nat.le_ceil _
 
 theorem movingTerminalRank_lt_add_one
     {A : ℕ → ℝ} {M : ℕ} (hA : 0 ≤ A M) :

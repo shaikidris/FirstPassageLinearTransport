@@ -163,33 +163,7 @@ theorem firstBadLandingEnvelope_card_le
         (landingBad q t) (by positivity) hD (hsmall q hq) hYM
       simpa using htransport
 
-/-- Initial certification failures together with every possible transported
-first-bad landing. -/
-noncomputable def firstBadFailureEnvelope
-    (M L U H : ℕ) (r : ℚ) (t : ℝ) : Finset ℕ :=
-  shellInitialWindowBad M t ∪ firstBadLandingEnvelope M L U H r t
 
-theorem firstBadFailureEnvelope_card_le
-    {M L U H : ℕ} {r : ℚ} (t : ℝ)
-    (hr : 0 < r) (hUM : U < M)
-    (hsmall : ∀ q ∈ Finset.Icc L U,
-      ((((q + 2 : ℕ) : ℚ) / r) / ((2 ^ q : ℕ) : ℚ)) ≤ 1 / 3) :
-    ((firstBadFailureEnvelope M L U H r t).card : ℚ) ≤
-      ((shellInitialWindowBad M t).card : ℚ) +
-        ∑ q in Finset.Icc L U,
-          (H : ℚ) * (1 + 3 * (((q + 2 : ℕ) : ℚ) / r)) *
-            (2 : ℚ) ^ M / (2 : ℚ) ^ q *
-              ((landingBad q t).card : ℚ) := by
-  have hunion := Finset.card_union_le
-    (shellInitialWindowBad M t) (firstBadLandingEnvelope M L U H r t)
-  have hunionQ :
-      ((firstBadFailureEnvelope M L U H r t).card : ℚ) ≤
-        ((shellInitialWindowBad M t).card : ℚ) +
-          ((firstBadLandingEnvelope M L U H r t).card : ℚ) := by
-    unfold firstBadFailureEnvelope
-    exact_mod_cast hunion
-  exact hunionQ.trans (add_le_add_left
-    (firstBadLandingEnvelope_card_le t hr hUM hsmall) _)
 
 /-- A generated first-bad witness: a finite certified rank chain lands in a
 bad target, within the declared time and rank window. -/

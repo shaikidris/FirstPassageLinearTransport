@@ -27,10 +27,6 @@ def reverseLossTotal (n h : ℕ) : ℚ :=
 def scaledReverseLoss (Y n h : ℕ) : ℚ :=
   (Y : ℚ) * reverseLossTotal n h
 
-theorem reverseLossTotal_nonneg (n h : ℕ) :
-    0 ≤ reverseLossTotal n h := by
-  unfold reverseLossTotal
-  exact Finset.sum_nonneg fun i _ => reverseLoss_nonneg n i
 
 theorem reverseProduct_le_one {n : ℕ} (hn : 0 < n) (h : ℕ) :
     reverseProduct n h ≤ 1 := by

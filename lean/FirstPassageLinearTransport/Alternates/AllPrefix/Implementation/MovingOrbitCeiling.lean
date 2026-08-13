@@ -3,10 +3,11 @@ Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
-import FirstPassageLinearTransport.MovingExecution
+import FirstPassageLinearTransport.Alternates.AllPrefix.Implementation.MovingExecution
 import FirstPassageLinearTransport.OrbitCeiling
 import FirstPassageLinearTransport.AsymptoticBounds
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # Intermediate-orbit ceiling for moving endpoint runs
 

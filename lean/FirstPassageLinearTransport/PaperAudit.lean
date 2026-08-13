@@ -80,7 +80,6 @@ source-reconstruction gate.
 #print axioms FirstPassageLinearTransport.shrinkingFixedPolylogNaturalDensityDescent
 #print axioms FirstPassageLinearTransport.fixedPolylogCriticalExponent_eq_entropy
 #print axioms FirstPassageLinearTransport.fixedPolylogClockCritical_eq_paper
-#print axioms FirstPassageLinearTransport.exists_fixedPolylogParameterPackage
 #print axioms
   FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent
 

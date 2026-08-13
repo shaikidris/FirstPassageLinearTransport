@@ -3,9 +3,12 @@ Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
-import FirstPassageLinearTransport.FixedPolylogParameters
+import FirstPassageLinearTransport.Legacy.FixedPolylogParameterPackage
 import FirstPassageLinearTransport.PolylogTarget
+import FirstPassageLinearTransport.Legacy.Implementation.TwoRegimeExecution
+import FirstPassageLinearTransport.Legacy.Implementation.TwoRegimePolylogProfile
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # Canonical two-regime polylogarithmic execution
 

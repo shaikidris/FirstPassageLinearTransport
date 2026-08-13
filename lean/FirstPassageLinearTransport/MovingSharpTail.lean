@@ -433,21 +433,6 @@ theorem exactSharpCriticalLowSeriesConstant_spec
     _ = K * (((L + 1 : ℕ) : ℝ) * Real.exp (-(Real.log 2 * (L : ℝ))) +
           Real.sqrt L * Real.exp (-(b * ((L - 1 : ℕ) : ℝ)))) := by ring
 
-/-- Existential compatibility wrapper for the canonical sharp-tail
-constant. -/
-theorem exists_exact_sharp_critical_low_series_bound
-    {b₀ Cpref : ℝ} (hb₀ : 0 < b₀) (hCpref : 0 ≤ Cpref) :
-    ∃ K : ℝ, 0 < K ∧ ∀ {b : ℝ}, b₀ ≤ b → ∀ {L U : ℕ},
-      2 ≤ L → L ≤ U →
-      ∑ q in Finset.Icc L U,
-          ((q + 1 : ℕ) : ℝ) *
-            (Real.exp (-(Real.log 2 * (q : ℝ))) +
-              Cpref / Real.sqrt ((q - 1 : ℕ) : ℝ) *
-                Real.exp (-(b * ((q - 1 : ℕ) : ℝ)))) ≤
-        K * (((L + 1 : ℕ) : ℝ) * Real.exp (-(Real.log 2 * (L : ℝ))) +
-          Real.sqrt L * Real.exp (-(b * ((L - 1 : ℕ) : ℝ)))) := by
-  refine ⟨exactSharpCriticalLowSeriesConstant b₀ Cpref, ?_⟩
-  exact exactSharpCriticalLowSeriesConstant_spec hb₀ hCpref
 end
 
 end FirstPassageLinearTransport

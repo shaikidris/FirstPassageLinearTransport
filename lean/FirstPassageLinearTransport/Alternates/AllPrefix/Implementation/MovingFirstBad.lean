@@ -3,10 +3,11 @@ Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
-import FirstPassageLinearTransport.MovingTimeSupport
+import FirstPassageLinearTransport.Alternates.AllPrefix.Implementation.MovingTimeSupport
 import FirstPassageLinearTransport.TimeSupportTransport
 import FirstPassageLinearTransport.TwoRegimeRun
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # First-bad sources for the moving low-rank barrier
 

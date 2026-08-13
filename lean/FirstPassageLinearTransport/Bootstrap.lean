@@ -236,25 +236,7 @@ theorem stageOrbit_eq_orbit_stageClock {r eta : ℝ}
       rw [stageOrbit_succ, ih, stageClock_succ, add_comm,
         orbit_add, ← stageMap_is_actual]
 
-/-- A member of the `R`-fold pullback remains in the barrier window at every
-stage and lands in the base window after `R` stopped blocks. -/
-theorem bootstrapSet_stageOrbit_mem {r eta : ℝ} (p : StageSetup r eta)
-    {R n : ℕ} (hn : n ∈ bootstrapSet p R) :
-    stageOrbit p R n ∈ extendedWindow p := by
-  induction R generalizing n with
-  | zero => simpa using hn
-  | succ R ih =>
-      rw [bootstrapSet_succ] at hn
-      exact ih hn.2
 
-theorem bootstrapSet_subset_extended {r eta : ℝ} (p : StageSetup r eta) :
-    ∀ R, bootstrapSet p R ⊆ extendedWindow p := by
-  intro R n hn
-  cases R with
-  | zero => simpa using hn
-  | succ R =>
-      rw [bootstrapSet_succ] at hn
-      exact hn.1
 
 /-- Earlier density exponents dominate the terminal exponent. -/
 theorem bootstrapD_terminal_le {chi Dc : ℝ} {j R : ℕ}
@@ -415,11 +397,6 @@ theorem bootstrapC_exp_bound
   apply (Real.log_le_iff_le_exp hRHS).1
   rw [hlog]
 
-/-- Positivity is preserved by every total stopped stage. -/
-theorem stageOrbit_pos {r eta : ℝ} (p : StageSetup r eta)
-    {n : ℕ} (hn : 0 < n) (R : ℕ) : 0 < stageOrbit p R n := by
-  rw [stageOrbit_eq_orbit_stageClock]
-  exact orbit_pos hn _
 
 /-- Coarse all-stage contraction.  The factor `stageK^R` is deliberately
 weaker than the paper's bounded geometric factor, but remains only

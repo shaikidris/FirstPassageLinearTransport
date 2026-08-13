@@ -4,7 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.ShrinkingTimeSupport
-import FirstPassageLinearTransport.TwoRegimeSchedules
+import FirstPassageLinearTransport.PolylogTerminalSchedule
+import FirstPassageLinearTransport.TwoRegimeClock
 
 /-!
 # Scalar schedules for shrinking-barrier transport
@@ -49,22 +50,6 @@ theorem shrinkingSwitchRank_pos
     linarith
   exact mul_pos hC (Real.log_pos hx)
 
-theorem tendsto_shrinkingSwitchRank_atTop
-    {C : ℝ} (hC : 0 < C) :
-    Tendsto (shrinkingSwitchRank C) atTop atTop := by
-  have hxT : Tendsto (fun M : ℕ => (M : ℝ) + 2) atTop atTop :=
-    tendsto_atTop_add_const_right atTop (2 : ℝ)
-      tendsto_natCast_atTop_atTop
-  have hlogT : Tendsto (fun M : ℕ => Real.log ((M : ℝ) + 2))
-      atTop atTop := Real.tendsto_log_atTop.comp hxT
-  have hreal : Tendsto
-      (fun M : ℕ => C * Real.log ((M : ℝ) + 2)) atTop atTop :=
-    hlogT.const_mul_atTop hC
-  rw [tendsto_atTop]
-  intro N
-  have hN := (tendsto_atTop.1 hreal) (N : ℝ)
-  filter_upwards [hN] with M hN
-  exact_mod_cast hN.trans (shrinkingSwitchRank_lower C M)
 
 /-- A linear-log switch is eventually below the source shell. -/
 theorem eventually_shrinkingSwitchRank_lt_source

@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.Main
+import FirstPassageLinearTransport.Legacy
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # Historical fixed-exponent V3 cut-vertex axiom audit
 

@@ -6,6 +6,7 @@ Authors: Idris Ali Shaik
 import FirstPassageLinearTransport.MovingEndpointAssembly
 import FirstPassageLinearTransport.Alternates.AllPrefix.Witness
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # Complete moving-endpoint natural-density theorem
 

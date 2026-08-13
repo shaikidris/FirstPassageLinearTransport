@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.ShrinkingParameters
-import FirstPassageLinearTransport.TwoRegimeTailAsymptotics
+import FirstPassageLinearTransport.TerminalTailAsymptotics
 
 /-!
 # Asymptotics for the compressed shrinking-barrier time support

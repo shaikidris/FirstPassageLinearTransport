@@ -4,8 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.FirstBadEnvelope
-import FirstPassageLinearTransport.MovingLowParameters
+import FirstPassageLinearTransport.Alternates.AllPrefix.MovingLowParameters
 
+import FirstPassageLinearTransport.Extras.Unreachable
 /-!
 # Sharp density for the moving low barrier
 

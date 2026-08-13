@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.ShrinkingPolylogProfile
-import FirstPassageLinearTransport.TwoRegimeExecution
+import FirstPassageLinearTransport.FirstPassageLandingShell
 
 /-!
 # Termination of shrinking-barrier re-certification
@@ -24,13 +24,6 @@ def HasShrinkingTerminalLanding
   ∃ elapsed q : ℕ,
     q < L ∧ ShrinkingRecertificationRun P M S n elapsed q
 
-theorem HasShrinkingTerminalLanding.orbit_lt
-    {P : ShrinkingBarrierRunData} {M S n L : ℕ}
-    (hterm : HasShrinkingTerminalLanding P M S n L) :
-    ∃ elapsed : ℕ, orbit elapsed n < 2 ^ L := by
-  rcases hterm with ⟨elapsed, q, hqL, hrun⟩
-  exact ⟨elapsed, hrun.directFirstPassage.1.trans_lt
-    (Nat.pow_lt_pow_right (by omega) hqL)⟩
 
 /-- Failure of the certification selected at a run endpoint is exactly
 membership in the corresponding landing target. -/

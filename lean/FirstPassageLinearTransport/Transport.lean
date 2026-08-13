@@ -185,18 +185,5 @@ theorem arbitraryTarget_linear_transport {M Y H : ℕ} (B : Finset ℕ)
       simp [K]
       ring
 
-/-- Arbitrary source restriction can only decrease the transported mass. -/
-theorem arbitraryTarget_linear_transport_restricted {M Y H : ℕ}
-    (B A : Finset ℕ)
-    (hY : 0 < Y) (hH : 1 ≤ H)
-    (hHY : (H : ℚ) / (2 * (Y : ℚ)) ≤ 1 / 3)
-    (hYM : Y < 2 ^ M) :
-    (((transportedSources M Y H B) ∩ A).card : ℚ) ≤
-      (5 / 2 : ℚ) * (H : ℚ) ^ 2 * (2 : ℚ) ^ M /
-        (Y : ℚ) * (B.card : ℚ) := by
-  have hcard : ((transportedSources M Y H B ∩ A).card : ℚ) ≤
-      ((transportedSources M Y H B).card : ℚ) := by
-    exact_mod_cast Finset.card_le_card Finset.inter_subset_left
-  exact hcard.trans (arbitraryTarget_linear_transport B hY hH hHY hYM)
 
 end FirstPassageLinearTransport
