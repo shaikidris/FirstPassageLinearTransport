@@ -1,0 +1,25 @@
+import FirstPassageLinearTransport.Extras.Unreachable.AdjustableEnvelope
+import FirstPassageLinearTransport.Extras.Unreachable.Basic
+import FirstPassageLinearTransport.Extras.Unreachable.Bootstrap
+import FirstPassageLinearTransport.Extras.Unreachable.FirstBadEnvelope
+import FirstPassageLinearTransport.Extras.Unreachable.FirstPassage
+import FirstPassageLinearTransport.Extras.Unreachable.LossTransport
+import FirstPassageLinearTransport.Extras.Unreachable.MovingEndpointScalars
+import FirstPassageLinearTransport.Extras.Unreachable.MovingSharpTail
+import FirstPassageLinearTransport.Extras.Unreachable.PolylogExceptionalCount
+import FirstPassageLinearTransport.Extras.Unreachable.PolylogTarget
+import FirstPassageLinearTransport.Extras.Unreachable.RawNaturalDensityDescent
+import FirstPassageLinearTransport.Extras.Unreachable.Scalar
+import FirstPassageLinearTransport.Extras.Unreachable.SharpEntropyBarrier
+import FirstPassageLinearTransport.Extras.Unreachable.ShrinkingBarrierCore
+import FirstPassageLinearTransport.Extras.Unreachable.ShrinkingExecution
+import FirstPassageLinearTransport.Extras.Unreachable.ShrinkingFirstBad
+import FirstPassageLinearTransport.Extras.Unreachable.ShrinkingSchedules
+import FirstPassageLinearTransport.Extras.Unreachable.TimeSupportTransport
+import FirstPassageLinearTransport.Extras.Unreachable.TimeoutExecution
+import FirstPassageLinearTransport.Extras.Unreachable.TimeoutProfile
+import FirstPassageLinearTransport.Extras.Unreachable.Transport
+
+/-! Declarations mechanically extracted from mixed canonical modules.
+This library is preserved for regression and research use and is not in
+the canonical `Main` build. -/

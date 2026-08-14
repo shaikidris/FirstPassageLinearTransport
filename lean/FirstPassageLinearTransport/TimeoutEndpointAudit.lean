@@ -1,0 +1,41 @@
+/-
+Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Idris Ali Shaik
+-/
+import FirstPassageLinearTransport.Main
+
+/-!
+# Timeout-endpoint formalization axiom audit
+
+This module audits the complete V3.2 timeout realization of the moving-endpoint
+theorem: literal timeout containment, sharp terminal odd-count density,
+decreasing-rank execution, combined feasible-time support, loss-filtered
+transport, critical shell profile, same-witness execution, and the public
+natural-density theorem.
+-/
+
+#print axioms FirstPassageLinearTransport.eventually_timeoutTargetRank_admissible
+#print axioms FirstPassageLinearTransport.three_pow_timeoutTargetRank_lt_three_pow_oddCount_succ
+#print axioms FirstPassageLinearTransport.timeoutShellBad_subset_terminalOddUpperShell
+#print axioms FirstPassageLinearTransport.exists_card_timeoutShellBad_endpointRate_le
+#print axioms FirstPassageLinearTransport.TimeoutRecertificationRun.directFirstPassage
+#print axioms FirstPassageLinearTransport.TimeoutRecertificationRun.toCertifiedRankChain
+#print axioms FirstPassageLinearTransport.TimeoutRecertificationRun.scaledReverseLoss_le
+#print axioms FirstPassageLinearTransport.TimeoutRecertificationRun.deviation_add_potential_le
+#print axioms FirstPassageLinearTransport.eventually_timeoutFeasibleTimes_card_lt_sqrt
+#print axioms FirstPassageLinearTransport.timeoutFirstBadSourcesAtRank_subset_transport
+#print axioms FirstPassageLinearTransport.timeoutFirstBadSourcesAtRank_card_le
+#print axioms FirstPassageLinearTransport.timeout_low_firstBad_sharp_sum_canonical_le
+#print axioms FirstPassageLinearTransport.timeoutSeparatedFailureEnvelope_density_sharp_le
+#print axioms FirstPassageLinearTransport.timeoutSource_terminal_or_failure
+#print axioms FirstPassageLinearTransport.TimeoutRecertificationRun.orbit_le_start_power
+#print axioms FirstPassageLinearTransport.eventually_timeoutRun_elapsed_add_switch_lt_shellClock
+#print axioms FirstPassageLinearTransport.exists_eventually_timeoutEndpointGood_shellError
+#print axioms FirstPassageLinearTransport.eventually_timeoutEndpointGood_has_shellWitness
+#print axioms FirstPassageLinearTransport.timeoutEndpointLiteralNaturalDensityDescent
+
+open FirstPassageLinearTransport.QuantitativeCollatzMain
+
+#print axioms collatz_first_passage_moving_polylogarithmic_natural_density_descent
+#print axioms collatz_first_passage_timeout_moving_polylogarithmic_natural_density_descent

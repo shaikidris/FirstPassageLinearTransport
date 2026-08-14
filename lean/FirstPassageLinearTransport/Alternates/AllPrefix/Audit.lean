@@ -1,0 +1,46 @@
+/-
+Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Idris Ali Shaik
+-/
+import FirstPassageLinearTransport.Alternates.AllPrefix.Main
+
+import FirstPassageLinearTransport.Extras.Unreachable
+/-!
+# All-prefix moving-endpoint formalization axiom audit
+
+This module audits the retained V3.1 all-prefix low-rank realization of the
+moving-endpoint theorem: analytic producer, quantitative startup, feasible-time
+support, first-bad transport, exact-rate sharp `q^{-1/2}` profile, scalar
+buffer closure, same-witness execution, and literal natural-density assembly.
+The V3.2 timeout realization has its own `TimeoutEndpointAudit`.
+-/
+
+#print axioms FirstPassageLinearTransport.exists_barrierHitCount_real_normalized_le_binaryBarrierRate
+#print axioms FirstPassageLinearTransport.exists_eventually_movingLowEntropyRate_ge_sub_div
+#print axioms FirstPassageLinearTransport.exists_eventually_card_landingBad_movingLow_endpointRate_le
+#print axioms FirstPassageLinearTransport.MovingRecertificationRun.directFirstPassage
+#print axioms FirstPassageLinearTransport.MovingRecertificationRun.certified_endpoint_shell_eq
+#print axioms FirstPassageLinearTransport.MovingRecertificationRun.deviation_add_potential_le
+#print axioms FirstPassageLinearTransport.movingFeasibleTimes_card_le_potential
+#print axioms FirstPassageLinearTransport.eventually_movingFeasibleTimes_card_lt_sqrt
+#print axioms FirstPassageLinearTransport.eventually_nonempty_movingLowStageSetup
+#print axioms FirstPassageLinearTransport.eventually_movingLowStageSetup_M0_le
+#print axioms FirstPassageLinearTransport.MovingRecertificationRun.toCertifiedRankChain
+#print axioms FirstPassageLinearTransport.MovingRecertificationRun.scaledReverseLoss_le
+#print axioms FirstPassageLinearTransport.movingFirstBadSourcesAtRank_subset_transport
+#print axioms FirstPassageLinearTransport.movingFirstBadSourcesAtRank_card_le
+#print axioms FirstPassageLinearTransport.movingFirstBadSourcesAtRank_density_le
+#print axioms FirstPassageLinearTransport.movingSeparatedFailureEnvelope_density_terminalProfile
+#print axioms FirstPassageLinearTransport.exists_exact_sharp_critical_low_series_bound
+#print axioms FirstPassageLinearTransport.moving_low_firstBad_sharp_exact_sum_le
+#print axioms FirstPassageLinearTransport.moving_low_firstBad_sharp_exact_sum_canonical_le
+#print axioms FirstPassageLinearTransport.exists_eventually_movingEndpointGood_shellError
+#print axioms FirstPassageLinearTransport.eventually_movingEndpointGood_has_shellWitness
+#print axioms FirstPassageLinearTransport.naturalDensityOne_of_movingShellError
+#print axioms FirstPassageLinearTransport.movingEndpointNaturalDensityAssembly
+#print axioms FirstPassageLinearTransport.movingEndpointLiteralNaturalDensityDescent
+
+open FirstPassageLinearTransport.Alternates.AllPrefix
+
+#print axioms collatz_first_passage_all_prefix_moving_polylogarithmic_natural_density_descent

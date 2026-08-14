@@ -1,0 +1,375 @@
+/-
+Copyright (c) 2026 Idris Ali Shaik. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Idris Ali Shaik
+-/
+import FirstPassageLinearTransport.Legacy.Implementation.TwoRegimeTailAsymptotics
+import FirstPassageLinearTransport.Legacy.Implementation.TwoRegimeProfile
+import FirstPassageLinearTransport.VaryingDensity
+import FirstPassageLinearTransport.PolylogExceptionalCount
+import FirstPassageLinearTransport.AdjustableEntropyRate
+
+import FirstPassageLinearTransport.Extras.Unreachable
+/-!
+# Canonical polylogarithmic two-regime failure profile
+
+This module attaches the entropy-sharp shell and landing estimates to the
+canonical terminal and switch schedules.  It closes the shellwise
+fixed-power exceptional-density estimate for both the five-piece envelope
+and the literal two-regime first-bad source set.
+
+No checkpoint-congestion or LC.28 hypothesis occurs here.
+-/
+
+namespace FirstPassageLinearTransport
+
+open Filter
+open scoped Real Topology
+
+noncomputable section
+
+/-- Canonical shellwise fixed-polylogarithmic exceptional-density bound.
+The exact exponent condition records the single linear-horizon loss from
+the low-rank terminal tail. -/
+theorem eventually_twoRegimeFailureEnvelope_density_polylog_le
+    {A lambdaHi tHi lambdaLo tLo bHi' bLo' c' c kappa : ℝ}
+    {rHi rLo rStar : ℚ}
+    (hA : 0 < A)
+    (hlambdaHi0 : 0 ≤ lambdaHi) (hlambdaHi1 : lambdaHi < 1)
+    (htHi0 : 0 < tHi) (htHiA : tHi < a0)
+    (hlambdaLo0 : 0 ≤ lambdaLo) (hlambdaLo1 : lambdaLo < 1)
+    (htLo0 : 0 < tLo) (htLoA : tLo < a0)
+    (hbHi' : 0 < bHi')
+    (hHiRate : bHi' < adjustableEntropyRate lambdaHi tHi)
+    (hbLo' : 0 < bLo')
+    (hLoRate : bLo' < adjustableEntropyRate lambdaLo tLo)
+    (hc' : 0 < c') (hc2 : c' < Real.log 2)
+    (hrHi0 : 0 ≤ rHi) (hrHi1 : rHi < 1)
+    (hrLo0 : 0 ≤ rLo) (hrLo1 : rLo < 1)
+    (hrStar : 0 < rStar)
+    (hlead : 1 / (1 - (rHi : ℝ)) < c * Real.log 2)
+    (hkappa0 : 0 ≤ kappa)
+    (hkappa :
+      kappa < A * min bLo' c' / Real.log 2 - 1) :
+    ∀ᶠ M : ℕ in atTop,
+      ((twoRegimeFailureEnvelope M
+          (polylogTerminalRank A M) (polylogSwitchRank M) (M - 1)
+          (twoRegimeHorizon rHi rLo (polylogSwitchRank M) M)
+          rStar tHi tLo).card : ℝ) / (2 : ℝ) ^ M ≤
+        twoRegimePolylogProfileConstant
+            (adjustableEntropyRate lambdaHi tHi) bHi'
+            (adjustableEntropyRate lambdaLo tLo) bLo' c' c rStar *
+          (((M : ℝ) + 2) ^ (-kappa)) := by
+  have hTerminalT := tendsto_polylogTerminalRank_atTop hA
+  have hSwitchT := tendsto_polylogSwitchRank_atTop
+  have hInitial := eventually_card_shellInitialWindowBad_adjustable_le
+    hlambdaHi0 hlambdaHi1 htHi0 htHiA
+  have hHiBase := eventually_interval_card_landingBad_adjustable_le
+    hlambdaHi0 hlambdaHi1 htHi0 htHiA
+  have hHi := hSwitchT.eventually hHiBase
+  have hLoBase := eventually_interval_card_landingBad_adjustable_le
+    hlambdaLo0 hlambdaLo1 htLo0 htLoA
+  have hLo := hTerminalT.eventually hLoBase
+  have hSmallBase := eventually_interval_rankTransport_small hrStar
+  have hSmall := hTerminalT.eventually hSmallBase
+  have hLS := eventually_polylogTerminalRank_lt_switchRank hA
+  have hSU := eventually_polylogSwitchRank_lt_source
+  have hScalar := eventually_canonicalTwoRegimeTailProfile_le_power
+    hA hbHi' hHiRate hbLo' hLoRate hc' hc2
+    hrHi0 hrHi1 hrLo0 hrLo1 hrStar hlead hkappa0 hkappa
+  filter_upwards [hInitial, hHi, hLo, hSmall, hLS, hSU, hScalar,
+      eventually_ge_atTop (1 : ℕ)]
+    with M hInitial hHi hLo hSmall hLS hSU hScalar hM1
+  let L := polylogTerminalRank A M
+  let S := polylogSwitchRank M
+  let U := M - 1
+  let H := twoRegimeHorizon rHi rLo S M
+  have hUM : U < M := by
+    dsimp [U]
+    omega
+  have hL1 : 1 ≤ L := by
+    dsimp [L]
+    exact polylogTerminalRank_pos hA M
+  have hLS' : L ≤ S := by
+    dsimp [L, S]
+    exact hLS.le
+  have hSU' : S ≤ U := by
+    dsimp [S, U]
+    omega
+  have hProfile := twoRegimeFailureEnvelope_density_terminalProfile
+    (M := M) (L := L) (S := S) (U := U) (H := H)
+    (rStar := rStar) (tHi := tHi) (tLo := tLo)
+    (bHi := adjustableEntropyRate lambdaHi tHi) (bHi' := bHi')
+    (bLo := adjustableEntropyRate lambdaLo tLo) (bLo' := bLo')
+    (c' := c') hrStar hUM hL1 hLS' hSU' (hSmall U) hInitial
+    (hHi U) (hLo S)
+    hbHi' hHiRate hbLo' hLoRate hc' hc2
+  have hCanonical :
+      ((twoRegimeFailureEnvelope M L S U H rStar tHi tLo).card : ℝ) /
+          (2 : ℝ) ^ M ≤
+        canonicalTwoRegimeTailProfile A
+          (adjustableEntropyRate lambdaHi tHi) bHi'
+          (adjustableEntropyRate lambdaLo tLo) bLo' c'
+          rHi rLo rStar M := by
+    simpa [canonicalTwoRegimeTailProfile, L, S, H] using hProfile
+  exact hCanonical.trans (by simpa [L, S, U, H] using hScalar)
+
+/-- The same shellwise power bound for the literal first-bad source set,
+obtained from the exact set inclusion rather than a second union bound. -/
+theorem eventually_twoRegimeFailureSources_density_polylog_le
+    {A lambdaHi tHi lambdaLo tLo bHi' bLo' c' c kappa : ℝ}
+    {rHi rLo rStar : ℚ}
+    (hA : 0 < A)
+    (hlambdaHi0 : 0 ≤ lambdaHi) (hlambdaHi1 : lambdaHi < 1)
+    (htHi0 : 0 < tHi) (htHiA : tHi < a0)
+    (hlambdaLo0 : 0 ≤ lambdaLo) (hlambdaLo1 : lambdaLo < 1)
+    (htLo0 : 0 < tLo) (htLoA : tLo < a0)
+    (hbHi' : 0 < bHi')
+    (hHiRate : bHi' < adjustableEntropyRate lambdaHi tHi)
+    (hbLo' : 0 < bLo')
+    (hLoRate : bLo' < adjustableEntropyRate lambdaLo tLo)
+    (hc' : 0 < c') (hc2 : c' < Real.log 2)
+    (hrHi0 : 0 ≤ rHi) (hrHi1 : rHi < 1)
+    (hrLo0 : 0 ≤ rLo) (hrLo1 : rLo < 1)
+    (hrStar : 0 < rStar)
+    (hlead : 1 / (1 - (rHi : ℝ)) < c * Real.log 2)
+    (hkappa0 : 0 ≤ kappa)
+    (hkappa :
+      kappa < A * min bLo' c' / Real.log 2 - 1) :
+    ∀ᶠ M : ℕ in atTop,
+      ((twoRegimeFailureSources M
+          (polylogTerminalRank A M) (polylogSwitchRank M) (M - 1)
+          (twoRegimeHorizon rHi rLo (polylogSwitchRank M) M)
+          rStar tHi tLo).card : ℝ) / (2 : ℝ) ^ M ≤
+        twoRegimePolylogProfileConstant
+            (adjustableEntropyRate lambdaHi tHi) bHi'
+            (adjustableEntropyRate lambdaLo tLo) bLo' c' c rStar *
+          (((M : ℝ) + 2) ^ (-kappa)) := by
+  have hEnvelope := eventually_twoRegimeFailureEnvelope_density_polylog_le
+    hA hlambdaHi0 hlambdaHi1 htHi0 htHiA
+    hlambdaLo0 hlambdaLo1 htLo0 htLoA
+    hbHi' hHiRate hbLo' hLoRate hc' hc2
+    hrHi0 hrHi1 hrLo0 hrLo1 hrStar hlead hkappa0 hkappa
+  filter_upwards [hEnvelope] with M hEnvelope
+  exact twoRegimeFailureSources_density_le_envelope hrStar hEnvelope
+
+/-- Per-shell good set obtained by removing the literal canonical two-regime
+first-bad sources. -/
+def twoRegimePolylogGood
+    (A : ℝ) (rHi rLo rStar : ℚ) (tHi tLo : ℝ) (M : ℕ) : Set ℕ :=
+  {n | n ∉ twoRegimeFailureSources M
+    (polylogTerminalRank A M) (polylogSwitchRank M) (M - 1)
+    (twoRegimeHorizon rHi rLo (polylogSwitchRank M) M)
+    rStar tHi tLo}
+
+/-- On its defining shell, the complement of `twoRegimePolylogGood` is
+literally the counted first-bad source finset. -/
+theorem shellBad_twoRegimePolylogGood
+    (A : ℝ) (rHi rLo rStar : ℚ) (tHi tLo : ℝ) (M : ℕ) :
+    shellBad (twoRegimePolylogGood A rHi rLo rStar tHi tLo M) M =
+      twoRegimeFailureSources M
+        (polylogTerminalRank A M) (polylogSwitchRank M) (M - 1)
+        (twoRegimeHorizon rHi rLo (polylogSwitchRank M) M)
+        rStar tHi tLo := by
+  classical
+  ext n
+  let F := twoRegimeFailureSources M
+    (polylogTerminalRank A M) (polylogSwitchRank M) (M - 1)
+    (twoRegimeHorizon rHi rLo (polylogSwitchRank M) M)
+    rStar tHi tLo
+  constructor
+  · intro hn
+    rw [shellBad, Finset.mem_filter] at hn
+    have hnot : ¬ n ∉ F := by
+      simpa [twoRegimePolylogGood, F] using hn.2
+    exact not_not.mp hnot
+  · intro hn
+    have hnShell : n ∈ dyadicShell M := by
+      rw [twoRegimeFailureSources, Finset.mem_filter] at hn
+      exact hn.1
+    rw [shellBad, Finset.mem_filter]
+    refine ⟨hnShell, ?_⟩
+    have hnot : ¬ n ∉ F := not_not.mpr hn
+    simpa [twoRegimePolylogGood, F] using hnot
+
+/-- The canonical per-shell good sets assemble to one natural-density-one
+set whenever the retained shell exponent is positive. -/
+theorem naturalDensityOne_twoRegimePolylogGood
+    {A lambdaHi tHi lambdaLo tLo bHi' bLo' c' c kappa : ℝ}
+    {rHi rLo rStar : ℚ}
+    (hA : 0 < A)
+    (hlambdaHi0 : 0 ≤ lambdaHi) (hlambdaHi1 : lambdaHi < 1)
+    (htHi0 : 0 < tHi) (htHiA : tHi < a0)
+    (hlambdaLo0 : 0 ≤ lambdaLo) (hlambdaLo1 : lambdaLo < 1)
+    (htLo0 : 0 < tLo) (htLoA : tLo < a0)
+    (hbHi' : 0 < bHi')
+    (hHiRate : bHi' < adjustableEntropyRate lambdaHi tHi)
+    (hbLo' : 0 < bLo')
+    (hLoRate : bLo' < adjustableEntropyRate lambdaLo tLo)
+    (hc' : 0 < c') (hc2 : c' < Real.log 2)
+    (hrHi0 : 0 ≤ rHi) (hrHi1 : rHi < 1)
+    (hrLo0 : 0 ≤ rLo) (hrLo1 : rLo < 1)
+    (hrStar : 0 < rStar)
+    (hlead : 1 / (1 - (rHi : ℝ)) < c * Real.log 2)
+    (hkappa0 : 0 < kappa)
+    (hkappa :
+      kappa < A * min bLo' c' / Real.log 2 - 1) :
+    NaturalDensityOne
+      (assembleDyadic
+        (twoRegimePolylogGood A rHi rLo rStar tHi tLo)) := by
+  let C := twoRegimePolylogProfileConstant
+    (adjustableEntropyRate lambdaHi tHi) bHi'
+    (adjustableEntropyRate lambdaLo tLo) bLo' c' c rStar
+  have hShell := eventually_twoRegimeFailureSources_density_polylog_le
+    hA hlambdaHi0 hlambdaHi1 htHi0 htHiA
+    hlambdaLo0 hlambdaLo1 htLo0 htLoA
+    hbHi' hHiRate hbLo' hLoRate hc' hc2
+    hrHi0 hrHi1 hrLo0 hrLo1 hrStar hlead hkappa0.le hkappa
+  have hUpper : ∀ᶠ M : ℕ in atTop,
+      shellExceptionalRatio
+          (twoRegimePolylogGood A rHi rLo rStar tHi tLo M) M ≤
+        C * (((M : ℝ) + 2) ^ (-kappa)) := by
+    filter_upwards [hShell] with M hShell
+    rw [shellExceptionalRatio, shellBad_twoRegimePolylogGood]
+    exact hShell
+  have hxT : Tendsto (fun M : ℕ => (M : ℝ) + 2) atTop atTop :=
+    tendsto_atTop_add_const_right atTop (2 : ℝ)
+      tendsto_natCast_atTop_atTop
+  have hPow : Tendsto (fun M : ℕ => ((M : ℝ) + 2) ^ (-kappa))
+      atTop (nhds 0) :=
+    (tendsto_rpow_neg_atTop hkappa0).comp hxT
+  have hZero : Tendsto (fun M : ℕ => C * ((M : ℝ) + 2) ^ (-kappa))
+      atTop (nhds 0) := by
+    simpa using (tendsto_const_nhds.mul hPow :
+      Tendsto (fun M : ℕ => C * ((M : ℝ) + 2) ^ (-kappa))
+        atTop (nhds (C * 0)))
+  apply naturalDensityOne_assembleDyadic
+  apply tendsto_of_tendsto_of_tendsto_of_le_of_le'
+      tendsto_const_nhds hZero
+  · filter_upwards with M
+    exact shellExceptionalRatio_nonneg _ _
+  · exact hUpper
+
+/-- Quantitative prefix count for the assembled canonical good set.  The
+half-base-two-log scale is an explicit constant-factor version of
+`(log X)^(-kappa)` and avoids hiding the dyadic summation conversion. -/
+theorem eventually_badCount_twoRegimePolylogGood_le
+    {A lambdaHi tHi lambdaLo tLo bHi' bLo' c' c kappa : ℝ}
+    {rHi rLo rStar : ℚ}
+    (hA : 0 < A)
+    (hlambdaHi0 : 0 ≤ lambdaHi) (hlambdaHi1 : lambdaHi < 1)
+    (htHi0 : 0 < tHi) (htHiA : tHi < a0)
+    (hlambdaLo0 : 0 ≤ lambdaLo) (hlambdaLo1 : lambdaLo < 1)
+    (htLo0 : 0 < tLo) (htLoA : tLo < a0)
+    (hbHi' : 0 < bHi')
+    (hHiRate : bHi' < adjustableEntropyRate lambdaHi tHi)
+    (hbLo' : 0 < bLo')
+    (hLoRate : bLo' < adjustableEntropyRate lambdaLo tLo)
+    (hc' : 0 < c') (hc2 : c' < Real.log 2)
+    (hrHi0 : 0 ≤ rHi) (hrHi1 : rHi < 1)
+    (hrLo0 : 0 ≤ rLo) (hrLo1 : rLo < 1)
+    (hrStar : 0 < rStar)
+    (hlead : 1 / (1 - (rHi : ℝ)) < c * Real.log 2)
+    (hkappa0 : 0 ≤ kappa)
+    (hkappa :
+      kappa < A * min bLo' c' / Real.log 2 - 1) :
+    let C := twoRegimePolylogProfileConstant
+      (adjustableEntropyRate lambdaHi tHi) bHi'
+      (adjustableEntropyRate lambdaLo tLo) bLo' c' c rStar
+    ∀ᶠ X : ℕ in atTop,
+      (badCount
+        (assembleDyadic
+          (twoRegimePolylogGood A rHi rLo rStar tHi tLo)) X : ℝ) ≤
+        (1 + 2 * max C 0) * X *
+          ((((Nat.log 2 X) / 2 : ℕ) : ℝ) + 2) ^ (-kappa) := by
+  dsimp only
+  let C := twoRegimePolylogProfileConstant
+    (adjustableEntropyRate lambdaHi tHi) bHi'
+    (adjustableEntropyRate lambdaLo tLo) bLo' c' c rStar
+  let B := max C 0
+  have hB : 0 ≤ B := by
+    dsimp [B]
+    exact le_max_right _ _
+  have hShell := eventually_twoRegimeFailureSources_density_polylog_le
+    hA hlambdaHi0 hlambdaHi1 htHi0 htHiA
+    hlambdaLo0 hlambdaLo1 htLo0 htLoA
+    hbHi' hHiRate hbLo' hLoRate hc' hc2
+    hrHi0 hrHi1 hrLo0 hrLo1 hrStar hlead hkappa0 hkappa
+  have hShellB : ∀ᶠ M : ℕ in atTop,
+      shellExceptionalRatio
+          (twoRegimePolylogGood A rHi rLo rStar tHi tLo M) M ≤
+        B * (((M : ℝ) + 2) ^ (-kappa)) := by
+    filter_upwards [hShell] with M hShell
+    rw [shellExceptionalRatio, shellBad_twoRegimePolylogGood]
+    have hCB : C ≤ B := by
+      dsimp [B]
+      exact le_max_left _ _
+    exact hShell.trans (mul_le_mul_of_nonneg_right hCB
+      (Real.rpow_nonneg (by positivity) _))
+  rw [eventually_atTop] at hShellB
+  obtain ⟨M₀, hM₀⟩ := hShellB
+  have hGlobal := eventually_badCount_assembleDyadic_le_polylog_profile
+    (twoRegimePolylogGood A rHi rLo rStar tHi tLo) M₀ B kappa
+    hB hkappa0 hM₀
+  simpa [B, C] using hGlobal
+
+/-- Quantitative exceptional count in the manuscript's natural-logarithm
+normalization.  The displayed constant keeps the dyadic summation and change
+of logarithm fully explicit. -/
+theorem eventually_badCount_twoRegimePolylogGood_le_natLog
+    {A lambdaHi tHi lambdaLo tLo bHi' bLo' c' c kappa : ℝ}
+    {rHi rLo rStar : ℚ}
+    (hA : 0 < A)
+    (hlambdaHi0 : 0 ≤ lambdaHi) (hlambdaHi1 : lambdaHi < 1)
+    (htHi0 : 0 < tHi) (htHiA : tHi < a0)
+    (hlambdaLo0 : 0 ≤ lambdaLo) (hlambdaLo1 : lambdaLo < 1)
+    (htLo0 : 0 < tLo) (htLoA : tLo < a0)
+    (hbHi' : 0 < bHi')
+    (hHiRate : bHi' < adjustableEntropyRate lambdaHi tHi)
+    (hbLo' : 0 < bLo')
+    (hLoRate : bLo' < adjustableEntropyRate lambdaLo tLo)
+    (hc' : 0 < c') (hc2 : c' < Real.log 2)
+    (hrHi0 : 0 ≤ rHi) (hrHi1 : rHi < 1)
+    (hrLo0 : 0 ≤ rLo) (hrLo1 : rLo < 1)
+    (hrStar : 0 < rStar)
+    (hlead : 1 / (1 - (rHi : ℝ)) < c * Real.log 2)
+    (hkappa0 : 0 ≤ kappa)
+    (hkappa :
+      kappa < A * min bLo' c' / Real.log 2 - 1) :
+    let C := twoRegimePolylogProfileConstant
+      (adjustableEntropyRate lambdaHi tHi) bHi'
+      (adjustableEntropyRate lambdaLo tLo) bLo' c' c rStar
+    ∀ᶠ X : ℕ in atTop,
+      (badCount
+        (assembleDyadic
+          (twoRegimePolylogGood A rHi rLo rStar tHi tLo)) X : ℝ) ≤
+        ((1 + 2 * max C 0) * (2 * Real.log 2) ^ kappa) *
+          X * (Real.log X) ^ (-kappa) := by
+  dsimp only
+  let C := twoRegimePolylogProfileConstant
+    (adjustableEntropyRate lambdaHi tHi) bHi'
+    (adjustableEntropyRate lambdaLo tLo) bLo' c' c rStar
+  have hPrefix := eventually_badCount_twoRegimePolylogGood_le
+    hA hlambdaHi0 hlambdaHi1 htHi0 htHiA
+    hlambdaLo0 hlambdaLo1 htLo0 htLoA
+    hbHi' hHiRate hbLo' hLoRate hc' hc2
+    hrHi0 hrHi1 hrLo0 hrLo1 hrStar hlead hkappa0 hkappa
+  have hScale := eventually_halfNatLog_profile_le_natLog hkappa0
+  filter_upwards [hPrefix, hScale] with X hPrefix hScale
+  have hCoeff : 0 ≤ (1 + 2 * max C 0) * (X : ℝ) := by positivity
+  calc
+    (badCount
+        (assembleDyadic
+          (twoRegimePolylogGood A rHi rLo rStar tHi tLo)) X : ℝ) ≤
+        (1 + 2 * max C 0) * X *
+          ((((Nat.log 2 X) / 2 : ℕ) : ℝ) + 2) ^ (-kappa) := by
+      simpa [C] using hPrefix
+    _ ≤ (1 + 2 * max C 0) * X *
+          ((2 * Real.log 2) ^ kappa * (Real.log X) ^ (-kappa)) :=
+      mul_le_mul_of_nonneg_left hScale hCoeff
+    _ = ((1 + 2 * max C 0) * (2 * Real.log 2) ^ kappa) *
+          X * (Real.log X) ^ (-kappa) := by ring
+
+end
+
+end FirstPassageLinearTransport
