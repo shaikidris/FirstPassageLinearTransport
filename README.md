@@ -4,7 +4,8 @@ Lean 4 formalization accompanying the manuscript
 *Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density* by
 Idris Ali Shaik.
 
-- Preprint: <https://doi.org/10.5281/zenodo.21931194>
+- Preprint: <https://doi.org/10.5281/zenodo.21937271>
+- Manuscript source: [`paper/collatz_first_passage_natural_density.md`](paper/collatz_first_passage_natural_density.md)
 - Software archive: <https://doi.org/10.5281/zenodo.21930432>
 - Frozen release: `lean-v3.2.0`
 
@@ -40,4 +41,6 @@ non-default Lake libraries; they are not imported by `Main`.
 
 ## License
 
-Apache License 2.0. See [`LICENSE`](LICENSE).
+The Lean software is licensed under Apache License 2.0; see
+[`LICENSE`](LICENSE). The manuscript is distributed under CC BY 4.0 through
+the linked Zenodo preprint record.
