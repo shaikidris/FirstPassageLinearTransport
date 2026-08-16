@@ -8,11 +8,11 @@ Independent researcher, Dubai, United Arab Emirates
 
 **ORCID:** [0009-0009-9699-9712](https://orcid.org/0009-0009-9699-9712)
 
-**Version:** 3.2.1 - preprint
+**Version:** 3.2.2 - preprint
 
 **Date:** 14 August 2026
 
-**Preprint DOI:** [10.5281/zenodo.21937271](https://doi.org/10.5281/zenodo.21937271)
+**Preprint DOI:** [10.5281/zenodo.21956066](https://doi.org/10.5281/zenodo.21956066)
 
 **Lean 4 software DOI:** [10.5281/zenodo.21930432](https://doi.org/10.5281/zenodo.21930432)
 
