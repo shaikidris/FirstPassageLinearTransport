@@ -1,27 +1,42 @@
-# Polylogarithmic Natural-Density Descent for the Collatz Map
+# Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density
 
 **Idris Ali Shaik**
 
-Independent researcher
+Independent researcher, Dubai, United Arab Emirates
 
-**Version:** 3.2 — submission draft
+**Email:** shaikidris@apache.org
 
-**Date:** August 2026
+**ORCID:** [0009-0009-9699-9712](https://orcid.org/0009-0009-9699-9712)
+
+**Version:** 3.2.2 - preprint
+
+**Date:** 14 August 2026
+
+**Preprint DOI:** [10.5281/zenodo.21956066](https://doi.org/10.5281/zenodo.21956066)
+
+**Lean 4 software DOI:** [10.5281/zenodo.21930432](https://doi.org/10.5281/zenodo.21930432)
 
 **2020 Mathematics Subject Classification:** Primary 11B83; Secondary 37P99,
 60G40
 
-**Keywords:** Collatz map, natural density, first passage, stopping map,
-parity vectors, polylogarithmic descent
+**Keywords:** Collatz map, almost all Collatz orbits, natural density, first
+passage, stopping map, parity vectors, polylogarithmic descent
 
 ## Abstract
+
+We prove that, in ordinary natural density, almost every positive integer
+\(n\) admits a shortcut Collatz iterate of polylogarithmic size within
+\(O(\log n)\) steps, with every iterate up to that time at most
+\(n^{1+\beta}\) for any fixed \(\beta>0\).  The argument supplies an explicit
+critical polylogarithmic exponent, quantitative exceptional-set rates, and a
+logarithmic witnessing clock.
 
 Let \(T\) be the shortcut Collatz map, with \(T(n)=n/2\) for even \(n\) and
 \(T(n)=(3n+1)/2\) for odd \(n\).  Put
 \(\kappa_*=1-H_2(\log_3 2)\),
 \(A_{\rm FP}=(2\kappa_*)^{-1}=9.9911133419\ldots\), and
 \(c_*=2/\log(4/3)=6.9521189935\ldots\), where \(H_2\) is binary entropy.
-In ordinary natural density, for every fixed \(A>A_{\rm FP}\), \(c>c_*\),
+For every fixed \(A>A_{\rm FP}\), \(c>c_*\),
 \(\beta>0\), and \(0<\gamma<\kappa_*(A-A_{\rm FP})\), there is
 \(C_{\rm tar}>0\) such that, as \(X\to\infty\), all but
 \(O_{A,c,\beta,\gamma}(X/(\log X)^\gamma)\) integers \(n\le X\) admit an
@@ -40,10 +55,9 @@ C_{\rm tar}(\log n)^{A_{\rm FP}}
 \]
 with exceptional count
 \(O_{D,c,\beta,\gamma}(X/(\log\log\log X)^\gamma)\) whenever
-\(0<\gamma<D\kappa_*\).  The final factor may more generally be replaced by
-\(\Omega(\log\log n)\) for any prescribed \(\Omega(x)\to\infty\).  Neither
-the pure target \(C(\log n)^{A_{\rm FP}}\) nor a bounded final multiplier at
-the critical secondary scale is asserted.  For every fixed \(0<\delta<1\),
+\(0<\gamma<D\kappa_*\).  Neither the pure target
+\(C(\log n)^{A_{\rm FP}}\) nor a bounded final multiplier at the critical
+secondary scale is asserted.  For every fixed \(0<\delta<1\),
 \(c>c_*\), and \(\beta>0\), the weaker target
 \(\exp((\log n)^{1-\delta})\) is reached with exceptional count
 \(O_{\delta,c,\beta}(X\exp(-\gamma_{\delta,c,\beta}
@@ -52,20 +66,21 @@ shortcut clock and orbit ceiling.  For the unaccelerated Collatz map, whose
 odd step is \(n\mapsto3n+1\), every clock constant greater than
 \(3/\log(4/3)\) is allowed.
 
-The proof counts parity words exactly on each dyadic shell
-\([2^M,2^{M+1})\).  Large-scale prefix bounds control the orbit, while a
-terminal odd-step tail controls small blocks that miss their next threshold in
-time.
-Decreasing thresholds turn every later failure into a direct first passage of
-the original orbit.  Only \(O(\sqrt{M\log M})\) cumulative passage times are
-possible, replacing a linear counting loss by a square-root loss.  All
-statements are almost-all results, not pointwise assertions.
+On each dyadic shell \([2^M,2^{M+1})\), exact parity-word counting controls
+prefixes; a terminal odd-step tail controls small blocks that miss their next
+threshold in time.  Decreasing thresholds make later failures direct first
+passages of the original orbit, so only \(O(\sqrt{M\log M})\) cumulative
+times are counted instead of a linear horizon.
 
 ## 1. Introduction and main results
 
 We ask how small a value can be forced along the Collatz orbit of almost every
 initial integer in ordinary natural density, while retaining a logarithmic
 witnessing time and a bound on the orbit before that witness.
+
+For classical background and broad surveys of the \(3x+1\) problem, see
+Crandall [[1]](#ref-crandall), Lagarias [[7]](#ref-lagarias), and Wirsching
+[[13]](#ref-wirsching).
 
 We work throughout with the shortcut Collatz map
 \[
@@ -109,7 +124,7 @@ c_*=\frac2{\log(4/3)}.
 The subscript \({\rm FP}\) records that this exponent comes from the
 first-passage argument.
 
-### Where the constants come from
+### Where the constants come from {#where-the-constants-come-from}
 
 The two constants in \eqref{eq:1-2} record the two quantitative costs of the
 proof.  First,
@@ -121,7 +136,12 @@ c_*=\frac1{(1-a_0)\log2}.
 Thus \(1-a_0\) is the mean base-two logarithmic loss of the multiplicative
 main term per shortcut step, and \(c_*\log n\) is the corresponding
 mean-drift clock for clearing \(\log_2n\) bits.  This interpretation does not
-assert a matching lower bound or optimality theorem.  Second, put
+assert a matching lower bound or optimality theorem.  Drift heuristics and
+related stochastic models are classical; see Kontorovich--Lagarias
+[[4]](#ref-kontorovich-lagarias) and Lagarias--Weiss
+[[8]](#ref-lagarias-weiss).  The estimates below nevertheless come from exact
+parity-word counting, not from a stochastic model of an individual orbit.
+Second, put
 \[
 \kappa_*=1-H_2(p_*).
 \]
@@ -306,7 +326,7 @@ raw index \(\ell\) supplies both the corresponding landing and this ceiling.
 Since \(3/\log(4/3)=10.42817849\ldots\), the explicit constant \(10.44\)
 remains admissible.
 
-### Corollary 1.5 (fixed powers and the graded clock) {#cor-fixed-power}
+### Corollary 1.5 (fixed powers and the independent graded-clock companion) {#cor-fixed-power}
 
 For every fixed \(\alpha>0\), the exceptional set for
 \(T_{\min}(n)>n^\alpha\) is
@@ -386,6 +406,12 @@ chain are deterministic.
    \(\Delta_M\).  Its positive divergence yields the principal exponent
    \(A_{\rm FP}\).
 
+The time-support bound is stated and proved in
+[Lemma 6.1](#lem-time-support).  [Proposition 6.4](#prop-rank-buffer)
+assembles the critical shell estimate, and \eqref{eq:6-20}--\eqref{eq:6-21}
+convert it to the margin \(\Delta_M\) explained in the
+[opening constant discussion](#where-the-constants-come-from).
+
 Steps 3 and 4 are the shared deterministic part of the proof.  Applying them
 with one fixed barrier gives the stretched-logarithmic exceptional rate.
 Applying them with shrinking large-scale bounds and the small-scale timeout
@@ -405,42 +431,50 @@ Lemmas 6.1 and 6.3.](fig-architecture.svg)
 
 ### Relation to previous almost-all results
 
-The preceding endpoint-transport preprint [[7]](#ref-endpoint-v1) proves the
-range \(0<\delta<0.251245530155874\ldots\) by a fixed-time
-endpoint-fiber/Rényi estimate followed by endpoint iteration.  The present
-proof is independent of that theorem.  It replaces fixed-time endpoint
-transport by high-rank all-prefix certification, first-passage reversal,
-direct passage along decreasing thresholds, a small-rank timeout tail, and
-aggregation over only the possible passage times.
+Terras [[11]](#ref-terras) and Everett [[2]](#ref-everett) proved the classical
+first-descent statement for almost every starting value; Terras's follow-up
+[[12]](#ref-terras-density) addressed the associated density question.
+
+The earlier endpoint-transport preprint [[9]](#ref-endpoint-v1) proves stretched-logarithmic
+descent in the range \(0<\delta<0.251245530155874\ldots\) by fixed-total
+endpoint fibers, a Rényi estimate, and endpoint-only iteration.  The present
+proof is logically independent of that theorem.  Its proof architecture and
+principal conclusions are substantially different: high-rank all-prefix
+certification, first-passage reversal along decreasing thresholds, and a
+small-rank timeout tail yield fixed polylogarithmic targets above the explicit
+critical exponent, a moving critical endpoint, and a same-witness orbit
+ceiling.  Theorem 1.3 also gives an independent stretched-logarithmic companion
+for every \(0<\delta<1\), extending the parameter range obtained in [[9]](#ref-endpoint-v1).
 
 The main obstruction is not the contraction of one typical block, but the
 transport of sparse certification failures through a generated sequence of
 landings.  Direct aggregation over every time up to the horizon incurs a
-linear loss.  Step 5 above reduces the possible times to
-\(O(\sqrt{M\log M})\) possibilities; this linear-to-square-root reduction is
-the quantitative pivot of the paper.
+linear loss.  The proof instead organizes long multi-landing passages in
+natural density without that linear time-union loss.  Step 5 above reduces the
+possible times to \(O(\sqrt{M\log M})\) possibilities; this
+linear-to-square-root reduction is the quantitative pivot of the paper.
 
-The published results of Korec and Tao, the preprint of Inselmann, and the two
-recent Tao-to-natural-density bridge manuscripts are compared below only on
+The published results of Korec and Tao, the preprint of Inselmann, and two
+recent Tao-to-natural-density bridge manuscripts (J. Allikvere, unpublished
+observations; L. Mazur, unpublished observations) are compared below only on
 the coordinates used in their stated theorems.  Publication status and proof
-lineage are recorded in the surrounding prose and references rather than in
-the table.
+lineage are recorded in the surrounding prose rather than in the table.
 
 | Work | Density | Target reached for almost all starts | Clock or quantitative feature |
 |---|---|---|---|
-| Korec [[3]](#ref-korec) | natural | \(n^\theta\), every fixed \(\theta>a_0\) | no clock or quantitative exception used here |
-| Inselmann [[2]](#ref-inselmann) | natural | \(n^\varepsilon\), every fixed \(\varepsilon>0\) | \(2\log n/\log(4/3)\) shortcut steps; density convergence |
-| Tao [[5]](#ref-tao) | logarithmic | every \(f(n)\to\infty\) | no single global clock in the headline theorem; logarithmic-density estimate |
-| Mazur [[4]](#ref-mazur) | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | \(<436\log n\) unaccelerated steps; fixed-target logarithmic rate |
-| Allikvere [[1]](#ref-allikvere) | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | \(<12\log n\) unaccelerated steps; \(O((\log N_0)^{-1/29}+X^{-1/2000})\) for a fixed target |
+| Korec [[5]](#ref-korec) | natural | \(n^\theta\), every fixed \(\theta>a_0\) | no clock or quantitative exception used here |
+| Inselmann [[3]](#ref-inselmann) | natural | \(n^\varepsilon\), every fixed \(\varepsilon>0\) | \(2\log n/\log(4/3)\) shortcut steps; density convergence |
+| Tao [[10]](#ref-tao) | logarithmic | every \(f(n)\to\infty\) | no single global clock in the headline theorem; logarithmic-density estimate |
+| Mazur | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | \(<436\log n\) unaccelerated steps; fixed-target logarithmic rate |
+| Allikvere | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | \(<12\log n\) unaccelerated steps; \(O((\log N_0)^{-1/29}+X^{-1/2000})\) for a fixed target |
 | This paper | natural | \(C_{\rm tar}(\log n)^A\) for every fixed \(A>A_{\rm FP}\); moving critical endpoint in [Corollary 1.2](#cor-endpoint-profiles) | every shortcut constant \(>c_*\); every unaccelerated constant \(>3/\log(4/3)\); target-dependent quantitative rates and an orbit-height bound through the witnessing time |
 
 [Theorem 1.1](#thm-moving-polylog) additionally bounds every preceding
 iterate through the same witnessing time:
 \(\max_{j\le k}T^j(n)\le n^{1+\beta}\).  This bound is not part of the
-headline statements in [[1]](#ref-allikvere) or [[4]](#ref-mazur); this is a
-comparison of stated outputs, not a claim that their proof-internal trajectory
-estimates cannot yield related bounds.
+headline statements in those unpublished observations; this is a comparison
+of stated outputs, not a claim that their proof-internal trajectory estimates
+cannot yield related bounds.
 
 The moving target of [Theorem 1.1](#thm-moving-polylog) includes the critical
 specialization
@@ -454,11 +488,16 @@ core \((\log n)^{A_{\rm FP}}(\log\log n)^{2A_{\rm FP}}\).  It is therefore
 weaker than an arbitrary diverging function.  At the target-only level, Tao's
 theorem specializes to every target displayed here, albeit in logarithmic
 rather than natural density.  Thus the present theorem does not supersede the
-arbitrary-threshold conclusions of [[1]](#ref-allikvere) or
-[[4]](#ref-mazur).  Conversely, those target statements do not supply the
+arbitrary-threshold conclusions reported in those unpublished observations.
+Conversely, those target statements do not supply the
 present natural-density rates, logarithmic clock, or orbit-height bound, and
-the clock scale already appears in [[2]](#ref-inselmann).  These axes are
+the clock scale already appears in [[3]](#ref-inselmann).  These axes are
 deliberately not collapsed into a single ordering.
+
+Complementary inverse-tree work obtains lower bounds for the number of
+integers whose orbits reach \(1\) by means of difference inequalities; see
+Krasikov--Lagarias [[6]](#ref-krasikov-lagarias).  That direction is distinct
+from the forward first-passage transport used here.
 
 Allikvere conditions Tao's Syracuse/Fourier inputs on the total valuation and
 supplies a uniform-measure transfer.  Mazur starts from the same
@@ -551,7 +590,7 @@ s_k(n)=\sum_{i=0}^{k-1}p_i(n).
 \]
 
 The exact parity coding below is classical in the stopping-time literature;
-see, for example, Terras [[6]](#ref-terras).  Its short proof is included
+see, for example, Terras [[11]](#ref-terras).  Its short proof is included
 because no external
 result is needed by the argument.
 
@@ -726,6 +765,10 @@ interval, so
 \[
 M D(p_M\|1/2)=M\mathcal I(t)+O(1).
 \]
+Indeed, applying the two-sided Stirling bounds to \(M!\), \(k_0!\), and
+\((M-k_0)!\) produces the displayed entropy exponent and a prefactor
+\(O((Mp_M(1-p_M))^{-1/2})\); compactness makes this \(O(M^{-1/2})\)
+uniformly.
 Absorbing this bounded error and the finite startup into
 \(C_{t_0,t_1}\) proves \eqref{eq:3-3a}. \(\square\)
 
@@ -984,6 +1027,8 @@ Fix the common odd count and put
 \[
 3D\frac{2^M}{Y}.
 \]
+Any additional congruence or residue restriction can only reduce the number
+of integer sources in this interval; no full-lattice occupancy is assumed.
 This proves \eqref{eq:4-8}. \(\square\)
 
 ### Proposition 4.3 (transport of a landing set with bounded reverse loss) {#prop-loss-transport}
@@ -1030,9 +1075,9 @@ obtain \eqref{eq:4-9}.  The contribution \(H|B|\) is at most
 This section proves two deterministic facts used by both main arguments.
 First, sequential crossings of decreasing thresholds collapse to one direct
 first passage from the original shell.  Second, their reverse losses
-telescope.  The final theorem applies these facts with one fixed barrier; the
-next section retains the same two facts and changes how failure is detected at
-small shell ranks.
+telescope.  [Theorem 1.3](#thm-stretched-log) applies these facts through the
+fixed-barrier route; the next section retains the same two facts and changes
+how failure is detected at small shell ranks.
 
 For example, suppose an orbit first enters below \(2^{30}\), and from that
 landing later first enters below \(2^{27}\).  No earlier point of the original
@@ -1155,14 +1200,25 @@ E_{2^{q_i}}(n)<\frac{q_i+2}{r}.
 
 In block \(j\), every state following an odd step is strictly larger than
 \(2^{q_j}\); the final crossing is even.  Therefore each reverse-loss
-increment is less than \(2^{-q_j-1}\).  Since the block has at most
-\(m_j\) steps, rescaling all blocks to the final threshold gives
+increment is less than \(2^{-q_j-1}\).  Loss incurred in block \(j\) is
+initially measured relative to its own threshold \(2^{q_j}\).  Expressing it
+in units of the final threshold \(2^{q_i}\) multiplies that loss by
+\(2^{q_i-q_j}\).  Since the block has at most \(m_j\) steps, summing these
+rescaled contributions gives
 \[
 E_{2^{q_i}}(n)
 <\frac12\sum_{j\le i}m_j2^{q_i-q_j}.
 \]
 Now \(m_j<(q_j+1)/r\), and the distinct integer thresholds \(q_j\) are
-all at least \(q_i\).  Hence
+all at least \(q_i\).  Thus, for each \(d=q_j-q_i\ge0\), there is at most
+one block at rank \(q_i+d\).  The worst case occupies every such rank, and
+the identities
+\[
+\sum_{d\ge0}2^{-d}=2,
+\qquad
+\sum_{d\ge0}d2^{-d}=2
+\]
+give
 \[
 E_{2^{q_i}}(n)
 <\frac1{2r}\sum_{d\ge0}(q_i+d+1)2^{-d}
@@ -1268,7 +1324,8 @@ Thus only \(r_{\rm hi},\tau,D_{\rm hi},C_{\rm sw},K_0\), and \(r_*\)
 are choices made inside the argument; the remaining quantities are determined
 by those choices and the prescribed terminal schedule.
 
-Choose fixed high-rank data
+**High-rank stopped chain and compressed passage times.**  Choose fixed
+high-rank data
 \[
 a_0<r_{\rm hi}<1,
 \qquad
@@ -1328,7 +1385,17 @@ belong to a finite set \(\mathcal H^{\rm hi}_{M,q}\) satisfying
 
 #### Proof
 
-Write \(g=1-a_0\).  Consider one high certified block from a parent shell
+Write \(g=1-a_0\).  The point is not that the number of high-rank histories is
+small.  For one block from rank \(m\) to threshold rank \(q\), the duration is
+centered at \((m-q)/g\), with an error of order
+\(\sqrt{m\log(M+2)}\).  Every continuing landing lies in the shell
+\(I_{q-1}\), so the next parent rank is exactly \(q-1\).  Consequently the
+centers telescope along any history to a quantity depending only on the outer
+rank \(M\) and final rank \(q\), while geometric rank decay keeps the
+accumulated error within \(O(\sqrt{M\log(M+2)})\).  Thus all cumulative times
+for fixed \(M,q\) lie in one corridor of that width.
+
+Consider one high certified block from a parent shell
 \(I_m\) to threshold \(2^q\), and let \(h\) be its duration and
 \(t=\eta_{M,m}\).  The two deterministic orbit envelopes and the
 first-passage band give
@@ -1344,9 +1411,7 @@ Thus
 \tag{6.6a}\label{eq:6-6a}
 \]
 
-The next computation shows that all intermediate shell ranks telescope away,
-leaving a corridor centered only at the outer rank \(M\) and the final
-threshold rank \(q\).
+The next computation makes this telescoping explicit.
 
 Suppose high blocks \(0,\ldots,j\) have been executed.  Every landing before
 the last is a continuing checkpoint in \((2^{q_i-1},2^{q_i}]\).  By the
@@ -1386,6 +1451,7 @@ For fixed \(M\) and \(q_j=q\), the center in \eqref{eq:6-6d} is fixed.
 Consequently every feasible integer \(H_{j+1}\) lies in one interval of
 length \(O(\sqrt{M\log(M+2)})\); counting its integer points proves
 \eqref{eq:6-5}.  No union over intermediate high-rank histories remains.
+No optimality is claimed for this support bound or for its logarithmic factor.
 \(\square\)
 
 The fixed-time, fixed-landing count also has the following restricted-time
@@ -1629,8 +1695,9 @@ Thus the timeout cut is subcritical, but differs from \(p_*\) by only
 These thresholds eventually lie in one compact subinterval of \((1/2,1)\).
 The ratio of consecutive terms in the upper binomial tail is then bounded
 strictly below one, so the tail is at most a fixed multiple of its first
-term.  Stirling's inequality and the bounded derivative of
-\(D(p\|1/2)\) on that interval give
+term.  Applying the compact-uniform Stirling estimate from the proof of
+[Lemma 3.1](#lem-entropy-barrier), together with the bounded derivative of
+\(D(p\|1/2)\) on that interval, gives
 \[
 2^{-m}\sum_{s\ge u_{L,m}m}\binom ms
 \ll
@@ -2060,11 +2127,10 @@ present theorem.
 
 ## Research and software disclosure
 
-Generative-AI systems were used in proof exploration, adversarial auditing,
-finite diagnostics, formalization, and exposition.  The author selected the
-theorem and proof architecture, reviewed the resulting artifacts, and accepts
-responsibility for the manuscript.  Finite diagnostics are supporting
-evidence only and are not premises of any theorem.
+Generative AI (including OpenAI Codex) assisted with exploration,
+formalization workflows, diagnostics, and drafting.  The author selected the
+architecture, checked the mathematics, and accepts responsibility for all
+content.  Finite diagnostics are not premises of any theorem.
 
 The separate Lean package kernel-checks the canonical timeout route to the
 exported `Main` declaration corresponding to
@@ -2072,47 +2138,47 @@ exported `Main` declaration corresponding to
 \(\Delta_M\to+\infty\), that declaration exposes the literal shell
 exceptional ratio, moving landing, logarithmic clock, and orbit-height bound
 through the same witness.  The package also exports the fixed-\(A\)
-specialization and the fixed-depth graded-clock companion.  The earlier
-all-prefix construction is retained in an optional library, but is neither
-imported by `Main` nor built by the default target.
+specialization and the fixed-depth graded-clock companion.  Only the canonical
+timeout route is part of the manuscript-facing formalization surface.
 
-Some quantitative companions are presently represented by separate formal
-projections rather than one declaration with every paper quantifier.  In
-particular, Lean checks the explicit \(6.953\log n\) stretched-logarithmic
-witness, every strict subendpoint exceptional power, and the raw
-\(10.44\log n\) stretched-logarithmic landing.  The joint statement of
-[Theorem 1.3](#thm-stretched-log), its exact endpoint exceptional power, the
-moving raw specialization in [Corollary 1.4](#cor-raw-clock), and the literal
-capstone form of [Theorem 5.3](#thm-terminal-profile) remain paper-level; their
-structural components are formalized separately.  The exact declaration map
-and these boundaries are recorded in `lean/FORMALIZATION.md`.
+The Lean development has no gaps or admitted obligations: the canonical
+library builds without `sorry`, `admit`, a project axiom, or a missing module,
+and the public-root audits report only Lean's standard logical axioms.  Some quantitative companions are represented
+by separate formal projections rather than one declaration with every paper
+quantifier.  In particular, Lean checks the explicit \(6.953\log n\)
+stretched-logarithmic witness, every strict subendpoint exceptional power, and
+the raw \(10.44\log n\) stretched-logarithmic landing.  The exact endpoint and
+combined forms in [Theorem 1.3](#thm-stretched-log), the moving raw
+specialization in [Corollary 1.4](#cor-raw-clock), and the literal capstone form
+of [Theorem 5.3](#thm-terminal-profile) are manuscript derivations assembled
+from formalized structural components rather than additional public wrapper
+theorems.  This is a declaration-level coverage boundary, not an admitted
+obligation inside the Lean development.  The exact declaration map is
+recorded in `lean/FORMALIZATION.md`.
 
-The access-controlled
+The
 [GitHub repository](https://github.com/shaikidris/FirstPassageLinearTransport)
-contains the exported theorem and the separately packaged alternate on
-its private branch.  The audited Lean source is commit
-`921e15ad1eb67e605afbcebb740b96253e2d6944`; repository access can be provided
-to referees on request.  The
-formal package uses Lean `4.15.0` (commit
+contains the exported theorem.  The audited Lean source is frozen at tag
+`lean-v3.2.0` and commit
+`ef3410843bf58d69f771f5ba2c0571d54b54da59`.  A matching frozen archive is
+available in the
+[Zenodo software record](https://doi.org/10.5281/zenodo.21930432).  The formal
+package uses Lean `4.15.0` (commit
 `11651562caae`) and Mathlib revision
 `9837ca9d65d9de6fad1ef4381750ca688774e608`.  From the repository's `lean/`
 directory, run:
 
 ```text
 lake build
-lake build FirstPassageLinearTransport.TimeoutEndpointAudit \
-  FirstPassageLinearTransport.PaperDependencyAudit \
-  FirstPassageLinearTransport.PaperAudit FirstPassageLinearTransport.Main
-lake build FirstPassageLinearTransportAlternates
 ```
 
 The theorem dictionary is `lean/FORMALIZATION.md`.  The audit files are
 `PaperDependencyAudit.lean` for dependencies, `PaperAudit.lean` for the
 public roots, and `TimeoutEndpointAudit.lean` for the timeout route. The
-optional all-prefix audit is `Alternates/AllPrefix/Audit.lean`. The canonical build,
-placeholder scan, dependency report, and all axiom audits pass, with logical
-dependencies `propext`, `Classical.choice`, and `Quot.sound`.  These checks
-supplement rather than replace the written proof.
+canonical build, placeholder scan, dependency report, and all axiom audits
+pass, with logical dependencies `propext`, `Classical.choice`, and
+`Quot.sound`.  The default build includes the named canonical audit roots.
+These checks supplement rather than replace the written proof.
 
 ## Appendix A. Graded fixed-power clock {#app-graded-clock}
 
@@ -2202,30 +2268,60 @@ absorb the fixed remainder, proving \eqref{eq:1-11}. \(\square\)
 
 ## References
 
-<span id="ref-allikvere">[1]</span> J. Allikvere, *Almost all Collatz orbits attain almost bounded values in
-natural density*, version 2, preprint (2026),
-[doi:10.5281/zenodo.21499244](https://doi.org/10.5281/zenodo.21499244).
+<span id="ref-crandall">[1]</span> R. E. Crandall, *On the "3x+1" problem*, Math.
+Comp. **32** (1978), no. 144, 1281--1292,
+[doi:10.1090/S0025-5718-1978-0480321-3](https://doi.org/10.1090/S0025-5718-1978-0480321-3).
 
-<span id="ref-inselmann">[2]</span> M. Inselmann, *An approximation of the Collatz map and a lower bound for
-the average total stopping time*, arXiv:2402.03276v3 (2024),
+<span id="ref-everett">[2]</span> C. J. Everett, *Iteration of the number-theoretic
+function \(f(2n)=n\), \(f(2n+1)=3n+2\)*, Adv. Math. **25** (1977), no. 1,
+42--45,
+[doi:10.1016/0001-8708(77)90087-1](https://doi.org/10.1016/0001-8708(77)90087-1).
+
+<span id="ref-inselmann">[3]</span> M. Inselmann, *An approximation of the Collatz
+map and a lower bound for the average total stopping time*, arXiv:2402.03276v3
+(2024),
 [doi:10.48550/arXiv.2402.03276](https://doi.org/10.48550/arXiv.2402.03276).
 
-<span id="ref-korec">[3]</span> I. Korec, *A density estimate for the \(3x+1\) problem*, Math. Slovaca
-44 (1994), no. 1, 85--89,
+<span id="ref-kontorovich-lagarias">[4]</span> A. V. Kontorovich and J. C.
+Lagarias, *Stochastic models for the \(3x+1\) and \(5x+1\) problems and related
+problems*, in *The Ultimate Challenge: The \(3x+1\) Problem* (J. C. Lagarias,
+ed.), American Mathematical Society, Providence, RI, 2010, pp. 131--188.
+
+<span id="ref-korec">[5]</span> I. Korec, *A density estimate for the \(3x+1\)
+problem*, Math. Slovaca 44 (1994), no. 1, 85--89,
 [DML-CZ record](https://dml.cz/handle/10338.dmlcz/133225).
 
-<span id="ref-mazur">[4]</span> L. Mazur, *Natural-density almost-bounded Collatz orbits in logarithmic
-time*, version 2, manuscript with companion formal artifact (21 July 2026),
-[ProofAtlas PDF](https://www.proofatlas.ai/papers/natural-density-log-time-collatz/Mazur_Natural_Density_Collatz_Orbits_in_Logarithmic_Time_v2.pdf).
+<span id="ref-krasikov-lagarias">[6]</span> I. Krasikov and J. C. Lagarias,
+*Bounds for the \(3x+1\) problem using difference inequalities*, Acta Arith.
+**109** (2003), 237--258,
+[doi:10.4064/aa109-3-4](https://doi.org/10.4064/aa109-3-4).
 
-<span id="ref-tao">[5]</span> T. Tao, *Almost all orbits of the Collatz map attain almost bounded
-values*, Forum Math. Pi **10** (2022), e12,
-[doi:10.1017/fmp.2022.8](https://doi.org/10.1017/fmp.2022.8).
+<span id="ref-lagarias">[7]</span> J. C. Lagarias, *The \(3x+1\) problem and its
+generalizations*, Amer. Math. Monthly **92** (1985), no. 1, 3--23,
+[doi:10.2307/2322189](https://doi.org/10.2307/2322189).
 
-<span id="ref-terras">[6]</span> R. Terras, *A stopping time problem on the positive integers*, Acta
-Arith. **30** (1976), 241--252.
+<span id="ref-lagarias-weiss">[8]</span> J. C. Lagarias and A. Weiss, *The
+\(3x+1\) problem: two stochastic models*, Ann. Appl. Probab. **2** (1992),
+no. 1, 229--261,
+[doi:10.1214/aoap/1177005779](https://doi.org/10.1214/aoap/1177005779).
 
-<span id="ref-endpoint-v1">[7]</span> I. A. Shaik, *Quantitative Collatz Descent to
+<span id="ref-endpoint-v1">[9]</span> I. A. Shaik, *Quantitative Collatz Descent to
 Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization*,
 version 2.0.2, preprint (2026),
 [doi:10.5281/zenodo.21851173](https://doi.org/10.5281/zenodo.21851173).
+
+<span id="ref-tao">[10]</span> T. Tao, *Almost all orbits of the Collatz map
+attain almost bounded values*, Forum Math. Pi **10** (2022), e12,
+[doi:10.1017/fmp.2022.8](https://doi.org/10.1017/fmp.2022.8).
+
+<span id="ref-terras">[11]</span> R. Terras, *A stopping time problem on the
+positive integers*, Acta Arith. **30** (1976), 241--252.
+
+<span id="ref-terras-density">[12]</span> R. Terras, *On the existence of a
+density*, Acta Arith. **35** (1979), 101--102,
+[doi:10.4064/aa-35-1-101-102](https://doi.org/10.4064/aa-35-1-101-102).
+
+<span id="ref-wirsching">[13]</span> G. J. Wirsching, *The Dynamical System
+Generated by the \(3n+1\) Function*, Lecture Notes in Mathematics, vol. 1681,
+Springer-Verlag, Berlin, 1998,
+[doi:10.1007/BFb0095985](https://doi.org/10.1007/BFb0095985).
