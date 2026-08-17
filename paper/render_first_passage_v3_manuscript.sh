@@ -8,8 +8,13 @@ output_dir="$script_dir"
 source_md="$script_dir/collatz_first_passage_natural_density.md"
 style_css="$script_dir/first_passage_v2_print.css"
 version_css="$script_dir/first_passage_v3_print.css"
-html_file="$tmp_dir/collatz_first_passage_natural_density_v3.html"
-output_pdf="$output_dir/collatz_first_passage_natural_density_v3.pdf"
+paper_version="$(sed -n 's/^\*\*Version:\*\* \([^[:space:]]*\) - preprint$/\1/p' "$source_md")"
+if [[ -z "$paper_version" ]]; then
+  echo "Could not read the preprint version from $source_md" >&2
+  exit 1
+fi
+html_file="$tmp_dir/collatz_first_passage_natural_density_v${paper_version}.html"
+output_pdf="$output_dir/collatz_first_passage_natural_density_v${paper_version}.pdf"
 mathjax_file="$tmp_dir/mathjax3-tex-chtml.js"
 chrome_bin="${CHROME_BIN:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 
@@ -28,7 +33,7 @@ pandoc \
   --mathjax=mathjax3-tex-chtml.js \
   --embed-resources \
   --metadata lang=en \
-  --metadata pagetitle='Polylogarithmic Natural-Density Descent for the Collatz Map' \
+  --metadata pagetitle='Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density' \
   --css="$style_css" \
   --css="$version_css" \
   --resource-path="$script_dir:$tmp_dir" \

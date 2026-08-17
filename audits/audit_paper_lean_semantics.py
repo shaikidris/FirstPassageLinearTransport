@@ -208,6 +208,12 @@ def main() -> int:
             r"For every fixed \(c>c_*\) and \(\beta>0\)",
         ),
         LiteralCheck(
+            "paper arbitrary divergent factor states its theorem payoff",
+            PAPER,
+            r"the final factor in \eqref{eq:1-7} may be replaced, on a"
+            r" natural-density-one set, by \(\widetilde\Omega(\log\log n)\)",
+        ),
+        LiteralCheck(
             "formal map records moving profile socket",
             FORMALIZATION,
             "first-bad transport/profile adapter",
@@ -275,7 +281,7 @@ def main() -> int:
         ),
         (
             "density notion is explicit",
-            "In ordinary natural density",
+            "in ordinary natural density",
         ),
         (
             "counting limit is explicit",
@@ -312,11 +318,6 @@ def main() -> int:
         (
             "passage-time scale defines its dyadic-shell rank",
             r"dyadic shell \([2^M,2^{M+1})\)",
-        ),
-        (
-            "arbitrary divergent factor states its theorem payoff",
-            r"The final factor may more generally be replaced by"
-            r" \(\Omega(\log\log n)\) for any prescribed \(\Omega(x)\to\infty\)",
         ),
         (
             "unaccelerated odd step and strict raw clock are explicit",
