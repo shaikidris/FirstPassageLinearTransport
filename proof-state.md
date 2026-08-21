@@ -89,9 +89,11 @@ V3.1 status:
 - moving endpoint: `PROVED-PAPER / PROVED-FORMAL`;
 - fixed-`A` theorem with some positive exceptional exponent:
   `PROVED-PAPER / PROVED-FORMAL`;
-- exact fixed-`A` rate range, log-log/triple-log profiles, and functional
-  consumer: `PROVED-PAPER / GENERIC LEAN PRODUCER AVAILABLE / LITERAL
-  SPECIALIZATIONS PAPER-ONLY`;
+- exact fixed-`A` rate range:
+  `PROVED-PAPER / PROVED-FORMAL / ISOLATED PUBLIC DECLARATION`;
+- log-log/triple-log profiles and functional consumer:
+  `PROVED-PAPER / GENERIC LEAN PRODUCER AVAILABLE / LITERAL SPECIALIZATIONS
+  PAPER-ONLY`;
 - exact finite positive and boundary controls:
   `EMPIRICAL-SUPPORT / PASS`;
 - manuscript integration, reference audit, and 25-page PDF render:
@@ -101,7 +103,28 @@ V3.1 status:
 - fixed-`A` landing/clock/ceiling and some positive logarithmic exceptional
   exponent: `PROVED-FORMAL` by the frozen public theorem;
 - exact fixed-`A` exceptional range
-  `gamma < kappa_* (A - A_FP)`: `PROVED-PAPER / NOT EXPOSED IN PUBLIC LEAN`;
+  `gamma < kappa_* (A - A_FP)`: `PROVED-PAPER / PROVED-FORMAL` via
+  `FirstPassageLinearTransport.paper_cor12_item1_fixed_polylog`;
+
+Status-change card, 2026-08-22, exact Corollary 1.2(1):
+
+- literal statement before / after: the public fixed-`A` theorem previously
+  returned one shared constant and some positive exceptional exponent; the new
+  isolated declaration quantifies over every
+  `0 < gamma < kappa_* (A - A_FP)` and returns separate `Ctar` and `Cexc`;
+- exact logical difference: the new declaration strictly strengthens the
+  quantitative rate interface while preserving the landing, clock, density,
+  and same-witness ceiling;
+- paper proof location: Corollary 1.2(1) and its proof after Theorem 1.1;
+- quantifier and parameter-dependence audit: `A`, `c`, `beta`, and `gamma` are
+  fixed before `Ctar` and `Cexc`; both constants may depend on all four;
+- formal declaration / rebuild / dependency / axioms:
+  `FirstPassageLinearTransport.paper_cor12_item1_fixed_polylog`, isolated target
+  `FirstPassageLinearTransportPaperCor12`, successful Lean 4.15.0 rebuild,
+  axiom report `[propext, Classical.choice, Quot.sound]`;
+- public surfaces affected: `PaperCor12Item1.lean`, `FORMALIZATION.md`, the
+  public README/audit surfaces, and the separate Palomar package; `Main.lean`
+  remains unchanged.
 - sharp prefactor, moving parameters, rounded barrier, and literal endpoint-rate
   landing density: `PROVED-FORMAL / AXIOM AUDIT PASS` in internal modules;
 - moving stopped run, certified shell collapse, decreasing potential, and
@@ -227,6 +250,9 @@ V3 formal status:
 - referee-facing fixed-polylogarithmic public `Main` theorem:
   `PROVED-FORMAL / PROMOTED`; its direct witness-set `badCount` now matches
   the manuscript literally, with a stronger strict landing inequality.
+- isolated exact-rate Corollary 1.2(1) wrapper with separate constants and
+  every `gamma < kappa_* (A - A_FP)`:
+  `PROVED-FORMAL / PALOMAR SURFACE`;
 - support-sensitive arbitrary-target transport on an explicit finite set of
   cumulative times: `PROVED-FORMAL`;
 - formal alternate shrinking-barrier certified chain, including rank-dependent
@@ -386,7 +412,7 @@ Paper proof-state:
 - formal proof-assistant evidence for the V3.1 moving headline:
   `PROVED-FORMAL / MAIN EXPOSED / FINAL AUDIT PASS`;
 - timed fixed-power Corollary 1.5: `PROVED-ON-PAPER / PROVED-FORMAL / SYNCHRONIZED`;
-- fixed-`A` landing part of Corollary 1.2:
+- fixed-`A` landing and full exceptional-rate range in Corollary 1.2(1):
   `PROVED-ON-PAPER / PROVED-FORMAL`;
 - Theorem 1.1 moving headline: `PROVED-ON-PAPER / PROVED-FORMAL`;
 - Corollary 1.2 log-log, triple-log, and arbitrary-divergent specializations:

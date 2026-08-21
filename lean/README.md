@@ -55,6 +55,9 @@ Collatz definitions:
   `ShrinkingOrbitCeiling.lean`, `ShrinkingNaturalDensityDescent.lean`: strict
   endpoint selection, literal termination, same-witness ceiling, and the
   assembled quantitative natural-density theorem;
+- `PaperCor12Item1.lean`: isolated exact Corollary 1.2(1) wrapper with separate
+  landing and exceptional constants and every
+  `0 < gamma < kappa_* (A - A_FP)`; this is the Palomar theorem surface;
 - `SharpEntropyBarrier.lean`, `MovingLowParameters.lean`,
   `MovingLowDensity.lean`: the internal sharp-prefactor and moving
   landing-density producer;
@@ -105,6 +108,12 @@ Build the narrower public axiom-audit target:
 
 ```bash
 lake build FirstPassageLinearTransport.PaperAudit
+```
+
+Build the isolated exact Corollary 1.2(1) target:
+
+```bash
+lake build FirstPassageLinearTransportPaperCor12
 ```
 
 Build the optional all-prefix library and its axiom audit:

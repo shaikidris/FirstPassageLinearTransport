@@ -194,7 +194,7 @@ with density and loss notation.
 | Corollary 1.2(1), same-witness orbit ceiling | `FirstPassageLinearTransport.ShrinkingRecertificationRun.orbit_le_start_power`; `eventually_shrinkingPolylogGood_has_shellLanding_with_orbitCeiling` | `ShrinkingOrbitCeiling.lean` |
 | Corollary 1.2(1), assembled quantitative theorem | `FirstPassageLinearTransport.shrinkingFixedPolylogNaturalDensityDescent` | `ShrinkingNaturalDensityDescent.lean` |
 | Corollary 1.2(1), finite-startup absorption and direct no-witness count | `FirstPassageLinearTransport.eventually_badCount_le_polylog_of_tail_subset`; `naturalDensityOne_of_eventually_badCount_le_polylog` | `FiniteStartup.lean`; `Main.lean` |
-| Corollary 1.2(1), exact range `gamma < kappa_* (A - A_FP)` | **paper-only scalar specialization; the public fixed-`A` theorem returns some positive exponent** | manuscript proof after Theorem 1.1 |
+| Corollary 1.2(1), exact range `gamma < kappa_* (A - A_FP)` and separate landing/exceptional constants | `FirstPassageLinearTransport.paper_cor12_item1_fixed_polylog` | `PaperCor12Item1.lean` (isolated `FirstPassageLinearTransportPaperCor12` target) |
 | Corollary 1.2(2), critical log-log profile and exact rate range | **paper-only specialization of the formal generic moving theorem; no literal public specialization** | manuscript proof after Theorem 1.1 |
 | Corollary 1.2(3), triple-log profile and exact rate range | **paper-only specialization of the formal generic moving theorem; no literal public specialization** | manuscript proof after Theorem 1.1 |
 | Corollary 1.2, arbitrary divergent multiplier | **paper-only asymptotic specialization of the formal generic moving theorem; no literal public specialization** | manuscript proof after Theorem 1.1 |

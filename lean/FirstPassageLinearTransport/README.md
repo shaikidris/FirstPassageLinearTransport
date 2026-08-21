@@ -103,6 +103,14 @@ natural-density-one set, a positive exceptional exponent, the quantitative
 prefix count, a literal shortcut landing below `C*(log n)^A`, and the
 same-witness ceiling `orbit j n <= n^(1+beta)`.
 
+The stronger literal Corollary 1.2(1) declaration is
+`FirstPassageLinearTransport.paper_cor12_item1_fixed_polylog`. For every
+`0 < gamma < kappa_* (A - A_FP)`, it returns separate positive constants
+`Ctar` and `Cexc` and the eventual bound
+`Cexc * X * (log X)^(-gamma)` for the exact same-witness predicate. It is
+built through the isolated `FirstPassageLinearTransportPaperCor12` target and
+is the declaration promoted to the Palomar package.
+
 The previous fixed-tolerance endpoint `1/(1-H₂(log₃ 2))` is retained only as
 an internal comparison theorem. The factor-two improvement is supplied by
 the proved square-root feasible-time support, not by a changed density notion
