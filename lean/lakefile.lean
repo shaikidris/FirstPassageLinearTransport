@@ -157,3 +157,9 @@ lean_lib FirstPassageLinearTransportLegacy where
     .one `FirstPassageLinearTransport.Legacy.Implementation.TwoRegimeSchedules,
     .one `FirstPassageLinearTransport.Legacy.Implementation.TwoRegimeTailAsymptotics
   ]
+
+/-- Exact Corollary 1.2(1) packaging for Palomar: separate `C_tar`/`C_exc` and
+every `γ < κ_*(A - A_FP)`. Built separately from the canonical `Main` root. -/
+lean_lib FirstPassageLinearTransportPaperCor12 where
+  roots := #[`FirstPassageLinearTransport.PaperCor12Item1]
+  moreLeanArgs := #["-DmaxHeartbeats=20000000"]

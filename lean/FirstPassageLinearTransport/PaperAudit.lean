@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.Main
+import FirstPassageLinearTransport.PaperCor12Item1
 import FirstPassageLinearTransport.PaperDependencyAudit
 
 /-!
@@ -82,6 +83,7 @@ source-reconstruction gate.
 #print axioms FirstPassageLinearTransport.fixedPolylogClockCritical_eq_paper
 #print axioms
   FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent
+#print axioms FirstPassageLinearTransport.paper_cor12_item1_fixed_polylog
 
 -- Quantitative companions retained in the streamlined manuscript.
 #print axioms FirstPassageLinearTransport.orbitMinimum_le_power_iff_hasFixedPowerDescent

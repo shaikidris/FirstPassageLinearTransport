@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Idris Ali Shaik
 -/
 import FirstPassageLinearTransport.Main
+import FirstPassageLinearTransport.PaperCor12Item1
 import ImportGraph.RequiredModules
 import Lean.DeclarationRange
 import Lean.Server.References
@@ -92,6 +93,8 @@ private def paperRoots : Array PaperRoot := #[
     `FirstPassageLinearTransport.eventually_timeoutRun_elapsed_add_switch_lt_shellClock⟩,
   ⟨"Corollary 1.2(1) (fixed-polylogarithmic descent)",
     `FirstPassageLinearTransport.QuantitativeCollatzMain.collatz_first_passage_fixed_polylogarithmic_natural_density_descent⟩,
+  ⟨"Corollary 1.2(1) (exact exceptional-rate range)",
+    `FirstPassageLinearTransport.paper_cor12_item1_fixed_polylog⟩,
   ⟨"Corollary 1.2(1) (endpoint exponent identity)",
     `FirstPassageLinearTransport.timeSupportCriticalExponent_eq_entropy⟩,
   ⟨"Corollary 1.2(1) (clock identity)",
