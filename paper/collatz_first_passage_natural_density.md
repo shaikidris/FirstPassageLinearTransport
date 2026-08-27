@@ -8,11 +8,12 @@ Independent researcher, Dubai, United Arab Emirates
 
 **ORCID:** [0009-0009-9699-9712](https://orcid.org/0009-0009-9699-9712)
 
-**Version:** 3.2.4 - preprint
+**Version:** referee-draft - preprint
 
 **Date:** 27 August 2026
 
-**Preprint DOI:** [10.5281/zenodo.22130385](https://doi.org/10.5281/zenodo.22130385)
+**Previous public preprint (Version 3.2.4):**
+[10.5281/zenodo.22130385](https://doi.org/10.5281/zenodo.22130385)
 
 **Lean 4 software DOI:** [10.5281/zenodo.21930432](https://doi.org/10.5281/zenodo.21930432)
 
@@ -89,6 +90,13 @@ be the \(M\)-th dyadic shell; we call \(M\) its shell rank.  A set
 \]
 or, equivalently, if \(\#(S\cap[1,X])/X\to1\).
 
+The nearest clocked natural-density baseline is Inselmann
+[[3]](#ref-inselmann), who obtained descent to every fixed power
+\(n^\varepsilon\) on the shortcut-clock scale
+\(2\log n/\log(4/3)\).  The new point here is the smaller polylogarithmic
+terminal scale, explicit exceptional-set rates, and a same-witness orbit
+ceiling, not the clock coefficient by itself.
+
 ### Main result at a glance
 
 The title result has a simpler fixed-exponent form than the technical master
@@ -132,10 +140,10 @@ later failure is again a first-passage event of the original orbit, and then
 shows that only \(O(\sqrt{M\log M})\) cumulative passage times can occur.
 This transport step is the quantitative pivot of the paper.
 
-Readers interested first in the fixed target may regard
-[Corollary 1.2(1)](#cor-endpoint-profiles) as the headline statement.
-[Theorem 1.1](#thm-moving-polylog) is the shell-dependent master theorem that
-also captures the critical endpoint refinements.
+The shell-dependent master theorem is stated below as
+[Theorem 1.1](#thm-moving-polylog).  Its fixed-target specialization,
+[Corollary 1.2(1)](#cor-endpoint-profiles), is the headline statement for
+readers interested first in a fixed exponent.
 
 ### Where the constants come from {#where-the-constants-come-from}
 
@@ -406,7 +414,13 @@ landing lies in a specified target set.
 A *witnessing time* is an iterate at which the asserted descent has occurred.
 The *same-witness orbit ceiling* bounds every earlier iterate through that
 same time; it is not a statement about the remainder of the orbit.  The
-global symbols \(T,\operatorname{Col},T_{\min},I_M,a_0,p_*,\kappa_*,
+indices \(k\) and \(h\) count shortcut steps unless stated otherwise.  A
+raw-map time is denoted by \(\ell\) and counts applications of
+\(\operatorname{Col}\).  In the raw-clock conversion, \(s_h\) counts the odd
+states among the first \(h\) shortcut steps; each such state adds one raw
+step, so \(\ell=h+s_h\).
+
+The global symbols \(T,\operatorname{Col},T_{\min},I_M,a_0,p_*,\kappa_*,
 A_{\rm FP}\), and \(c_*\) retain the meanings fixed above.  Symbols used only
 inside one proof stage are introduced at the start of the section where they
 are needed; in particular, the high- and low-phase parameters are collected
@@ -453,7 +467,7 @@ Applying them with shrinking large-scale bounds and the small-scale timeout
 test gives both the fixed polylogarithmic targets and the shell-dependent
 exponent in the headline.
 
-The diagram below shows this division and the flow from one dyadic shell to
+Figure 1 shows this division and the flow from one dyadic shell to
 successively lower thresholds.
 
 ![The proof architecture.  Panel (a) follows an actual shortcut-Collatz orbit
@@ -490,8 +504,9 @@ possible times to \(O(\sqrt{M\log M})\) possibilities; this
 linear-to-square-root reduction is the quantitative pivot of the paper.
 
 The published results of Korec and Tao, the preprint of Inselmann, and two
-recent Tao-to-natural-density bridge manuscripts (J. Allikvere, unpublished
-observations; L. Mazur, unpublished observations) are compared below only on
+publicly circulated but, to our knowledge, unsubmitted Tao-to-natural-density
+bridge manuscripts (J. Allikvere, unpublished observations; L. Mazur,
+unpublished observations) are compared below only on
 the coordinates used in their stated theorems.  Publication status and proof
 lineage are recorded in the surrounding prose rather than in the table.
 
@@ -507,7 +522,7 @@ lineage are recorded in the surrounding prose rather than in the table.
 [Theorem 1.1](#thm-moving-polylog) additionally bounds every preceding
 iterate through the same witnessing time:
 \(\max_{j\le k}T^j(n)\le n^{1+\beta}\).  This bound is not part of the
-headline statements in those unpublished observations; this is a comparison
+headline statements in those manuscripts; this is a comparison
 of stated outputs, not a claim that their proof-internal trajectory estimates
 cannot yield related bounds.
 
@@ -523,7 +538,7 @@ core \((\log n)^{A_{\rm FP}}(\log\log n)^{2A_{\rm FP}}\).  It is therefore
 weaker than an arbitrary diverging function.  At the target-only level, Tao's
 theorem specializes to every target displayed here, albeit in logarithmic
 rather than natural density.  Thus the present theorem does not supersede the
-arbitrary-threshold conclusions reported in those unpublished observations.
+arbitrary-threshold conclusions reported in those manuscripts.
 Conversely, those target statements do not supply the
 present natural-density rates, logarithmic clock, or orbit-height bound, and
 the clock scale already appears in [[3]](#ref-inselmann).  These axes are
@@ -545,7 +560,12 @@ separation displayed above.
 
 The argument uses three common tools: a shell-to-prefix summation rule, exact
 parity coding on each dyadic shell, and an affine formula for the iterate.
-This section establishes all three before they are used.
+This section establishes all three before they are used.  Lemma 2.1 converts
+shell exceptional estimates into global natural-density bounds.
+Proposition 2.2 makes parity words exactly uniform on a complete shell,
+supplying the counting law used in Sections 3 and 6.  Proposition 2.3
+separates each iterate into its multiplicative term and affine correction,
+which is the orbit-envelope input for Section 3.
 
 For \(S\subseteq\mathbb N\), put
 \[
@@ -570,6 +590,7 @@ sufficiently large \(M\),
 \leq A e^{-\gamma(M+4)^\sigma}2^M.
 \tag{2.2}\label{eq:2-2}
 \]
+**Quantitative form.**
 Then there are \(\gamma'>0\) and \(X_0\) such that
 \[
 \#(E\cap[1,X])
@@ -577,7 +598,9 @@ Then there are \(\gamma'>0\) and \(X_0\) such that
 \qquad(X\geq X_0).
 \tag{2.3}\label{eq:2-3}
 \]
-More generally, if a nonnegative sequence \(e_M\to0\) satisfies
+
+**Qualitative form.**  More generally, if a nonnegative sequence
+\(e_M\to0\) satisfies
 \[
 \#(E\cap I_M)\le e_M2^M
 \tag{2.3a}\label{eq:2-3a}
@@ -663,6 +686,9 @@ n\equiv(2m-1)3^{-1}\pmod{2^{k+1}},
 where \(3\) is a unit modulo \(2^{k+1}\).  The first residue is even, the
 second is odd, and in either case applying \(T\) recovers \(m\bmod2^k\).
 Thus every word has exactly one preimage residue. \(\square\)
+
+Consequently, as \(n\) ranges over the complete shell \(I_M\), its length-
+\(M\) parity word is exactly uniform on \(\{0,1\}^M\).
 
 ### Proposition 2.3 (exact affine iterate) {#prop-affine-iterate}
 
@@ -890,6 +916,11 @@ Put \(L_3=\log_2 3\).  Since \(c<b_{\rm ent}(\eta)\), choose a fixed
 c<\mathcal I\!\left(\frac{\lambda\eta}{L_3}\right).
 \tag{3.11}\label{eq:3-11}
 \]
+Such a \(\lambda\) exists because
+\(\eta/L_3<(1-a_0)/L_3<1/2\), and \(\mathcal I\) is continuous and strictly
+increasing on \([0,1/2)\); hence
+\(\mathcal I(\lambda\eta/L_3)\uparrow\mathcal I(\eta/L_3)\) as
+\(\lambda\uparrow1\).
 On \(I_M\), take
 \[
 h=\frac{\lambda\eta M}{L_3}.

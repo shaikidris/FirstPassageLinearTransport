@@ -9,6 +9,8 @@ Idris Ali Shaik.
   DOI <https://doi.org/10.2139/ssrn.7290240>
 - Direct full-text PDF:
   [Version 3.2.4](https://shaikidris.github.io/paper/collatz-first-passage.pdf)
+- Unreleased referee-facing draft based on Version 3.2.4:
+  [`collatz_first_passage_natural_density_vreferee-draft.pdf`](paper/collatz_first_passage_natural_density_vreferee-draft.pdf)
 - Versioned manuscript archive: <https://doi.org/10.5281/zenodo.22130385> (v3.2.4)
 - Manuscript source: [`paper/collatz_first_passage_natural_density.md`](paper/collatz_first_passage_natural_density.md)
 - Software archive: <https://doi.org/10.5281/zenodo.21930432>
