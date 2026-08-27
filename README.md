@@ -8,8 +8,8 @@ Idris Ali Shaik.
   [Paper 7290240](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240),
   DOI <https://doi.org/10.2139/ssrn.7290240>
 - Direct full-text PDF:
-  [Version 3.2.3](https://shaikidris.github.io/paper/collatz-first-passage.pdf)
-- Versioned manuscript archive: <https://doi.org/10.5281/zenodo.21984038> (v3.2.3)
+  [Version 3.2.4](https://shaikidris.github.io/paper/collatz-first-passage.pdf)
+- Versioned manuscript archive: <https://doi.org/10.5281/zenodo.22130385> (v3.2.4)
 - Manuscript source: [`paper/collatz_first_passage_natural_density.md`](paper/collatz_first_passage_natural_density.md)
 - Software archive: <https://doi.org/10.5281/zenodo.21930432>
 - Frozen release: `lean-v3.2.0`
