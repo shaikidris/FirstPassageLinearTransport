@@ -8,11 +8,11 @@ Independent researcher, Dubai, United Arab Emirates
 
 **ORCID:** [0009-0009-9699-9712](https://orcid.org/0009-0009-9699-9712)
 
-**Version:** 3.2.2 - preprint
+**Version:** 3.2.4 - preprint
 
-**Date:** 14 August 2026
+**Date:** 27 August 2026
 
-**Preprint DOI:** [10.5281/zenodo.21956066](https://doi.org/10.5281/zenodo.21956066)
+**Preprint DOI:** [10.5281/zenodo.22130385](https://doi.org/10.5281/zenodo.22130385)
 
 **Lean 4 software DOI:** [10.5281/zenodo.21930432](https://doi.org/10.5281/zenodo.21930432)
 
@@ -24,57 +24,38 @@ passage, stopping map, parity vectors, polylogarithmic descent
 
 ## Abstract
 
-We prove that, in ordinary natural density, almost every positive integer
-\(n\) admits a shortcut Collatz iterate of polylogarithmic size within
-\(O(\log n)\) steps, with every iterate up to that time at most
-\(n^{1+\beta}\) for any fixed \(\beta>0\).  The argument supplies an explicit
-critical polylogarithmic exponent, quantitative exceptional-set rates, and a
-logarithmic witnessing clock.
+Let \(T\) be the shortcut Collatz map, which sends an even integer to \(n/2\)
+and an odd integer to \((3n+1)/2\).  We prove that, in natural density, almost
+every positive integer \(n\) has an iterate of polylogarithmic size within
+logarithmically many steps.  For every fixed \(\beta>0\), every iterate through
+the same witnessing time is at most \(n^{1+\beta}\).
 
-Let \(T\) be the shortcut Collatz map, with \(T(n)=n/2\) for even \(n\) and
-\(T(n)=(3n+1)/2\) for odd \(n\).  Put
-\(\kappa_*=1-H_2(\log_3 2)\),
-\(A_{\rm FP}=(2\kappa_*)^{-1}=9.9911133419\ldots\), and
-\(c_*=2/\log(4/3)=6.9521189935\ldots\), where \(H_2\) is binary entropy.
-For every fixed \(A>A_{\rm FP}\), \(c>c_*\),
-\(\beta>0\), and \(0<\gamma<\kappa_*(A-A_{\rm FP})\), there is
-\(C_{\rm tar}>0\) such that, as \(X\to\infty\), all but
-\(O_{A,c,\beta,\gamma}(X/(\log X)^\gamma)\) integers \(n\le X\) admit an
-integer \(k<c\log n\) satisfying
+More precisely, let
+\(A_{\rm FP}=9.9911133419\ldots\) and
+\(c_*=2/\log(4/3)=6.9521189935\ldots\).  For every fixed
+\(A>A_{\rm FP}\), \(c>c_*\), and \(\beta>0\), there is a constant
+\(C_{\rm tar}>0\) such that almost every \(n\) admits some \(k<c\log n\)
+with
 \[
 T^k(n)\le C_{\rm tar}(\log n)^A,
 \qquad
 \max_{0\le j\le k}T^j(n)\le n^{1+\beta}.
 \]
-At the critical principal exponent \(A_{\rm FP}\), the same clock and ceiling
-hold after adding explicit log-log factors: for every fixed \(D>0\), with a
-possibly different \(C_{\rm tar}\), the target is
-\[
-C_{\rm tar}(\log n)^{A_{\rm FP}}
-(\log\log n)^{2A_{\rm FP}}(\log\log\log n)^D,
-\]
-with exceptional count
-\(O_{D,c,\beta,\gamma}(X/(\log\log\log X)^\gamma)\) whenever
-\(0<\gamma<D\kappa_*\).  Neither the pure target
-\(C(\log n)^{A_{\rm FP}}\) nor a bounded final multiplier at the critical
-secondary scale is asserted.  For every fixed \(0<\delta<1\),
-\(c>c_*\), and \(\beta>0\), the weaker target
-\(\exp((\log n)^{1-\delta})\) is reached with exceptional count
-\(O_{\delta,c,\beta}(X\exp(-\gamma_{\delta,c,\beta}
-(\log X)^{1-\delta}))\) for some \(\gamma_{\delta,c,\beta}>0\), with the same
-shortcut clock and orbit ceiling.  For the unaccelerated Collatz map, whose
-odd step is \(n\mapsto3n+1\), every clock constant greater than
-\(3/\log(4/3)\) is allowed.
+The number of exceptions up to \(X\) is
+\(O(X/(\log X)^\gamma)\) for every \(\gamma\) in an explicit positive
+range.  The exponent \(A_{\rm FP}\) is a threshold of the present method,
+not an intrinsic constant of the Collatz map.  We also obtain a critical
+version with explicit log-log factors; the pure target
+\(C(\log n)^{A_{\rm FP}}\) is not asserted.  Stretched-logarithmic companions
+have stronger exceptional-set decay.
 
-The proof counts parity words exactly on each dyadic shell
-\([2^M,2^{M+1})\).  Large-scale prefix bounds control the orbit, while a
-terminal odd-step tail controls small blocks that miss their next threshold in
-time.
-Decreasing thresholds turn every later failure into a direct first passage of
-the original orbit.  This organizes long multi-landing passages in natural
-density without a linear time-union loss: only \(O(\sqrt{M\log M})\)
-cumulative passage times are possible.  All statements are almost-all
-results, not pointwise assertions.
+The main obstacle is that density estimates for one descent block cannot be
+iterated as if the landing values were uniformly distributed.  We overcome
+this by combining exact parity-word counting with deterministic first-passage
+transport along decreasing thresholds.  This confines the cumulative passage
+times that must be counted to \(O(\sqrt{M\log M})\) on a shell of rank \(M\).
+All conclusions are almost-all statements, not a proof of the pointwise
+Collatz conjecture.
 
 ## 1. Introduction and main results
 
@@ -107,7 +88,57 @@ be the \(M\)-th dyadic shell; we call \(M\) its shell rank.  A set
 \frac{\#\{1\le n\le X:n\notin S\}}{X}\longrightarrow0,
 \]
 or, equivalently, if \(\#(S\cap[1,X])/X\to1\).
-Put
+
+### Main result at a glance
+
+The title result has a simpler fixed-exponent form than the technical master
+theorem stated below.  For every
+\[
+A>A_{\rm FP}=9.9911133419\ldots,
+\qquad
+c>c_*=6.9521189935\ldots,
+\]
+every fixed \(\beta>0\), and every
+\(0<\gamma<\kappa_*(A-A_{\rm FP})\), there is
+\(C_{\rm tar}>0\) such that the number of exceptions \(n\le X\) to
+\[
+T^k(n)\le C_{\rm tar}(\log n)^A,
+\qquad
+k<c\log n,
+\qquad
+\max_{0\le j\le k}T^j(n)\le n^{1+\beta}
+\]
+is
+\[
+O_{A,c,\beta,\gamma}\!\left(\frac{X}{(\log X)^\gamma}\right).
+\]
+Here \(\kappa_*=1/(2A_{\rm FP})\); its entropy interpretation is given
+below.  In particular, the proportion of exceptions tends to zero in
+ordinary counting measure.
+
+The landing scale \((\log n)^A\) is smaller than \(n^\alpha\) for every
+fixed \(\alpha>0\) once \(n\) is sufficiently large.  The conclusion is
+nevertheless not pointwise: it does not settle the Collatz conjecture, exclude
+exceptional cycles or divergent trajectories, or control the orbit after the
+selected witnessing time.  The constant \(A_{\rm FP}\) marks the limit of
+this proof mechanism rather than a proposed optimal exponent for the map.
+
+Why is the result not obtained by simply repeating a one-block density
+estimate?  After a first descent, the landing values are generated by the
+orbit and need not be uniformly distributed in their new shell.  Moreover, a
+union bound over every possible passage time loses a factor linear in the
+original shell rank.  The proof uses decreasing thresholds so that every
+later failure is again a first-passage event of the original orbit, and then
+shows that only \(O(\sqrt{M\log M})\) cumulative passage times can occur.
+This transport step is the quantitative pivot of the paper.
+
+Readers interested first in the fixed target may regard
+[Corollary 1.2(1)](#cor-endpoint-profiles) as the headline statement.
+[Theorem 1.1](#thm-moving-polylog) is the shell-dependent master theorem that
+also captures the critical endpoint refinements.
+
+### Where the constants come from {#where-the-constants-come-from}
+
 \[
 a_0=\frac{\log_2 3}{2}.
 \tag{1.1}\label{eq:1-1}
@@ -127,8 +158,6 @@ c_*=\frac2{\log(4/3)}.
 \]
 The subscript \({\rm FP}\) records that this exponent comes from the
 first-passage argument.
-
-### Where the constants come from {#where-the-constants-come-from}
 
 The two constants in \eqref{eq:1-2} record the two quantitative costs of the
 proof.  First,
@@ -330,7 +359,7 @@ raw index \(\ell\) supplies both the corresponding landing and this ceiling.
 Since \(3/\log(4/3)=10.42817849\ldots\), the explicit constant \(10.44\)
 remains admissible.
 
-### Corollary 1.5 (fixed powers and the graded clock) {#cor-fixed-power}
+### Corollary 1.5 (fixed powers and the independent graded-clock companion) {#cor-fixed-power}
 
 For every fixed \(\alpha>0\), the exceptional set for
 \(T_{\min}(n)>n^\alpha\) is
@@ -385,10 +414,12 @@ at the beginning of Section 6.
 
 ### Proof architecture
 
-The proof has two sharply separated parts and six load-bearing steps.  Its
-only probabilistic input is exact counting of parity words on a dyadic shell;
-the first-crossing estimates and the assembly of the decreasing threshold
-chain are deterministic.
+At a high level, the proof does three things: it certifies typical paths for
+one block, pulls later failures back to the original source shell, and sums
+only over passage times that can actually occur.  The six steps below record
+the precise dependency structure.  The only probabilistic input is exact
+counting of parity words on a dyadic shell; the first-crossing estimates and
+the assembly of the decreasing threshold chain are deterministic.
 
 **Exact probabilistic certification.**
 
@@ -1079,9 +1110,9 @@ obtain \eqref{eq:4-9}.  The contribution \(H|B|\) is at most
 This section proves two deterministic facts used by both main arguments.
 First, sequential crossings of decreasing thresholds collapse to one direct
 first passage from the original shell.  Second, their reverse losses
-telescope.  The final theorem applies these facts with one fixed barrier; the
-next section retains the same two facts and changes how failure is detected at
-small shell ranks.
+telescope.  [Theorem 1.3](#thm-stretched-log) applies these facts through the
+fixed-barrier route; the next section retains the same two facts and changes
+how failure is detected at small shell ranks.
 
 For example, suppose an orbit first enters below \(2^{30}\), and from that
 landing later first enters below \(2^{27}\).  No earlier point of the original
@@ -1328,7 +1359,8 @@ Thus only \(r_{\rm hi},\tau,D_{\rm hi},C_{\rm sw},K_0\), and \(r_*\)
 are choices made inside the argument; the remaining quantities are determined
 by those choices and the prescribed terminal schedule.
 
-Choose fixed high-rank data
+**High-rank stopped chain and compressed passage times.**  Choose fixed
+high-rank data
 \[
 a_0<r_{\rm hi}<1,
 \qquad
