@@ -3,7 +3,7 @@
 **Record date:** 2026-08-12
 **V3 project root:** `/Users/shaik.i/research/collatz/FirstPassageLinearTransport`
 
-**Frozen V1 repository:** `/Users/shaik.i/research/collatz/CET`
+**Frozen V1 repository:** `/Users/shaik.i/research/collatz/approaches/CollatzEndpointTransport/publishable/CET`
 **Frozen V1 tag:** `v1.0.1`
 **Frozen V1 commit:** `16766542edaf1aac67ea1ad474c1193c9c8939c9`
 
