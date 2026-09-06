@@ -29,27 +29,6 @@ noncomputable section
 
 
 
-theorem tendsto_shrinkingSwitchRank_atTop
-    {C : ℝ} (hC : 0 < C) :
-    Tendsto (shrinkingSwitchRank C) atTop atTop := by
-  have hxT : Tendsto (fun M : ℕ => (M : ℝ) + 2) atTop atTop :=
-    tendsto_atTop_add_const_right atTop (2 : ℝ)
-      tendsto_natCast_atTop_atTop
-  have hlogT : Tendsto (fun M : ℕ => Real.log ((M : ℝ) + 2))
-      atTop atTop := Real.tendsto_log_atTop.comp hxT
-  have hreal : Tendsto
-      (fun M : ℕ => C * Real.log ((M : ℝ) + 2)) atTop atTop :=
-    hlogT.const_mul_atTop hC
-  rw [tendsto_atTop]
-  intro N
-  have hN := (tendsto_atTop.1 hreal) (N : ℝ)
-  filter_upwards [hN] with M hN
-  exact_mod_cast hN.trans (shrinkingSwitchRank_lower C M)
-
-
-
-
-
 private theorem log_le_sqrt_mul
     {x : ℝ} (hx : 1 ≤ x) :
     Real.log x ≤ Real.sqrt (x * Real.log x) := by

@@ -1,13 +1,83 @@
-# First-Passage Linear Transport V3 promotion state
+# First-Passage Linear Transport proof state
 
-**Record date:** 2026-08-12
-**V3 project root:** `/Users/shaik.i/research/collatz/FirstPassageLinearTransport`
+**Record date:** 2026-09-06
+**Canonical project root:** `/Users/shaik.i/research/collatz/approaches/FirstPassageLinearTransport/publishable-v4`
 
 **Frozen V1 repository:** `/Users/shaik.i/research/collatz/approaches/CollatzEndpointTransport/publishable/CET`
 **Frozen V1 tag:** `v1.0.1`
 **Frozen V1 commit:** `16766542edaf1aac67ea1ad474c1193c9c8939c9`
 
-## Active V3 promotion
+## Active Version 4 strengthened revision
+
+The Version 4 candidate was prepared in the isolated worktree
+`publishable-v4` from public commit
+`38c23dc74c2f0ad3fa04f3e6550f5d7041c4e18f`.  The reviewed Version 3.2.4
+manuscript had SHA-256
+`a86b3232b7ef09b2c564c6d0c23de65eb877fe9f110b89e56a6770e811c8c8af`.
+The mathematical review and the supplied strengthened proof package are dated
+2026-09-05 and are recorded in the Version 4 revision ledger under `audits/`.
+
+Current Version 4 status:
+
+- finite centered-walk survival estimate, binomial atom bound, and finite
+  multiplicative maximum: `PROVED-PAPER / PROVED-FORMAL` in
+  `FiniteBallot.lean`; the exact fair-to-critical weighting, tilted
+  three-block envelope, quarter split, unique full-word coordinates,
+  terminal-bin estimate, and uniform finite-bin sum are also checked;
+- actual low-timeout containment and uniform
+  `O(m^(-3/2) 2^(-kappa_* m))` density:
+  `PROVED-PAPER / PROVED-FORMAL` in `TimeoutDensity.lean`, with exact shell
+  parity transport and the barrier constant absorbed after fixing the
+  low-window parameters;
+- rankwise first-timeout pullback and low-rank summation with terminal factor
+  `L^(-1/2) exp(-kappa_* L)`: `PROVED-PAPER / PROVED-FORMAL` in
+  `TimeoutProfile.lean`;
+- exact dyadic-shell multiplicative-maximum exception and common initial
+  shortcut/raw height bounds: `PROVED-PAPER / PROVED-FORMAL` in
+  `OrbitCeiling.lean`, with normalized exception at most `4/R`;
+- strengthened shell profile with margin
+  `Delta_M = kappa_* L_M - (1/2) log_2(M+2)`:
+  `PROVED-PAPER / PROVED-FORMAL` in the timeout endpoint profile and
+  asymptotic modules;
+- common shortcut/raw landing, centered clocks, and prescribed relative-height
+  multiplier `n R(n)`: `PROVED-PAPER / PROVED-FORMAL` in the timeout endpoint,
+  raw-clock, trajectory-profile, and critical-consequence modules;
+- fixed-`A` endpoint exceptional exponent, every positive critical secondary
+  power, direct triple-log schedule, and arbitrary divergent critical
+  multiplier: `PROVED-PAPER / PROVED-FORMAL` for the fixed-`A` exact rate and
+  arbitrary-multiplier consumers; literal secondary-/tertiary-log wrappers
+  remain to be packaged;
+- fixed-power companion with a power-saving exceptional count and both graded
+  clocks: `PROVED-PAPER / LEAN-PENDING`;
+- uniform shortcut/raw trajectory tubes, parity-count control, and actual
+  first-passage clocks to every intermediate level:
+  `PROVED-PAPER / PROVED-FORMAL` in `TimeoutTrajectoryProfile.lean` and the
+  Version 4 public consumers;
+- reciprocal fixed and moving relative-ceiling obstructions, and sharp orders
+  for the balanced joint exceptional sets:
+  `PROVED-PAPER / PROVED-FORMAL-PARTIAL`; the reciprocal obstruction,
+  source-dependent shell/prefix bridge, and fixed-polylogarithmic lower order
+  are checked, while secondary-/tertiary-log wrappers and final `Theta`
+  packaging remain;
+- stretched-logarithmic common ceiling
+  `n exp(zeta (log n)^(1-delta))`: `PROVED-PAPER /
+  PROVED-FORMAL-PARTIAL` in `StretchedRelativeHeight.lean`, including every
+  strict exceptional exponent `sigma < 1-delta` with fixed clocks; the
+  manuscript's endpoint exceptional exponent and arbitrary strict clocks
+  remain pending;
+- exact prefix-entropy prefactor: `PROVED-PAPER / LEAN-PENDING`; the sharp
+  Stirling/binomial socket exists, but its constant-slack envelope consumer
+  has not yet been closed;
+- pure critical target `C (log n)^A_FP`: `NOT PROVED`;
+- smaller leading exponent or pointwise Collatz convergence: `NOT CLAIMED`.
+
+The Version 4 Lean 4.15 release verifies the items marked `PROVED-FORMAL` or
+`PROVED-FORMAL-PARTIAL` above; it does not verify any item marked
+`LEAN-PENDING`.  Palomar version 3 continues to verify only the preceding
+Version 3.2.4 interfaces.  A Version 4 Palomar replay and registration remain
+pending.
+
+## Frozen Version 3.2.4 baseline and promotion history
 
 ### V3.2 timeout proof replacement
 
@@ -34,7 +104,7 @@ Current route boundary:
 - all-prefix comparison theorem: `PROVED-FORMAL / ISOLATED UNDER
   Alternates/AllPrefix / NOT IN DEFAULT TARGET`.
 
-The paper and Lean now prove the same theorem surface by two different
+The Version 3 paper and Lean prove the same theorem surface by two different
 low-rank producers. The all-prefix route remains as a separately built formal cross-check; the
 written V3.2 dependency chain follows the separately formalized timeout
 route.  Both routes reuse the endpoint parameter package, scalar asymptotics,
@@ -143,7 +213,7 @@ Status-change card, 2026-08-22, exact Corollary 1.2(1):
 - public Lean `Main` headline: `MOVING ENDPOINT EXPOSED`;
 - pure `A=A_FP` endpoint with bounded tertiary multiplier: `NOT PROVED`.
 
-This is now a synchronized paper-and-Lean theorem upgrade.  The public theorem
+This was a synchronized Version 3 paper-and-Lean theorem upgrade.  The public theorem
 retains the literal moving rank buffer, shell exceptional profile, logarithmic
 clock, moving landing target, and same-witness orbit ceiling.
 
@@ -178,7 +248,7 @@ acd0a18f10889f9789c2b5a038e8ceb3d0d893e48e1684bfb685741d919e4606  paper/render_f
 ### Frozen V3.0 fixed-exponent baseline
 
 The V2.3.1 paper and public Lean API at commit `2816871` remain the frozen
-baseline.  The private branch `v3-fixed-polylog` promotes a new paper headline.
+baseline.  The historical branch `v3-fixed-polylog` promoted a new paper headline.
 Its immutable referee snapshot is commit
 `e382a241e73ac2f0a958b7411f7778584f3dc48d`:
 

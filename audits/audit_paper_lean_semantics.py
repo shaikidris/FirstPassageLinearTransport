@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Deterministic paper/Lean semantic-drift gate for the referee artifact.
+"""Deterministic manuscript and Lean-release-boundary gate.
 
 This is deliberately not a theorem prover. It guards fragile literal
 contracts that a successful Lean build cannot see: copied constants, rank
-offsets, strict endpoints, paper/formal status language, reference resolution,
-and reverse anchor reachability. The accompanying concordance records the
-human semantic audit.
+offsets, endpoint conventions, paper/formal status language, reference
+resolution, and reverse anchor reachability.  The version-4 manuscript remains
+stronger than the complete checked Lean surface, so this gate checks both the
+new written contracts and the explicit formalization and Palomar boundaries.
 """
 
 from __future__ import annotations
@@ -24,7 +25,7 @@ LEAN_ROOT = ROOT / "lean" / "FirstPassageLinearTransport"
 MAIN_LEAN = LEAN_ROOT / "Main.lean"
 ALTERNATE_MAIN = LEAN_ROOT / "Alternates" / "AllPrefix" / "Main.lean"
 LAKEFILE = ROOT / "lean" / "lakefile.lean"
-RENDER_SCRIPT = ROOT / "paper" / "render_first_passage_v3_manuscript.sh"
+RENDER_SCRIPT = ROOT / "paper" / "render_first_passage_v4_manuscript.sh"
 
 
 def compact(text: str) -> str:
@@ -131,7 +132,8 @@ def main() -> int:
             "paper switch endpoint is discharged deterministically",
             PAPER,
             r"If the landing is the upper endpoint \(2^{q_i}\) and \(q_i\le S\), follow its"
-            r"deterministic halving orbit to the terminal rank and stop successfully",
+            r"deterministic halving orbit until its shell rank is below \(L_M\), and stop"
+            r"successfully",
         ),
         LiteralCheck(
             "paper timeout support scale",
@@ -157,7 +159,7 @@ def main() -> int:
         LiteralCheck(
             "paper moving rank buffer",
             PAPER,
-            r"\kappa_*L_M-\frac12\log_2(M+2)-\log_2\log(M+3)",
+            r"\kappa_*L_M-\frac12\log_2(M+2)",
         ),
         LiteralCheck(
             "paper timeout target uses the actual parent shell p-1",
@@ -173,19 +175,19 @@ def main() -> int:
             "paper timeout target is normalized by the full threshold band",
             PAPER,
             r"\frac{|\mathcal C^{\rm to}_{L,p}|}{2^p}"
-            r"\ll p^{-1/2}2^{-\kappa_*p}.",
+            r"\ll p^{-3/2}2^{-\kappa_*p}.",
         ),
         LiteralCheck(
-            "paper timeout profile retains the square-root time support",
+            "paper timeout profile combines ballot gain and square-root time support",
             PAPER,
-            r"\sqrt{M\log M}\,"
-            r"L_M^{1/2}2^{-\kappa_*L_M}"
-            r"+M^{-\varepsilon}.",
+            r"\sqrt{\frac{(M+2)\log(M+2)}{L_M+1}}\,"
+            r"2^{-\kappa_*L_M}"
+            r"+(M+2)^{-N}+R_M^{-1}",
         ),
         LiteralCheck(
             "paper moving shell theorem uses the exact critical buffer",
             PAPER,
-            r"C_{\rm exc}\left(2^{-\Delta_M}+M^{-\varepsilon}\right)",
+            r"C_{\rm exc}\left(2^{-\Delta_M}+(M+2)^{-N}\right)",
         ),
         LiteralCheck(
             "paper excludes the stretched-log endpoint",
@@ -193,25 +195,41 @@ def main() -> int:
             r"The endpoint \(\delta=1\) is not asserted.",
         ),
         LiteralCheck(
-            "paper fixed-power count keeps a strict rate endpoint",
+            "paper fixed-power count has a power-saving endpoint",
             PAPER,
-            r"for every fixed \(0<\sigma<1\), where \(c_{\alpha,\sigma}>0\).",
+            r"O_\alpha(X^{1-d_\alpha}).",
         ),
         LiteralCheck(
             "paper graded clock coefficient",
             PAPER,
-            r"\frac{2(1-\alpha)}{\log(4/3)}+\varepsilon",
+            r"\frac{2(1-\alpha)}{\log(4/3)}+\varepsilon_T",
         ),
         LiteralCheck(
-            "paper shortcut clock endpoint is strict",
+            "paper centered shortcut clock implies every strict endpoint",
             PAPER,
-            r"For every fixed \(c>c_*\) and \(\beta>0\)",
+            r"every prescribed fixed shortcut budget \(c>c_*\)",
         ),
         LiteralCheck(
             "paper arbitrary divergent factor states its theorem payoff",
             PAPER,
-            r"the final factor in \eqref{eq:1-7} may be replaced, on a"
-            r" natural-density-one set, by \(\widetilde\Omega(\log\log n)\)",
+            r"T^k(n)=\operatorname{Col}^{\ell}(n)"
+            r"<(\log n)^{A_{\rm FP}}U(n)",
+        ),
+        LiteralCheck(
+            "paper finite ballot gain is proved locally",
+            PAPER,
+            r"C_Bm^{-3/2}2^{-\kappa_*m}.",
+        ),
+        LiteralCheck(
+            "paper reciprocal fixed relative ceiling obstruction is explicit",
+            PAPER,
+            r"\underline d(E(f,C))\ge\frac{2}{3C}.",
+        ),
+        LiteralCheck(
+            "paper distinguishes Version 4 checking from Palomar registration",
+            PAPER,
+            "four selected declarations have not yet been independently "
+            "replayed and registered as a new Palomar version",
         ),
         LiteralCheck(
             "formal map records moving profile socket",
@@ -274,6 +292,11 @@ def main() -> int:
                 f"{check.path.relative_to(ROOT)}"
             )
 
+    # Keep the abstract readable: it must expose the headline result, its
+    # quantifiers, the principal mechanism, and the pointwise nonclaim.  Exact
+    # endpoint refinements and companion-theorem parameter ranges are guarded
+    # separately below against the full manuscript rather than being forced
+    # into the abstract.
     abstract_checks = [
         (
             "dynamics is named as the shortcut Collatz map",
@@ -281,57 +304,116 @@ def main() -> int:
         ),
         (
             "density notion is explicit",
-            "in ordinary natural density",
+            "natural density one",
         ),
         (
-            "counting limit is explicit",
-            r"as \(X\to\infty\)",
+            "fixed-A range is explicit",
+            r"For every fixed \(A>A_{\rm FP}\)",
         ),
         (
-            "fixed-A exceptional-rate range",
-            r"0<\gamma<\kappa_*(A-A_{\rm FP})",
+            "arbitrary critical multiplier is quantified",
+            r"For any prescribed positive functions \(U(n),R(n)\to\infty\)",
         ),
         (
-            "fixed-A landing constant is quantified",
-            r"there is \(C_{\rm tar}>0\) such that",
+            "headline common polylogarithmic landing is displayed",
+            r"T^k(n)=\operatorname{Col}^{\ell}(n)"
+            r"<(\log n)^{A_{\rm FP}}U(n)",
         ),
         (
-            "critical target retains its secondary factors",
-            r"(\log\log n)^{2A_{\rm FP}}(\log\log\log n)^D",
+            "shortcut clock is centered",
+            r"k=c_*\log n+O(\sqrt{\log n\,\log\log n})",
         ),
         (
-            "pure critical target is explicitly excluded",
-            r"the pure target \(C(\log n)^{A_{\rm FP}}\)",
+            "raw clock is centered",
+            r"\ell=\tfrac32c_*\log n+O(\sqrt{\log n\,\log\log n})",
         ),
         (
-            "stretched-log claim repeats its full parameter range",
-            r"\(0<\delta<1\), \(c>c_*\), and \(\beta>0\)",
+            "both trajectories have the prescribed relative ceiling",
+            r"Both trajectories through these witnesses are bounded by \(nR(n)\)",
         ),
         (
-            "stretched-log claim retains the same clock and ceiling",
-            "with the same shortcut clock and orbit ceiling",
+            "exceptional count has the endpoint power-log rate",
+            r"O(X/(\log X)^{\kappa_*A-1/2})",
         ),
         (
-            "stretched-log rate names its dependent positive exponent",
-            r"\gamma_{\delta,c,\beta}>0",
+            "critical exponent is identified as a method threshold",
+            r"threshold of the present method",
         ),
         (
-            "passage-time scale defines its dyadic-shell rank",
-            r"dyadic shell \([2^M,2^{M+1})\)",
+            "pure critical target is excluded in the abstract",
+            r"the pure target \(C(\log n)^{A_{\rm FP}}\) remains unproved",
         ),
         (
-            "unaccelerated odd step and strict raw clock are explicit",
-            r"unaccelerated Collatz map, whose odd step is \(n\mapsto3n+1\),"
-            r" every clock constant greater than \(3/\log(4/3)\) is allowed",
+            "generated landing law obstacle is explained",
+            "landing values were uniformly distributed",
         ),
         (
-            "timeout mechanism is described without coined jargon",
-            "small blocks that miss their next threshold in time",
+            "compressed passage-time support is named",
+            r"O(\sqrt{M\log M})",
+        ),
+        (
+            "pointwise Collatz conjecture is explicitly excluded",
+            "not a proof of the pointwise Collatz conjecture",
         ),
     ]
     for name, required in abstract_checks:
         if compact(required) not in compact(abstract):
             failures.append(f"missing abstract contract [{name}]")
+
+    detailed_manuscript_checks = [
+        (
+            "fixed-A endpoint rate remains explicit",
+            r"q=\kappa_*A-1/2>0",
+        ),
+        (
+            "fixed-A target remains normalized",
+            r"The target"
+            r"\[(\log n)^A\]"
+            r"fails for at most \(O_A(X/(\log X)^q)\)",
+        ),
+        (
+            "critical target permits every positive secondary power",
+            r"For every fixed \(B>0\), the target"
+            r"\[(\log n)^{A_{\rm FP}}(\log\log n)^B\]",
+        ),
+        (
+            "critical target permits a direct tertiary multiplier",
+            r"(\log n)^{A_{\rm FP}}(\log\log\log n)^D",
+        ),
+        (
+            "stretched-log claim retains its full parameter range",
+            r"For every fixed \(0<\delta<1\), shortcut budget \(c_T>c_*\), "
+            r"raw budget \(c_{\rm raw}>3/\log(4/3)\), and \(\zeta>0\)",
+        ),
+        (
+            "stretched-log rate retains its dependent positive exponent",
+            r"\(\gamma\) may depend on \(\zeta\)",
+        ),
+        (
+            "unaccelerated odd step remains explicit",
+            r"3n+1,&n\equiv1\pmod2",
+        ),
+        (
+            "strict raw clock remains explicit",
+            r"c_{\rm raw}>3/\log(4/3)",
+        ),
+        (
+            "timeout mechanism remains explicit in the proof architecture",
+            "small-scale timeout",
+        ),
+        (
+            "reciprocal fixed relative ceiling obstruction remains explicit",
+            "reciprocal fixed-ceiling obstruction",
+        ),
+        (
+            "formalization boundary excludes the strengthened theorem surface",
+            "does not certify the stronger claims first stated in this revision",
+        ),
+    ]
+    compact_paper = compact(paper)
+    for name, required in detailed_manuscript_checks:
+        if compact(required) not in compact_paper:
+            failures.append(f"missing manuscript-wide contract [{name}]")
 
     if abstract.count(r"T_{\min}") == 1:
         failures.append("abstract defines or mentions T_min exactly once")
