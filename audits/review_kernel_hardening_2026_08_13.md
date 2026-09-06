@@ -2,7 +2,7 @@
 
 ## Scope
 
-- Private source: `/Users/shaik.i/research/collatz/FirstPassageLinearTransport`
+- Public source: `/Users/shaik.i/research/collatz/approaches/FirstPassageLinearTransport/publishable`
 - Baseline commit: `a23fa3a3354ecc595d01b0193c06de5434cd21cd`
 - Audited theorem source: the live working-tree Lean files frozen into
   `/private/tmp/fplt-frozen415`.

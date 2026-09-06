@@ -8,7 +8,7 @@ integration
 **Reviewer context:** `AUTHOR-AUDIT` with a fresh dependency reconstruction
 
 **Promotion target:** the private standalone V2 repository
-`/Users/shaik.i/research/collatz/FirstPassageLinearTransport`
+`/Users/shaik.i/research/collatz/approaches/FirstPassageLinearTransport/publishable`
 
 **Frozen baseline commit:** `2816871`
 

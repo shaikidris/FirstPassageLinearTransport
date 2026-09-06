@@ -1,10 +1,69 @@
 # First-Passage Linear Transport
 
-**Project line:** private V3.2 timeout moving-endpoint refinement
+**Project line:** public first-passage transport development; Version 4
+strengthening under written-proof and formalization review
 **Author:** Idris Ali Shaik
 
-This branch promotes the first-passage architecture from stretched-logarithmic
-to moving polylogarithmic natural-density descent for the shortcut Collatz map
+**Primary preprint:** [SSRN Paper 7290240](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240),
+DOI [10.2139/ssrn.7290240](https://doi.org/10.2139/ssrn.7290240)
+
+**Direct full-text PDF:** [Version 3.2.4](https://shaikidris.github.io/paper/collatz-first-passage.pdf)
+
+**Versioned manuscript archive:** [Zenodo Version 4.0.0](https://doi.org/10.5281/zenodo.22525724)
+
+**Lean 4 software archive:** [Version 4.0.0](https://doi.org/10.5281/zenodo.22525757)
+
+**Palomar registered formalization:**
+[PALOMAR-2026-08-26-000005, version 3](https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&version=3)
+
+## Version 4 strengthened release
+
+The active revision is `4.0.0`.  It incorporates a finite ballot estimate
+for the complete low-timeout event.  At the written-paper level this changes
+the normalized timeout count from
+`O(m^(-1/2) 2^(-kappa_* m))` to
+`O(m^(-3/2) 2^(-kappa_* m))`.  The resulting theorem package gives:
+
+- the fixed-`A` endpoint exceptional count
+  `O(X / (log X)^(kappa_* A - 1/2))` for every fixed `A > A_FP`;
+- the critical leading target `(log n)^A_FP U(n)` for any prescribed positive
+  `U(n) -> infinity`, without a compulsory secondary logarithmic power;
+- corresponding shortcut and raw witnesses at one common landing, with
+  centered clocks and both trajectories bounded by `n R(n)` for any
+  prescribed positive `R(n) -> infinity`;
+- uniform shortcut/raw trajectory tubes and actual first-passage clocks to
+  every intervening level on the same good set;
+- reciprocal height obstructions showing that the balanced joint
+  target-clock-height exceptional orders are sharp (without claiming a
+  target-only lower bound);
+- a common `n exp(zeta (log n)^(1-delta))` ceiling for the
+  stretched-logarithmic companion and an exact prefix-entropy prefactor;
+- a graded fixed-power companion with a power-saving exceptional count; and
+- an explicit obstruction to replacing the divergent relative-height
+  allowance by one fixed multiple of the starting value.
+
+The leading exponent `A_FP = 9.9911133419...` is unchanged, and the pure
+critical target `C (log n)^A_FP` is not proved.
+
+**Verification boundary.**  These Version 4 strengthenings have complete
+written proofs in the manuscript.  The Version 4 Lean release
+kernel-checks the principal ballot, timeout, common-landing, centered-clock,
+trajectory-profile, critical-multiplier, reciprocal-obstruction, and
+stretched relative-height interfaces.  The full local build and placeholder
+scan pass, and the selected-root audit reports only `propext`,
+`Classical.choice`, and `Quot.sound`.  The exact prefix-entropy refinement,
+the endpoint stretched-logarithmic rate with arbitrary strict clocks, the
+graded-power companion, and some secondary/tertiary packaging remain outside
+that checked surface.  The canonical Version 4 tag is `lean-v4.0.0`, with
+software DOI `10.5281/zenodo.22525757`.  A Version 4 Palomar registration is
+still pending.  The exact boundary is recorded in
+`lean/FORMALIZATION.md`, `lean/V4_API_AUDIT.md`, and `proof-state.md`.
+
+## Published and formally checked Version 3 baseline
+
+The Version 3 baseline promoted the first-passage architecture from
+stretched-logarithmic to moving polylogarithmic natural-density descent for
+the shortcut Collatz map
 
 ```text
 T(n) = n / 2       if n is even,
@@ -73,7 +132,7 @@ rate, giving `(L+1) 2^(-L) + sqrt(L) exp(-b (L-1))`.  The quantitative
 moving-stage startup, exact `Delta_M` shell profile, literal same-witness
 execution, and public moving-endpoint theorem are now formalized as well.
 
-The formal package now verifies the complete moving-endpoint headline by two
+The frozen formal package verifies the Version 3 moving-endpoint headline by two
 low-phase derivations that share the endpoint parameters, scalar asymptotics,
 and dyadic assembly.  The V3.2 primary route uses the manuscript's literal
 first-timeout event, the sharp timeout density, a decreasing low potential,
@@ -96,8 +155,9 @@ This project remains physically and logically separate from the released
 `16766542edaf1aac67ea1ad474c1193c9c8939c9`.  V2 neither amends that tag nor
 imports its capstone theorem chain.
 
-The repository must remain private. No release, visibility change, or push to
-a public repository is authorized by work on this branch.
+The repository is public and must remain public.  Work on this branch does not
+by itself authorize a push, release, Zenodo update, Palomar registration, or
+journal revision upload.
 
 Before every manuscript render or release candidate, run:
 
@@ -105,7 +165,7 @@ Before every manuscript render or release candidate, run:
 python3 -B audits/audit_paper_lean_semantics.py
 ```
 
-The V3 render script invokes this gate automatically. It checks the fragile
+The V4 render script invokes this gate automatically. It checks the fragile
 paper/Lean contracts, mapped declaration presence, theorem-status wording,
 and reference resolution. From `lean/`, a release candidate must also pass
 the full-package gate:
@@ -125,6 +185,10 @@ is the next recorded packaging cut vertex.
 ## Contents
 
 - `paper/collatz_first_passage_natural_density.md`: canonical manuscript;
+- `paper/collatz_first_passage_natural_density_v4.0.0.pdf`: strengthened
+  Version 4 preprint render;
+- `paper/render_first_passage_v4_manuscript.sh`: deterministic Version 4
+  manuscript render and semantic-boundary gate;
 - `paper/collatz_first_passage_natural_density_v2.pdf`: frozen V2 render;
 - `paper/collatz_first_passage_natural_density_v3.pdf`: distinct V3 render;
 - `paper/fig-architecture.svg`: referee-facing proof-architecture figure;
@@ -132,6 +196,11 @@ is the next recorded packaging cut vertex.
   for the architecture figure;
 - `audits/fixed_polylog_promotion_audit_2026_08_07.md`: V3 theorem and
   cut-vertex reconstruction;
+- `audits/v4_strengthened_revision_ledger_2026_09_05.md`: review-response,
+  N.1--N.11 integration, proof-status, and release-boundary ledger;
+- `audits/audit_v4_ballot_strengthening.py`: reproducible finite checks of the
+  Version 4 constants, change of measure, ballot counts, actual timeout
+  implication, and multiplicative maximal inequality; diagnostic only;
 - `audits/review_v31_moving_endpoint_promotion_2026_08_11.md`: V3.1 moving
   endpoint proof, scalar-budget, render, and formal-boundary audit;
 - `audits/review_v32_timeout_integrated_replacement_2026_08_12.md`: V3.2

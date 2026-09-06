@@ -1,5 +1,50 @@
 # Paper-to-Lean theorem map
 
+## Version 4 verification boundary (6 September 2026)
+
+The Version 4 manuscript is mathematically stronger than the complete checked
+surface of this Lean package.  Its written proof adds a finite tilted-ballot estimate for the full
+timeout event and derives a new `m^(-3/2)` timeout prefactor, the endpoint
+fixed-`A` exceptional rate, arbitrary divergent target and relative-height
+multipliers, centered shortcut and raw clocks at one landing, and a
+power-saving graded fixed-power companion.  The revised manuscript also adds
+uniform shortcut/raw trajectory tubes and actual first-passage profiles,
+reciprocal relative-ceiling obstructions with sharp balanced joint rates, a
+smaller common ceiling for the stretched-logarithmic companion, and an exact
+prefix-entropy prefactor.  The principal ballot, timeout, shell,
+common-landing, centered-clock, trajectory, critical-endpoint, and reciprocal
+obstruction interfaces are now checked.  The remaining boundary is listed
+explicitly below.
+
+The Version 4 software DOI is `10.5281/zenodo.22525757`, with canonical tag
+`lean-v4.0.0`.  Palomar version 3 still registers four selected declarations
+from the preceding Version 3.2.4 surface after a Lean 4.33 port; it does not
+contain the Version 4 ballot argument.  The table below records the exact
+checked boundary of the Version 4 package:
+
+| Version 4 manuscript item | Required new formal interface | Status |
+|---|---|---|
+| Lemmas B.1--B.2 and B.4 | finite stopped survival moment, uniform binomial atom bound, and finite multiplicative maximum | `PROVED-FORMAL`; targeted `FiniteBallot` build passes, with only `propext`, `Classical.choice`, and `Quot.sound` reported |
+| Lemma B.3 | exact change of product weights and three-block fixed-barrier count | `PROVED-FORMAL`; `exists_sum_collatzQuarterSplitFullWordMass_le` includes the quarter split, unique full-word coordinates, canonical terminal-bin sum, and `m^(-3/2)` prefactor |
+| Lemma B.5 and Propositions 8.1--8.2 | reciprocal finite maximum and fixed/moving ceiling obstructions | `PROVED-FORMAL`; `FiniteBallot.lean`, `ReciprocalHeightObstruction.lean`, and `SharpJointExceptionalOrders.lean` prove the finite reciprocal estimate, fixed-ceiling lower density, and moving shell/prefix bridge |
+| Lemma 6.3 | actual affine timeout implies membership in the fixed-barrier word language | `PROVED-FORMAL`; `timeout_word_survives_uniform_barrier` and `exists_timeoutShellBad_ballot_fixed_constant` give literal containment and the normalized fixed-parameter endpoint-rate bound |
+| Proposition 6.4, low-timeout aggregation | rankwise first-bad pullback and exact-rate summation | `PROVED-FORMAL`; `exists_timeout_low_firstBad_ballot_sum_canonical_le` gives the terminal factor `L^(-1/2) exp(-firstPassageEndpointRate * L)` |
+| Proposition 6.4, initial relative-height exception | exact dyadic-shell transfer of the finite multiplicative maximum and common shortcut/raw first-block ceiling | `PROVED-FORMAL`; `normalized_card_shellMultiplicativeHit_quarter_le` gives `4/R`, and `initial_shortcut_raw_height_of_not_mem_shellMultiplicativeHit` gives the two trajectory bounds |
+| Proposition 6.4 | strengthened shell error, common raw/shortcut landing, centered clocks, and both relative-height bounds | `PROVED-FORMAL` through the timeout endpoint profile/witness and critical-consequence modules |
+| Proposition 6.5 | uniform trajectory/parity tubes and simultaneous actual first passages | `PROVED-FORMAL` in `TimeoutTrajectoryProfile.lean` and its public consumer |
+| Theorem 1.1 and Corollary 1.2 | new margin and endpoint-rate consumers, including arbitrary prescribed `U,R` | `PROVED-FORMAL` for the moving theorem, fixed-`A` exact rate, and arbitrary-multiplier theorem; literal secondary-/tertiary-log wrappers remain unexposed |
+| Corollary 8.3 | sharp orders for the balanced joint target-clock-height exceptional sets | `PROVED-FORMAL-PARTIAL`; fixed-polylogarithmic lower order is checked, while secondary-/tertiary-log specializations and final `Theta` wrappers remain; no target-only lower-bound claim |
+| Proposition 5.4 and Theorem 1.3 height refinement | common ceiling `n exp(zeta (log n)^(1-delta))` | `PROVED-FORMAL-PARTIAL` in `StretchedRelativeHeight.lean`: common landing, both heights, fixed clocks, and every strict exceptional exponent `sigma < 1-delta`; endpoint exponent and arbitrary strict clocks remain pending |
+| Proposition 3.3 endpoint refinement | exact prefix-entropy exponent with square-root prefactor | `LEAN-PENDING`; non-principal companion refinement |
+| Corollary 1.5 and Appendix A | power-saving count with shortcut/raw graded clocks and both ceilings | `LEAN-PENDING` |
+
+The declarations marked `PROVED-FORMAL` or `PROVED-FORMAL-PARTIAL` above are
+machine-checked locally and included in `V4EndpointAudit.lean`; they are not
+yet Palomar-registered.  No remaining paper-only strengthening should be
+described as machine-checked, and no Version 4 result should be called
+Palomar-verified until the release cone is independently replayed and a new
+registry version is created.
+
 The package formalizes the shortcut map
 
 ```text
@@ -16,7 +61,7 @@ The frozen referee-facing-API fixed-parameter snapshot is
 <https://github.com/shaikidris/FirstPassageLinearTransport> at commit
 `e382a241e73ac2f0a958b7411f7778584f3dc48d`.  It uses Lean `4.15.0`
 (commit `11651562caae`) and Mathlib revision
-`9837ca9d65d9de6fad1ef4381750ca688774e608`. The current private branch has
+`9837ca9d65d9de6fad1ef4381750ca688774e608`. The current public branch has
 one canonical moving-endpoint realization in `Main.lean` and one optional
 all-prefix cross-check in a separate library. The explicit timeout
 compatibility name in `Main` has the canonical proposition; the alternate
@@ -41,7 +86,8 @@ the primary timeout-route axiom report is generated by
 `FirstPassageLinearTransport/TimeoutEndpointAudit.lean`; and the retained
 all-prefix report is generated by
 `FirstPassageLinearTransport/Alternates/AllPrefix/Audit.lean`.
-The repository is private and can be shared with referees on request.
+The repository is public.  The frozen tags and exact commits, rather than the
+moving branch tip, are the reproducible referee artifacts.
 
 The number of source files is not the referee-facing theorem count. The
 public surface, isolated paper cut vertices, exact proof-term module cone,
@@ -175,7 +221,7 @@ with density and loss notation.
 | Lemma 6.3, literal timeout and terminal odd-count containment | `FirstPassageLinearTransport.LowStageTimeout`; `three_pow_timeoutTargetRank_lt_three_pow_oddCount_succ`; `timeoutShellBad_subset_terminalOddUpperShell` | `TimeoutCore.lean`; `TimeoutDensity.lean` |
 | Lemma 6.3, sharp timeout target density | `FirstPassageLinearTransport.exists_card_timeoutShellBad_endpointRate_le` | `TimeoutDensity.lean` |
 | Lemma 6.3, direct passage, rank-scaled loss, and combined feasible-time support | `FirstPassageLinearTransport.TimeoutRecertificationRun.directFirstPassage`; `TimeoutRecertificationRun.scaledReverseLoss_le`; `TimeoutRecertificationRun.deviation_add_potential_le`; `eventually_timeoutFeasibleTimes_card_lt_sqrt` | `TimeoutRun.lean`; `TimeoutTimeSupport.lean` |
-| Proposition 6.4, timeout first-bad transport and sharp rank sum | `FirstPassageLinearTransport.timeoutFirstBadSourcesAtRank_subset_transport`; `timeoutFirstBadSourcesAtRank_card_le`; `timeout_low_firstBad_sharp_sum_canonical_le` | `TimeoutFirstBad.lean`; `TimeoutProfile.lean` |
+| Proposition 6.4, timeout first-bad transport and sharp rank sum | `FirstPassageLinearTransport.timeoutFirstBadSourcesAtRank_subset_transport`; `timeoutFirstBadSourcesAtRank_card_le`; `timeout_low_firstBad_ballot_sum_canonical_le`; `exists_timeout_low_firstBad_ballot_sum_canonical_le` | `TimeoutFirstBad.lean`; `TimeoutProfile.lean` |
 | Proposition 6.4, separated timeout shell profile and total execution | `FirstPassageLinearTransport.timeoutSeparatedFailureEnvelope_density_sharp_le`; `timeoutSource_terminal_or_failure` | `TimeoutEndpointProfile.lean`; `TimeoutExecution.lean` |
 | Formal alternate, all-prefix moving endpoint | `FirstPassageLinearTransport.Alternates.AllPrefix.collatz_first_passage_all_prefix_moving_polylogarithmic_natural_density_descent` | `Alternates/AllPrefix/Implementation/MovingLowSetup.lean`; `MovingEndpointParameters.lean`; `Alternates/AllPrefix/Implementation/MovingEndpointProfile.lean`; `MovingEndpointAsymptotics.lean`; `Alternates/AllPrefix/Witness.lean`; `Alternates/AllPrefix/NaturalDensity.lean`; `Alternates/AllPrefix/Main.lean` |
 | Formal alternate, all-prefix quantitative startup | `FirstPassageLinearTransport.eventually_movingLowStageSetup_M0_le` | `Alternates/AllPrefix/Implementation/MovingLowSetup.lean` |

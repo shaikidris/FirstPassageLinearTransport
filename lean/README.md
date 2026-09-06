@@ -2,6 +2,21 @@
 
 **Author:** Idris Ali Shaik
 
+> **Version 4 boundary.** This package verifies the principal strengthened
+> Version 4 theorem surface.  The manuscript adds a finite
+> ballot estimate, an `m^(-3/2)` timeout bound, exact endpoint rates,
+> arbitrary divergent target and relative-height multipliers, centered
+> shortcut/raw clocks, uniform trajectory and actual first-passage profiles,
+> reciprocal ceiling obstructions with sharp balanced joint rates, a smaller
+> stretched-logarithmic common ceiling, an exact prefix-entropy prefactor, and
+> a stronger graded-power companion.  The principal ballot, timeout,
+> common-landing, centered-clock, trajectory-profile, critical-multiplier,
+> reciprocal-obstruction, and strict-subendpoint stretched-height interfaces
+> are checked here.  The exact prefix-entropy refinement, endpoint
+> stretched-logarithmic rate with arbitrary strict clocks, graded-power
+> companion, and some secondary/tertiary wrappers remain outside the checked
+> surface.  See `FORMALIZATION.md` for the exact boundary.
+
 This directory contains the independent Lean 4 formalization accompanying the
 first-passage linear-transport manuscript. It is pinned to Lean `v4.15.0`; the
 exact Mathlib revision is recorded in `lake-manifest.json`.

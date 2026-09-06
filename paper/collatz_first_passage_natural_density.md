@@ -8,13 +8,18 @@ Independent researcher, Dubai, United Arab Emirates
 
 **ORCID:** [0009-0009-9699-9712](https://orcid.org/0009-0009-9699-9712)
 
-**Version:** 3.2.2 - preprint
+**Version:** 4.0.0 - preprint
 
-**Date:** 14 August 2026
+**Date:** 6 September 2026
 
-**Preprint DOI:** [10.5281/zenodo.21956066](https://doi.org/10.5281/zenodo.21956066)
+**Preprint DOI:**
+[10.5281/zenodo.22525724](https://doi.org/10.5281/zenodo.22525724)
 
-**Lean 4 software DOI:** [10.5281/zenodo.21930432](https://doi.org/10.5281/zenodo.21930432)
+**Lean 4 software DOI:**
+[10.5281/zenodo.22525757](https://doi.org/10.5281/zenodo.22525757)
+
+**Palomar registry (preceding manuscript):**
+[PALOMAR-2026-08-26-000005, version 3](https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&version=3)
 
 **2020 Mathematics Subject Classification:** Primary 11B83; Secondary 37P99,
 60G40
@@ -24,53 +29,59 @@ passage, stopping map, parity vectors, polylogarithmic descent
 
 ## Abstract
 
-We prove that, in ordinary natural density, almost every positive integer
-\(n\) admits a shortcut Collatz iterate of polylogarithmic size within
-\(O(\log n)\) steps, with every iterate up to that time at most
-\(n^{1+\beta}\) for any fixed \(\beta>0\).  The argument supplies an explicit
-critical polylogarithmic exponent, quantitative exceptional-set rates, and a
-logarithmic witnessing clock.
+We prove that, in ordinary natural density, almost every positive integer has
+shortcut and raw Collatz iterates reaching the same polylogarithmic-scale value
+within logarithmically many steps, while both preceding trajectories remain
+within an arbitrarily slowly diverging factor of the starting value.
 
-Let \(T\) be the shortcut Collatz map, with \(T(n)=n/2\) for even \(n\) and
-\(T(n)=(3n+1)/2\) for odd \(n\).  Put
-\(\kappa_*=1-H_2(\log_3 2)\),
-\(A_{\rm FP}=(2\kappa_*)^{-1}=9.9911133419\ldots\), and
-\(c_*=2/\log(4/3)=6.9521189935\ldots\), where \(H_2\) is binary entropy.
-For every fixed \(A>A_{\rm FP}\), \(c>c_*\),
-\(\beta>0\), and \(0<\gamma<\kappa_*(A-A_{\rm FP})\), there is
-\(C_{\rm tar}>0\) such that, as \(X\to\infty\), all but
-\(O_{A,c,\beta,\gamma}(X/(\log X)^\gamma)\) integers \(n\le X\) admit an
-integer \(k<c\log n\) satisfying
+Let \(T\) be the shortcut Collatz map, which sends an even integer to \(n/2\)
+and an odd integer to \((3n+1)/2\), and let \(\operatorname{Col}\) denote the
+unaccelerated map.  Put
 \[
-T^k(n)\le C_{\rm tar}(\log n)^A,
+A_{\rm FP}=9.9911133419\ldots,
 \qquad
-\max_{0\le j\le k}T^j(n)\le n^{1+\beta}.
+\kappa_*=(2A_{\rm FP})^{-1},
+\qquad
+c_*=\frac2{\log(4/3)}=6.9521189935\ldots.
 \]
-At the critical principal exponent \(A_{\rm FP}\), the same clock and ceiling
-hold after adding explicit log-log factors: for every fixed \(D>0\), with a
-possibly different \(C_{\rm tar}\), the target is
+For any prescribed positive functions \(U(n),R(n)\to\infty\), a set of
+positive integers of natural density one has corresponding shortcut and raw
+witnesses \(k,\ell\) with a common landing
 \[
-C_{\rm tar}(\log n)^{A_{\rm FP}}
-(\log\log n)^{2A_{\rm FP}}(\log\log\log n)^D,
+T^k(n)=\operatorname{Col}^{\ell}(n)
+< (\log n)^{A_{\rm FP}}U(n).
 \]
-with exceptional count
-\(O_{D,c,\beta,\gamma}(X/(\log\log\log X)^\gamma)\) whenever
-\(0<\gamma<D\kappa_*\).  Neither the pure target
-\(C(\log n)^{A_{\rm FP}}\) nor a bounded final multiplier at the critical
-secondary scale is asserted.  For every fixed \(0<\delta<1\),
-\(c>c_*\), and \(\beta>0\), the weaker target
-\(\exp((\log n)^{1-\delta})\) is reached with exceptional count
-\(O_{\delta,c,\beta}(X\exp(-\gamma_{\delta,c,\beta}
-(\log X)^{1-\delta}))\) for some \(\gamma_{\delta,c,\beta}>0\), with the same
-shortcut clock and orbit ceiling.  For the unaccelerated Collatz map, whose
-odd step is \(n\mapsto3n+1\), every clock constant greater than
-\(3/\log(4/3)\) is allowed.
+Both trajectories through these witnesses are bounded by \(nR(n)\), and
+\[
+k=c_*\log n+O(\sqrt{\log n\,\log\log n}),
+\qquad
+\ell=\tfrac32c_*\log n+O(\sqrt{\log n\,\log\log n}).
+\]
+On the same good set, these centered laws hold uniformly through the selected
+trajectories and therefore give the actual first-passage time to every
+intermediate level between the landing and the source.
+For every fixed \(A>A_{\rm FP}\), the complete target--clock--height
+conclusion has exceptional count
+\(O(X/(\log X)^{\kappa_*A-1/2})\).  The upper-bound endpoint
+\(\kappa_*A-1/2\) is attained for this joint conclusion; with the balanced
+height ceiling, the same order is forced from below by the height condition.
+At the method threshold, every prescribed divergent multiplier \(U(n)\)
+suffices; the pure target \(C(\log n)^{A_{\rm FP}}\) remains unproved.
+The constant \(A_{\rm FP}\) is a threshold of the present method rather than
+an intrinsic constant of the map.
 
-On each dyadic shell \([2^M,2^{M+1})\), exact parity-word counting controls
-prefixes; a terminal odd-step tail controls small blocks that miss their next
-threshold in time.  Decreasing thresholds make later failures direct first
-passages of the original orbit, so only \(O(\sqrt{M\log M})\) cumulative
-times are counted instead of a linear horizon.
+The main obstacle is that density estimates for one descent block cannot be
+iterated as if the landing values were uniformly distributed.  We combine
+exact parity-word counting with deterministic first-passage transport along
+decreasing thresholds.  A timeout constrains every parity prefix; a finite
+ballot estimate therefore improves its normalized word count to
+\(O(m^{-3/2}2^{-\kappa_*m})\).  Together with an
+\(O(\sqrt{M\log M})\) corridor for cumulative passage times, this removes the
+secondary logarithmic loss from the critical leading exponent.  A
+stretched-logarithmic companion has stretched-exponential exceptional decay
+and a common relative-height allowance of the same stretched-logarithmic
+order.  All conclusions are almost-all statements, not a proof of the
+pointwise Collatz conjecture.
 
 ## 1. Introduction and main results
 
@@ -90,7 +101,16 @@ n/2,&n\equiv0\pmod2,\\
 (3n+1)/2,&n\equiv1\pmod2.
 \end{cases}
 \]
-One application of \(T\) is one shortcut step, and we write
+and the unaccelerated map
+\[
+\operatorname{Col}(n)=
+\begin{cases}
+n/2,&n\equiv0\pmod2,\\
+3n+1,&n\equiv1\pmod2.
+\end{cases}
+\]
+One application of \(T\) is one shortcut step; one application of
+\(\operatorname{Col}\) is one raw step.  We write
 \(T_{\min}(n)=\min_{k\ge0}T^k(n)\).  All unqualified logarithms are natural,
 \(\log_2\) denotes the base-two logarithm, and
 \(\mathbb N=\{1,2,3,\ldots\}\).  For \(M\ge0\), let
@@ -103,7 +123,54 @@ be the \(M\)-th dyadic shell; we call \(M\) its shell rank.  A set
 \frac{\#\{1\le n\le X:n\notin S\}}{X}\longrightarrow0,
 \]
 or, equivalently, if \(\#(S\cap[1,X])/X\to1\).
-Put
+
+All assertions involving iterated logarithms are understood for sufficiently
+large positive integers; changing the finite initial segment only changes a
+fixed exceptional constant.  We use \(k\), or \(h\) for a local block, for
+shortcut time, \(\ell\) for raw time, and \(s_h\) for the number of odd
+shortcut states among the first \(h\) shortcut steps.
+
+The nearest clocked natural-density baseline is Inselmann
+[[3]](#ref-inselmann).  His Theorem 1.3 gives a graded clock for descent to
+fixed powers, while his Theorem 1.1 supplies a horizon-wide two-sided
+trajectory envelope.  The distinct point here is the simultaneous package of
+a smaller polylogarithmic terminal scale, explicit exceptional-set rates,
+centered shortcut and raw witnessing times, and a common-witness relative
+orbit ceiling.  The fixed-power companion in Appendix A is an independent
+derivation from the present first-passage transport, not a claim that the
+graded clock itself is new.
+
+### Main result at a glance
+
+For any prescribed positive functions \(U(n),R(n)\to\infty\), almost every
+positive integer has corresponding shortcut and raw witnesses reaching one
+value below \((\log n)^{A_{\rm FP}}U(n)\), with clocks centered at
+\(c_*\log n\) and \(3c_*\log n/2\), and with both trajectories bounded by
+\(nR(n)\).  For each fixed \(A>A_{\rm FP}\), this becomes an explicit
+\(O_A(X/(\log X)^q)\) joint exceptional count with
+\(q=\kappa_*A-1/2\), target \((\log n)^A\), and common ceiling
+\(n(\log n)^q\).  The trajectory estimate also identifies the actual first
+passage to every intermediate level.  These are almost-all conclusions; they
+do not settle the pointwise conjecture or control the orbit after the selected
+witness.  The constant \(A_{\rm FP}=9.9911133419\ldots\) is a threshold of
+this method, not a proposed optimal exponent for the map.
+
+Why is the result not obtained by simply repeating a one-block density
+estimate?  After a first descent, the landing values are generated by the
+orbit and need not be uniformly distributed in their new shell.  Moreover, a
+union bound over every possible passage time loses a factor linear in the
+original shell rank.  The proof uses decreasing thresholds so that every
+later failure is again a first-passage event of the original orbit, and then
+shows that only \(O(\sqrt{M\log M})\) cumulative passage times can occur.
+This transport step is the quantitative pivot of the paper.
+
+The shell-dependent master theorem is stated below as
+[Theorem 1.1](#thm-moving-polylog).  Its fixed-target and critical
+specializations are collected in
+[Corollary 1.2](#cor-endpoint-profiles).
+
+### Where the constants come from {#where-the-constants-come-from}
+
 \[
 a_0=\frac{\log_2 3}{2}.
 \tag{1.1}\label{eq:1-1}
@@ -124,8 +191,6 @@ c_*=\frac2{\log(4/3)}.
 The subscript \({\rm FP}\) records that this exponent comes from the
 first-passage argument.
 
-### Where the constants come from {#where-the-constants-come-from}
-
 The two constants in \eqref{eq:1-2} record the two quantitative costs of the
 proof.  First,
 \[
@@ -145,22 +210,23 @@ Second, put
 \[
 \kappa_*=1-H_2(p_*).
 \]
-The terminal odd-step count on a shell has an exact binomial law.  Suppose the
-iteration stops at a shell rank \(L=L(M)\).  The upper tail at the critical
-proportion \(p_*\) has exponential rate \(\kappa_*\log2\) and prefactor of
-order \(L^{-1/2}\).  The proof also
-sums over \(O(\sqrt{M\log M})\) possible first-passage times and pays a factor
-of order \(L\) for the reverse loss.  Together these terms leave the
+The terminal odd-step count on a shell has an exact binomial law, but a
+timeout supplies more information than its endpoint: every parity prefix has
+remained above a fixed logarithmic barrier.  After tilting to the critical
+odd-step proportion \(p_*\), a finite ballot estimate gives a normalized
+timeout count of order \(L^{-3/2}2^{-\kappa_*L}\).  The proof also sums over
+\(O(\sqrt{M\log M})\) possible cumulative first-passage times and pays a
+factor of order \(L\) for the reverse loss.  Together these terms leave the
 exponent margin
 \[
-\kappa_*L-\frac12\log_2M-\log_2\log M.
+\kappa_*L-\frac12\log_2M.
 \]
-Its divergence is the endpoint condition in the main theorem.  For
+Its divergence is the endpoint condition in the revised main theorem.  For
 \(L\sim A\log_2M\), the leading power changes sign at
-\(A\kappa_*=1/2\), giving \(A_{\rm FP}=1/(2\kappa_*)\).  At equality the
-remaining logarithmic margin forces an additional slowly growing factor.
-Thus \(A_{\rm FP}\) is a threshold of the present argument rather than an
-intrinsic constant of the Collatz map.
+\(A\kappa_*=1/2\), giving \(A_{\rm FP}=1/(2\kappa_*)\).  At equality an
+arbitrarily slowly diverging multiplier suffices, but a bounded multiplier is
+not obtained.  Thus \(A_{\rm FP}\) is a threshold of the present argument
+rather than an intrinsic constant of the Collatz map.
 
 The main theorem permits a bounded exponent sequence \((A_M)\), fixed in
 advance, with one exponent for each shell \(I_M\).  This single formulation
@@ -177,7 +243,7 @@ Let \((A_M)_{M\ge0}\) be a bounded real sequence and put
 L_M=\left\lceil A_M\log_2(M+2)\right\rceil,
 \qquad
 \Delta_M=
-\kappa_*L_M-\frac12\log_2(M+2)-\log_2\log(M+3).
+\kappa_*L_M-\frac12\log_2(M+2).
 \tag{1.3}\label{eq:1-3}
 \]
 Assume
@@ -185,174 +251,253 @@ Assume
 \Delta_M\longrightarrow+\infty.
 \tag{1.4}\label{eq:1-4}
 \]
-For every fixed \(c>c_*\) and \(\beta>0\), there are constants
-\(C_{\rm tar},C_{\rm exc},\varepsilon>0\) and an integer \(M_0\ge1\) such that
-the following holds.  These constants may depend on the bounded sequence
-\((A_M)\), as well as on \(c\) and \(\beta\), but are independent of \(M\).
-Let \(\mathcal E_M\) be the set of \(n\in I_M\) for which no integer
-\(0\le k<c\log n\) simultaneously satisfies
+For every fixed \(N>0\), there are constants
+\(C_{\rm exc},K>0\) and an integer \(M_0\ge1\) such that the
+following holds.  These constants may depend on the bounded sequence
+\((A_M)\) and on \(N\), but are independent of \(M\).  Let
+\(\mathcal E_M\) be the set of \(n\in I_M\) for which there are no integers
+\(k,\ell\ge0\) and common landing \(y\) satisfying all of the landing,
+clock, height, and trajectory-tube conditions below:
 \[
-T^k(n)\le C_{\rm tar}(\log n)^{A_M},
-\qquad
-\max_{0\le j\le k}T^j(n)\le n^{1+\beta}.
+T^k(n)=\operatorname{Col}^{\ell}(n)=y
+<(\log n)^{A_M},
 \]
+\[
+|k-c_*\log n|+\left|\ell-\frac32c_*\log n\right|
+\le K\sqrt{\log n\,\log\log n},
+\]
+\[
+\max_{0\le j\le k}T^j(n)\le n(M+2)^N,
+\qquad
+\max_{0\le i\le\ell}\operatorname{Col}^i(n)\le n(M+2)^N.
+\]
+Writing \(d=\tfrac12\log(4/3)=c_*^{-1}\) and letting \(s_j(n)\) count
+the odd states among the first \(j\) shortcut steps, the same witnesses may
+be required to satisfy
+\[
+\sup_{0\le j\le k}
+\left|\log T^j(n)-\log n+dj\right|
++
+\sup_{0\le j\le k}\left|s_j(n)-\frac j2\right|
+\le K\sqrt{\log n\,\log\log n},
+\]
+\[
+\sup_{0\le i\le\ell}
+\left|\log\operatorname{Col}^i(n)-\log n+\frac{2d}{3}i\right|
+\le K\sqrt{\log n\,\log\log n}.
+\]
+Consequently, for every real \(z\) with \(y\le z\le n\), the actual first
+passage times
+\[
+\tau_z(n)=\min\{j:T^j(n)\le z\},
+\qquad
+\widehat\tau_z(n)=\min\{i:\operatorname{Col}^i(n)\le z\}
+\]
+reach the same state and obey, uniformly in \(z\),
+\[
+\left|\tau_z(n)-c_*\log(n/z)\right|
++
+\left|\widehat\tau_z(n)-\frac32c_*\log(n/z)\right|
+\le K\sqrt{\log n\,\log\log n},
+\]
+after changing \(K\) once.
 Then, for every \(M\ge M_0\),
 \[
 \boxed{
 \frac{\#\mathcal E_M}{2^M}
-\le C_{\rm exc}\left(2^{-\Delta_M}+M^{-\varepsilon}\right).}
+\le C_{\rm exc}\left(2^{-\Delta_M}+(M+2)^{-N}\right).}
 \tag{1.5}\label{eq:1-5}
 \]
 Consequently these simultaneous witnesses exist on a set of natural density
-one.
+one.  In particular, every prescribed fixed shortcut budget \(c>c_*\), raw
+budget \(\widehat c>3/\log(4/3)\), and ceiling exponent \(\beta>0\) hold
+eventually on the same set.
 
 :::
+
+**Target normalization.**  The proof uses the normalized terminal rank
+\[
+L'_M=\left\lfloor A_M\log_2(M\log2)\right\rfloor,
+\]
+which, for bounded \((A_M)\), differs from the displayed rank and margin by
+only \(O(1)\), while \(2^{L'_M}\le(\log n)^{A_M}\) throughout \(I_M\).
+Thus the landing constant is one; only fixed constants and startup change,
+not the exponent or exceptional rate.
 
 The ceiling in \(L_M\) changes \(\Delta_M\) by only \(O(1)\).  Hence, when
 \(A_M\to A_{\rm FP}\), condition \eqref{eq:1-4} is equivalently
 \[
-\kappa_*(A_M-A_{\rm FP})\log M-\log\log M\longrightarrow+\infty.
+\kappa_*(A_M-A_{\rm FP})\log M\longrightarrow+\infty.
 \tag{1.6}\label{eq:1-6}
 \]
 
 ### Corollary 1.2 (explicit descent scales) {#cor-endpoint-profiles}
 
-Fix \(c>c_*\) and \(\beta>0\).  Each numbered statement below has its own
-constant \(C_{\rm tar}>0\), allowed to depend on all parameters displayed in
-that statement.  The landing occurs before \(c\log n\) shortcut steps, and its
-witness satisfies
-\(\max_{j\le k}T^j(n)\le n^{1+\beta}\).
+Each numbered statement below supplies corresponding shortcut and raw times
+with the centered bounds in Theorem 1.1 and a common landing strictly below
+the displayed target.  Both trajectories through those times are bounded by
+the displayed common ceiling.
 
-1. For every fixed \(A>A_{\rm FP}\) and every
-   \(0<\gamma<\kappa_*(A-A_{\rm FP})\), the target
+1. For every fixed \(A>A_{\rm FP}\), put
+   \(q=\kappa_*A-1/2>0\).  The target
    \[
-   C_{\rm tar}(\log n)^A
+   (\log n)^A
    \]
-   fails for at most \(O_{A,c,\beta,\gamma}(X/(\log X)^\gamma)\) integers
-   \(n\le X\).
+   fails for at most \(O_A(X/(\log X)^q)\) integers \(n\le X\), where
+   ``fails'' means failure of the simultaneous target, centered-clock, and
+   common-height requirements, with common ceiling \(n(\log n)^q\).
 
-2. For every fixed \(B>2A_{\rm FP}\) (equivalently \(B\kappa_*>1\)) and every
-   \(0<\gamma<B\kappa_*-1\), the target
+2. For every fixed \(B>0\), the target
    \[
-   C_{\rm tar}(\log n)^{A_{\rm FP}}(\log\log n)^B
+   (\log n)^{A_{\rm FP}}(\log\log n)^B
    \]
    fails for at most
-   \(O_{B,c,\beta,\gamma}(X/(\log\log X)^\gamma)\) integers \(n\le X\).
+   \(O_B(X/(\log\log X)^{B\kappa_*})\) integers \(n\le X\), where
+   ``fails'' has the same simultaneous meaning and the common ceiling is
+   \(n(\log\log n)^{B\kappa_*}\).
 
-3. For every fixed \(D>0\) and every \(0<\gamma<D\kappa_*\), the target
+3. For every fixed \(D>0\), the target
    \[
-   C_{\rm tar}(\log n)^{A_{\rm FP}}
-   (\log\log n)^{2A_{\rm FP}}(\log\log\log n)^D
+   (\log n)^{A_{\rm FP}}(\log\log\log n)^D
    \tag{1.7}\label{eq:1-7}
    \]
    fails for at most
-   \(O_{D,c,\beta,\gamma}(X/(\log\log\log X)^\gamma)\) integers \(n\le X\).
+   \(O_D(X/(\log\log\log X)^{D\kappa_*})\) integers \(n\le X\), again in
+   the simultaneous sense, with common ceiling
+   \(n(\log\log\log n)^{D\kappa_*}\).
 
-More generally, for any prescribed function
-\(\Omega:[1,\infty)\to(0,\infty)\) with \(\Omega(x)\to\infty\), there is an
-eventually nondecreasing function \(\widetilde\Omega\) such that
+4. More generally, let \(U,R:\mathbb N\to(0,\infty)\) be any prescribed
+   functions with \(U(n),R(n)\to\infty\).  On a set of natural density one,
+   the common landing satisfies
+   \[
+   T^k(n)=\operatorname{Col}^{\ell}(n)
+   <(\log n)^{A_{\rm FP}}U(n),
+   \]
+   and the two corresponding trajectories are bounded by \(nR(n)\).  No
+   monotonicity of \(U\) or \(R\) is required.  The density-one set may
+   depend on the prescribed functions \(U\) and \(R\); the first-passage
+   estimates are uniform in the intermediate level on that same set.
+
+The first three targets are \(o(n)\), hence give genuine descent for all
+sufficiently large \(n\).  In item 4 the proof clips \(U\) to a divergent
+subpolynomial shell minorant, so the constructed landing is still below \(n\)
+eventually even if the displayed prescribed target is larger.  The assertions
+are density-one rather than pointwise, and the onset of the asymptotic
+comparison is not made effective.  The upper-bound rate exponents above
+include their endpoints; no smaller-exponent qualification is required.
+
+For each of the first three profiles, if the exceptional event means failure
+of the complete simultaneous target--clock--height conclusion with its
+displayed ceiling, the stated upper bound is sharp in order: the corresponding
+count is also bounded below by a positive constant times the displayed
+function.  This lower bound is forced by the height ceiling; it is not a
+target-only lower bound and does not prove that \(A_{\rm FP}\) is optimal.
+The uniform first-passage conclusions in Theorem 1.1 apply on these same good
+sets to every level between the common landing and \(n\).
+
+The target and height exponents may also be prescribed independently.  For
+fixed \(A>A_{\rm FP}\), \(q=\kappa_*A-1/2\), and any fixed \(b>0\), the
+target \((\log n)^A\), centered clocks, and common ceiling
+\(n(\log n)^b\) fail jointly for at most
 \[
-1\le\widetilde\Omega(x)\le\Omega(x)\quad\text{eventually},\qquad
-\widetilde\Omega(x)\to\infty,\qquad
-\widetilde\Omega(x)=x^{o(1)},
+O_{A,b}\!\left(
+\frac{X}{(\log X)^{\min\{q,b\}}}\right)
 \]
-and the final factor in \eqref{eq:1-7} may be replaced, on a
-natural-density-one set, by \(\widetilde\Omega(\log\log n)\).  Consequently
-the conclusion also holds with the larger factor \(\Omega(\log\log n)\).
-No monotonicity is required of \(\Omega\).  The constants and the retained set
-may depend on \(\Omega,c,\beta\).
+integers up to \(X\).  Item 1 is the balanced choice \(b=q\), not a
+necessary coupling between terminal scale and height allowance.
 
-Every numbered target above, and the moving \(\widetilde\Omega\)-target
-constructed above,
-is \(o(n)\), so it is a genuine descent for all sufficiently large \(n\).
-The assertions are density-one rather than pointwise.  Neither the landing
-constant \(C_{\rm tar}\) nor the onset of the asymptotic comparison is made
-effective.
+The next theorem is a separate fixed-barrier companion.  It retains strict
+clock inequalities rather than the centered trajectory profile, but the same
+finite multiplicative-maximum argument gives a much smaller common height
+allowance than a fixed power of \(n\).
 
 ::: {.theorem-block}
 
 ### Theorem 1.3 (quantitative stretched-logarithmic descent) {#thm-stretched-log}
 
-For every fixed \(0<\delta<1\), \(c>c_*\), and \(\beta>0\), there are
-constants \(C_{\delta,c,\beta},\gamma_{\delta,c,\beta},
-X_{\delta,c,\beta}>0\)
-with the following property.  For every \(X\ge X_{\delta,c,\beta}\), let
-\(\mathcal E_{\delta,c,\beta}(X)\) be the set of integers
-\(1\le n\le X\) for which no integer \(0\le k<c\log n\) simultaneously
-satisfies
+For every fixed \(0<\delta<1\), shortcut budget \(c_T>c_*\), raw budget
+\(c_{\rm raw}>3/\log(4/3)\), and \(\zeta>0\), there are constants
+\(C,\gamma,X_0>0\) with the following property.  For every \(X\ge X_0\),
+let \(\mathcal E_{\delta,c_T,c_{\rm raw},\zeta}(X)\) be the set of integers
+\(1\le n\le X\) for which there are no corresponding integers
+\(0\le k<c_T\log n\), \(0\le\ell<c_{\rm raw}\log n\), and common landing
+\(y\) satisfying
 \[
-T^k(n)\le\exp((\log n)^{1-\delta}),
-\qquad
-\max_{0\le j\le k}T^j(n)\le n^{1+\beta}.
+T^k(n)=\operatorname{Col}^{\ell}(n)=y
+\le\exp((\log n)^{1-\delta})
+\]
+and
+\[
+\max_{0\le j\le k}T^j(n),\quad
+\max_{0\le i\le\ell}\operatorname{Col}^i(n)
+\le n\exp(\zeta(\log n)^{1-\delta}).
 \]
 Then
 \[
-\#\mathcal E_{\delta,c,\beta}(X)
+\#\mathcal E_{\delta,c_T,c_{\rm raw},\zeta}(X)
 \le
-C_{\delta,c,\beta}X
-\exp(-\gamma_{\delta,c,\beta}(\log X)^{1-\delta}).
+CX\exp(-\gamma(\log X)^{1-\delta}).
 \tag{1.8}\label{eq:1-8}
 \]
+The constants may depend on all four fixed parameters; in particular,
+\(\gamma\) may depend on \(\zeta\).
 The endpoint \(\delta=1\) is not asserted.
 
 :::
 
-### Corollary 1.4 (raw clock) {#cor-raw-clock}
+### Corollary 1.4 (raw-clock constant and ceiling projection) {#cor-raw-clock}
 
-Put
+Theorem 1.1 and Corollary 1.2 already give a raw witness centered at
+\(3\log n/\log(4/3)\) for the same landing as the shortcut witness.  For the
+stretched-logarithmic conclusion, Theorem 1.3 now supplies the raw witness and
+common ceiling directly.  Since
 \[
-\operatorname{Col}(n)=
-\begin{cases}
-n/2,&n\equiv0\pmod2,\\
-3n+1,&n\equiv1\pmod2.
-\end{cases}
-\]
-For every fixed \(\beta>0\) and
-\[
-c_{\rm raw}>\frac3{\log(4/3)},
+\frac3{\log(4/3)}=10.42817849\ldots,
 \tag{1.9}\label{eq:1-9}
 \]
-the conclusions and exceptional-set estimates in
-[Theorem 1.1](#thm-moving-polylog),
-[Corollary 1.2](#cor-endpoint-profiles), and
-[Theorem 1.3](#thm-stretched-log) remain valid for \(\operatorname{Col}\),
-with an integer \(\ell<c_{\rm raw}\log n\) and the raw-orbit ceiling
-\[
-\max_{0\le j\le\ell}\operatorname{Col}^j(n)\le n^{1+\beta}.
-\]
-All parameter ranges remain exactly as stated in those results; their
-existential constants may additionally depend on \(c_{\rm raw}\).  The same
-raw index \(\ell\) supplies both the corresponding landing and this ceiling.
-Since \(3/\log(4/3)=10.42817849\ldots\), the explicit constant \(10.44\)
-remains admissible.
+the explicit constant \(10.44\) remains admissible.  Moreover, for every
+fixed \(\beta>0\), the common ceiling in Theorem 1.3 is eventually smaller
+than \(n^{1+\beta}\), so the preceding fixed-power ceiling statement remains
+an immediate projection.
+
+Thus [Corollary 1.4](#cor-raw-clock) records the numerical raw-clock
+projection of the corresponding-witness statement in Theorem 1.3.
 
 ### Corollary 1.5 (fixed powers and the independent graded-clock companion) {#cor-fixed-power}
 
-For every fixed \(\alpha>0\), the exceptional set for
-\(T_{\min}(n)>n^\alpha\) is
+For every fixed \(\alpha>0\), there is \(d_\alpha>0\) such that the
+exceptional set for \(T_{\min}(n)>n^\alpha\) has size
 \[
-O_{\alpha,\sigma}\!\left(
-X\exp(-c_{\alpha,\sigma}(\log X)^\sigma)
-\right)
+O_\alpha(X^{1-d_\alpha}).
 \tag{1.10}\label{eq:1-10}
 \]
-for every fixed \(0<\sigma<1\), where \(c_{\alpha,\sigma}>0\).
+For \(\alpha\ge1\) this exceptional set is empty.
 
-If \(0<\alpha<1\), then for every fixed \(\varepsilon>0\) the same
-fixed-power target is also reached on a natural-density-one set: for every
-sufficiently large retained \(n\), there is an integer \(k\ge0\) with
-\(T^k(n)\le n^\alpha\) and
+If \(0<\alpha<1\), then for every fixed
+\(\varepsilon_T,\varepsilon_{\rm raw},\beta>0\), there is \(d>0\) such that,
+apart from \(O(X^{1-d})\) integers \(n\le X\), corresponding shortcut and
+raw times reach the same value
+\[
+T^k(n)=\operatorname{Col}^{\ell}(n)\le n^\alpha,
+\]
+both trajectories through those witnesses are at most \(n^{1+\beta}\), and
 \[
 k<
 \left(
-\frac{2(1-\alpha)}{\log(4/3)}+\varepsilon
-\right)\log n
+\frac{2(1-\alpha)}{\log(4/3)}+\varepsilon_T
+\right)\log n,
+\qquad
+\ell<
+\left(
+\frac{3(1-\alpha)}{\log(4/3)}+\varepsilon_{\rm raw}
+\right)\log n.
 \tag{1.11}\label{eq:1-11}
 \]
-shortcut steps.  Thus the clock decreases continuously with the amount of
-logarithmic height that remains: for example, the limiting coefficient at
-\(\alpha=1/2\) is \(1/\log(4/3)=3.47605949\ldots\), rather than the full
-descent coefficient \(c_*\).
+Thus both clock coefficients decrease continuously with the amount of
+logarithmic height that remains.  For example, at \(\alpha=1/2\) the
+shortcut coefficient tends to
+\(1/\log(4/3)=3.47605949\ldots\), rather than the full-descent coefficient
+\(c_*\).
 
 ### Terminology and recurring notation
 
@@ -373,7 +518,17 @@ landing lies in a specified target set.
 A *witnessing time* is an iterate at which the asserted descent has occurred.
 The *same-witness orbit ceiling* bounds every earlier iterate through that
 same time; it is not a statement about the remainder of the orbit.  The
-global symbols \(T,\operatorname{Col},T_{\min},I_M,a_0,p_*,\kappa_*,
+indices \(k\) and \(h\) count shortcut steps unless stated otherwise.  A
+raw-map time is denoted by \(\ell\) and counts applications of
+\(\operatorname{Col}\).  In the raw-clock conversion, \(s_h\) counts the odd
+states among the first \(h\) shortcut steps; each such state adds one raw
+step, so \(\ell=h+s_h\).
+
+A *startup* is a fixed lower bound on the shell rank, allowed to depend on
+the fixed parameters, beyond which the stated estimate applies.  Increasing
+the startup changes only a finite initial set.
+
+The global symbols \(T,\operatorname{Col},T_{\min},I_M,a_0,p_*,\kappa_*,
 A_{\rm FP}\), and \(c_*\) retain the meanings fixed above.  Symbols used only
 inside one proof stage are introduced at the start of the section where they
 are needed; in particular, the high- and low-phase parameters are collected
@@ -381,10 +536,12 @@ at the beginning of Section 6.
 
 ### Proof architecture
 
-The proof has two sharply separated parts and six load-bearing steps.  Its
-only probabilistic input is exact counting of parity words on a dyadic shell;
-the first-crossing estimates and the assembly of the decreasing threshold
-chain are deterministic.
+At a high level, the proof does three things: it certifies typical paths for
+one block, pulls later failures back to the original source shell, and sums
+only over passage times that can actually occur.  The six steps below record
+the precise dependency structure.  The only probabilistic input is exact
+counting of parity words on a dyadic shell; the first-crossing estimates and
+the assembly of the decreasing threshold chain are deterministic.
 
 **Exact probabilistic certification.**
 
@@ -418,10 +575,18 @@ Applying them with shrinking large-scale bounds and the small-scale timeout
 test gives both the fixed polylogarithmic targets and the shell-dependent
 exponent in the headline.
 
-The diagram below shows this division and the flow from one dyadic shell to
+Four declarations associated with the preceding public manuscript are
+registered in the
+[Palomar Registry as PALOMAR-2026-08-26-000005, version 3](https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&version=3).
+That record does not verify the strengthened statements introduced in this
+revision.  The precise declaration-level coverage and verification boundary
+are recorded in the
+[research and software disclosure](#research-and-software-disclosure).
+
+Figure 1 shows this division and the flow from one dyadic shell to
 successively lower thresholds.
 
-![The proof architecture.  Panel (a) follows an actual shortcut-Collatz orbit
+![Figure 1. The proof architecture.  Panel (a) follows an actual shortcut-Collatz orbit
 inside the certified high-rank envelope and marks successive threshold
 landings; below the switch, the timeout rule replaces low-rank certification.
 Panel (b) records
@@ -454,45 +619,46 @@ natural density without that linear time-union loss.  Step 5 above reduces the
 possible times to \(O(\sqrt{M\log M})\) possibilities; this
 linear-to-square-root reduction is the quantitative pivot of the paper.
 
-The published results of Korec and Tao, the preprint of Inselmann, and two
-recent Tao-to-natural-density bridge manuscripts (J. Allikvere, unpublished
-observations; L. Mazur, unpublished observations) are compared below only on
-the coordinates used in their stated theorems.  Publication status and proof
-lineage are recorded in the surrounding prose rather than in the table.
+The published results of Korec and Tao, the preprint of Inselmann, and the
+publicly archived, unrefereed Tao-to-natural-density bridge manuscripts of
+Allikvere [[14]](#ref-allikvere) and Mazur [[15]](#ref-mazur) are compared
+below only on the coordinates used in their stated public versions.
+Submission status is not inferred from public circulation.  The numerical
+entries below are taken from the specifically dated versions in
+[[14]](#ref-allikvere)--[[15]](#ref-mazur).
 
 | Work | Density | Target reached for almost all starts | Clock or quantitative feature |
 |---|---|---|---|
 | Korec [[5]](#ref-korec) | natural | \(n^\theta\), every fixed \(\theta>a_0\) | no clock or quantitative exception used here |
 | Inselmann [[3]](#ref-inselmann) | natural | \(n^\varepsilon\), every fixed \(\varepsilon>0\) | \(2\log n/\log(4/3)\) shortcut steps; density convergence |
 | Tao [[10]](#ref-tao) | logarithmic | every \(f(n)\to\infty\) | no single global clock in the headline theorem; logarithmic-density estimate |
-| Mazur | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | \(<436\log n\) unaccelerated steps; fixed-target logarithmic rate |
-| Allikvere | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | \(<12\log n\) unaccelerated steps; \(O((\log N_0)^{-1/29}+X^{-1/2000})\) for a fixed target |
-| This paper | natural | \(C_{\rm tar}(\log n)^A\) for every fixed \(A>A_{\rm FP}\); moving critical endpoint in [Corollary 1.2](#cor-endpoint-profiles) | every shortcut constant \(>c_*\); every unaccelerated constant \(>3/\log(4/3)\); target-dependent quantitative rates and an orbit-height bound through the witnessing time |
+| Mazur [[15]](#ref-mazur) | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | version 2 states \(<436\log n\) unaccelerated steps and a fixed-target logarithmic rate |
+| Allikvere [[14]](#ref-allikvere) | natural, bridged from Tao's logarithmic-density framework | every \(f(n)\to\infty\) | version 2 states \(<12\log n\) unaccelerated steps and \(O((\log N_0)^{-1/29}+X^{-1/2000})\) for a fixed target |
+| This paper | natural | \((\log n)^{A_{\rm FP}}U(n)\) for every prescribed \(U(n)\to\infty\); fixed-\(A\) endpoint rates in [Corollary 1.2](#cor-endpoint-profiles) | uniform actual first-passage clocks; sharp balanced joint rates; both orbit heights bounded by \(nR(n)\) for every prescribed \(R(n)\to\infty\) |
 
-[Theorem 1.1](#thm-moving-polylog) additionally bounds every preceding
-iterate through the same witnessing time:
-\(\max_{j\le k}T^j(n)\le n^{1+\beta}\).  This bound is not part of the
-headline statements in those unpublished observations; this is a comparison
-of stated outputs, not a claim that their proof-internal trajectory estimates
-cannot yield related bounds.
+[Corollary 1.2(4)](#cor-endpoint-profiles) additionally supplies corresponding
+shortcut and raw witnesses and bounds both preceding trajectories by
+\(nR(n)\) for an arbitrary prescribed divergent relative allowance.  This is
+a comparison of stated outputs, not a claim that the other proofs contain no
+related internal trajectory estimates.  In particular, Inselmann's Theorem
+1.1 already supplies a horizon-wide trajectory envelope at the fixed-power
+scale.
 
 The moving target of [Theorem 1.1](#thm-moving-polylog) includes the critical
-specialization
-\(C_{\rm tar}(\log n)^{A_{\rm FP}}(\log\log n)^{2A_{\rm FP}}
-\widetilde\Omega(\log\log n)\), where
-\(\widetilde\Omega(x)=x^{o(1)}\to\infty\) may be chosen eventually below each
-prescribed \(\Omega(x)\to\infty\).  It is smaller than every fixed power and
-every fixed stretched-logarithmic target in
-[Theorem 1.3](#thm-stretched-log), but it still contains the fixed divergent
-core \((\log n)^{A_{\rm FP}}(\log\log n)^{2A_{\rm FP}}\).  It is therefore
-weaker than an arbitrary diverging function.  At the target-only level, Tao's
-theorem specializes to every target displayed here, albeit in logarithmic
-rather than natural density.  Thus the present theorem does not supersede the
-arbitrary-threshold conclusions reported in those unpublished observations.
-Conversely, those target statements do not supply the
-present natural-density rates, logarithmic clock, or orbit-height bound, and
-the clock scale already appears in [[3]](#ref-inselmann).  These axes are
-deliberately not collapsed into a single ordering.
+specialization \((\log n)^{A_{\rm FP}}U(n)\) for every prescribed divergent
+multiplier \(U\).  It is smaller than every fixed power when a subpolynomial
+minorant is used, and smaller than every fixed stretched-logarithmic target in
+[Theorem 1.3](#thm-stretched-log), but it still contains the fixed positive
+power \((\log n)^{A_{\rm FP}}\).  It is therefore weaker than an arbitrary
+diverging absolute target.  At the target-only level, Tao's theorem
+specializes to every target displayed here, albeit in logarithmic rather than
+natural density.  Thus the present theorem does not supersede the
+arbitrary-threshold conclusions reported in those manuscripts.
+Conversely, the stated Tao, Allikvere, and Mazur terminal-threshold results do
+not include the present same-witness orbit-height ceiling.  Inselmann does
+supply a trajectory envelope at the fixed-power scale, as well as the
+underlying logarithmic clock scale.  The target class, density, rate, clock,
+and path-height axes are deliberately not collapsed into a single ordering.
 
 Complementary inverse-tree work obtains lower bounds for the number of
 integers whose orbits reach \(1\) by means of difference inequalities; see
@@ -510,7 +676,12 @@ separation displayed above.
 
 The argument uses three common tools: a shell-to-prefix summation rule, exact
 parity coding on each dyadic shell, and an affine formula for the iterate.
-This section establishes all three before they are used.
+This section establishes all three before they are used.  Lemma 2.1 converts
+shell exceptional estimates into global natural-density bounds.
+Proposition 2.2 makes parity words exactly uniform on a complete shell,
+supplying the counting law used in Sections 3 and 6.  Proposition 2.3
+separates each iterate into its multiplicative term and affine correction,
+which is the orbit-envelope input for Section 3.
 
 For \(S\subseteq\mathbb N\), put
 \[
@@ -535,6 +706,7 @@ sufficiently large \(M\),
 \leq A e^{-\gamma(M+4)^\sigma}2^M.
 \tag{2.2}\label{eq:2-2}
 \]
+**Quantitative form.**
 Then there are \(\gamma'>0\) and \(X_0\) such that
 \[
 \#(E\cap[1,X])
@@ -542,7 +714,9 @@ Then there are \(\gamma'>0\) and \(X_0\) such that
 \qquad(X\geq X_0).
 \tag{2.3}\label{eq:2-3}
 \]
-More generally, if a nonnegative sequence \(e_M\to0\) satisfies
+
+**Qualitative form.**  More generally, if a nonnegative sequence
+\(e_M\to0\) satisfies
 \[
 \#(E\cap I_M)\le e_M2^M
 \tag{2.3a}\label{eq:2-3a}
@@ -551,8 +725,9 @@ for all sufficiently large \(M\), then \(E\) has natural density zero.
 
 #### Proof
 
-Let \(2^J\leq X<2^{J+1}\).  The shells below \(J/2\) contain fewer than
-\(X^{1/2}\) integers.  On the remaining shells,
+Let \(2^J\leq X<2^{J+1}\).  The shells with
+\(M<\lfloor J/2\rfloor\) contain fewer than \(X^{1/2}\) integers.  On the
+remaining shells,
 \[
 M+4\geq\frac{\log X}{4\log2}.
 \]
@@ -628,6 +803,9 @@ n\equiv(2m-1)3^{-1}\pmod{2^{k+1}},
 where \(3\) is a unit modulo \(2^{k+1}\).  The first residue is even, the
 second is odd, and in either case applying \(T\) recovers \(m\bmod2^k\).
 Thus every word has exactly one preimage residue. \(\square\)
+
+Consequently, as \(n\) ranges over the complete shell \(I_M\), its length-
+\(M\) parity word is exactly uniform on \(\{0,1\}^M\).
 
 ### Proposition 2.3 (exact affine iterate) {#prop-affine-iterate}
 
@@ -836,74 +1014,75 @@ b_{\rm ent}(\eta)
 
 ### Proposition 3.3 (density of the controlled-prefix set) {#prop-barrier-density}
 
-Let \(0<\eta<1-a_0\).  For every fixed
-\(0<c<b_{\rm ent}(\eta)\), there is \(K_{\eta,c}>0\) such that
+Let \(0<\eta<1-a_0\).  There is \(K_\eta>0\) such that
 \[
 \frac{\#(W_\eta^c\cap I_M)}{2^M}
-\le K_{\eta,c}e^{-cM}
+\le K_\eta(M+1)^{-1/2}e^{-b_{\rm ent}(\eta)M}
 \qquad(M\ge0).
 \tag{3.10}\label{eq:3-10}
 \]
-Consequently \(W_\eta\) is
-\((K'_{\eta,c},c/\log2)\)-dense after increasing the fixed constant.
+Consequently, for every fixed \(0<c<b_{\rm ent}(\eta)\), the set
+\(W_\eta\) is \((K'_{\eta,c},c/\log2)\)-dense after increasing the fixed
+constant.
 
 #### Proof
 
-Put \(L_3=\log_2 3\).  Since \(c<b_{\rm ent}(\eta)\), choose a fixed
-\(0<\lambda<1\) with
+Put \(L_3=\log_2 3\), \(b=b_{\rm ent}(\eta)\), and, on \(I_M\), take the
+constant-slack barrier
 \[
-c<\mathcal I\!\left(\frac{\lambda\eta}{L_3}\right).
+h_M=\frac{\eta M-1}{L_3},
+\qquad
+3^{h_M}=2^{\eta M-1}.
 \tag{3.11}\label{eq:3-11}
 \]
-On \(I_M\), take
+For sufficiently large \(M\), this barrier is positive and lies below
+\(M/2\).  Assume \(H_M\le h_M\).  Since \(n\ge2^M\), one has
+\(3^{h_M}=2^{\eta M-1}<n^\eta\), so the multiplicative term in
+\eqref{eq:3-6} is at least
+\(\rho^kn^{1-\eta}\) and at most one half of the upper envelope:
 \[
-h=\frac{\lambda\eta M}{L_3}.
+\rho^kn3^{d_k}
+\le\frac12\rho^kn^{1+\eta}.
 \tag{3.12}\label{eq:3-12}
 \]
-Assume \(H_M\le h\).  Since \(3^h=2^{\lambda\eta M}\le n^\eta\),
-the multiplicative term in \eqref{eq:3-6} is at least
-\(\rho^kn^{1-\eta}\) and at most
+[Lemma 3.2](#lem-affine-correction) bounds the additive term in
+\eqref{eq:3-6} by
 \[
-2^{-(1-\lambda)\eta M}\rho^kn^{1+\eta}.
+(2+\sqrt3)3^{2h_M}
+=\frac{2+\sqrt3}{4}\,2^{2\eta M}.
 \tag{3.13}\label{eq:3-13}
 \]
-[Lemma 3.2](#lem-affine-correction) bounds the additive term by
+The unused half of the upper envelope is uniformly at least
 \[
-(2+\sqrt3)3^{2h}
-=(2+\sqrt3)2^{2\lambda\eta M}.
+\frac12\rho^M2^{(1+\eta)M}
+=\frac12\,2^{(a_0+\eta)M}.
 \tag{3.14}\label{eq:3-14}
 \]
-The unused part of the upper envelope is at least
+Because \(\eta<1-a_0<a_0\), its exponent \(a_0+\eta\) is larger than
+\(2\eta\).  Thus \eqref{eq:3-14} absorbs \eqref{eq:3-13} after one fixed
+startup, and
 \[
-\left(1-2^{-(1-\lambda)\eta M}\right)
-\rho^M2^{(1+\eta)M}.
+H_M\le h_M\quad\Longrightarrow\quad n\in W_\eta.
 \tag{3.15}\label{eq:3-15}
 \]
-Indeed, before this uniform replacement the slack is
-\(\left(1-2^{-(1-\lambda)\eta M}\right)\rho^k n^{1+\eta}\).
-Over all \(0\leq k\leq M\) and \(n\in I_M\), its minimum occurs at
-\(k=M\) and at the lower shell endpoint \(n=2^M\), which gives
-\eqref{eq:3-15}.
-Its binary exponent exceeds that of \eqref{eq:3-14}, because
+
+Apply the fixed-slope estimate \eqref{eq:3-3a} with
 \[
-a_0+\eta-2\lambda\eta
-\ge a_0-\eta>0.
+t_M=\frac{h_M}{M}
+=\frac{\eta}{L_3}-\frac1{ML_3}.
 \tag{3.16}\label{eq:3-16}
 \]
-Thus \eqref{eq:3-8} holds for every \(k\le M\) once \(M\) is sufficiently large.
+These slopes eventually lie in a fixed compact subinterval of \((0,1/2)\).
+Smoothness of \(\mathcal I\) there gives
+\(M\mathcal I(t_M)=Mb+O_\eta(1)\).  The parity bijection in
+[Proposition 2.2](#prop-parity-code), \eqref{eq:3-3a}, and
+\eqref{eq:3-15} now prove \eqref{eq:3-10}, after enlarging \(K_\eta\) for
+the finite startup.
 
-[Proposition 2.2](#prop-parity-code) and
-[Lemma 3.1](#lem-entropy-barrier) now give
-\[
-\frac{\#(W_\eta^c\cap I_M)}{2^M}
-\le
-2\exp\!\left[-M\mathcal I\!\left(
-\frac{\lambda\eta}{L_3}\right)\right]
-\le2e^{-cM}
-\]
-on all sufficiently large shells.  Enlarge \(K_{\eta,c}\) to absorb the
-finite startup.  Summing the resulting geometric shell series proves the
-global density assertion. \(\square\)
+For every \(c<b\), the factor
+\((M+1)^{-1/2}e^{-bM}\) is \(O_{\eta,c}(e^{-cM})\).
+Summing the resulting geometric shell series proves the stated global density
+consequence. \(\square\)
 
 ## 4. First-passage linear transport
 
@@ -1023,7 +1202,7 @@ only positive products and introduces no division by a reverse product.
 Fix the common odd count and put
 \(A=2^hy/3^s\).  All sources lie in
 \([(1-D/Y)A,A]\).  Nonemptiness, \eqref{eq:4-7}, and \(n<2^{M+1}\) imply
-\(A<(3/2)2^{M+1}\), so this interval has length less than
+\(A<(3/2)2^{M+1}\), so this interval has length at most
 \[
 3D\frac{2^M}{Y}.
 \]
@@ -1296,14 +1475,73 @@ Outside the failure set, integer ranks strictly decrease until a state of
 rank below \(L\) is reached.  Equations \eqref{eq:5-2}, \eqref{eq:5-6}, and the monotonic
 decrease of block endpoints prove \eqref{eq:5-12}. \(\square\)
 
+### Proposition 5.4 (relative height for the fixed-barrier chain) {#prop-fixed-barrier-height}
+
+Assume in addition to \eqref{eq:5-1} that
+\[
+r(1+\eta)<1.
+\tag{5.15}\label{eq:5-15}
+\]
+For every real \(R\ge4\), enlarge \(\operatorname{Fail}_{M,L}\) by the
+sources whose first \(M\) multiplicative parity prefixes exceed \(R/4\).
+Denote the enlarged set by
+\(\operatorname{Fail}^{\rm ht}_{M,L,R}\).  It has shell proportion
+\[
+\ll_{r,\eta,c_\eta}
+e^{-c_\eta M}
++M(L+1)(e^{-c_\eta L}+2^{-L})
++R^{-1}.
+\tag{5.16}\label{eq:5-16}
+\]
+Every source outside it has the landing and shortcut clock in
+[Theorem 5.3](#thm-terminal-profile), and, with
+\(\ell=k+s_k(n)\),
+\[
+T^k(n)=\operatorname{Col}^{\ell}(n)<2^L,
+\qquad
+\max_{j\le k}T^j(n),\quad
+\max_{i\le\ell}\operatorname{Col}^i(n)\le nR.
+\tag{5.17}\label{eq:5-17}
+\]
+
+#### Proof
+
+For the first \(M\) parity prefixes of \(n\), put
+\(F_j=3^{s_j}/2^j\).  By
+[Lemma B.4](#lem-multiplier-maximum) and the exact shell parity law, the
+additional exception has proportion at most \(4/R\).
+
+Outside the original failure set, let the first block cross
+\(Y=2^{\lfloor rM\rfloor}\).  Before the crossing, all relevant shortcut
+states are larger than this level.  The exact recurrence gives
+\[
+T^j(n)=nF_j
+\prod_{\substack{0\le i<j\\T^i(n)\ {\rm odd}}}
+\left(1+\frac1{3T^i(n)}\right),
+\]
+and the logarithm of the product is at most
+\(M/(3Y)\).  After a fixed startup this product is at most two.  Therefore
+\(\max F_j\le R/4\) bounds every shortcut state in the first block by
+\(nR/2\), and every inserted raw odd state, which is twice the following
+shortcut state, by \(nR\).
+
+The first checkpoint is at most \(2^{\lfloor rM\rfloor}\le n^r\).
+Every later block is certified, so \eqref{eq:3-8} and
+\eqref{eq:5-15} bound all of its shortcut states by
+\((n^r)^{1+\eta}\le n\) and its raw states by \(2n\le nR\).
+The shortcut/raw correspondence gives the same landing at
+\(\ell=k+s_k(n)\).  Adding the maximum exception to \eqref{eq:5-11}
+proves \eqref{eq:5-16}--\eqref{eq:5-17}. \(\square\)
+
 ## 6. Shrinking prefix bounds and compressed passage times
 
 [Theorem 5.3](#thm-terminal-profile) shows what the shared direct-passage and
 reverse-loss facts yield with one fixed certificate and a linear time
-horizon.  For the stronger shell-dependent exponent, we retain those facts
-but
-shrink the high-rank barrier and replace low-rank certification by a timeout
-tail.  The resulting set of possible cumulative times is much smaller.
+horizon.  It reduces the remaining problem to three costs: the number of
+possible passage times, the reverse loss at the landing scale, and the density
+of failed landings.  We now improve the first and third costs.  Shrinking
+prefix bounds compress the passage-time sum, while the low-rank timeout
+condition permits a ballot estimate.  The reverse-loss mechanism is unchanged.
 
 The parameters used below fall into four groups.  This table is a roadmap;
 the displayed equations following it give the precise definitions and the
@@ -1312,8 +1550,8 @@ order in which the constants are chosen.
 | Symbols | Role | Definition or constraint |
 |---|---|---|
 | \(A_M,L_M,\Delta_M\) | terminal schedule and its remaining exponent margin | fixed in [Theorem 1.1](#thm-moving-polylog); \(L_M\asymp\log M\) and \(\Delta_M\to\infty\) in the main application |
-| \(r_{\rm hi}\) | threshold ratio at high ranks | initially \(a_0<r_{\rm hi}<1\); strengthened for the final clock in \eqref{eq:6-18} |
-| \(\tau\) | cap on the high-rank tolerance | initially \(0<\tau<r_{\rm hi}-a_0\); also chosen below \(\beta\) and \(a_0\) in \eqref{eq:6-18} |
+| \(r_{\rm hi}\) | threshold ratio at high ranks | fixed in \((a_0,1)\), and denoted by \(r\) in the final parameter choice \eqref{eq:6-18} |
+| \(\tau\) | cap on the high-rank tolerance | initially \(0<\tau<r_{\rm hi}-a_0\); \eqref{eq:6-18} also imposes \(r_{\rm hi}(1+\tau)<1\) for the relative-height estimate |
 | \(D_{\rm hi}\) | coefficient of the shrinking high-rank tolerance | chosen large enough in [Proposition 6.4](#prop-rank-buffer) to make high failures polynomially small |
 | \(C_{\rm sw},S_M\) | switch coefficient and switch rank | \(S_M=\lceil C_{\rm sw}\log(M+2)\rceil\); \(C_{\rm sw}\) is chosen after \(D_{\rm hi}\) so that \(D_{\rm hi}/\sqrt{C_{\rm sw}}\le\tau\) and \(L_M<S_M\) eventually |
 | \(\eta_{M,m}\) | high-rank tolerance at parent rank \(m\) | derived from \(\tau,D_{\rm hi},M,m\) in \eqref{eq:6-3} |
@@ -1362,7 +1600,8 @@ H_{i+1}=H_i+h_i.
 \tag{6.4}\label{eq:6-4}
 \]
 If the landing is the upper endpoint \(2^{q_i}\) and \(q_i\le S\), follow its
-deterministic halving orbit to the terminal rank and stop successfully; this
+deterministic halving orbit until its shell rank is below \(L_M\), and stop
+successfully; this
 costs at most \(S\) further steps and cannot create a timeout.  If the landing
 is \(2^{q_i}\) with \(q_i>S\), stop with a high endpoint failure.  Every
 nonendpoint landing lies in the unique shell \(I_{q_i-1}\).  If \(q_i-1<S\),
@@ -1489,7 +1728,10 @@ For a high threshold rank \(q\), define the complete landing-band target
 \[
 B^{\rm sh}_{M,S_M,q}
 =\{2^q\}\cup
-\bigl(I_{q-1}\setminus W_{\eta_{M,q-1}}\bigr).
+\left[
+\bigl(I_{q-1}\cap J_{2^q}\bigr)
+\setminus W_{\eta_{M,q-1}}
+\right].
 \]
 Then the cap in \eqref{eq:6-3} is inactive at every \(m\ge S_M\), and
 \[
@@ -1589,12 +1831,13 @@ term in the minimum pays for the dyadic endpoint boundary at the switch.
 ### Critical timeout estimate at small shell ranks
 
 The high construction ends when its landing enters below \(S_M\).  At these
-smaller shell ranks, the proof no longer controls every parity prefix.  It
-replaces that positive all-prefix certificate by a terminal failure test: if
-the orbit has not crossed its next threshold by the allowed time, then its
-final odd-step count must be unusually large.  That count has the exact
-binomial law of [Proposition 2.2](#prop-parity-code), so its tail can be
-estimated directly.
+smaller shell ranks, the proof no longer imposes the positive high-rank
+certificate.  A timeout nevertheless contains path information of its own:
+every prefix of the actual parity word has kept the orbit above the next
+threshold.  The exact multiplicative recurrence converts this into survival
+above a fixed logarithmic barrier.  The finite ballot estimate proved in
+[Appendix B](#app-finite-ballot) then gains a factor \(m^{-1}\) over the
+terminal-only binomial bound.
 
 Accordingly, declare a low block successful exactly when it reaches its next
 threshold before its parent-shell rank expires.
@@ -1638,7 +1881,7 @@ Fix \(C>1\).  Uniformly for \(L\le m\le CL\), after one fixed startup,
 \[
 \boxed{
 \frac{\#\{x\in I_m:\operatorname{To}_{L,m}(x)\}}{2^m}
-\ll_{C,K_0}m^{-1/2}2^{-\kappa_*m}.}
+\ll_{C,K_0}m^{-3/2}2^{-\kappa_*m}.}
 \tag{6.12}\label{eq:6-12}
 \]
 Moreover, for every sufficiently large outer rank \(M\) and every possible
@@ -1652,72 +1895,42 @@ reached lie in a finite set \(\mathcal H^{\rm to}_{M,p}\) satisfying
 
 #### Proof
 
-Let \(s=s_m(x)\).  The exact affine iterate \eqref{eq:2-6} gives
+Write \(x_j=T^j(x)\), let \(b_i\) be the parity of \(x_i\), and put
 \[
-T^m(x)<2\cdot3^s+3^s=3^{s+1},
+s_j=\sum_{i<j}b_i,
+\qquad
+Z_j=s_j\log3-j\log2.
 \]
-because \(x<2^{m+1}\) and the additive sum is less than \(3^s\).
-Indeed, if the odd letters occur at positions
-\(i_1<\cdots<i_s\), then \(i_j\le m-s+j-1\), so that sum is at most
+Iteration of the shortcut recurrence gives the exact product
 \[
-\sum_{j=1}^s\frac{3^{s-j}}{2^{s-j+1}}
-=\left(\frac32\right)^s-1<3^s
-\]
-(with value zero when \(s=0\)).
-A timeout has \(T^m(x)>2^{q_L(m)}\), and therefore
-\[
-s>q_L(m)\log_3 2-1.
+x_j=x\,e^{Z_j}
+\prod_{\substack{0\le i<j\\x_i\ {\rm odd}}}
+\left(1+\frac1{3x_i}\right).
 \tag{6.14}\label{eq:6-14}
 \]
-By [Proposition 2.2](#prop-parity-code), \(s_m\) has the exact
-\(\operatorname{Bin}(m,1/2)\) counting law on \(I_m\).  Put
-\(\theta_{L,m}=r_Lm-q_L(m)\in[0,1)\).  The normalized real threshold in
-\eqref{eq:6-14} satisfies the exact identity
+On a timeout every \(x_i>Y:=2^{q_L(m)}\).  The logarithm of the product in
+\eqref{eq:6-14} is therefore between zero and \(m/(3Y)\).  Since
+\(x<2^{m+1}\) and \(x_j>2^{q_L(m)}\), every prefix satisfies
 \[
-\pi_{L,m}:=\frac{q_L(m)p_*-1}{m}
-=p_*-\frac{K_0p_*}{2L}-\frac{\theta_{L,m}p_*+1}{m}<p_*.
+Z_j>-(m+1-q_L(m))\log2-\frac{m}{3Y}.
 \tag{6.14a}\label{eq:6-14a}
 \]
-Since \(s\) is integral, \eqref{eq:6-14} is equivalent to
+Integer rounding gives
 \[
-s\ge k_{L,m},
-\qquad
-k_{L,m}:=\lfloor q_L(m)p_*\rfloor.
+m-q_L(m)
+=\left\lceil\frac{K_0m}{2L}\right\rceil
+\le\frac{CK_0}{2}+1.
 \]
-Put \(u_{L,m}=k_{L,m}/m\).  Then
+Also \(q_L(m)\ge m-CK_0/2-1\), so \(m/(3Y)\le1\) uniformly after one
+startup.  Thus every timeout word satisfies \(Z_j>-B\) for every
+\(0\le j\le m\), with the fixed choice
 \[
-\pi_{L,m}<u_{L,m}\le\pi_{L,m}+\frac1m
-=\frac{q_L(m)p_*}{m}<p_*,
+B=\left(\frac{CK_0}{2}+2\right)\log2+1.
 \]
-where the last inequality uses \(q_L(m)<m\).
-Thus the timeout cut is subcritical, but differs from \(p_*\) by only
-\(O_{C,K_0}(L^{-1})\) when \(L\le m\le CL\).
-These thresholds eventually lie in one compact subinterval of \((1/2,1)\).
-The ratio of consecutive terms in the upper binomial tail is then bounded
-strictly below one, so the tail is at most a fixed multiple of its first
-term.  Applying the compact-uniform Stirling estimate from the proof of
-[Lemma 3.1](#lem-entropy-barrier), together with the bounded derivative of
-\(D(p\|1/2)\) on that interval, gives
-\[
-2^{-m}\sum_{s\ge u_{L,m}m}\binom ms
-\ll
-m^{-1/2}\exp\{-mD(u_{L,m}\|1/2)\}
-\ll m^{-1/2}2^{-\kappa_*m},
-\]
-because \(D(p_*\|1/2)=\kappa_*\log2\).  More explicitly, if \(K_D\) bounds
-\(|\partial_pD(p\|1/2)|\) on the fixed compact interval above, then
-\[
-0\le m\bigl(D(p_*\|1/2)-D(u_{L,m}\|1/2)\bigr)
-\le K_D\left(\frac{CK_0p_*}{2}+p_*+1\right)
-=:K_{\rm rate}(C,K_0).
-\]
-Consequently the subcritical cut costs only the fixed multiplier
-\(C_{\rm to}(C,K_0):=e^{K_{\rm rate}(C,K_0)}\), which is included in
-\(\ll_{C,K_0}\).  In [Proposition 6.4](#prop-rank-buffer), the chosen schedule
-fixes \(C\) and \(K_0\), so that proposition may absorb \(C_{\rm to}(C,K_0)\)
-without changing the rate \(\kappa_*\).
-This proves \eqref{eq:6-12}, including the harmless integer rounding of the
-first tail index.
+[Lemma B.3](#lem-fair-word-barrier), followed by the exact parity-word
+bijection of [Proposition 2.2](#prop-parity-code), now proves
+\eqref{eq:6-12}.  This uses the actual affine orbit and does not replace it by
+a random model.
 
 It remains to identify the target set and its possible passage times.
 Suppose the first timeout occurs at a low checkpoint \(x_i\).  That checkpoint
@@ -1743,11 +1956,12 @@ Thus the first-timeout target in the landing band is
       \operatorname{To}_{L,p-1}(y)\},
 \qquad
 \frac{|\mathcal C^{\rm to}_{L,p}|}{2^p}
-\ll p^{-1/2}2^{-\kappa_*p}.
+\ll p^{-3/2}2^{-\kappa_*p}.
 \tag{6.15}\label{eq:6-15}
 \]
 The last estimate is \eqref{eq:6-12} with \(m=p-1\), after changing only its
-fixed constant.
+fixed constant and absorbing the harmless factor between \(2^{p-1}\) and
+\(2^p\).
 
 For a fixed high entry threshold, [Lemma 6.1](#lem-time-support) places the
 cumulative high entry times in an interval of length
@@ -1763,39 +1977,77 @@ Taking the Minkowski sum enlarges the high interval by \(O(S^2)\).  Since
 \(S=O(\log(M+2))\), this is
 \(o(\sqrt{M\log M})\), proving \eqref{eq:6-13}. \(\square\)
 
-### Proposition 6.4 (critical shell failure bound) {#prop-rank-buffer}
+### Proposition 6.4 (strengthened critical shell theorem) {#prop-rank-buffer}
 
-Let \(L_M\asymp\log M\) be an integer terminal-rank sequence.  For every
-fixed \(c>c_*\) and \(\beta>0\), the high parameters and switch constant may
-be chosen so that the timeout low chain above has, for some fixed
-\(\varepsilon>0\),
+Fix constants \(0<c_-\le c_+<\infty\), \(K_0>0\), and \(N>0\).  Let
+\(L_M\) be an integer terminal-rank sequence satisfying, eventually,
+\[
+c_-\log(M+2)\le L_M\le c_+\log(M+2),
+\]
+and let \(R_M\ge4\) be any prescribed real sequence.  The high parameters
+and switch constant may be chosen so that there are fixed constants \(C,K\)
+and a fixed startup for which
 \[
 \boxed{
-\frac{\#\operatorname{Fail}^{\rm to}_{M,L_M}}{2^M}
-\ll
-\sqrt{M\log M}\,
-L_M^{1/2}2^{-\kappa_*L_M}
-+M^{-\varepsilon}.}
+\frac{\#\operatorname{Fail}^{\rm str}_{M,L_M,R_M}}{2^M}
+\le C\left[
+\sqrt{\frac{(M+2)\log(M+2)}{L_M+1}}\,2^{-\kappa_*L_M}
++(M+2)^{-N}+R_M^{-1}
+\right].}
 \tag{6.17}\label{eq:6-17}
 \]
-Outside this failure set, some iterate before \(c\log n\) lies below
-\(2^{L_M}\), and every iterate through the same witness is at most
-\(n^{1+\beta}\).
+Outside this failure set, every \(n\in I_M\) has corresponding shortcut and
+raw times \(k,\ell\) and one common landing \(y\) such that
+\[
+T^k(n)=\operatorname{Col}^{\ell}(n)=y<2^{L_M},
+\tag{6.17a}\label{eq:6-17a}
+\]
+\[
+|k-c_*\log n|+
+\left|\ell-\frac32c_*\log n\right|
+\le K\sqrt{\log n\,\log\log n},
+\tag{6.17b}\label{eq:6-17b}
+\]
+and
+\[
+\max_{j\le k}T^j(n)\le nR_M,
+\qquad
+\max_{i\le\ell}\operatorname{Col}^i(n)\le nR_M.
+\tag{6.17c}\label{eq:6-17c}
+\]
+The constants \(C,K\) depend only on the fixed data and not on the detailed
+sequences \(L_M,R_M\); the startup also includes the point from which the
+displayed bounds on \(L_M\) hold.  The failure set
+\(\operatorname{Fail}^{\rm str}\) is the union of the previous
+initial, high-landing, and first-timeout failures with the initial
+multiplicative-maximum exception used for \eqref{eq:6-17c}.
 
 #### Proof
 
-Choose
+**High failures.**
+
+Choose a fixed \(r\in(a_0,1)\) and
 \[
-a_0<r_{\rm hi}<1-\frac1{c\log2},
+a_0<r<1,
 \qquad
-0<\tau<\min\{r_{\rm hi}-a_0,\beta,a_0\}.
+0<\tau<\min\{r-a_0,(1-r)/r,a_0,1\}.
 \tag{6.18}\label{eq:6-18}
 \]
-Because \(L_M=O(\log M)\), choose \(C_{\rm sw}\) so that
-\(L_M<S_M\) eventually.  Increase \(D_{\rm hi}\) and then
-\(C_{\rm sw}\), preserving
-\(D_{\rm hi}/\sqrt{C_{\rm sw}}\le\tau\), until the initial and transported
-high failures total \(O(M^{-\varepsilon})\) with a fixed positive margin.
+Thus \(r(1+\tau)<1\).  Use \(r_{\rm hi}=r\), choose \(D_{\rm hi}\) so that
+\(c_0D_{\rm hi}^2>N+5\), and then choose \(C_{\rm sw}\) large enough that
+\[
+C_{\rm sw}\log2>N+5,
+\qquad
+C_{\rm sw}\ge D_{\rm hi}^2/\tau^2,
+\qquad
+rC_{\rm sw}>2c_+.
+\tag{6.18a}\label{eq:6-18a}
+\]
+With \(S_M=\lceil C_{\rm sw}\log(M+2)\rceil\), one has
+\(L_M<S_M<M\) eventually.  The final high threshold entering below the
+switch is still at least \(L_M+1\), since its parent rank is at least \(S_M\)
+and its threshold rank is at least \(rS_M-1\).  The initial and transported
+high failures then total \(O((M+2)^{-N})\).
 Indeed, [Proposition 6.2](#prop-shrinking-high-density), the direct-passage
 identity, \eqref{eq:6-5}, and \eqref{eq:6-7} bound their total proportion by
 \[
@@ -1813,10 +2065,13 @@ division by \(2^M\), a band proportion
 \(\ll\sqrt{M\log M}(2^{q-M}+D_q)d_{\rm hi}(M)
 \ll\sqrt{M\log M}\,M d_{\rm hi}(M)\).  Summing over at most \(M+1\)
 possible ranks proves the displayed total.
-The exponent in \(d_{\rm hi}(M)\) may be made arbitrarily large through
-the displayed choice of \(D_{\rm hi}\) and \(C_{\rm sw}\).
+The exponent in \(d_{\rm hi}(M)\) exceeds \(N+5\) by
+\eqref{eq:6-18a}, so the polynomial transport factors are absorbed with
+room to spare.
 
-Choose a fixed rational \(0<r_*<r_{\rm hi}\).  Eventually \(r_*<r_{L_M}\).
+**Low timeouts.**  Fix \(r_*=1/2<r_{\rm hi}\), which is permitted because
+\(r_{\rm hi}>a_0>1/2\).  Eventually
+\(r_*<r_{L_M}\).
 Every successful high or low block from parent rank \(m\) to threshold rank
 \(q\) then has duration at most \(m\) and \(q+1>r_*m\).  The generic
 rank-chain form recorded after [Lemma 5.2](#lem-rank-loss) therefore gives, at
@@ -1826,7 +2081,12 @@ E_{2^p}(n)<\frac{p+2}{r_*}.
 \]
 Since \(L_M\asymp\log M\) and
 \(S_M=C_{\rm sw}\log(M+2)+O(1)\), a fixed \(C>1\), depending only on the
-chosen schedule, satisfies \(p-1\le S_M-1\le CL_M\) eventually.  Thus
+fixed bounds \(c_-\) and \(C_{\rm sw}\), satisfies
+\(p-1\le S_M-1\le CL_M\) eventually; for example, any
+\[
+C>\max\left\{1,\frac{2C_{\rm sw}}{c_-}\right\}
+\]
+works after increasing the fixed startup.  Thus
 [Lemma 6.3](#lem-timeout-low-phase) applies uniformly to every timeout band
 \(L_M+1\le p\le S_M\).
 After increasing the terminal startup, this loss satisfies the smallness
@@ -1837,128 +2097,306 @@ condition \eqref{eq:4-7}.  Apply the restricted-time form
 \[
 \frac{\#\{\text{first timeout in band }p\}}{2^M}
 \ll
-\sqrt{M\log M}\,(p+1)p^{-1/2}2^{-\kappa_*p}.
+\sqrt{M\log M}\,(p+1)p^{-3/2}2^{-\kappa_*p}.
 \]
 The geometric tail satisfies
 \[
-\sum_{p=L_M+1}^{S_M}(p+1)p^{-1/2}2^{-\kappa_*p}
-\ll L_M^{1/2}2^{-\kappa_*L_M}.
+\sum_{p=L_M+1}^{S_M}(p+1)p^{-3/2}2^{-\kappa_*p}
+\ll L_M^{-1/2}2^{-\kappa_*L_M}.
 \tag{6.19}\label{eq:6-19}
 \]
-Combining this with the high contribution proves \eqref{eq:6-17}.
+This proves the first term of \eqref{eq:6-17}; the high failures supply its
+second term.
 
-The high-phase clock is at most \(M/(1-r_{\rm hi})+o(M)\), while
-\eqref{eq:6-16} makes the low cost \(O((\log M)^2)=o(M)\); a deterministic
-switch-endpoint tail costs only another \(O(S_M)\).  The choice
-\eqref{eq:6-18} therefore gives total time below
-\(cM\log2\le c\log n\).  High blocks use tolerance at most \(\tau<\beta\).
-Every low block starts below \(2^{S_M+1}\) and lasts at most its parent rank.
-Every state before its final landing is above a threshold greater than one,
-so its next iterate satisfies \(T(z)<2z\).  Consequently each low segment
-remains below \(2^{2S_M+1}=M^{O(1)}=n^{o(1)}\).  Together with the high-block
-envelope and \(\tau<\beta\), this proves the stated same-witness ceiling.
+**Shortcut and raw clocks.**  Let \(H\) be the cumulative time at the last
+high landing,
+whose threshold rank \(q_{\rm ent}\) is \(O(S_M)\).  Equation
+\eqref{eq:6-6d} and the geometric decay of the high parent ranks give
+\[
+\left|gH-\bigl((M+1)-q_{\rm ent}\bigr)\right|
+\ll\sqrt{M\log(M+2)}.
+\]
+The remaining low part costs at most \(S_M(S_M+1)\), and an endpoint-halving
+tail costs at most \(S_M\).  Both are absorbed by the same error.  Since
+\(\log n=M\log2+O(1)\), the resulting shortcut witness satisfies
+\[
+k=c_*\log n+O(\sqrt{\log n\,\log\log n}).
+\tag{6.19a}\label{eq:6-19a}
+\]
+
+Let \(q_f\) be the final threshold rank.  The low rule and the endpoint-
+halving alternative give
+\[
+L_M-K_0/2-1\le q_f\le L_M.
+\tag{6.19b}\label{eq:6-19b}
+\]
+Indeed, if the final block is low, its parent rank is at least \(L_M\), so
+\(q_f=\lfloor r_{L_M}m\rfloor\ge L_M-K_0/2-1\).  A threshold rank above
+\(L_M\) cannot terminate the run, whereas a nonendpoint landing at threshold
+rank \(L_M\) already has shell rank \(L_M-1\); in the endpoint-halving case,
+\(q_f=L_M-1\).  This accounts for every successful terminal case.
+Treating every endpoint-halving step as a one-step first passage, the complete
+successful chain is the direct first passage of the original source to its
+last threshold.  If \(s\) is the number of odd shortcut steps, the exact
+reverse product of Section 4 gives
+\[
+n=\frac{2^k y}{3^s}P,
+\qquad
+1-\frac{q_f+2}{r_*2^{q_f}}\le P\le1.
+\tag{6.19c}\label{eq:6-19c}
+\]
+Hence \(\log P=O(L_M2^{-L_M})\), while \(0\le\log y\le L_M\log2\).
+Taking logarithms and using \eqref{eq:6-19a} yields
+\[
+s-\frac{k}{2}
+=\frac{gk\log2-\log n+\log y+\log P}{\log3}
+=O(\sqrt{\log n\,\log\log n}).
+\]
+Since \(\operatorname{Col}^{k+s}(n)=T^k(n)=y\), this proves the centered raw
+clock in \eqref{eq:6-17b}.
+
+**Relative height.**  It remains to establish the common relative-height
+bound.  For the first
+\(M\) parity prefixes of the original source, put
+\(F_j=3^{s_j}/2^j\).  [Lemma B.4](#lem-multiplier-maximum) and the exact shell
+parity law show that, outside a set of proportion at most \(4/R_M\),
+\[
+\max_{0\le j\le M}F_j\le R_M/4.
+\tag{6.19d}\label{eq:6-19d}
+\]
+During the first high block, the multiplicative correction in
+\eqref{eq:6-14} is at most
+\(\exp(M/2^{\lfloor rM\rfloor+1})\le2\) after one startup.  Thus every
+shortcut state there is at most \(nR_M/2\), and every intervening raw odd
+state is at most twice the following shortcut state.  Every later high block
+starts below \(2^{\lfloor rM\rfloor}\), so its prefix envelope and
+\(r(1+\tau)<1\) keep its shortcut states below \(n\) and its raw states below
+\(2n\).  Low blocks and endpoint halving remain below
+\(2^{2S_M+2}=M^{O(1)}<n\) eventually.  Since \(R_M\ge4\), these estimates
+prove \eqref{eq:6-17c}.  Adding the initial maximum exception contributes
+  the final term \(R_M^{-1}\) in \eqref{eq:6-17}.  \(\square\)
+
+### Proposition 6.5 (uniform trajectory tubes and actual first passages) {#prop-first-passage-profile}
+
+Put
+\[
+d=\frac12\log(4/3)=c_*^{-1},
+\qquad
+e_n=\sqrt{\log n\,\log\log n}.
+\]
+On the successful set of [Proposition 6.4](#prop-rank-buffer), with its
+constructed witnesses \(k,\ell\) and landing \(y\), there is a fixed
+\(K>0\) such that
+\[
+\sup_{0\le j\le k}
+\left|\log T^j(n)-\log n+dj\right|\le Ke_n,
+\qquad
+\sup_{0\le j\le k}
+\left|s_j(n)-\frac j2\right|\le Ke_n,
+\tag{6.19e}\label{eq:6-19e}
+\]
+and
+\[
+\sup_{0\le i\le\ell}
+\left|\log\operatorname{Col}^i(n)-\log n+\frac{2d}{3}i\right|
+\le Ke_n.
+\tag{6.19f}\label{eq:6-19f}
+\]
+No additional exceptional event is required.
+
+For every real \(z\) with \(y\le z\le n\), define
+\[
+\tau_z(n)=\min\{j:T^j(n)\le z\},
+\qquad
+\widehat\tau_z(n)=\min\{i:\operatorname{Col}^i(n)\le z\}.
+\]
+Uniformly over all such \(z\),
+\[
+\left|\tau_z(n)-c_*\log(n/z)\right|
++
+\left|\widehat\tau_z(n)-\frac32c_*\log(n/z)\right|
+\le Ke_n.
+\tag{6.19g}\label{eq:6-19g}
+\]
+The two passages reach the same state, and their preceding trajectories
+inherit the height bounds in Proposition 6.4.
+
+#### Proof
+
+For a high block starting at checkpoint \(n_i\in I_{m_i}\), certification
+gives, at every local time \(0\le u\le h_i\),
+\[
+\left|\log T^u(n_i)-\log n_i+du\right|
+\le\eta_{M,m_i}\log n_i.
+\]
+Telescope at the actual checkpoint values.  Since the high parent ranks
+decrease geometrically and
+\[
+\eta_{M,m_i}m_i
+\le D_{\rm hi}\sqrt{m_i\log(M+2)},
+\]
+the accumulated error, including the local error inside the current block, is
+\[
+\ll\sum_i\sqrt{m_i\log(M+2)}
+\ll\sqrt{M\log(M+2)}.
+\tag{6.19h}\label{eq:6-19h}
+\]
+The remaining low part and endpoint-halving tail contain
+\(O(S_M^2)=O((\log M)^2)\) shortcut steps.  Since
+\(x/2\le T(x)\le2x\), extending the logarithmic tube across that tail costs
+only \(O((\log M)^2)=o(\sqrt{M\log M})\).  This proves the first estimate in
+\eqref{eq:6-19e}.
+
+For every prefix of the selected trajectory, the exact forward product is
+\[
+\log T^j(n)
+=\log n+s_j\log3-j\log2+A_j,
+\qquad
+A_j=\sum_{\substack{0\le i<j\\T^i(n)\ {\rm odd}}}
+\log\left(1+\frac1{3T^i(n)}\right).
+\]
+The corrections \(A_j\) are nonnegative and increasing.  For the complete
+successful chain, \eqref{eq:6-19c} is the same identity in reverse, so
+\(A_k=-\log P=O(L_M2^{-L_M})\).  Hence \(0\le A_j\le A_k\) for
+\(j\le k\).  Rearranging the preceding display and using the shortcut tube
+gives the parity estimate in \eqref{eq:6-19e}.
+
+At the corresponding raw times \(i_j=j+s_j\), one has
+\(\operatorname{Col}^{i_j}(n)=T^j(n)\) and
+\(i_j=3j/2+O(e_n)\).  Equations \eqref{eq:6-19e} therefore give
+\eqref{eq:6-19f} at every corresponding time.  An extra raw odd image is
+twice the following shortcut state and lies one raw step before it; this
+changes the logarithmic error by only a fixed constant.  Thus
+\eqref{eq:6-19f} holds at every raw time through \(\ell\).
+
+Finally, if \(z<n\), a first shortcut crossing of \(z\) must be an even
+halving: an odd shortcut step sends a positive state \(x\) to
+\((3x+1)/2>x\), so it cannot create a new downward crossing.  The landing
+therefore lies in \((z/2,z]\).  Substituting this landing into
+\eqref{eq:6-19e} proves the first formula in \eqref{eq:6-19g}.  A raw odd
+image is larger than the preceding shortcut state and cannot create a new
+downward crossing.  Therefore the first raw crossing reaches the same state;
+\eqref{eq:6-19f} gives the second formula.  The case \(z=n\) has time zero.
 \(\square\)
 
 For the main theorem, define the exponent margin
 \[
 \Delta_M=
-\kappa_*L_M-\frac12\log_2(M+2)-\log_2\log(M+3).
+\kappa_*L_M-\frac12\log_2(M+2).
 \tag{6.20}\label{eq:6-20}
 \]
 If \(L_M\asymp\log M\), then the first term in \eqref{eq:6-17} is
 \(O(2^{-\Delta_M})\).  Thus
 \[
 \boxed{
-\frac{\#\operatorname{Fail}^{\rm to}_{M,L_M}}{2^M}
-\ll2^{-\Delta_M}+M^{-\varepsilon}.}
+\frac{\#\operatorname{Fail}^{\rm str}_{M,L_M,(M+2)^N}}{2^M}
+\ll2^{-\Delta_M}+(M+2)^{-N}.}
 \tag{6.21}\label{eq:6-21}
 \]
 
 ### Proof of [Theorem 1.1](#thm-moving-polylog)
 
-For the bounded sequence \((A_M)\), use the terminal rank in \eqref{eq:1-3}.
-Condition \eqref{eq:1-4} implies \(L_M\asymp\log M\): the upper bound follows
-from boundedness, and the lower bound follows from the definition of
-\(\Delta_M\).  [Proposition 6.4](#prop-rank-buffer) and \eqref{eq:6-21}
-therefore give the
-shellwise estimate \eqref{eq:1-5}.
-
-The same condition makes \(A_M\) eventually positive.  Since the sequence is
-bounded and \(n\in I_M\),
+Condition \eqref{eq:1-4} makes \(A_M\) eventually positive and implies
+\(L_M\asymp\log M\): the upper bound follows from boundedness, and the lower
+bound follows from the definition of \(\Delta_M\).  Use the normalized
+terminal rank
 \[
-2^{L_M}\le2(M+2)^{A_M}\ll(\log n)^{A_M},
+L'_M=\left\lfloor A_M\log_2(M\log2)\right\rfloor.
 \tag{6.22}\label{eq:6-22}
 \]
-with a constant uniform in \(M\).  This converts the terminal rank to the
-stated landing.  Finally, the right side of \eqref{eq:1-5} tends to zero, so
-the qualitative part of [Lemma 2.1](#lem-dyadic-sum) assembles the shell good
-sets into one natural-density-one set. \(\square\)
+For bounded \((A_M)\), one has \(L'_M-L_M=O(1)\).  Hence
+\[
+\Delta'_M=\kappa_*L'_M-\frac12\log_2(M+2)
+=\Delta_M+O(1)\longrightarrow+\infty,
+\]
+and \(L'_M\asymp\log M\).  Apply
+[Proposition 6.4](#prop-rank-buffer) with this terminal rank and
+\(R_M=(M+2)^N\), and then apply
+[Proposition 6.5](#prop-first-passage-profile) on the same successful set.
+Equations \eqref{eq:6-21} and \(\Delta'_M=\Delta_M+O(1)\) give
+\eqref{eq:1-5}, while the two propositions give the centered clocks, the
+common shortcut and raw height bounds, the uniform tubes, and the actual
+first-passage profile.
+
+For \(n\in I_M\), \(\log n\ge M\log2\), so
+\[
+2^{L'_M}\le(M\log2)^{A_M}\le(\log n)^{A_M}.
+\]
+This proves the normalized landing claim.  Finally, the right side of
+\eqref{eq:1-5} tends to zero, so the qualitative part of
+[Lemma 2.1](#lem-dyadic-sum) assembles the shell good sets into one
+natural-density-one set. \(\square\)
 
 ### Proof of [Corollary 1.2](#cor-endpoint-profiles)
 
-For fixed \(A>A_{\rm FP}\), take \(A_M=A\).  Then
+For the three quantitative profiles, put \(t_M=M\log2\) and use the
+terminal ranks
 \[
-2^{-\Delta_M}\ll
-M^{-\kappa_*(A-A_{\rm FP})}\log M.
-\]
-The high exponent in [Proposition 6.4](#prop-rank-buffer) can be chosen larger
-than any prescribed
-\(\gamma<\kappa_*(A-A_{\rm FP})\).  Splitting the dyadic shell sum at half
-the top rank gives the first assertion.
-
-The remaining assertions use [Proposition 6.4](#prop-rank-buffer) directly
-with the terminal ranks displayed below.  Exponentiating \(2^{L_M}\) and
-using \(M\asymp\log n\) then gives their stated landing targets.
-For the second assertion take
-\[
-L_M=\left\lceil
-A_{\rm FP}\log_2(M+2)+B\log_2\log(M+3)
-\right\rceil.
-\]
-Then \(2^{-\Delta_M}\ll(\log M)^{1-B\kappa_*}\).  The same dyadic split
-gives every \(\gamma<B\kappa_*-1\).
-
-For the third assertion take
-\[
-L_M=\left\lceil
-A_{\rm FP}\log_2(M+2)
-+\frac1{\kappa_*}\log_2\log(M+3)
-+D\log_2\log\log(M+4)
-\right\rceil.
+\begin{split}
+L_M^{(1)}&=\lfloor A\log_2t_M\rfloor,\\
+L_M^{(2)}&=\lfloor A_{\rm FP}\log_2t_M+B\log_2\log t_M\rfloor,\\
+L_M^{(3)}&=\lfloor A_{\rm FP}\log_2t_M
+             +D\log_2\log\log t_M\rfloor.
+\end{split}
 \tag{6.23}\label{eq:6-23}
 \]
-Then \(2^{-\Delta_M}\ll(\log\log M)^{-D\kappa_*}\), and the shell split
-gives every \(\gamma<D\kappa_*\).
-
-For the final functional statement, let \(\Omega(x)\to\infty\).  Choose
-numbers \(x_j\uparrow\infty\) so rapidly that
-\(\Omega(x)\ge j\) for every \(x\ge x_j\) and
-\(\log j/\log x_j\to0\).  The step function equal to \(j\) on
-\([x_j,x_{j+1})\), with a fixed value on the finite initial interval, is an
-eventually nondecreasing function satisfying, eventually,
-\(1\le\widetilde\Omega\le\Omega\) and
+They satisfy the hypotheses of [Proposition 6.4](#prop-rank-buffer), and
+\(2^{L_M^{(i)}}\) is at most the corresponding target throughout \(I_M\).
+The first term of \eqref{eq:6-17} is, respectively,
 \[
-\widetilde\Omega(x)\to\infty,
+O(M^{-q}),
 \qquad
-\frac{\log\widetilde\Omega(x)}{\log x}\longrightarrow0.
+O((\log M)^{-B\kappa_*}),
+\qquad
+O((\log\log M)^{-D\kappa_*}),
 \]
-Thus \(\widetilde\Omega(x)=x^{o(1)}\).
-For sufficiently large \(M\), put \(z_M=\log(M\log2)\), so that
-\(z_M\ge1\) and \(z_M\le\log\log n\) for every \(n\in I_M\).  Use the
-terminal rank in \eqref{eq:6-23} with the final term replaced by
-\(\log_2\widetilde\Omega(z_M)\).  Since
-\(\log_2\widetilde\Omega(z_M)=o(\log\log M)\), this rank is still
-asymptotic to \(A_{\rm FP}\log_2M\), as required in
-[Proposition 6.4](#prop-rank-buffer), while
+where \(q=\kappa_*A-1/2\).  Choose, respectively,
 \[
-\Delta_M\ge
-\kappa_*\log_2\widetilde\Omega(z_M)\longrightarrow+\infty.
+R_M=t_M^q,
+\qquad
+R_M=(\log t_M)^{B\kappa_*},
+\qquad
+R_M=(\log\log t_M)^{D\kappa_*},
 \]
-Monotonicity gives an explicitly constructed
-\(\widetilde\Omega(\log\log n)\)-target, which is \(o(n)\).  Since
-\(\widetilde\Omega\le\Omega\) eventually, it also implies the asserted larger
-\(\Omega\)-target.
-\(\square\)
+and choose the high-error exponent \(N>q\) in the first case and any fixed
+\(N>0\) in the other two.  The three terms in \eqref{eq:6-17} then have the
+displayed orders.
+
+For the global counts, let \(J=\lfloor\log_2X\rfloor\).  The shells with
+\(M<\lfloor J/2\rfloor\) contain fewer than \(X^{1/2}\) integers.  On the
+remaining shells each displayed rate is bounded by a fixed multiple of its
+value at \(J\).  Summing the shell sizes, including the possibly partial top
+shell by the full-shell estimate, proves items 1--3 with their endpoint
+exponents.
+
+For item 4, define the shell minima
+\[
+u_M=\min_{n\in I_M}U(n),
+\qquad
+r_M=\min_{n\in I_M}R(n).
+\]
+Both tend to infinity.  Put
+\[
+w_M=\min\{u_M,\log(M+2)\},
+\qquad
+L_M=\left\lfloor
+A_{\rm FP}\log_2(M\log2)+\log_2w_M
+\right\rfloor,
+\qquad
+R_M=\min\{r_M,M+2\}.
+\tag{6.23a}\label{eq:6-23a}
+\]
+After one startup, \(L_M\asymp\log M\), \(R_M\ge4\), and the shell-failure
+proportion is
+\[
+O\!\left(w_M^{-\kappa_*}+(M+2)^{-1}+R_M^{-1}\right)=o(1).
+\]
+The definitions of the minima make the target and height comparisons
+pointwise throughout the shell.  The qualitative part of
+[Lemma 2.1](#lem-dyadic-sum) therefore proves natural density one.  The
+clipping \(w_M\le\log(M+2)\) also shows that the constructed landing is
+below a fixed polylogarithmic-logarithmic scale and hence below \(n\)
+eventually, even when the prescribed \(U\) itself grows rapidly.  \(\square\)
 
 ## 7. Quantitative companions
 
@@ -1974,22 +2412,34 @@ here.
 We prove the target in \eqref{eq:1-8} by choosing the terminal rank so that
 \(2^{L_M}\le\exp((\log n)^{1-\delta})\) on the source shell.
 
-Fix \(0<\delta<1\), put \(\alpha=1-\delta\), and choose a fixed-barrier pair
-\((r,\eta)\) satisfying \eqref{eq:5-1}, with
+Fix \(0<\delta<1\) and put \(\alpha=1-\delta\).  Since the two prescribed
+clock budgets are strict, choose a fixed-barrier pair \((r,\eta)\) satisfying
+\eqref{eq:5-1} and
 \[
-r<1-\frac1{c\log2},
+r(1+\eta)<1,
 \qquad
-\eta<\beta.
+\frac1{(1-r)\log2}<c_T,
+\qquad
+\frac1{1-r}\left(\frac3{2\log2}+\frac{\eta}{\log3}\right)
+<c_{\rm raw}.
 \tag{7.1}\label{eq:7-1}
 \]
+Such a choice exists by taking \(r\downarrow a_0\) and
+\(\eta\downarrow0\).
 Take
 \[
 L_M=\left\lfloor\frac{(M\log2)^\alpha}{\log2}\right\rfloor.
 \tag{7.2}\label{eq:7-2}
 \]
-The factor \(M(L_M+1)\) in \eqref{eq:5-11} is absorbed by the exponential tail, so
+In [Proposition 5.4](#prop-fixed-barrier-height), set
 \[
-\#\operatorname{Fail}_{M,L_M}
+R_M=\exp(\zeta(M\log2)^\alpha).
+\]
+The polynomial factor \(M(L_M+1)\) is absorbed by the exponential tails in
+\eqref{eq:5-16}, and \(R_M^{-1}\) has the same stretched-exponential form.
+Thus, for some \(c'>0\) that may depend on \(\zeta\),
+\[
+\#\operatorname{Fail}^{\rm ht}_{M,L_M,R_M}
 \le C2^M e^{-c'M^\alpha}.
 \tag{7.3}\label{eq:7-3}
 \]
@@ -1998,14 +2448,11 @@ For \(n\in I_M\),
 2^{L_M}\le\exp((M\log2)^\alpha)
 \le\exp((\log n)^\alpha).
 \]
-The clock and path ceiling follow from \eqref{eq:5-12} and \eqref{eq:7-1}.
-[Lemma 2.1](#lem-dyadic-sum), with
-\(\sigma=\alpha\), proves \eqref{eq:1-8}. \(\square\)
+Also \(R_M\le\exp(\zeta(\log n)^\alpha)\), so \eqref{eq:5-17} gives
+the common ceiling in Theorem 1.3.
 
-### Raw-clock conversion
-
-Let \(s_h(x)\) count the odd states among
-\(x,T(x),\ldots,T^{h-1}(x)\).  Direct induction gives
+**Raw-clock calculation.**  For completeness, the raw clock uses the same
+landing.  Direct induction gives
 \[
 \operatorname{Col}^{h+s_h(x)}(x)=T^h(x).
 \tag{7.4}\label{eq:7-4}
@@ -2022,39 +2469,27 @@ Thus a fixed-barrier chain has raw time at most
 \left(\frac3{2\log2}+\frac\eta{\log3}\right)\log n+o(\log n).
 \tag{7.6}\label{eq:7-6}
 \]
-For the timeout endpoint, \eqref{eq:7-6} applies to the high phase and the
-low phase has \(O(S_M^2)=o(\log n)\) shortcut steps by \eqref{eq:6-16};
-those low steps incur at most twice as many raw steps.  As
-\(r\downarrow a_0\) and \(\eta\downarrow0\), the coefficient in
-\eqref{eq:7-6} tends to
-\[
-\frac3{\log(4/3)}.
-\]
-The high parameters in \eqref{eq:6-18} can therefore be chosen to satisfy any fixed
-shortcut and raw budgets strictly above their respective limits.  To retain
-the literal raw-orbit ceiling in [Corollary 1.4](#cor-raw-clock), run the
-argument with an
-internal exponent \(0<\beta'<\beta\).  Every additional raw odd image is
-\(3m+1=2T(m)\), so
-\(2n^{1+\beta'}\le n^{1+\beta}\) eventually.  This proves
-[Corollary 1.4](#cor-raw-clock).
-\(\square\)
+As \(r\downarrow a_0\) and \(\eta\downarrow0\), the coefficient in
+\eqref{eq:7-6} tends to \(3/\log(4/3)\); the choice \eqref{eq:7-1}
+therefore gives \(\ell<c_{\rm raw}\log n\) eventually, while
+\eqref{eq:5-6} gives \(k<c_T\log n\).  The shortcut/raw correspondence and
+[Proposition 5.4](#prop-fixed-barrier-height) ensure that these two times
+reach the same landing and obey the same ceiling.
+[Lemma 2.1](#lem-dyadic-sum), with \(\sigma=\alpha\), now proves
+\eqref{eq:1-8}. \(\square\)
 
 ### Fixed-power exceptional count
 
-Fix \(\alpha>0\) and \(0<\sigma<1\).  Choose
-\(0<\delta<1-\sigma\).  Then
-\[
-\exp((\log n)^{1-\delta})\le n^\alpha
-\]
-eventually, while \(1-\delta>\sigma\).
-[Theorem 1.3](#thm-stretched-log) therefore implies
-\eqref{eq:1-10}, after decreasing the positive exponential constant and absorbing the
-finite startup.
+If \(\alpha\ge1\), then \(T_{\min}(n)\le n\le n^\alpha\), so the exceptional
+set in \eqref{eq:1-10} is empty.  For \(0<\alpha<1\), apply the stronger
+fixed-depth construction in [Appendix A](#app-graded-clock) with any fixed
+positive clock slacks and height exponent, and then forget the clock and
+height conclusions.  Its density pullback gives an exponent \(d>0\), proving
+\eqref{eq:1-10}.
 
-The independent fixed-depth argument for the graded clock
-\eqref{eq:1-11} is given in [Appendix A](#app-graded-clock).  It is not an
-input to either headline theorem.
+The independent fixed-depth proof of the graded clock \eqref{eq:1-11} is
+given in [Appendix A](#app-graded-clock).  It is not an input to either
+headline theorem.
 
 ## 8. Scope
 
@@ -2068,10 +2503,12 @@ is not proved here.
 
 At the polylogarithmic endpoint, the proof requires
 \(\Delta_M\to\infty\).  It therefore does not prove the pure target
-\(C(\log n)^{A_{\rm FP}}\), nor the critical secondary target with a bounded
-tertiary multiplier.  The moving theorem improves the terminal scale while
-weakening its displayed exceptional-set rate; these are separate comparison
-axes, as recorded in [Corollary 1.2](#cor-endpoint-profiles).
+\(C(\log n)^{A_{\rm FP}}\) for a fixed constant \(C>0\).  It does prove every
+target \((\log n)^{A_{\rm FP}}U(n)\) with a prescribed positive multiplier
+\(U(n)\to\infty\), as stated in
+[Corollary 1.2(4)](#cor-endpoint-profiles).  The target scale and its
+exceptional-set rate are separate comparison axes; the quantitative profiles
+in Corollary 1.2 record this tradeoff.
 
 Theorem 1.1 uses the parity-vector bijection, large-rank prefix-deviation
 estimate, small-rank timeout tail, first-passage reversal, exact
@@ -2090,6 +2527,144 @@ individual Collatz orbit.  The independent graded-clock companion uses only
 a fixed finite dense-set pullback and is not on either headline dependency
 chain.
 
+The divergent relative-height allowance in Corollary 1.2(4) cannot in
+general be replaced by a fixed constant, even without a clock restriction.
+[Proposition 8.1](#prop-fixed-ceiling-obstruction) gives a quantitative
+reciprocal obstruction, and
+[Proposition 8.2](#prop-moving-ceiling-obstruction) records its shellwise
+form.
+
+### Proposition 8.1 (reciprocal fixed-ceiling obstruction) {#prop-fixed-ceiling-obstruction}
+
+Let \(C\ge1\) be fixed, and let \(f:\mathbb N\to(0,\infty)\) satisfy
+\(f(n)=o(n)\).  Let \(E(f,C)\) be the set of integers for which there is no
+\(k\ge0\) satisfying both
+\[
+T^k(n)\le f(n),
+\qquad
+\max_{0\le j\le k}T^j(n)\le Cn
+\tag{8.1}\label{eq:8-1}
+\]
+Then
+\[
+\underline d(E(f,C))\ge\frac{2}{3C}.
+\tag{8.2}\label{eq:8-2}
+\]
+Here \(\underline d\) denotes lower natural density.
+The same lower bound holds if a raw or joint ceiling is required.
+
+#### Proof
+
+Fix \(h\ge1\).  For all sufficiently large \(n\),
+\[
+f(n)<2^{-h}n\le T^j(n)
+\qquad(0\le j\le h),
+\]
+so no target witness can occur in the first \(h\) shortcut steps.  If the
+first \(h\) parity letters lie in \(A_h(C)\) from
+[Lemma B.5](#lem-multiplier-reciprocal), then the positive affine formula
+gives an actual state
+\[
+T^j(n)\ge nF_j>Cn
+\]
+before any possible target witness.  Every later witness therefore violates
+the ceiling.
+
+The parity-vector bijection identifies \(A_h(C)\) with a union of residue
+classes modulo \(2^h\) of density \(2^{-h}\#A_h(C)\).  Apart from finitely
+many integers this union is contained in \(E(f,C)\).  Apply \eqref{eq:b-8}
+and let \(h\to\infty\) to obtain \eqref{eq:8-2}.  Every shortcut state is
+also a raw state, proving the raw and joint assertions. \(\square\)
+
+### Proposition 8.2 (moving shell ceilings) {#prop-moving-ceiling-obstruction}
+
+For \(f:\mathbb N\to(0,\infty)\), put
+\[
+f_M^+=\max_{n\in I_M}f(n).
+\]
+Let \((R_M)\) be a real sequence and suppose
+\[
+\log\max\{1,f_M^+\}=o(M),
+\qquad
+R_M\ge1,
+\qquad
+\log R_M=o(M).
+\tag{8.3}\label{eq:8-3}
+\]
+Let \(E_M\subseteq I_M\) consist of the sources admitting no witness with
+target \(f(n)\) and shortcut ceiling \(nR_M\).  Then
+\[
+\frac{\#E_M}{2^M}
+\ge\frac{2}{3R_M}\left(1-O(M^{-1})\right).
+\tag{8.4}\label{eq:8-4}
+\]
+
+#### Proof
+
+Take \(h=\lfloor M/2\rfloor\), and let \(\varepsilon_0\) be the constant
+from [Lemma B.5](#lem-multiplier-reciprocal).  The hypotheses imply, eventually,
+\[
+f_M^+<2^{M-h},
+\qquad
+\log R_M\le\varepsilon_0h\log3.
+\]
+For \(n\in I_M\) and \(j\le h\),
+\(T^j(n)\ge2^{-h}n\ge2^{M-h}>f(n)\), so no target witness occurs in
+this prefix.  The length-\(h\) parity words are exactly uniform on \(I_M\).
+Every word in \(A_h(R_M)\) therefore prevents a target-and-height witness,
+as in Proposition 8.1.  Equation \eqref{eq:b-8} proves
+\eqref{eq:8-4}. \(\square\)
+
+The same argument applies to a nonconstant relative ceiling by using its
+maximum on each shell.  The two uniform shell conditions in \eqref{eq:8-3}
+are essential; pointwise subexponential growth alone is not substituted for
+them.
+
+### Corollary 8.3 (sharp balanced joint exceptional orders) {#cor-joint-rate-sharpness}
+
+For each of the first three profiles in
+[Corollary 1.2](#cor-endpoint-profiles), let the exceptional event mean
+failure of the entire simultaneous target--clock--height conclusion with its
+displayed common ceiling.  Then, respectively,
+\[
+\#E_A(X)
+=\Theta_A\!\left(\frac{X}{(\log X)^q}\right),
+\qquad q=\kappa_*A-\frac12,
+\tag{8.5}\label{eq:8-5}
+\]
+\[
+\#E_B(X)
+=\Theta_B\!\left(
+\frac{X}{(\log\log X)^{B\kappa_*}}\right),
+\tag{8.6}\label{eq:8-6}
+\]
+and
+\[
+\#E_D(X)
+=\Theta_D\!\left(
+\frac{X}{(\log\log\log X)^{D\kappa_*}}\right).
+\tag{8.7}\label{eq:8-7}
+\]
+
+#### Proof
+
+The upper bounds are Corollary 1.2.  For the lower bounds, use
+Proposition 8.2 with the corresponding target and relative-height profile.
+All three targets satisfy the first uniform shell condition in
+\eqref{eq:8-3}; the three ceiling profiles satisfy the second.  Their maxima
+and minima on adjacent dyadic shells are asymptotically equivalent.  Thus
+\eqref{eq:8-4} gives the matching lower order on every sufficiently large
+complete shell.  For arbitrary large \(X\), retain the last complete shell
+below \(X\); it contains a fixed positive proportion of \([1,X]\), and its
+slowly varying ceiling is comparable with the displayed function at \(X\).
+This proves \eqref{eq:8-5}--\eqref{eq:8-7}. \(\square\)
+
+These lower bounds are forced by the height condition.  They do not estimate
+target-only failure and do not establish optimality of \(A_{\rm FP}\), the
+timeout mechanism, or the terminal scale.
+[Corollary 8.3](#cor-joint-rate-sharpness) therefore concerns the balanced
+joint conclusions only.
+
 ## 9. Method ceiling and future directions
 
 The endpoint in this paper is set by the first term of \eqref{eq:6-17}.
@@ -2106,63 +2681,101 @@ For \(L_M\sim A\log_2M\), its corresponding method threshold would be
 proves \(\theta=1/2\), not any smaller value.
 
 [Lemma 6.1](#lem-time-support) already replaces a union over high-rank
-histories by one interval of feasible times.  Further improvement must control
-the aggregate over the points of that interval, rather than merely reorganize
-the histories that produced it.  Two possible mechanisms are a signed or
-target-weighted estimate for the actual first-passage landings before taking
-an absolute upper bound, or a restart-closed renewal estimate for the mass
-surviving a low-rank timeout.  Neither estimate is proved here.
+histories by one interval of feasible times.  One possible route to further
+improvement is to control the aggregate over that corridor more sharply.  A
+stronger corridor bound or a stronger local estimate could also change the
+scalar budget; neither is established here.  Two other possible mechanisms
+are a signed or target-weighted estimate for the actual first-passage landings
+before taking an absolute upper bound, or a restart-closed renewal estimate
+for the mass surviving a low-rank timeout.  Neither estimate is proved here.
 
-Even eliminating every positive power of \(M\) from the feasible-time cost
-would leave the local factor
-\(L_M^{1/2}2^{-\kappa_*L_M}\).  It would therefore make the scalar budget
-compatible with terminal ranks \(L_M\to\infty\) arbitrarily slowly, but not
-with a fixed terminal rank.  A fixed bound requires a different
-survivor-killing estimate whose exceptional mass decays with the outer rank
-\(M\), for a fixed clock strictly above \(c_*\).  If such an estimate reached
-a fixed interval \([1,C]\), and the finitely many integers in that interval
-were verified to reach \(1\), it would imply convergence to \(1\) on a set of
-natural density one.  That substantially stronger conclusion is outside the
-present theorem.
+The improved timeout estimate leaves the aggregate factor
+\[
+F(M)L_M^{-1/2}2^{-\kappa_*L_M},
+\]
+where the present passage-time argument has
+\(F(M)\ll\sqrt{M\log M}\).  There are two distinct possible improvements.
+At the pure critical rank
+\[
+L_M=A_{\rm FP}\log_2M+O(1),
+\]
+the aggregate is of order \(F(M)/\sqrt{M\log M}\).  Thus a future bound
+\[
+F(M)=o(\sqrt{M\log M})
+\]
+would suffice for the pure-critical density-one conclusion, provided the
+other estimates remained uniform and vanishing.  In particular,
+\(F(M)=O(\sqrt M)\) would leave a factor \((\log M)^{-1/2}\).
 
-## Research and software disclosure
+Lowering the leading polylogarithmic exponent requires more: an effective
+time factor \(F(M)=M^{\theta+o(1)}\) with \(\theta<1/2\) would move the
+method threshold to \(\theta/\kappa_*\).  These are conditional budget
+calculations, not proved transport improvements.  Merely narrowing a marginal
+time distribution does not control the actual generated bad landing set.
+Extending the chain to ranks much smaller than \(\log M\) would also require
+new uniform control of the switch-to-terminal ratio and timeout constants.
+The present results establish neither the pure critical target nor a smaller
+leading exponent.
 
-Generative AI (including OpenAI Codex) assisted with exploration,
-formalization workflows, diagnostics, and drafting.  The author selected the
-architecture, checked the mathematics, and accepts responsibility for all
-content.  Finite diagnostics are not premises of any theorem.
+A fixed terminal rank would require a different survivor-killing estimate
+whose exceptional mass decays with the outer rank \(M\), for a fixed clock
+strictly above \(c_*\).  If such an estimate reached a fixed interval
+\([1,C]\), and the finitely many integers in that interval were verified to
+reach \(1\), it would imply convergence to \(1\) on a set of natural density
+one.  That substantially stronger conclusion is outside the present theorem.
 
-The separate Lean package kernel-checks the canonical timeout route to the
-exported `Main` declaration corresponding to
-[Theorem 1.1](#thm-moving-polylog).  For every bounded exponent sequence with
-\(\Delta_M\to+\infty\), that declaration exposes the literal shell
-exceptional ratio, moving landing, logarithmic clock, and orbit-height bound
-through the same witness.  The package also exports the fixed-\(A\)
-specialization and the fixed-depth graded-clock companion.  Only the canonical
-timeout route is part of the manuscript-facing formalization surface.
+## Research and software disclosure {#research-and-software-disclosure}
 
-The Lean development has no gaps or admitted obligations: the canonical
-library builds without `sorry`, `admit`, a project axiom, or a missing module,
-and the public-root audits report only Lean's standard logical axioms.  Some quantitative companions are represented
-by separate formal projections rather than one declaration with every paper
-quantifier.  In particular, Lean checks the explicit \(6.953\log n\)
-stretched-logarithmic witness, every strict subendpoint exceptional power, and
-the raw \(10.44\log n\) stretched-logarithmic landing.  The exact endpoint and
-combined forms in [Theorem 1.3](#thm-stretched-log), the moving raw
-specialization in [Corollary 1.4](#cor-raw-clock), and the literal capstone form
-of [Theorem 5.3](#thm-terminal-profile) are manuscript derivations assembled
-from formalized structural components rather than additional public wrapper
-theorems.  This is a declaration-level coverage boundary, not an admitted
-obligation inside the Lean development.  The exact declaration map is
-recorded in `lean/FORMALIZATION.md`.
+OpenAI Codex 5.6 (https://openai.com/codex; accessed July--September 2026)
+materially assisted with proof exploration, Lean formalization,
+compiler-guided diagnostics, drafting, and audit construction under
+author-supplied mathematical and release protocols.  Anthropic Claude, xAI
+Grok, and Alibaba Qwen (accessed through their public interfaces in
+August--September 2026; exact transient model revisions were not retained)
+were used for limited exposition and review suggestions.  The author
+independently assessed every suggestion, selected the architecture, checked
+the mathematics and references, made all release decisions, and accepts
+responsibility for all content.  No AI system is an author.  Finite
+diagnostics are not premises of any theorem.
+
+The Version 4 Lean package and the separately registered Palomar package have
+different verified scopes, listed below.  The Version 4 package locally
+kernel-checks the principal strengthened theorem chain; Palomar version 3
+still covers four declarations associated with the preceding public
+manuscript, version 3.2.4.  The canonical Version 4 library builds without
+`sorry`, `admit`, a project axiom, or a missing module, and its public-root
+audits report only Lean's standard logical axioms.  The exact correspondence
+is recorded in `lean/FORMALIZATION.md`.
+
+The present revision adds a new finite ballot estimate, the improved
+\(m^{-3/2}\) timeout bound, the exact endpoint rates, arbitrary divergent
+target and relative-height multipliers, centered shortcut and raw clocks, and
+the strengthened graded-power companion.  It also derives uniform trajectory
+tubes and actual first-passage clocks, reciprocal height obstructions and
+sharp balanced joint exceptional orders, a stretched-logarithmic
+relative-height ceiling, and the exact prefix-entropy prefactor.  The Version 4
+formalization kernel-checks the principal ballot,
+timeout, moving-endpoint, arbitrary-multiplier, common-landing, centered-clock,
+trajectory-profile, and reciprocal-obstruction interfaces.  Its full build
+has no `sorry`, `admit`, or project axiom, and its new-root audit reports only
+Lean's standard logical axioms.  The exact prefix-entropy refinement, the
+endpoint stretched-logarithmic rate with arbitrary strict clocks, the
+graded-power companion, and some secondary and tertiary profile wrappers
+remain outside that checked surface.  The Version 4 software artifact is cited
+below.  Its four selected declarations have not yet been independently
+replayed and registered as a new Palomar version.
+
+| Artifact | Scope of artifact | Boundary relevant to this revision |
+|---|---|---|
+| Lean release `lean-v4.0.0`, Lean 4.15 | principal ballot, timeout, moving-endpoint, arbitrary-multiplier, common-landing, centered-clock, trajectory-profile, and reciprocal-obstruction interfaces | exact prefix-entropy refinement, endpoint stretched-logarithmic rate with arbitrary strict clocks, graded-power companion, and secondary/tertiary wrappers remain outside the checked surface |
+| Palomar version 3, Lean 4.33 | four named declarations: moving endpoint, the full previously admissible strict fixed-\(A\) rate range, a fixed-clock stretched same-witness projection, and strict-subendpoint stretched exceptional counts | adds a fixed-\(A\) wrapper not present in the frozen release, but does not contain the version 4 results |
+| This version 4 manuscript | self-contained written proofs in Sections 6--8 and Appendices A--B | some companion interfaces remain paper-only, and a Version 4 Palomar replay remains to be completed |
 
 The
 [GitHub repository](https://github.com/shaikidris/FirstPassageLinearTransport)
-contains the exported theorem.  The audited Lean source is frozen at tag
-`lean-v3.2.0` and commit
-`ef3410843bf58d69f771f5ba2c0571d54b54da59`.  A matching frozen archive is
-available in the
-[Zenodo software record](https://doi.org/10.5281/zenodo.21930432).  The formal
+contains the exported theorem.  The audited Version 4 Lean source is frozen at
+tag `lean-v4.0.0`.  A matching archive is available in the
+[Zenodo software record](https://doi.org/10.5281/zenodo.22525757).  The formal
 package uses Lean `4.15.0` (commit
 `11651562caae`) and Mathlib revision
 `9837ca9d65d9de6fad1ef4381750ca688774e608`.  From the repository's `lean/`
@@ -2171,6 +2784,22 @@ directory, run:
 ```text
 lake build
 ```
+
+Four declarations from the preceding manuscript version are also registered in the
+[Palomar Registry as PALOMAR-2026-08-26-000005, version 3](https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&version=3).
+That record preserves commit
+`68d0ab1f258fa9a584d9ca3f3822d5f56461b8ed` of the separate
+`FirstPassageLinearTransport-Palomar` repository.  The Palomar package ports
+the frozen dependency cone to Lean `4.33.0` and adds the literal
+paper-strength fixed-exponent wrapper described in its source-provenance
+record; that wrapper was not part of the `lean-v3.2.0` release.
+The permanent record identifies the exact Challenge and Solution statements,
+preserves the submitted source commit, and records successful Comparator and
+NanoDa verification with only `propext`, `Quot.sound`, and
+`Classical.choice` permitted.  Palomar registration is supplementary
+machine-verification evidence for those selected formal declarations; it is
+not journal peer review and does not certify the stronger claims first stated
+in this revision.
 
 The theorem dictionary is `lean/FORMALIZATION.md`.  The audit files are
 `PaperDependencyAudit.lean` for dependencies, `PaperAudit.lean` for the
@@ -2240,31 +2869,361 @@ after \(D_{\rm dens}\) is restricted below a fixed positive threshold.  Dyadic
 summation proves the claimed density update.  Iterating it any fixed number
 of times therefore still gives a natural-density-one set.
 
-Now fix \(0<\alpha<1\) and \(\varepsilon>0\).  Choose
-\(0<\alpha'<\alpha\) with
-\(c_*(\alpha-\alpha')<\varepsilon/3\), then choose a fixed \(R\ge1\) and
-\(r=(\alpha')^{1/R}>a_0\).  Finally choose \(0<\eta<r-a_0\) so that
-\(c_*(1-\alpha')\eta/(1-r)<\varepsilon/3\).
-On the resulting \(R\)-fold pullback set, write \(n_0=n\) and
-\(n_{i+1}=G(n_i)\).  Finite startup changes only a constant, so
-\(n_i\le K_*n^{r^i}\) for a fixed \(K_*\), and consequently
-\(n_R\le K_*n^{\alpha'}\le n^\alpha\) eventually.  Summing
+Now fix \(0<\alpha<1\) and
+\(\varepsilon_T,\varepsilon_{\rm raw},\beta>0\).  Choose
+\(0<\alpha'<\alpha\) sufficiently close that
+\[
+c_*(\alpha-\alpha')<\varepsilon_T/3,
+\qquad
+\frac32c_*(\alpha-\alpha')<\varepsilon_{\rm raw}/3.
+\tag{A.5}\label{eq:a-5}
+\]
+Choose a fixed integer \(J\ge1\) such that
+\(r=(\alpha')^{1/J}>a_0\), and fix \(0<\chi<r\).  Finally choose \(\eta>0\)
+so small that \(\eta<r-a_0\), \(\eta<\beta/2\), and, with
+\[
+e=c_*(1-\alpha')\frac{\eta}{1-r},
+\]
+one has
+\[
+e<\min\left\{\frac{\varepsilon_T}{3},
+\frac{\varepsilon_{\rm raw}}{3(1+p_*)}\right\}.
+\tag{A.6}\label{eq:a-6}
+\]
+
+To retain a quantitative exceptional count, start from \(\mathbb N\), choose
+one sufficiently small \(D_0>0\), and apply the density update above exactly
+\(J\) times.  All intermediate density exponents remain in its permitted
+range.  The resulting good set has complement
+\[
+O(X^{1-d}),
+\qquad d=\chi^JD_0>0,
+\tag{A.7}\label{eq:a-7}
+\]
+after decreasing \(D_0\), if necessary, so that \(d<1\).
+
+On this set write \(n_0=n\) and \(n_{i+1}=G(n_i)\).  Finite startup changes
+only a constant, so \(n_i\le K_*n^{r^i}\) for a fixed \(K_*\), and hence
+\(n_J\le K_*n^{\alpha'}\le n^\alpha\) eventually.  Summing
 \eqref{eq:a-3} gives
 \[
 \begin{aligned}
-k_R
+k
 &\le
 \frac{1+\eta-r}{g}\,
-\frac{1-r^R}{1-r}\log_2n+O_{\alpha,\varepsilon}(1)\\
+\frac{1-r^J}{1-r}\log_2n+O(1)\\
 &=
-c_*(1-\alpha')
-\left(1+\frac\eta{1-r}\right)\log n
-+O_{\alpha,\varepsilon}(1).
+\left[c_*(1-\alpha')+e\right]\log n+O(1).
 \end{aligned}
-\tag{A.5}\label{eq:a-5}
+\tag{A.8}\label{eq:a-8}
 \]
-The two strict parameter margins leave a final third of the clock slack to
-absorb the fixed remainder, proving \eqref{eq:1-11}. \(\square\)
+The choices in \eqref{eq:a-5}--\eqref{eq:a-6} leave room for the fixed
+remainder and prove the shortcut inequality in \eqref{eq:1-11}.
+
+For the corresponding raw clock, let \(s\) be the number of odd shortcut
+steps up to this same landing \(y=n_J\).  The direct-passage identity and
+reverse product from Sections 4--5 give
+\[
+n=\frac{2^ky}{3^s}P,
+\qquad 0<P\le1.
+\]
+Because \(y\le K_*n^{\alpha'}\),
+\[
+s\log3
+=k\log2+\log y+\log P-\log n
+\le k\log2-(1-\alpha')\log n+O(1).
+\]
+Thus, for \(\ell=k+s\),
+\[
+\ell
+\le(1+p_*)k-\frac{1-\alpha'}{\log3}\log n+O(1).
+\tag{A.9}\label{eq:a-9}
+\]
+The identity
+\[
+(1+p_*)c_*-\frac1{\log3}=\frac32c_*
+\]
+and \eqref{eq:a-8} now give
+\[
+\ell\le
+\left[\frac32c_*(1-\alpha')+(1+p_*)e\right]\log n+O(1).
+\tag{A.10}\label{eq:a-10}
+\]
+Equations \eqref{eq:a-5}--\eqref{eq:a-6} absorb the remainder and prove the
+raw inequality in \eqref{eq:1-11}.
+
+Finally, all block starts decrease, and the controlled-prefix envelope bounds
+every shortcut state by \(n^{1+\eta}\).  Each intervening raw odd state is at
+most twice the following shortcut state.  Since \(\eta<\beta/2\), both
+trajectories are eventually bounded by \(n^{1+\beta}\).  The landing, both
+clocks, the two ceilings, and the power-saving exceptional count all arise
+from the same fixed-depth pullback set. \(\square\)
+
+The graded clock has prior support in Inselmann's Theorem 1.3, while his
+Theorem 1.1 supplies a trajectory envelope.  The argument here records the
+quantitative joint consequence of the present finite-pullback construction;
+it is not asserted as a new fixed-power frontier.
+
+## Appendix B. Finite ballot estimates {#app-finite-ballot}
+
+This appendix proves the finite-word estimate used in
+[Lemma 6.3](#lem-timeout-low-phase).  Probability notation below denotes an
+exact finite product weighting of words.  It is not an independence
+assumption about consecutive Collatz descent blocks.
+
+### Lemma B.1 (centered finite survival) {#lem-centered-survival}
+
+Let \(X_1,\ldots,X_n\) be independent copies of a random variable on a finite
+weighted alphabet such that
+\[
+\mathbb EX_1=0,
+\qquad |X_1|\le1,
+\qquad \mathbb EX_1^2=v>0.
+\]
+Put \(S_0=0\) and \(S_j=\sum_{i=1}^jX_i\).  For every \(h\ge0\) and
+integer \(n\ge1\),
+\[
+\begin{split}
+\mathbb P\{S_j\ge-h\text{ for }0\le j\le n\}
+&\le\frac{h+1}{\sqrt n+h+1}
++\frac{(h+1)(\sqrt n+1)}{vn}\\
+&\le\left(1+\frac2v\right)\frac{h+1}{\sqrt n}.
+\end{split}
+\tag{B.1}\label{eq:b-1}
+\]
+
+#### Proof
+
+Set \(H=\sqrt n\), and let \(\tau\) be the smaller of \(n\) and the first
+index at which \(S_j<-h\) or \(S_j\ge H\).  If no such index occurs, put
+\(\tau=n\).  The stopped value has the finite expansion
+\[
+Y=S_\tau=\sum_{j=1}^n\mathbf1_{\{\tau\ge j\}}X_j.
+\]
+The indicator in the \(j\)-th summand is determined by the first \(j-1\)
+letters.  Independence and centering therefore give \(\mathbb EY=0\).
+Conditioning on the letters before the later increment makes every cross term
+in \(\mathbb EY^2\) vanish, while the diagonal terms give
+\[
+\mathbb EY^2
+=v\sum_{j=1}^n\mathbb P(\tau\ge j)
+=v\mathbb E\tau.
+\tag{B.2}\label{eq:b-2}
+\]
+Bounded overshoot gives \(-h-1\le Y\le H+1\).  Hence
+\[
+0\le\mathbb E[(Y+h+1)(H+1-Y)]
+=(h+1)(H+1)-v\mathbb E\tau,
+\]
+so \(\mathbb E\tau\le(h+1)(H+1)/v\).  If \(U=\{Y\ge H\}\), then
+\(Y\ge-h-1\) off \(U\), and \(\mathbb EY=0\) gives
+\[
+\mathbb P(U)\le\frac{h+1}{H+h+1}.
+\]
+A path surviving above \(-h\) through time \(n\) either stops at the upper
+boundary or has \(\tau=n\).  Markov's inequality for \(\tau\) therefore gives
+\[
+\mathbb P(\text{survival})
+\le\mathbb P(U)+\mathbb P(\tau=n)
+\le\frac{h+1}{H+h+1}+\frac{\mathbb E\tau}{n},
+\]
+which proves \eqref{eq:b-1}. \(\square\)
+
+### Lemma B.2 (uniform binomial atom) {#lem-binomial-atom}
+
+For fixed \(p\in(0,1)\), there is \(C_p<\infty\) such that, for every
+integer \(n\ge1\),
+\[
+\sup_{k\in\mathbb Z}\binom nkp^k(1-p)^{n-k}\le C_pn^{-1/2},
+\tag{B.3}\label{eq:b-3}
+\]
+where masses outside \(0\le k\le n\) are zero.
+
+#### Proof
+
+The ratio of consecutive positive masses is
+\[
+\frac{n-k}{k+1}\frac p{1-p}.
+\]
+Thus a mode may be chosen as \(k_0=\lfloor(n+1)p\rfloor\), with
+\(|k_0-np|\le1\).  For all sufficiently large \(n\), \(u=k_0/n\) remains in
+a fixed compact subinterval of \((0,1)\).  The elementary factorial Stirling
+bounds give
+\[
+\binom n{k_0}p^{k_0}(1-p)^{n-k_0}
+\le\frac{C}{\sqrt{nu(1-u)}}e^{-nD(u\Vert p)}
+\le C_pn^{-1/2},
+\]
+because \(D(u\Vert p)\ge0\).  Enlarge \(C_p\) for the finitely many smaller
+values of \(n\).  Every other atom is no larger than a mode. \(\square\)
+
+### Lemma B.3 (fair-word mass above a fixed barrier) {#lem-fair-word-barrier}
+
+For a binary word \(b_0,\ldots,b_{m-1}\), put
+\[
+s_j=\sum_{i<j}b_i,
+\qquad
+Z_j=s_j\log3-j\log2.
+\]
+For every fixed \(B>0\), there is \(C_B<\infty\) such that, for every
+integer \(m\ge1\),
+\[
+2^{-m}\#\{b:Z_j>-B\text{ for every }0\le j\le m\}
+\le C_Bm^{-3/2}2^{-\kappa_*m}.
+\tag{B.4}\label{eq:b-4}
+\]
+The constant may be chosen uniformly for \(B\) in a bounded positive
+interval.
+
+#### Proof
+
+Give a letter \(1\) weight \(p_*\) and a letter \(0\) weight \(1-p_*\), and
+write \(\mathbb P_*\) for the resulting finite product law.  The increments
+of \(Z\) then have mean zero, absolute value less than one, and variance
+\[
+v=p_*(1-p_*)(\log3)^2=\log2\log(3/2)>0.
+\]
+The negated increments have the same properties.  Put
+\[
+\lambda=\frac{\log(p_*/(1-p_*))}{\log3}>0.
+\]
+For every individual word, direct simplification gives
+\[
+\frac{2^{-m}}{p_*^{s_m}(1-p_*)^{m-s_m}}
+=2^{-\kappa_*m}e^{-\lambda Z_m}.
+\tag{B.5}\label{eq:b-5}
+\]
+
+For \(m\ge8\), split the word into a first block of length
+\(a=\lfloor m/4\rfloor\), a middle block of length \(b=m-2a\), and a last
+block of length \(a\).  Let \(W\) be the event on the left of
+\eqref{eq:b-4}, and partition its terminal values into
+\[
+Z_m+B\in[q,q+1),
+\qquad q=0,1,2,\ldots.
+\]
+On \(W\), the first block stays above \(-B\).  On \(W\) in bin \(q\), the
+reversed, negated last block has partial sums
+\[
+Z_{m-j}-Z_m>-(q+1),
+\qquad 0\le j\le a.
+\]
+These two necessary outer-block events depend on disjoint letters.  Applying
+[Lemma B.1](#lem-centered-survival) to each bounds their product probability
+by
+\[
+\frac{C(B+1)(q+2)}a.
+\]
+After the two outer blocks are fixed, the terminal-bin condition asks that
+the middle-block sum lie in an interval of length one.  That sum is
+\(K\log3-b\log2\), where \(K\) has the
+\(\operatorname{Bin}(b,p_*)\) law.  Its lattice spacing is
+\(\log3>1\), so the interval contains at most one atom.
+[Lemma B.2](#lem-binomial-atom) bounds the conditional probability by
+\(Cb^{-1/2}\), uniformly in the outer blocks.  Since \(a\ge m/8\) and
+\(b\ge m/2\),
+\[
+\mathbb P_*(W,\ Z_m+B\in[q,q+1))
+\le C(B+1)(q+2)m^{-3/2}.
+\tag{B.6}\label{eq:b-6}
+\]
+The power \(m^{-3/2}\) has three square-root sources: survival of the first
+outer block, survival of the reversed-negated last outer block, and the
+single middle-block binomial atom.
+Only the two disjoint outer-block events have been multiplied here; no
+independence of the full survival and terminal events is asserted.
+
+On bin \(q\),
+\(e^{-\lambda Z_m}\le e^{\lambda B}e^{-\lambda q}\).  Summing
+\eqref{eq:b-6} with the weights in \eqref{eq:b-5} yields
+\[
+2^{-m}\#W
+\le C(B+1)e^{\lambda B}
+\left(\sum_{q\ge0}(q+2)e^{-\lambda q}\right)
+m^{-3/2}2^{-\kappa_*m}.
+\]
+The series converges, and the finitely many \(m<8\) are absorbed into the
+constant.  The same expression is bounded uniformly when \(B\) ranges over
+a bounded positive interval. \(\square\)
+
+This is a ballot-type estimate.  General ballot estimates for finite-variance
+walks are classical; see Addario-Berry and Reed
+[[16]](#ref-addario-berry-reed).  Their theorem is not a premise here: the
+finite argument above supplies the precise estimate used in Section 6.
+
+### Lemma B.4 (finite multiplicative maximum) {#lem-multiplier-maximum}
+
+For fair binary words of length \(M\), put
+\(F_j=3^{s_j}/2^j\).  For every \(u>0\),
+\[
+2^{-M}\#\{b:\max_{0\le j\le M}F_j>u\}\le u^{-1}.
+\tag{B.7}\label{eq:b-7}
+\]
+
+#### Proof
+
+Given a prefix, the next multiplicative factor is \(1/2\) or \(3/2\), whose
+fair average is one.  Stop at the first index for which \(F_j>u\), or at
+\(M\) if there is none; if \(u<1\), stop at zero.  Repeatedly replacing each
+pair of children by its parent in this finite word tree shows that the stopped
+terminal value has mean one.  It is nonnegative everywhere and exceeds \(u\)
+on the crossing event.  Hence
+\(1\ge u\,\mathbb P(\text{crossing})\), proving \eqref{eq:b-7}. \(\square\)
+
+### Lemma B.5 (reciprocal finite multiplicative maximum) {#lem-multiplier-reciprocal}
+
+For \(u\ge1\), let
+\[
+A_h(u)=\left\{\max_{0\le j\le h}F_j>u\right\},
+\qquad
+\varepsilon_0=\frac{3/4-p_*}{2}>0,
+\qquad
+K_{\max}=\frac{3}{16\varepsilon_0^2}.
+\]
+If \(\log u\le\varepsilon_0h\log3\), then
+\[
+\frac{2}{3u}\left(1-\frac{K_{\max}}h\right)
+\le2^{-h}\#A_h(u)\le\frac1u.
+\tag{B.8}\label{eq:b-8}
+\]
+For small \(h\), a negative lower bound is understood as vacuous.
+
+#### Proof
+
+Stop each fair word at its first crossing of \(u\), or at \(h\) if it
+does not cross.  The finite-tree identity used in Lemma B.4 gives
+\(\mathbb EF_\sigma=1\).  At a crossing, the previous value is at most
+\(u\), and only an upward multiplier can cross, so
+\(u<F_\sigma\le3u/2\).  Consequently
+\[
+1\le\frac32u\,\mathbb P_{1/2}(A_h(u))
++\mathbb E_{1/2}[F_h;A_h(u)^c].
+\tag{B.9}\label{eq:b-9}
+\]
+For each individual word there is the exact change of finite word weights
+\[
+2^{-h}F_h
+=\left(\frac34\right)^{s_h}
+ \left(\frac14\right)^{h-s_h}.
+\tag{B.10}\label{eq:b-10}
+\]
+Therefore the final term in \eqref{eq:b-9} equals
+\(\mathbb P_{3/4}(A_h(u)^c)\), and is at most
+\(\mathbb P_{3/4}(F_h\le u)\).
+
+Under the latter finite product weighting, \(s_h\) has mean \(3h/4\) and
+variance \(3h/16\).  The identity
+\(\log F_h=s_h\log3-h\log2\), the definition
+\(p_*=\log_3 2\), and the hypothesis on \(u\) imply
+\[
+F_h\le u
+\quad\Longrightarrow\quad
+s_h\le p_*h+\frac{\log u}{\log3}
+\le\left(\frac34-\varepsilon_0\right)h.
+\]
+Chebyshev's inequality bounds this probability by \(K_{\max}/h\).
+Substitution in \eqref{eq:b-9} proves the lower bound; Lemma B.4 gives the
+upper bound. \(\square\)
 
 ## References
 
@@ -2325,3 +3284,17 @@ density*, Acta Arith. **35** (1979), 101--102,
 Generated by the \(3n+1\) Function*, Lecture Notes in Mathematics, vol. 1681,
 Springer-Verlag, Berlin, 1998,
 [doi:10.1007/BFb0095985](https://doi.org/10.1007/BFb0095985).
+
+<span id="ref-allikvere">[14]</span> J. Allikvere, *Almost all Collatz orbits
+attain almost bounded values in natural density*, version 2, preprint
+(22 July 2026),
+[doi:10.5281/zenodo.21499244](https://doi.org/10.5281/zenodo.21499244).
+
+<span id="ref-mazur">[15]</span> L. Mazur, *Natural-density almost-bounded
+Collatz orbits in logarithmic time*, version 2, preprint (21 July 2026),
+[public manuscript](https://www.proofatlas.ai/papers/natural-density-log-time-collatz/Mazur_Natural_Density_Collatz_Orbits_in_Logarithmic_Time_v2.pdf).
+
+<span id="ref-addario-berry-reed">[16]</span> L. Addario-Berry and B. A. Reed,
+*Ballot theorems for random walks with finite variance*, arXiv:0802.2491v2
+(2008),
+[doi:10.48550/arXiv.0802.2491](https://doi.org/10.48550/arXiv.0802.2491).
